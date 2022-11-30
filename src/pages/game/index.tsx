@@ -1,14 +1,14 @@
-// import styles from "./index.module.css";
 import { type NextPage } from "next";
+import EndModule from "../../Components/EndModule";
 // import Head from "next/head";
 // import Link from "next/link";
 
-const Home: NextPage = () => {
+const Game: NextPage = () => {
   return (
     <>
-    <h1>HELLO FRIENDS</h1>
+    <h1>Game Page</h1>
     </>
   );
 };
 
-export default Home;
+export default Game;
