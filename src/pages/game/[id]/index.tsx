@@ -1,11 +1,12 @@
 import React, { FC, ReactElement } from "react";
+import LocationModule from "../../../components/LocationModule";
 
-const GameModule: FC = (): ReactElement => {
+const Game: FC = (): ReactElement => {
   return (
     <div>
-      <h1>End Module</h1>
+      <LocationModule/>
     </div>
   );
 };
 
-export default GameModule;
+export default Game;
