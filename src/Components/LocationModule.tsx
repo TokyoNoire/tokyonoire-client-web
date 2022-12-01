@@ -1,9 +1,8 @@
-import React, {type FC, type ReactElement, useEffect, useState, useRef} from "react";
-import { boolean } from "zod";
+import React, {type FC, type ReactElement, useEffect, useRef} from "react";
 
 const LocationModule: FC = (): ReactElement => {
 
-  let hasMounted = useRef<Boolean>(false);
+  const hasMounted = useRef<boolean>(false);
 
   useEffect(() => {
     if (!hasMounted.current) {
