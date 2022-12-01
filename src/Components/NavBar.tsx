@@ -1,5 +1,4 @@
 import React, { FC, ReactElement } from "react";
-import logo from "./../.../";
 
 const NavBar: FC = (): ReactElement => {
   return (
