@@ -1,5 +1,5 @@
-import React, { FC, ReactElement } from "react";
-import LocationModule from "../../../Components/LocationModule";
+import React, {type FC, type ReactElement} from "react";
+import LocationModule from "../../Components/LocationModule";
 
 const Game: FC = (): ReactElement => {
   return (
