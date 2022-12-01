@@ -10,7 +10,7 @@ const Home: NextPage = () => {
       <title>Tokyo Noir: Real Life Mysteries, by Everyone, Everywhere.</title>
       <meta name='keywords' content='interactive, story, game'/>
     </Head>
-    <h1>HELLO FRIENDS</h1>
+    <h1 className="flex flex-col items-center justify-center text-5xl font-heading">HELLO FRIENDS</h1>
     </>
   );
 };
