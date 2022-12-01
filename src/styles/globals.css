@@ -1,9 +1,28 @@
+@import "~tailwindcss/base";
+@import "~tailwindcss/components";
+@import "~tailwindcss/utilities";
+
+@font-face {
+  font-family: "Oswald";
+  src: url("/Assets/Fonts/Oswald_Headers/Oswald-VariableFont_wght.ttf");
+}
+
+@font-face {
+  font-family: "LoraItalic";
+  src: url("/Assets/Fonts/Lora_Body/Lora-Italic-VariableFont_wght.ttf");
+}
+
+@font-face {
+  font-family: "Lora";
+  src: url("/Assets/Fonts/Lora_Body/Lora-VariableFont_wght.ttf");
+}
+
 html,
 body {
+  background-color: #121212;
+  color: #FFFFFF;
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
