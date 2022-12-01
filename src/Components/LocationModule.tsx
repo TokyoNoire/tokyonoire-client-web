@@ -1,6 +1,10 @@
-import React, { FC, ReactElement } from "react";
+import React, {type FC, type ReactElement} from "react";
 
 const LocationModule: FC = (): ReactElement => {
+
+
+
+
   return (
     <div>
       <h1>LocationModule</h1>
