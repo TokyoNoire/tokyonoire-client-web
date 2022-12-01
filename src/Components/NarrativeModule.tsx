@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from "react";
+import React, {type FC, type ReactElement} from "react";
 
 const NarrativeModule: FC = (): ReactElement => {
   return (

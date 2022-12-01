@@ -1,5 +1,5 @@
 import { type AppType } from "next/dist/shared/lib/utils";
-import NavBar from "../components/NavBar";
+import NavBar from "../Components/NavBar";
 
 import "../styles/globals.css";
 
