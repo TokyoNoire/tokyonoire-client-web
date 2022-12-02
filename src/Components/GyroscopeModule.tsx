@@ -1,10 +1,10 @@
-import React, {type FC, type ReactElement, useEffect, useState} from "react";
+import React, {type FC, type ReactElement, useEffect, useCallback, useState} from "react";
 
 type DeviceOrientation = {
   alpha: number | null,
   beta: number | null,
   gamma: number | null,
-}
+};
 
 type UseDeviceOrientationData = {
   orientation: DeviceOrientation | null,
@@ -12,6 +12,12 @@ type UseDeviceOrientationData = {
   requestAccess: () => Promise<boolean>,
   revokeAccess: () => Promise<void>,
 };
+
+interface DeviceOrientationEventiOS extends DeviceOrientationEvent {
+  requestPermission?: () => Promise<'granted' | 'denied'>;
+};
+
+const requestPermission = (DeviceOrientationEvent as unknown as DeviceOrientationEventiOS).requestPermission;
 
 const useDeviceOrientation = (): UseDeviceOrientationData => {
   const [error, setError] = useState<Error | null>(null);
