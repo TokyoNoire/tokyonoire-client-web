@@ -7,10 +7,10 @@ const Home: NextPage = () => {
   return (
     <>
     <Head>
-      <title>Tokyo Noir: Real Life Mysteries, by Everyone, Everywhere.</title>
+      <title>Tokyo Noire</title>
       <meta name='keywords' content='interactive, story, game'/>
     </Head>
-    <h1>HELLO FRIENDS</h1>
+    <h1 className="flex flex-col items-center justify-center text-5xl font-heading">HELLO FRIENDS</h1>
     </>
   );
 };
