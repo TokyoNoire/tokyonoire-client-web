@@ -5,9 +5,12 @@ import Image from "next/image";
 const NavBar: FC = (): ReactElement => {
 
   return (
-    <div className = "items-center w-16 m-4">
-      <img src={logo.src} alt="logo menu button"/>
-      <h1>NavBar</h1>
+    <div className="navbar">
+      <Image
+      src={logo}
+      alt="logo menu button"
+      className="logo"
+    />
     </div>
   );
 };

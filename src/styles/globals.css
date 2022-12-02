@@ -34,7 +34,7 @@
 
 html,
 body {
-  background-color: #121212;
+  background-color: #000000;
   color: #FFFFFF;
   padding: 0;
   margin: 0;
@@ -56,13 +56,13 @@ div{
   justify-items: center;
 }
 
-#noireButton {
-  font-family: "Open Sans", sans-serif;
+
+#themeButton {
   font-size: 16px;
   letter-spacing: 2px;
   text-decoration: none;
   text-transform: uppercase;
-  color: #121212;
+  color: rgb(184, 184, 184);
   cursor: pointer;
   border: 3px solid;
   padding: 0.25em 0.5em;
@@ -71,17 +71,17 @@ div{
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  background-color: rgb(76, 76, 76);
 }
 
-#noireButton:active {
+#themeButton {
   box-shadow: 0px 0px 0px 0px;
   top: 5px;
   left: 5px;
 }
 
 @media (min-width: 768px) {
-  #noireButton {
+  #themeButton {
     padding: 0.25em 0.75em;
   }
 }
-
