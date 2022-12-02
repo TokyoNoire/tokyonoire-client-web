@@ -4,17 +4,32 @@
 
 @font-face {
   font-family: "Oswald";
-  src: url("/Assets/Fonts/Oswald_Headers/Oswald-VariableFont_wght.ttf");
+  src: url("../../Assets/Fonts/Oswald_Headers/Oswald-VariableFont_wght.ttf");
 }
 
 @font-face {
   font-family: "LoraItalic";
-  src: url("/Assets/Fonts/Lora_Body/Lora-Italic-VariableFont_wght.ttf");
+  src: url("../../Assets/Fonts/Lora_Body/Lora-Italic-VariableFont_wght.ttf");
 }
 
 @font-face {
   font-family: "Lora";
-  src: url("/Assets/Fonts/Lora_Body/Lora-VariableFont_wght.ttf");
+  src: url("../../Assets/Fonts/Lora_Body/Lora-VariableFont_wght.ttf");
+}
+
+@font-face {
+  font-family: "Britannic";
+  src: url("../../Assets/Fonts/Britannic-Bold_Title/Britannic.TTF");
+}
+
+@font-face {
+  font-family: "Noir";
+  src: url("../../Assets/Fonts/Noir_Body/Noir_regular.otf");
+}
+
+@font-face {
+  font-family: "NoirMedium";
+  src: url("../../Assets/Fonts/Noir_Body/Noir_medium.otf");
 }
 
 html,

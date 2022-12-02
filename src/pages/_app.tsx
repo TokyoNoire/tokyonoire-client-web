@@ -2,6 +2,8 @@ import { type AppType } from "next/dist/shared/lib/utils";
 import NavBar from "../Components/NavBar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "../styles/globals.css";
+import '../styles/navbar.css'
+
 
 const darkTheme = createTheme({
   palette: {

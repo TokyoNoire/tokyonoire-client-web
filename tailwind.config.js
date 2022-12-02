@@ -18,8 +18,10 @@ module.exports = {
       black: "#121212",
     },
     fontFamily: {
+      title: ['Britannic', 'serif'],
       heading: ['Oswald', 'serif'],
-      body: ['Lora', 'serif'],
+      body1: ['Lora', 'serif'],
+      body2: ['Noir', 'serif'],
       italic: ['LoraItalic', 'serif'],
     },
     extend: {

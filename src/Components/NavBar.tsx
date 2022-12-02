@@ -1,7 +1,9 @@
 import React, {type FC, type ReactElement} from "react";
-import logo from '../../public/Logo_DarkTheme.svg'
+import logo from '../../public/Logo_DarkTheme.svg';
+import Image from "next/image";
 
 const NavBar: FC = (): ReactElement => {
+
   return (
     <div className = "items-center w-16 m-4">
       <img src={logo.src} alt="logo menu button"/>
