@@ -4,9 +4,9 @@ import Grid from "@mui/material/Grid";
 
 const GameIdForm: FC = (): ReactElement => {
   return (
-    <div className="items-center my-20 mx-80">
+    <div className="items-center mx-8 my-48">
 
-      <h1 className="mb-5 font-heading">"Hello Detective, are you ready to close a case?"</h1>
+      <h1 className="mb-5 text-m font-heading">"Hello Detective, are you ready to close a case?"</h1>
       <TextField
         fullWidth
         id="standard-basic"

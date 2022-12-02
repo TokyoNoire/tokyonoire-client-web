@@ -4,10 +4,11 @@ import heroImage from 'public/Hero.jpg';
 
 const Hero: FC = (): ReactElement => {
   return (
-    <div className = "h-3/6">
+    <div className="pt-5">
        <Image
       src={heroImage}
       alt="Tokyo Noire Hero"
+      
     />
     </div>
   );
