@@ -3,8 +3,8 @@ import logo from '../../public/Logo_DarkTheme.svg'
 
 const NavBar: FC = (): ReactElement => {
   return (
-    <div>
-      <img src={logo} alt="logo menu button"/>
+    <div className = "items-center w-16 m-4">
+      <img src={logo.src} alt="logo menu button"/>
       <h1>NavBar</h1>
     </div>
   );
