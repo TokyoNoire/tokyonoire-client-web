@@ -47,6 +47,8 @@ a {
 
 * {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 div{
@@ -62,7 +64,7 @@ div{
   letter-spacing: 2px;
   text-decoration: none;
   text-transform: uppercase;
-  color: rgb(184, 184, 184);
+  color: rgb(17, 15, 15);
   cursor: pointer;
   border: 3px solid;
   padding: 0.25em 0.5em;
@@ -71,10 +73,10 @@ div{
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  background-color: rgb(76, 76, 76);
+  background-color: rgb(255, 255, 255);
 }
 
-#themeButton {
+#themeButton:active {
   box-shadow: 0px 0px 0px 0px;
   top: 5px;
   left: 5px;

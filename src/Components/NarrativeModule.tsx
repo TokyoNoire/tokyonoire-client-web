@@ -1,27 +1,29 @@
 import React, { type FC, type ReactElement } from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
+import {Card, CardActions} from "@mui/material";
 import Image from "next/image";
 import heroImage from "public/Hero.jpg";
 
 const NarrativeModule: FC = (): ReactElement => {
+
+
+  
   return (
-    <div className="self-center w-2/4">
+    <div className="self-center w-4/5 m-10">
       <Card>
         <div className="self-center">
-          <h1 className="self-center p-5 text-3xl text-center uppercase font-heading">
+          <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
             The salad murder mysteries
           </h1>
-          <div className="m-4">
-            <Image src={heroImage} alt="Tokyo Noire Hero" />
+          <p className = "self-center font-heading">Salad is Life</p>
+          <div className="self-center w-10/12 m-4">
+            <Image src={heroImage} alt="Tokyo Noire Hero" className="rounded-lg" />
           </div>
-          <p>Hello</p>
+          <p className="mt-2 text-left px-14 font-body1">Someone&apos;s come up missing, and there is a murder in the air. This scandalous discovery is only the tip of the iceberg. Salad is usually life, but it can also mean death.</p>
         </div>
         <CardActions>
-          <Button size="small">Learn More</Button>
+        <button id="themeButton" className="mt-20 mb-5 font-body2" type="button">
+        start
+      </button>
         </CardActions>
       </Card>
     </div>

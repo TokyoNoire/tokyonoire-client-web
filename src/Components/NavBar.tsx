@@ -6,9 +6,11 @@ import Menu from "./Menu"
 const NavBar: FC = (): ReactElement => {
 
   return (
+    <Link href="/">
     <div className="navbar">
       <Menu/>
     </div>
+    </Link>
   );
 };
 
