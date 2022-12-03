@@ -7,7 +7,7 @@ import {
   DialogActions,
 } from "@mui/material";
 import LocationModule from "../../Components/LocationModule";
-import UseDeviceOrientation from "../../Components/GyroscopeModule";
+import UseDeviceOrientation from "../../Components/Gyroscope";
 
 const Game: FC = (): ReactElement => {
   const [open, setOpen] = useState(true);
