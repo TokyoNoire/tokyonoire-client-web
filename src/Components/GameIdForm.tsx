@@ -1,14 +1,13 @@
 import React, { type FC, type ReactElement, useState} from "react";
 import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
 
 const GameIdForm: FC = (): ReactElement => {
-  const [gameId, setGameId] = useState<String> ("");
+  const [gameId, setGameId] = useState<string> ("");
 
   return (
     <div className="items-center mx-8 my-48">
 
-      <h1 className="mb-5 text-m font-heading">"Hello Detective, are you ready to close a case?"</h1>
+      <h1 className="mb-5 text-m font-heading">&quot;Hello Detective, are you ready to close a case?&quot;</h1>
       <TextField
         id="standard-basic"
         label="Enter a Case ID"

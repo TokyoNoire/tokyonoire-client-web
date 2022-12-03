@@ -1,13 +1,10 @@
 import React, {type FC, type ReactElement, useState} from "react";
 import {
-  Box,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogContentText,
   DialogActions,
-  Button,
-  Typography,
 } from "@mui/material";
 import LocationModule from "../../Components/LocationModule";
 
