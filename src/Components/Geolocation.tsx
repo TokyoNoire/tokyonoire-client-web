@@ -1,12 +1,10 @@
-import React, {type FC, type ReactElement, useEffect, useRef } from "react";
-import Geolocation from "./Geolocation";
+import React, {type FC, type ReactElement, useEffect, useRef} from "react";
 
-const LocationModule: FC = (): ReactElement => {
+const Geolocation: FC = (): ReactElement => {
 
   const hasMounted = useRef<boolean>(false);
 
   useEffect(() => {
-    console.log(hasMounted)
     if (!hasMounted.current) {
       if ('geolocation' in navigator) {
         console.log('geolocation available')
@@ -20,9 +18,9 @@ const LocationModule: FC = (): ReactElement => {
 
   return (
     <div>
-      <Geolocation/>
+      <h1>Geolocation</h1>
     </div>
   );
 };
 
-export default LocationModule;
+export default Geolocation;
