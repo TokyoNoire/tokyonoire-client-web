@@ -7,6 +7,12 @@ import {
   DialogActions,
 } from "@mui/material";
 import LocationModule from "../../Components/LocationModule";
+import NarrativePictureModule from "../../Components/NarrativePictureModule";
+import StartModule from "../../Components/StartModule";
+import TextQuestionModule from "../../Components/TextQuestionModule";
+import PhotoQuestionModule from "../../Components/PhotoQuestionModule"
+import EndModule from "../../Components/EndModule";
+import NarrativeTextModule from "../../Components/NarrativeTextModule";
 
 const Game: FC = (): ReactElement => {
   const [open, setOpen] = useState(true);
@@ -58,6 +64,13 @@ const Game: FC = (): ReactElement => {
         </Dialog>
       </div>
       <LocationModule />
+
+      <StartModule/>
+      <NarrativePictureModule/>
+      <TextQuestionModule/>
+      <PhotoQuestionModule/>
+      <NarrativeTextModule/>
+      <EndModule/>
     </div>
   );
 };

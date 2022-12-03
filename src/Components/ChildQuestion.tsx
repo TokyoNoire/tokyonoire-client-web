@@ -16,7 +16,7 @@ const ChildQuestion: FC = (): ReactElement => {
         onChange={(e) => setAnswer(e.target.value)}
       />
 
-      <button id="themeButton" className="mt-5 font-body2" type="button">
+      <button id="themeButton" className="mt-5 font-heading" type="button">
         is my answer
       </button>
     </div>

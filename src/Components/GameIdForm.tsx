@@ -1,13 +1,14 @@
-import React, { type FC, type ReactElement, useState} from "react";
+import React, { type FC, type ReactElement, useState } from "react";
 import TextField from "@mui/material/TextField";
 
 const GameIdForm: FC = (): ReactElement => {
-  const [gameId, setGameId] = useState<string> ("");
+  const [gameId, setGameId] = useState<string>("");
 
   return (
     <div className="items-center mx-8 my-48">
-
-      <h1 className="mb-5 text-m font-heading">&quot;Hello Detective, are you ready to close a case?&quot;</h1>
+      <h1 className="mb-5 text-m font-heading">
+        &quot;Hello Detective, are you ready to close a case?&quot;
+      </h1>
       <TextField
         id="standard-basic"
         label="Enter a Case ID"
@@ -16,7 +17,7 @@ const GameIdForm: FC = (): ReactElement => {
         onChange={(e) => setGameId(e.target.value)}
       />
 
-      <button id="themeButton" className="mt-5 font-body2" type="button">
+      <button id="themeButton" className="mt-5 font-heading" type="button">
         start
       </button>
     </div>

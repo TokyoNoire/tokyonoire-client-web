@@ -2,8 +2,6 @@ import React, { type FC, type ReactElement } from "react";
 import { Card, CardActions } from "@mui/material";
 import Image from "next/image";
 import heroImage from "public/Hero.jpg";
-import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
-import { AccessTime } from "@mui/icons-material";
 
 type props = {
   _id: string;
@@ -15,21 +13,15 @@ type props = {
   locationCoordinates: string;
 };
 
-const StartModule: FC = (): ReactElement => {
+const NarrativePictureModule: FC = (): ReactElement => {
   return (
     <div className="self-center w-4/5 m-10">
       <Card>
         <div className="self-center">
           <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
-            TITLE OF STORY || START MODULE
+            TITLE OF NARRATIVE BLOCK
           </h1>
-          <p className="self-center pb-3 font-heading">AUTHOR&apos;S NAME</p>
-          <div className="grid grid-cols-2 gap-1">
-            <AccessTimeFilledIcon fontSize="small" />
-            <p className="self-center font-heading">RATING</p>
-            <p className="self-center text-xs font-body2">20 minutes</p>
-            <p className="self-center font-body2">G</p>
-          </div>
+
           <div className="self-center w-10/12 m-4">
             <Image
               src={heroImage}
@@ -60,7 +52,7 @@ const StartModule: FC = (): ReactElement => {
             className="mt-20 mb-5 font-heading"
             type="button"
           >
-            start
+            NEXT
           </button>
         </CardActions>
       </Card>
@@ -68,4 +60,4 @@ const StartModule: FC = (): ReactElement => {
   );
 };
 
-export default StartModule;
+export default NarrativePictureModule;

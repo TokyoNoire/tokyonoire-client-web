@@ -6,11 +6,6 @@ import Image from "next/image";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Hero from "./../Components/Hero";
 import GameIdForm from "../Components/GameIdForm";
-import NarrativeModule from "../Components/NarrativeModule";
-import StartModule from "../Components/StartModule";
-import TextQuestionModule from "../Components/TextQuestionModule";
-import PhotoQuestionModule from "../Components/PhotoQuestionModule"
-import EndModule from "../Components/EndModule";
 // import Link from "next/link";
 
 const Home: NextPage = () => {
@@ -28,11 +23,6 @@ const Home: NextPage = () => {
       </div>
       <Hero />
       <GameIdForm/>
-      <StartModule/>
-      <NarrativeModule/>
-      <TextQuestionModule/>
-      <PhotoQuestionModule/>
-      <EndModule/>
     </>
   );
 };

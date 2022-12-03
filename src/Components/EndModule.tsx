@@ -1,15 +1,16 @@
-import React, {type FC, type ReactElement} from "react";
+import React, { type FC, type ReactElement } from "react";
 import { Card, CardActions } from "@mui/material";
 import Image from "next/image";
 import heroImage from "public/Hero.jpg";
-import ChildQuestion from "./ChildQuestion";
-
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableRow from "@mui/material/TableRow";
 
 const EndModule: FC = (): ReactElement => {
   return (
-    <div>
-       <div>
-      <div>
+    <>
       <div className="self-center w-4/5 m-10">
         <Card>
           <div className="self-center mb-5">
@@ -17,8 +18,12 @@ const EndModule: FC = (): ReactElement => {
               end block
             </h1>
             <div className="self-center w-10/12 m-4">
-          <Image src={heroImage} alt="Tokyo Noire Hero" className="rounded-lg" />
-        </div>
+              <Image
+                src={heroImage}
+                alt="Tokyo Noire Hero"
+                className="rounded-lg"
+              />
+            </div>
             <p className="mt-2 text-justify px-14 font-body1">
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem
               accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
@@ -38,10 +43,49 @@ const EndModule: FC = (): ReactElement => {
           </div>
         </Card>
       </div>
-      <ChildQuestion/>
-    </div>
-    </div>
-    </div>
+      <div className="self-center w-3/4 ">
+        <h1 className="self-center py-20 text-2xl uppercase font-heading">
+          Mystery Complete
+        </h1>
+        <TableContainer>
+          <Table aria-label="simple table">
+            <TableBody>
+              <TableRow>
+                <TableCell className="text-lg font-heading">
+                  Distance Travelled
+                </TableCell>
+                <TableCell align="right" className="font-body2">
+                  Lots of Distance
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="text-lg font-heading">
+                  Time Completed
+                </TableCell>
+                <TableCell align="right" className="font-body2">
+                  Lots of Time
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="text-lg font-heading">
+                  Points Earned
+                </TableCell>
+                <TableCell align="right" className="font-body2">
+                  Lots of Points
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <button
+          id="themeButton"
+          className="mt-20 mb-10 font-heading"
+          type="button"
+        >
+          finish
+        </button>
+      </div>
+    </>
   );
 };
 

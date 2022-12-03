@@ -1,34 +1,14 @@
 import React, { type FC, type ReactElement } from "react";
 import { Card, CardActions } from "@mui/material";
-import Image from "next/image";
-import heroImage from "public/Hero.jpg";
 
-type props = {
-  _id: string;
-  typeOfModule: string;
-  title: string;
-  description: string | null;
-  answer: string | null;
-  picture: string | null;
-  locationCoordinates: string;
-};
-
-const NarrativeModule: FC = (): ReactElement => {
+const NarrativeTextModule: FC = (): ReactElement => {
   return (
     <div className="self-center w-4/5 m-10">
       <Card>
         <div className="self-center">
           <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
-            TITLE OF NARRATIVE BLOCK
+            TITLE OF NARRATIVE TEXT BLOCK
           </h1>
-
-          <div className="self-center w-10/12 m-4">
-            <Image
-              src={heroImage}
-              alt="Tokyo Noire Hero"
-              className="rounded-lg"
-            />
-          </div>
           <p className="mt-2 text-justify px-14 font-body1">
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem
             accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
@@ -49,7 +29,7 @@ const NarrativeModule: FC = (): ReactElement => {
         <CardActions>
           <button
             id="themeButton"
-            className="mt-20 mb-5 font-body2"
+            className="mt-20 mb-5 font-heading"
             type="button"
           >
             NEXT
@@ -60,4 +40,4 @@ const NarrativeModule: FC = (): ReactElement => {
   );
 };
 
-export default NarrativeModule;
+export default NarrativeTextModule;
