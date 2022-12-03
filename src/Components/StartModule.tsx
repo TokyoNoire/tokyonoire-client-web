@@ -23,7 +23,7 @@ const StartModule: FC = (): ReactElement => {
           <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
             TITLE OF STORY || START MODULE
           </h1>
-          <p className="self-center pb-3 font-heading">AUTHOR'S NAME</p>
+          <p className="self-center pb-3 font-heading">AUTHOR&apos;S NAME</p>
           <div className="grid grid-cols-2 gap-1">
             <AccessTimeFilledIcon fontSize="small" />
             <p className="self-center font-heading">RATING</p>

@@ -34,13 +34,13 @@ const Game: FC = (): ReactElement => {
                 <br/>
                 Here we will
                 need to think of our instructions. It needs to in simple words
-                explain the “go somewhere, resolve a challenge” principle we are
+                explain the &quot;go somewhere, resolve a challenge&quot; principle we are
                 going with. 
                 <br/>
                 <br/>
                 Also explain that some interactions will require
                 user to grant authorisation for geolocation, webcam and/or
-                gyrometer."
+                gyrometer.
             
               </p>
             </DialogContentText>
