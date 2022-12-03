@@ -11,7 +11,7 @@ const GameIdForm: FC = (): ReactElement => {
       <TextField
         id="standard-basic"
         label="Enter a Case ID"
-        variant="standard"
+        variant="filled"
         aria-label="enter a game id"
         onChange={(e) => setGameId(e.target.value)}
       />

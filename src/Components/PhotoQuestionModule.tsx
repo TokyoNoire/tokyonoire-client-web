@@ -1,17 +1,22 @@
-import React, { type FC, type ReactElement } from "react";
-import { Card } from "@mui/material";
+import React, {type FC, type ReactElement} from "react";
+import { Card, CardActions } from "@mui/material";
+import Image from "next/image";
+import heroImage from "public/Hero.jpg";
 import ChildQuestion from "./ChildQuestion";
 
-const TextQuestionModule: FC = (): ReactElement => {
+const PhotoQuestionModule: FC = (): ReactElement => {
   return (
     <div>
+      <div>
       <div className="self-center w-4/5 m-10">
         <Card>
           <div className="self-center mb-5">
             <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
-              TEXT QUESTION BLOCK
+              photo question block
             </h1>
-
+            <div className="self-center w-10/12 m-4">
+          <Image src={heroImage} alt="Tokyo Noire Hero" className="rounded-lg" />
+        </div>
             <p className="mt-2 text-justify px-14 font-body1">
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem
               accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
@@ -33,7 +38,8 @@ const TextQuestionModule: FC = (): ReactElement => {
       </div>
       <ChildQuestion/>
     </div>
+    </div>
   );
 };
 
-export default TextQuestionModule;
+export default PhotoQuestionModule;
