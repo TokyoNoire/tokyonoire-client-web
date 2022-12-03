@@ -1,6 +1,7 @@
 import React, { type FC, type ReactElement, useState } from "react";
 import logo from '../../public/Logo_DarkTheme.svg';
 import Image from "next/image";
+import Link from "next/link";
 
 type menuItem = {
   title: string
@@ -9,8 +10,12 @@ type menuItem = {
 
 const menuItems: Array<menuItem> = [
   {
-    title: 'Explore',
+    title: 'Home',
     url: '/',
+  },
+  {
+    title: 'Explore',
+    url: '/explore',
   },
   {
     title: 'How To Play',
@@ -43,7 +48,9 @@ const Menu: FC = (): ReactElement => {
 
         {isShown &&  (menuItems.map((menuItem, index) => (
           <li key={index} className="menu-item">
-            <a href={menuItem.url}>{menuItem.title}</a>
+            <Link href={menuItem.url}>
+              {menuItem.title}
+            </Link>
           </li>
         )))}
       </ul>

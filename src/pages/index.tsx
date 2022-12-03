@@ -17,9 +17,9 @@ const Home: NextPage = () => {
         <meta name="keywords" content="interactive, story, game" />
       </Head>
       <div className="items-center h-screen mx-10 pt-80">
-        <Image src={tokyoNoireName} alt="Tokyo Noire Hero" />
+        <Image src={tokyoNoireName} alt="Tokyo Noire Hero" priority={true}/>
         <div className=" pt-96">
-          <KeyboardArrowDownIcon />
+          <KeyboardArrowDownIcon /> 
         </div>
       </div>
       <Hero />
