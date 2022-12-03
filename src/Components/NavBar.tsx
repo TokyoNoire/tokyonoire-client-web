@@ -1,11 +1,14 @@
-import React, {type FC, type ReactElement} from "react";
+import React, { type FC, type ReactElement } from "react";
 import Menu from "./Menu"
 
 const NavBar: FC = (): ReactElement => {
 
   return (
     <div className="navbar">
-      <Menu/>
+      <div className="navbar__main">
+        <Menu />
+      </div>
+      <div className="navbar__fade"></div>
     </div>
   );
 };

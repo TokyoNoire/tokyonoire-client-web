@@ -7,10 +7,13 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Hero from "./../Components/Hero";
 import GameIdForm from "../Components/GameIdForm";
 import NarrativeModule from "../Components/NarrativeModule";
+<<<<<<< HEAD
 import StartModule from "../Components/StartModule";
 import TextQuestionModule from "../Components/TextQuestionModule";
 import PhotoQuestionModule from "../Components/PhotoQuestionModule"
 // import Link from "next/link";
+=======
+>>>>>>> 9a3406cd100fb3e48b202e70e9b01fe256612f2e
 
 const Home: NextPage = () => {
   return (
