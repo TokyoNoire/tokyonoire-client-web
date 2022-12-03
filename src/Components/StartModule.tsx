@@ -3,7 +3,6 @@ import { Card, CardActions } from "@mui/material";
 import Image from "next/image";
 import heroImage from "public/Hero.jpg";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
-import { AccessTime } from "@mui/icons-material";
 
 type props = {
   _id: string;

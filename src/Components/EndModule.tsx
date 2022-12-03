@@ -1,12 +1,14 @@
 import React, { type FC, type ReactElement } from "react";
-import { Card, CardActions } from "@mui/material";
+import {
+  Card,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+} from "@mui/material";
 import Image from "next/image";
 import heroImage from "public/Hero.jpg";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableRow from "@mui/material/TableRow";
 
 const EndModule: FC = (): ReactElement => {
   return (
