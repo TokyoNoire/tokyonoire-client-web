@@ -1,4 +1,4 @@
-import React, {type FC, type ReactElement, useEffect, useCallback, useState} from "react";
+import React, {type FC, type ReactElement, useEffect, useCallback, useState, useRef} from "react";
 
 type DeviceOrientation = {
   alpha: number | null,
@@ -6,20 +6,11 @@ type DeviceOrientation = {
   gamma: number | null,
 };
 
-type UseDeviceOrientationData = {
-  orientation: DeviceOrientation | null,
-  error: Error | null,
-  requestAccess: () => Promise<boolean>,
-  revokeAccess: () => Promise<void>,
-};
+// interface DeviceOrientationEventiOS extends DeviceOrientationEvent {
+//   requestPermission?: () => Promise<'granted' | 'denied'>;
+// };
 
-interface DeviceOrientationEventiOS extends DeviceOrientationEvent {
-  requestPermission?: () => Promise<'granted' | 'denied'>;
-};
-
-const requestPermission = (DeviceOrientationEvent as unknown as DeviceOrientationEventiOS).requestPermission;
-
-const useDeviceOrientation = (): UseDeviceOrientationData => {
+const UseDeviceOrientation: FC = (): ReactElement => {
   const [error, setError] = useState<Error | null>(null);
   const [orientation, setOrientation] = useState<DeviceOrientation | null>(null);
 
@@ -43,14 +34,19 @@ const useDeviceOrientation = (): UseDeviceOrientationData => {
     }
 
     if (
+      // @ts-ignore
       DeviceOrientationEvent.requestPermission
+      // @ts-ignore
       && typeof DeviceMotionEvent.requestPermission === 'function'
     ) {
       let permission: PermissionState;
       try {
+        // @ts-ignore
         permission = await DeviceOrientationEvent.requestPermission();
       } catch (err) {
-        setError(err);
+        // @ts-ignore
+        const e = new Error((err && err.message) || 'unknown error');
+        setError(e);
         return false;
       }
       if (permission !== 'granted') {
@@ -64,19 +60,14 @@ const useDeviceOrientation = (): UseDeviceOrientationData => {
     return true;
   };
 
-  const requestAccess = useCallback(requestAccessAsync, []);
-  const revokeAccess = useCallback(revokeAccessAsync, []);
-
-  useEffect(() => {
-    return (): void => {
-      revokeAccess();
-    };
-  }, [revokeAccess]);
-
-  return {
-    orientation,
-    error,
-    requestAccess,
-    revokeAccess,
-  };
+  return (
+    <div>
+     <h1>this is working</h1>
+     
+    </div>
+  );
 };
+
+
+
+export default UseDeviceOrientation;

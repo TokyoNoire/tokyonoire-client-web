@@ -5,6 +5,7 @@ const LocationModule: FC = (): ReactElement => {
   const hasMounted = useRef<boolean>(false);
 
   useEffect(() => {
+    console.log(hasMounted)
     if (!hasMounted.current) {
       if ('geolocation' in navigator) {
         console.log('geolocation available')
