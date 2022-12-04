@@ -8,6 +8,7 @@ import Hero from "./../Components/Hero";
 import GameIdForm from "../Components/GameIdForm";
 import NarrativeModule from "../Components/NarrativeModule";
 import Geolocation from "../Components/Geolocation";
+import MapLocationPicker from "../Components/Editor/MapLocationPicker";
 
 const Home: NextPage = () => {
   return (
@@ -17,6 +18,7 @@ const Home: NextPage = () => {
         <meta name="keywords" content="interactive, story, game" />
       </Head>
       <Geolocation/>
+      <MapLocationPicker/>
       <div className="items-center h-screen mx-10 pt-80">
         <Image src={tokyoNoireName} alt="Tokyo Noire Hero" priority={true}/>
         <div className=" pt-96">
