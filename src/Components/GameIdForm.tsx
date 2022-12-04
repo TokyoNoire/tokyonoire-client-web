@@ -5,6 +5,12 @@ import axios from "axios";
 const GameIdForm: FC = (): ReactElement => {
   const [gameId, setGameId] = useState<string>("");
 
+  const getGameById = async () => {
+    await axios
+      .get(`http://localhost:2000/?uId=${gameId}`)
+      .then((response) => console.log(response.data));
+  };
+
   return (
     <div className="items-center mx-8 my-48">
       <h1 className="mb-5 text-m font-heading">
@@ -15,10 +21,18 @@ const GameIdForm: FC = (): ReactElement => {
         label="Enter a Case ID"
         variant="standard"
         aria-label="enter a game id"
-        onChange={(e) => setGameId(e.target.value)}
+        onChange={(e) => {
+          setGameId(e.target.value);
+          console.log(gameId);
+        }}
       />
 
-      <button id="themeButton" className="mt-5 font-body2" type="button">
+      <button
+        id="themeButton"
+        className="mt-5 font-body2"
+        type="button"
+        onClick={getGameById}
+      >
         start
       </button>
     </div>
