@@ -1,18 +1,20 @@
 import React, { useState, useRef, useEffect, type FC, type ReactElement } from "react";
 import Map from 'ol/Map';
 import View from 'ol/View';
-import TileLayer from 'ol/layer/Tile';
 import Feature from "ol/Feature";
+import TileLayer from 'ol/layer/Tile';
 import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
-import XYZ from 'ol/source/XYZ';
-import Layer from "ol/layer/Layer";
 import OSM from 'ol/source/OSM';
-import 'ol/ol.css';
 import { fromLonLat, transform } from "ol/proj";
 import { MapBrowserEvent } from "ol";
-import { Geometry, Point } from "ol/geom";
+import { Point } from "ol/geom";
 import Style from "ol/style/Style";
+import Icon from "ol/style/Icon";
+import 'ol/ol.css';
+
+// import icon from "./locationMarker.png"
+import icon from "../../../Assets/Icons/locationMarker.png"
 
 const MapLocationPicker: FC = (): ReactElement => {
 
@@ -21,6 +23,8 @@ const MapLocationPicker: FC = (): ReactElement => {
     const mapElement = useRef<HTMLDivElement>(null);
     const mapRef = useRef<Map>();
     const [featuresLayer, setFeaturesLayer] = useState<VectorLayer<VectorSource>>();
+    // rd: coord state stores the pin that the user drops
+    // rd: that is the array (longitude, latitude) that we need to confirm and save.
     const [selectedCoord, setSelectedCoord] = useState<number[]>()
     mapRef.current = map;
 
@@ -32,8 +36,8 @@ const MapLocationPicker: FC = (): ReactElement => {
             })
 
             const initialMap = new Map({
-                // I had to go to Map.d.ts line 206 and add null as a type possibility
-                target: mapElement.current,
+                // used setTarget instead to avoid TS & invalid length errors.
+                // target: mapElement.current!,
                 layers: [
                     new TileLayer({
                         source: new OSM(),
@@ -45,6 +49,7 @@ const MapLocationPicker: FC = (): ReactElement => {
                     zoom: 11,
                 }),
             })
+            initialMap.setTarget(mapElement.current!)
             setMap(initialMap)
             setFeaturesLayer(initialFeaturesLayer)
             initialMap.on('click', handleMapClick)
@@ -55,7 +60,6 @@ const MapLocationPicker: FC = (): ReactElement => {
 
     useEffect(() => {
         if (featuresLayer) {
-            console.log(featuresLayer)
             featuresLayer.setSource(
                 new VectorSource({
                     features: [
@@ -63,33 +67,27 @@ const MapLocationPicker: FC = (): ReactElement => {
                             geometry: new Point(fromLonLat(selectedCoord!))
                         })
                     ],
-                    // Figure out how to style to a marker
-                    style: new Style()
                 })
-                )
+            )
+            featuresLayer.setStyle(
+                new Style({
+                    image: new Icon({
+                        src: icon.src,
+                        anchor: [0.5, 1],
+                        scale: 0.8
+                    })
+                })
+            )
         }
-        // fit map to feature extent (with 100px of padding)
-        // if (map && featuresLayer) {
-        //     map.getView().fit(featuresLayer.getSource().getExtent(), {
-        //         padding: [100, 100, 100, 100]
-        //     })
-        // }
-
-        // }
 
     }, [selectedCoord])
 
 
     const handleMapClick = (event: MapBrowserEvent<UIEvent>) => {
-        // console.log(event)
-        // get clicked coordinate using mapRef to access current React state inside OpenLayers callback
-        //  https://stackoverflow.com/a/60643670
-        // console.log(mapRef.current)
         if (mapRef.current) {
             const clickedCoord = mapRef.current.getCoordinateFromPixel(event.pixel);
             const transformedCoord = transform(clickedCoord, 'EPSG:3857', 'EPSG:4326')
             setSelectedCoord(transformedCoord)
-            console.log(transformedCoord)
         }
     }
 
@@ -99,7 +97,11 @@ const MapLocationPicker: FC = (): ReactElement => {
                 ref={mapElement}
                 className="map"
             />
-            <div>{selectedCoord ? `${selectedCoord[0]}, ${selectedCoord[1]}` : 0}</div>
+            <div className="coordinates">{
+                selectedCoord
+                    ? `latitude: ${selectedCoord[1]}  longitude: ${selectedCoord[0]}`
+                    : "no location selected"}
+            </div>
         </>
     );
 }
