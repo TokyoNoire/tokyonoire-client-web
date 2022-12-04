@@ -26,7 +26,7 @@ const StartModule: FC = (): ReactElement => {
           <div className="grid grid-cols-2 gap-1">
             <AccessTimeFilledIcon fontSize="small" />
             <p className="self-center font-heading">RATING</p>
-            <p className="self-center text-xs font-body2">20 minutes</p>
+            <p className="self-center text-xs font-body2"> minutes</p>
             <p className="self-center font-body2">G</p>
           </div>
           <div className="self-center w-10/12 m-4">
