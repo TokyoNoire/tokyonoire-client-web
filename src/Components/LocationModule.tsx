@@ -40,7 +40,7 @@ const LocationModule: FC = (): ReactElement => {
         </Card>
       </div>
       <div className="items-center mx-8 my-48">
-      <Geolocation />
+        <Geolocation />
       </div>
     </>
   );
