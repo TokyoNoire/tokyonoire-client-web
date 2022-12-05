@@ -1,14 +1,10 @@
-import React, {type FC, type ReactElement, useEffect, useCallback, useState, useRef} from "react";
+import React, {type FC, type ReactElement, useState} from "react";
 
 type DeviceOrientation = {
   alpha: number | null,
   beta: number | null,
   gamma: number | null,
 };
-
-// interface DeviceOrientationEventiOS extends DeviceOrientationEvent {
-//   requestPermission?: () => Promise<'granted' | 'denied'>;
-// };
 
 const UseDeviceOrientation: FC = (): ReactElement => {
   const [error, setError] = useState<Error | null>(null);

@@ -1,4 +1,4 @@
-import React, { type FC, type ReactElement } from "react";
+import React, { type FC, type ReactElement, useEffect, useRef } from "react";
 import Geolocation from "./Geolocation";
 import { Card } from "@mui/material";
 import Image from "next/image";
