@@ -1,6 +1,5 @@
 import React, { type FC, type ReactElement, useState } from "react";
 import TextField from "@mui/material/TextField";
-import axios from "axios";
 
 const GameIdForm: FC = (): ReactElement => {
   const [gameId, setGameId] = useState<string>("");
@@ -11,6 +10,7 @@ const GameIdForm: FC = (): ReactElement => {
       .get(`http://localhost:2000/?_id=${gameId}`)
       .then((response) => console.log(response.data[0]));
   };
+  console.log(gameId)
 
   return (
     <div className="items-center mx-8 my-48">
@@ -22,17 +22,10 @@ const GameIdForm: FC = (): ReactElement => {
         label="Enter a Case ID"
         variant="filled"
         aria-label="enter a game id"
-        onChange={(e) => {
-          setGameId(e.target.value);
-          console.log(gameId);
-        }}
+        onChange={(e) => setGameId(e.target.value)}
       />
-      <button
-        id="themeButton"
-        className="mt-5 font-body2"
-        type="button"
-        onClick={getGameById}
-      >
+
+      <button id="themeButton" className="mt-5 font-heading" type="button">
         start
       </button>
     </div>
