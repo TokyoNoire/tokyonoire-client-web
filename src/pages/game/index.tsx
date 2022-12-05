@@ -17,14 +17,55 @@ import NarrativeTextModule from "../../Components/NarrativeTextModule";
 import UseDeviceOrientation from "../../Components/Gyroscope";
 
 const Game: FC = (): ReactElement => {
-  const [open, setOpen] = useState(true);
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
+  const [open, setOpen] = useState<boolean>(true);
+  const [challengeSuccess, setChallengeSuccess] = useState<boolean>(false);
+  const [typeOfModule, setTypeOfModule] = useState<string | null>("");
+
+  interface gameModules {
+    typeOfModule: string;
+    description: string;
+    question: string;
+    answer: string;
+    pictureId: string;
+    locationCoordinates: Array<number>;
+  }
 
   const handleClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    return setTypeOfModule("narrativePicture");
+  }, []);
+
+  const setCurrentComponent = () => {
+    switch (typeOfModule) {
+      case "start":
+        return <StartModule />;
+
+      case "location":
+        return <LocationModule />;
+
+      case "narrativePicture":
+        return <NarrativePictureModule />;
+
+      case "textQuestion":
+        return <TextQuestionModule />;
+
+      case "photoQuestion":
+        return <PhotoQuestionModule />;
+
+      case "narrative":
+        return <NarrativeTextModule />;
+
+      case "end":
+        return <EndModule />;
+
+      default:
+        return null;
+    }
+  };
+
   return (
     <div>
       <div>
@@ -62,14 +103,8 @@ const Game: FC = (): ReactElement => {
           </DialogActions>
         </Dialog>
       </div>
-      <LocationModule />
 
-      <StartModule />
-      <NarrativePictureModule />
-      <TextQuestionModule />
-      <PhotoQuestionModule />
-      <NarrativeTextModule />
-      <EndModule />
+      {setCurrentComponent()}
       <UseDeviceOrientation />
     </div>
   );
