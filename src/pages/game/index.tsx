@@ -29,6 +29,9 @@ const Game: FC = (): ReactElement => {
     locationCoordinates: Array<number>;
   }
 
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
   const handleClose = () => {
     setOpen(false);
   };
@@ -103,15 +106,9 @@ const Game: FC = (): ReactElement => {
           </DialogActions>
         </Dialog> */}
       </div>
-      {/* <LocationModule /> */}
-      <NavigationModule/>
+
       {setCurrentComponent()}
-      <StartModule />
-      <NarrativePictureModule />
-      <TextQuestionModule />
-      <PhotoQuestionModule />
-      <NarrativeTextModule />
-      <EndModule />
+      <UseDeviceOrientation/>
     </div>
   );
 };
