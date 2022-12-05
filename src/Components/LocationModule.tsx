@@ -22,7 +22,7 @@ const LocationModule: FC = (): ReactElement => {
 
   return (
     <>
-      <div className="self-center w-4/5 m-10">
+      <div className="self-center w-4/5 m-5">
         <Card>
           <div className="self-center mb-5">
             <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
@@ -35,7 +35,7 @@ const LocationModule: FC = (): ReactElement => {
                 className="rounded-lg"
               />
             </div>
-            <p className="mt-2 text-justify px-14 font-body1">
+            <p className="px-6 mt-2 text-justify font-body1">
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem
               accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
               quae ab illo inventore veritatis et quasi architecto beatae vitae
