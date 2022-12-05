@@ -108,7 +108,7 @@ const Game: FC = (): ReactElement => {
       </div>
 
       {setCurrentComponent()}
-      <UseDeviceOrientation/>
+      <NavigationModule/>
     </div>
   );
 };
