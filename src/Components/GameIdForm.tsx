@@ -1,8 +1,16 @@
 import React, { type FC, type ReactElement, useState } from "react";
 import TextField from "@mui/material/TextField";
+import axios from 'axios';
 
 const GameIdForm: FC = (): ReactElement => {
   const [gameId, setGameId] = useState<string>("");
+  // const [game, setGame] = useState<startModuleInfo>(testObject);
+
+  const getGameById = async () => {
+    await axios
+      .get(`http://localhost:2000/?_id=${gameId}`)
+      .then((response) => console.log(response.data[0]));
+  };
   console.log(gameId)
 
   return (

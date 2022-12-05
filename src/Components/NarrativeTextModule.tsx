@@ -9,7 +9,7 @@ const NarrativeTextModule: FC = (): ReactElement => {
           <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
             TITLE OF NARRATIVE TEXT BLOCK
           </h1>
-          <p className="mt-2 text-justify px-14 font-body1">
+          <p className="px-6 mt-2 font-body1">
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem
             accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
             quae ab illo inventore veritatis et quasi architecto beatae vitae

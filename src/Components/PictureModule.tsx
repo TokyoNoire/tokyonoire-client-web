@@ -18,7 +18,7 @@ const PictureModule: FC = (): ReactElement => {
               className="rounded-lg"
             />
           </div>
-          <p className="mt-2 text-left px-14 font-body1">
+          <p className="px-6 mt-2 font-body1">
             Someone&apos;s come up missing, and there is a murder in the air.
             This scandalous discovery is only the tip of the iceberg. Salad is
             usually life, but it can also mean death.
