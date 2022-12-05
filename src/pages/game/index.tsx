@@ -1,4 +1,5 @@
-import React, { type FC, type ReactElement, useState } from "react";
+import React, { type FC, type ReactElement, useState, useEffect } from "react";
+import axios from "axios";
 import {
   Dialog,
   DialogTitle,
@@ -10,17 +11,17 @@ import LocationModule from "../../Components/LocationModule";
 import NarrativePictureModule from "../../Components/NarrativePictureModule";
 import StartModule from "../../Components/StartModule";
 import TextQuestionModule from "../../Components/TextQuestionModule";
-import PhotoQuestionModule from "../../Components/PhotoQuestionModule"
+import PhotoQuestionModule from "../../Components/PhotoQuestionModule";
 import EndModule from "../../Components/EndModule";
 import NarrativeTextModule from "../../Components/NarrativeTextModule";
 import UseDeviceOrientation from "../../Components/Gyroscope";
 
 const Game: FC = (): ReactElement => {
   const [open, setOpen] = useState(true);
-
   // const handleClickOpen = () => {
   //   setOpen(true);
   // };
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -37,18 +38,15 @@ const Game: FC = (): ReactElement => {
             <DialogContentText>
               <p className="text-left font-body1">
                 This is a welcome message for you the kind player.
-                <br/>
-                <br/>
-                Here we will
-                need to think of our instructions. It needs to in simple words
-                explain the &quot;go somewhere, resolve a challenge&quot; principle we are
-                going with. 
-                <br/>
-                <br/>
-                Also explain that some interactions will require
-                user to grant authorisation for geolocation, webcam and/or
-                gyrometer.
-            
+                <br />
+                <br />
+                Here we will need to think of our instructions. It needs to in
+                simple words explain the &quot;go somewhere, resolve a
+                challenge&quot; principle we are going with.
+                <br />
+                <br />
+                Also explain that some interactions will require user to grant
+                authorisation for geolocation, webcam and/or gyrometer.
               </p>
             </DialogContentText>
           </DialogContent>
@@ -66,13 +64,13 @@ const Game: FC = (): ReactElement => {
       </div>
       <LocationModule />
 
-      <StartModule/>
-      <NarrativePictureModule/>
-      <TextQuestionModule/>
-      <PhotoQuestionModule/>
-      <NarrativeTextModule/>
-      <EndModule/>
-      <UseDeviceOrientation/>
+      <StartModule />
+      <NarrativePictureModule />
+      <TextQuestionModule />
+      <PhotoQuestionModule />
+      <NarrativeTextModule />
+      <EndModule />
+      <UseDeviceOrientation />
     </div>
   );
 };
