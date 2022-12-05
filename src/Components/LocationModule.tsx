@@ -7,7 +7,7 @@ import heroImage from "public/Hero.jpg";
 const LocationModule: FC = (): ReactElement => {
   return (
     <>
-      <div className="self-center w-4/5 m-10">
+      <div className="self-center w-4/5 m-5">
         <Card>
           <div className="self-center mb-5">
             <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
