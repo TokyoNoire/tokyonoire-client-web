@@ -19,6 +19,15 @@ const Game: FC = (): ReactElement => {
   const [challengeSuccess, setChallengeSuccess] = useState<boolean>(false);
   const [typeOfModule, setTypeOfModule] = useState<string | null>("");
 
+  interface gameModules {
+    typeOfModule: string;
+    description: string;
+    question: string;
+    answer: string;
+    pictureId: string;
+    locationCoordinates: Array<number>;
+  }
+
   const handleClose = () => {
     setOpen(false);
   };

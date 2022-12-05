@@ -6,6 +6,7 @@ import Image from "next/image";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Hero from "./../Components/Hero";
 import GameIdForm from "../Components/GameIdForm";
+import StartModule from "../Components/StartModule";
 // import Link from "next/link";
 
 const Home: NextPage = () => {
@@ -16,13 +17,14 @@ const Home: NextPage = () => {
         <meta name="keywords" content="interactive, story, game" />
       </Head>
       <div className="items-center h-screen mx-10 pt-80">
-        <Image src={tokyoNoireName} alt="Tokyo Noire Hero" priority={true}/>
+        <Image src={tokyoNoireName} alt="Tokyo Noire Hero" priority={true} />
         <div className=" pt-96">
-          <KeyboardArrowDownIcon /> 
+          <KeyboardArrowDownIcon />
         </div>
       </div>
       <Hero />
-      <GameIdForm/>
+      <GameIdForm />
+      <StartModule />
     </>
   );
 };
