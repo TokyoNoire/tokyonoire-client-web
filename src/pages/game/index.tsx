@@ -13,7 +13,10 @@ import TextQuestionModule from "../../Components/TextQuestionModule";
 import PhotoQuestionModule from "../../Components/PhotoQuestionModule"
 import EndModule from "../../Components/EndModule";
 import NarrativeTextModule from "../../Components/NarrativeTextModule";
-import UseDeviceOrientation from "../../Components/Gyroscope";
+import Gyroscope from "../../Components/Gyroscope";
+import Compass from "../../Components/Compass";
+import Geolocation from "../../Components/Geolocation";
+import MapLocationPicker from "../../Components/Editor/MapLocationPicker";
 
 const Game: FC = (): ReactElement => {
   const [open, setOpen] = useState(true);
@@ -26,8 +29,10 @@ const Game: FC = (): ReactElement => {
   };
   return (
     <div>
+      <MapLocationPicker />
+      <Compass />
       <div>
-        <Dialog open={open} onClose={handleClose}>
+        {/* <Dialog open={open} onClose={handleClose}>
           <DialogTitle>
             <h1 className="self-center p-5 text-3xl text-center uppercase font-heading">
               How to Play
@@ -37,18 +42,18 @@ const Game: FC = (): ReactElement => {
             <DialogContentText>
               <p className="text-left font-body1">
                 This is a welcome message for you the kind player.
-                <br/>
-                <br/>
+                <br />
+                <br />
                 Here we will
                 need to think of our instructions. It needs to in simple words
                 explain the &quot;go somewhere, resolve a challenge&quot; principle we are
-                going with. 
-                <br/>
-                <br/>
+                going with.
+                <br />
+                <br />
                 Also explain that some interactions will require
                 user to grant authorisation for geolocation, webcam and/or
                 gyrometer.
-            
+
               </p>
             </DialogContentText>
           </DialogContent>
@@ -62,17 +67,18 @@ const Game: FC = (): ReactElement => {
               I understand
             </button>
           </DialogActions>
-        </Dialog>
+        </Dialog> */}
       </div>
       <LocationModule />
+      <Geolocation />
 
-      <StartModule/>
-      <NarrativePictureModule/>
-      <TextQuestionModule/>
-      <PhotoQuestionModule/>
-      <NarrativeTextModule/>
-      <EndModule/>
-      <UseDeviceOrientation/>
+      <StartModule />
+      <NarrativePictureModule />
+      <TextQuestionModule />
+      <PhotoQuestionModule />
+      <NarrativeTextModule />
+      <EndModule />
+      {/* <Gyroscope /> */}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, {type FC, type ReactElement, useState} from "react";
+import { useRef, useState } from "react";
 
 type DeviceOrientation = {
   alpha: number | null,
@@ -6,13 +6,21 @@ type DeviceOrientation = {
   gamma: number | null,
 };
 
-const UseDeviceOrientation: FC = (): ReactElement => {
+type UseDeviceOrientationData = {
+  orientation: DeviceOrientation | null;
+  requestAccessAsync: () => Promise<boolean>;
+}
+
+
+const Gyroscope = (): UseDeviceOrientationData => {
   const [error, setError] = useState<Error | null>(null);
   const [orientation, setOrientation] = useState<DeviceOrientation | null>(null);
+  let permission = useRef<PermissionState | null>(null)
 
   const onDeviceOrientation = (event: DeviceOrientationEvent): void => {
     setOrientation({
-      alpha: event.alpha,
+      // @ts-ignore
+      alpha: event.webkitCompassHeading ? event.webkitCompassHeading : event.alpha,
       beta: event.beta,
       gamma: event.gamma,
     });
@@ -35,36 +43,34 @@ const UseDeviceOrientation: FC = (): ReactElement => {
       // @ts-ignore
       && typeof DeviceMotionEvent.requestPermission === 'function'
     ) {
-      let permission: PermissionState;
       try {
         // @ts-ignore
-        permission = await DeviceOrientationEvent.requestPermission();
+        // either "granted" or "denied"
+        permission.current = await DeviceOrientationEvent.requestPermission()
       } catch (err) {
         // @ts-ignore
         const e = new Error((err && err.message) || 'unknown error');
         setError(e);
         return false;
       }
-      if (permission !== 'granted') {
+      if (permission.current !== 'granted') {
         setError(new Error('Request to access the device orientation was rejected'));
         return false;
       }
     }
 
-    window.addEventListener('deviceorientation', onDeviceOrientation);
+    if (permission.current === "granted") {
+      window.addEventListener('deviceorientation', onDeviceOrientation, true)
+    };
 
     return true;
   };
 
-  return (
-    <div>
-     <button
-     onClick={requestAccessAsync}
-     >Approve device motion to use the compass</button>
-    </div>
-  );
+  return {
+    orientation,
+    requestAccessAsync,
+  }
+
 };
 
-
-
-export default UseDeviceOrientation;
+export default Gyroscope;

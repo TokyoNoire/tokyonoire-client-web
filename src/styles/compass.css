@@ -21,11 +21,16 @@
 
 .compass__north-letter {
     position: absolute;
-    transform: scale(0.4) rotateZ(50deg);
-    transform-origin: 140px 0px;
+    /* transform: scale(0.6); */
+    /* transform-origin: 140px 0px; */
+    /* transform-origin: bottom; */
+    /* top: 75%; */
+
+
 }
 
 .compass {
+    position: relative;
     /* flex-direction: row; */
     justify-content: center;
     align-items: center;
@@ -34,8 +39,12 @@
 }
 
 .direction-arrow {
-    /* transform: rotateZ(359deg); */
+    position: absolute;
     width: 5px;
-    height: 200px;
+    height: 100px;
     background-color: #fff;
+    top: 50px;
+    /* transform: translateX(-50%) translateY(-50%) rotate(90deg); */
+    transform-origin: bottom;
+    /* transform: translate(0 100px); */
 }
