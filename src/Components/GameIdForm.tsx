@@ -1,5 +1,6 @@
 import React, { type FC, type ReactElement, useState } from "react";
 import TextField from "@mui/material/TextField";
+import axios from 'axios';
 
 const GameIdForm: FC = (): ReactElement => {
   const [gameId, setGameId] = useState<string>("");
