@@ -15,7 +15,7 @@ type startModuleInfo = {
   startLocationCoordinates?: Array<number>;
 };
 
-let testObject = {
+const testObject = {
   _id: "21312",
   title: "testtestmysteries",
   description:
