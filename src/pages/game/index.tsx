@@ -13,7 +13,6 @@ import TextQuestionModule from "../../Components/TextQuestionModule";
 import PhotoQuestionModule from "../../Components/PhotoQuestionModule"
 import EndModule from "../../Components/EndModule";
 import NarrativeTextModule from "../../Components/NarrativeTextModule";
-import UseDeviceOrientation from "../../Components/Gyroscope";
 
 const Game: FC = (): ReactElement => {
   const [open, setOpen] = useState(true);
@@ -72,7 +71,6 @@ const Game: FC = (): ReactElement => {
       <PhotoQuestionModule/>
       <NarrativeTextModule/>
       <EndModule/>
-      <UseDeviceOrientation/>
     </div>
   );
 };
