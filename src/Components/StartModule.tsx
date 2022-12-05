@@ -1,7 +1,7 @@
 import React, { type FC, type ReactElement, useState, useEffect } from "react";
 import { Card, CardActions } from "@mui/material";
-import Image from "next/image";
-import heroImage from "public/Hero.jpg";
+// import Image from "next/image";
+// import heroImage from "public/Hero.jpg";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 
 type startModuleInfo = {
@@ -31,11 +31,9 @@ const testObject = {
 const StartModule: FC = (): ReactElement => {
   const [game, setGame] = useState<startModuleInfo>(testObject);
 
-  useEffect(() => {
-    return setGame(testObject);
-  }, []);
-
-  console.log(game.image);
+  // useEffect(() => {
+  //   return setGame(testObject);
+  // }, []);
 
   return (
     <div className="self-center w-4/5 m-10">

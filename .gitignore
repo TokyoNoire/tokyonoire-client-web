@@ -14,6 +14,8 @@
 
 # next.js
 /.next/
+.next/
+.next
 /out/
 next-env.d.ts
 
@@ -46,3 +48,4 @@ yarn-error.log*
 
 # localtests
 ignoreMe/
+.vscode
