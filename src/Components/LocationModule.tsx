@@ -1,25 +1,10 @@
-import React, { type FC, type ReactElement, useEffect, useRef } from "react";
-import Geolocation from "./Geolocation";
+import React, { type FC, type ReactElement, useEffect, useRef, useState } from "react";
 import { Card } from "@mui/material";
 import Image from "next/image";
 import heroImage from "public/Hero.jpg";
 
 const LocationModule: FC = (): ReactElement => {
-
-  const hasMounted = useRef<boolean>(false);
-
-  useEffect(() => {
-    if (!hasMounted.current) {
-      if ('geolocation' in navigator) {
-        console.log('geolocation available')
-        navigator.geolocation.getCurrentPosition((position) => {console.log(position.coords.latitude, position.coords.longitude)});
-      }
-      else console.log('geolocation unavailable')
-    }
-
-    hasMounted.current = true;
-  }, [hasMounted])
-
+  
   return (
     <>
       <div className="self-center w-4/5 m-5">
@@ -55,7 +40,6 @@ const LocationModule: FC = (): ReactElement => {
         </Card>
       </div>
       <div className="items-center mx-8 my-48">
-        <Geolocation />
       </div>
     </>
   );

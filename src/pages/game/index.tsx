@@ -13,10 +13,7 @@ import TextQuestionModule from "../../Components/TextQuestionModule";
 import PhotoQuestionModule from "../../Components/PhotoQuestionModule";
 import EndModule from "../../Components/EndModule";
 import NarrativeTextModule from "../../Components/NarrativeTextModule";
-import Gyroscope from "../../Components/Gyroscope";
-import Compass from "../../Components/Compass";
-import Geolocation from "../../Components/Geolocation";
-import MapLocationPicker from "../../Components/Editor/MapLocationPicker";
+import NavigationModule from "../../Components/NavigationModule";
 
 const Game: FC = (): ReactElement => {
   const [open, setOpen] = useState<boolean>(true);
@@ -70,8 +67,7 @@ const Game: FC = (): ReactElement => {
 
   return (
     <div>
-      <MapLocationPicker />
-      <Compass />
+      {/* <MapLocationPicker /> */}
       <div>
         {/* <Dialog open={open} onClose={handleClose}>
           <DialogTitle>
@@ -107,16 +103,15 @@ const Game: FC = (): ReactElement => {
           </DialogActions>
         </Dialog> */}
       </div>
-      <LocationModule />
-      <Geolocation />
-
+      {/* <LocationModule /> */}
+      <NavigationModule/>
+      {setCurrentComponent()}
       <StartModule />
       <NarrativePictureModule />
       <TextQuestionModule />
       <PhotoQuestionModule />
       <NarrativeTextModule />
       <EndModule />
-      {/* <Gyroscope /> */}
     </div>
   );
 };

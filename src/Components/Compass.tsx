@@ -1,29 +1,16 @@
-import React, { type FC, type ReactElement, useState, useEffect } from "react";
+import React, { type FC, type ReactElement, useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import northLetter from "../../Assets/Icons/North-letter.svg"
-import Gyroscope from "./Gyroscope";
+import Gyroscope from "./Helpers/Gyroscope";
 
-const Compass: FC = (): ReactElement => {
+interface props {
+    bearingAngle: number | null;
+    currentCoords: number[] | null
+}
+
+const Compass = (props: props): ReactElement => {
+    const { bearingAngle, currentCoords } = props;
     const { orientation, requestAccessAsync } = Gyroscope();
-
-    // console.log(orientation)
-    const [time, setTime] = useState<Date>(new Date());
-
-    useEffect(() => {
-
-        let interval = setInterval(() => {
-            setTime(new Date())
-        }, 1000);
-
-        console.log(time.getSeconds() * 6)
-
-        return () => {
-            clearInterval(interval)
-        }
-
-    })
-
-
 
     return (
         <>
@@ -34,6 +21,8 @@ const Compass: FC = (): ReactElement => {
             </div>
             <div className="mt-6">
                 <ul style={{ margin: 0, padding: 0 }}>
+                    <li>Current Coords: <code className="language-text">{currentCoords ? `${currentCoords![1]}, ${currentCoords![0]}` : null}</code></li>
+                    <li>Bearing Angle: <code className="language-text">{bearingAngle}</code></li>
                     <li>ɑ: {orientation && <code className="language-text">{orientation.alpha}</code>}</li>
                     <li>β: {orientation && <code className="language-text">{orientation.beta}</code>}</li>
                     <li>γ: {orientation && <code className="language-text">{orientation.gamma}</code>}</li>
@@ -46,13 +35,19 @@ const Compass: FC = (): ReactElement => {
                 <div className="compass">
                     <div className="compass__outer-ring"></div>
                     <div className="compass__center-dot"></div>
-                    <div className="direction-arrow" style={{ transform: `rotateZ(${orientation ? orientation.alpha : 0}deg)` }}></div>
+                    <div className="direction-arrow" style={{ transform: `rotateZ(${bearingAngle && orientation && orientation.alpha ? bearingAngle - orientation.alpha : null}deg)` }}></div>
                     <Image
                         src={northLetter}
                         alt="northLetter"
                         className="compass__north-letter"
                         // className="direction-arrow"
-                        style={{ transform: `rotateZ(${orientation ? 180 - orientation.alpha : 0}deg) scale(0.4) translateY(300px)` }}
+                        style={
+                            {
+                                transform: `rotateZ(${orientation && orientation.alpha
+                                        ? 180 - orientation.alpha
+                                        : 0
+                                    }deg) scale(0.4) translateY(300px)`
+                            }}
                     />
 
                 </div>

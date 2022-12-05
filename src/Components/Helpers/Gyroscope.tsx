@@ -15,7 +15,7 @@ type UseDeviceOrientationData = {
 const Gyroscope = (): UseDeviceOrientationData => {
   const [error, setError] = useState<Error | null>(null);
   const [orientation, setOrientation] = useState<DeviceOrientation | null>(null);
-  let permission = useRef<PermissionState | null>(null)
+  const permission = useRef<PermissionState | null>(null)
 
   const onDeviceOrientation = (event: DeviceOrientationEvent): void => {
     setOrientation({
@@ -61,7 +61,7 @@ const Gyroscope = (): UseDeviceOrientationData => {
 
     if (permission.current === "granted") {
       window.addEventListener('deviceorientation', onDeviceOrientation, true)
-    };
+    }
 
     return true;
   };
