@@ -7,13 +7,12 @@ import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
 import OSM from 'ol/source/OSM';
 import { fromLonLat, transform } from "ol/proj";
-import { MapBrowserEvent } from "ol";
+import { type MapBrowserEvent } from "ol";
 import { Point } from "ol/geom";
 import Style from "ol/style/Style";
 import Icon from "ol/style/Icon";
 import 'ol/ol.css';
 
-// import icon from "./locationMarker.png"
 import icon from "../../../Assets/Icons/locationMarker.png"
 
 const MapLocationPicker: FC = (): ReactElement => {
@@ -49,22 +48,22 @@ const MapLocationPicker: FC = (): ReactElement => {
                     zoom: 11,
                 }),
             })
-            initialMap.setTarget(mapElement.current!)
+            if (mapElement.current !== null) initialMap.setTarget(mapElement.current)
             setMap(initialMap)
             setFeaturesLayer(initialFeaturesLayer)
             initialMap.on('click', handleMapClick)
-        };
+        }
 
         didMount.current = true;
     }, [didMount]);
 
     useEffect(() => {
-        if (featuresLayer) {
+        if (featuresLayer && selectedCoord) {
             featuresLayer.setSource(
                 new VectorSource({
                     features: [
                         new Feature({
-                            geometry: new Point(fromLonLat(selectedCoord!))
+                            geometry: new Point(fromLonLat(selectedCoord))
                         })
                     ],
                 })
@@ -80,7 +79,7 @@ const MapLocationPicker: FC = (): ReactElement => {
             )
         }
 
-    }, [selectedCoord])
+    }, [selectedCoord, featuresLayer])
 
 
     const handleMapClick = (event: MapBrowserEvent<UIEvent>) => {

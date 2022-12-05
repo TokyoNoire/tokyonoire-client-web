@@ -3,6 +3,7 @@ import TextField from "@mui/material/TextField";
 
 const GameIdForm: FC = (): ReactElement => {
   const [gameId, setGameId] = useState<string> ("");
+  console.log(gameId)
 
   return (
     <div className="items-center mx-8 my-48">

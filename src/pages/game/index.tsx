@@ -11,9 +11,9 @@ import LocationModule from "../../Components/LocationModule";
 const Game: FC = (): ReactElement => {
   const [open, setOpen] = useState(true);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
   const handleClose = () => {
     setOpen(false);
   };
