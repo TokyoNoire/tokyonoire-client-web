@@ -17,16 +17,15 @@ const GameIdForm: FC = (): ReactElement => {
         &quot;Hello Detective, are you ready to close a case?&quot;
       </h1>
       <TextField
-        id="standard-basic"
+        id="gameId"
         label="Enter a Case ID"
-        variant="standard"
+        variant="filled"
         aria-label="enter a game id"
         onChange={(e) => {
           setGameId(e.target.value);
           console.log(gameId);
         }}
       />
-
       <button
         id="themeButton"
         className="mt-5 font-body2"
