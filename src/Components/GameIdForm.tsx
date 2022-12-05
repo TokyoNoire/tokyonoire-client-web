@@ -4,6 +4,7 @@ import axios from "axios";
 
 const GameIdForm: FC = (): ReactElement => {
   const [gameId, setGameId] = useState<string>("");
+  // const [game, setGame] = useState<startModuleInfo>(testObject);
 
   const getGameById = async () => {
     await axios

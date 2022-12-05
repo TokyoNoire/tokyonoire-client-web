@@ -6,6 +6,6 @@
   "/en/500": "pages/en/500.html",
   "/en/dashboard": "pages/en/dashboard.html",
   "/en": "pages/en.html",
-  "/en/game": "pages/en/game.html",
-  "/en/dashboard/gamebuilder": "pages/en/dashboard/gamebuilder.html"
+  "/en/dashboard/gamebuilder": "pages/en/dashboard/gamebuilder.html",
+  "/en/game": "pages/en/game.html"
 }
