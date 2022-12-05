@@ -55,8 +55,6 @@ const UseDeviceOrientation: FC = (): ReactElement => {
       }
     }
 
-    const test11 = orientation?.alpha
-
     window.addEventListener('deviceorientation', onDeviceOrientation);
 
     return true;
@@ -66,7 +64,7 @@ const UseDeviceOrientation: FC = (): ReactElement => {
     <div>
      <button
      onClick={requestAccessAsync}
-     >Approve device motion to access gyroscope</button>
+     >Approve device motion to use the compass</button>
     </div>
   );
 };

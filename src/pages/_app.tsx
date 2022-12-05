@@ -2,7 +2,8 @@ import { type AppType } from "next/dist/shared/lib/utils";
 import NavBar from "../Components/NavBar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "../styles/globals.css";
-import '../styles/navbar.css'
+import "../styles/navbar.css"
+import "../styles/mapLocationPicker.css"
 
 
 const darkTheme = createTheme({
