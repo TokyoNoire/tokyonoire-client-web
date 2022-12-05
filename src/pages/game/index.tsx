@@ -1,4 +1,4 @@
-import React, { type FC, type ReactElement, useState } from "react";
+import React, { type FC, type ReactElement, useState, useEffect } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -10,20 +10,61 @@ import LocationModule from "../../Components/LocationModule";
 import NarrativePictureModule from "../../Components/NarrativePictureModule";
 import StartModule from "../../Components/StartModule";
 import TextQuestionModule from "../../Components/TextQuestionModule";
-import PhotoQuestionModule from "../../Components/PhotoQuestionModule"
+import PhotoQuestionModule from "../../Components/PhotoQuestionModule";
 import EndModule from "../../Components/EndModule";
 import NarrativeTextModule from "../../Components/NarrativeTextModule";
 import UseDeviceOrientation from "../../Components/Gyroscope";
 
 const Game: FC = (): ReactElement => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState<boolean>(true);
+  const [challengeSuccess, setChallengeSuccess] = useState<boolean>(false);
+  const [typeOfModule, setTypeOfModule] = useState<string | null>("");
 
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
+  interface gameModules {
+    typeOfModule: string;
+    description: string;
+    question: string;
+    answer: string;
+    pictureId: string;
+    locationCoordinates: Array<number>;
+  }
+
   const handleClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    return setTypeOfModule("narrativePicture");
+  }, []);
+
+  const setCurrentComponent = () => {
+    switch (typeOfModule) {
+      case "start":
+        return <StartModule />;
+
+      case "location":
+        return <LocationModule />;
+
+      case "narrativePicture":
+        return <NarrativePictureModule />;
+
+      case "textQuestion":
+        return <TextQuestionModule />;
+
+      case "photoQuestion":
+        return <PhotoQuestionModule />;
+
+      case "narrative":
+        return <NarrativeTextModule />;
+
+      case "end":
+        return <EndModule />;
+
+      default:
+        return null;
+    }
+  };
+
   return (
     <div>
       <div>
@@ -37,18 +78,15 @@ const Game: FC = (): ReactElement => {
             <DialogContentText>
               <p className="text-left font-body1">
                 This is a welcome message for you the kind player.
-                <br/>
-                <br/>
-                Here we will
-                need to think of our instructions. It needs to in simple words
-                explain the &quot;go somewhere, resolve a challenge&quot; principle we are
-                going with. 
-                <br/>
-                <br/>
-                Also explain that some interactions will require
-                user to grant authorisation for geolocation, webcam and/or
-                gyrometer.
-            
+                <br />
+                <br />
+                Here we will need to think of our instructions. It needs to in
+                simple words explain the &quot;go somewhere, resolve a
+                challenge&quot; principle we are going with.
+                <br />
+                <br />
+                Also explain that some interactions will require user to grant
+                authorisation for geolocation, webcam and/or gyrometer.
               </p>
             </DialogContentText>
           </DialogContent>
@@ -64,14 +102,8 @@ const Game: FC = (): ReactElement => {
           </DialogActions>
         </Dialog>
       </div>
-      <LocationModule />
 
-      <StartModule/>
-      <NarrativePictureModule/>
-      <TextQuestionModule/>
-      <PhotoQuestionModule/>
-      <NarrativeTextModule/>
-      <EndModule/>
+      {setCurrentComponent()}
       <UseDeviceOrientation/>
     </div>
   );

@@ -12,7 +12,7 @@ const TextQuestionModule: FC = (): ReactElement => {
               TEXT QUESTION BLOCK
             </h1>
 
-            <p className="mt-2 text-justify px-14 font-body1">
+            <p className="px-6 mt-2 font-body1">
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem
               accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
               quae ab illo inventore veritatis et quasi architecto beatae vitae
@@ -31,7 +31,7 @@ const TextQuestionModule: FC = (): ReactElement => {
           </div>
         </Card>
       </div>
-      <ChildQuestion/>
+      <ChildQuestion />
     </div>
   );
 };
