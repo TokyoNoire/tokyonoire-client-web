@@ -7,8 +7,8 @@ const GameIdForm: FC = (): ReactElement => {
 
   const getGameById = async () => {
     await axios
-      .get(`http://localhost:2000/?uId=${gameId}`)
-      .then((response) => console.log(response.data));
+      .get(`http://localhost:2000/?_id=${gameId}`)
+      .then((response) => console.log(response.data[0]));
   };
 
   return (
