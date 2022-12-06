@@ -8,9 +8,14 @@ import {
 } from "@mui/material";
 import Gyroscope from "./Helpers/Gyroscope";
 
-const HowToPlayPopup: FC = (): ReactElement => {
+interface props {
+    setDevicePermission: Function
+}
+
+const HowToPlayPopup = (props: props): ReactElement => {
+    const { setDevicePermission } = props;
     const [open, setOpen] = useState<boolean>(true);
-    const { requestAccessAsync } = Gyroscope();
+    // const { requestAccessAsync } = Gyroscope();
 
     // const handleClickOpen = () => {
     //   setOpen(true);
@@ -20,16 +25,14 @@ const HowToPlayPopup: FC = (): ReactElement => {
         setOpen(false);
     };
 
-
-    const handleDevicePermissions = () => {
-        if ('geolocation' in navigator) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                console.log(position)
-            });
-        }
-        else console.error('geolocation unavailable')
-    }
-
+    // const handleDevicePermissions = () => {
+    //     if ('geolocation' in navigator) {
+    //         navigator.geolocation.getCurrentPosition((position) => {
+    //             console.log(position)
+    //         });
+    //     }
+    //     else console.error('geolocation unavailable')
+    // }
 
     return (
         <div>
@@ -56,8 +59,9 @@ const HowToPlayPopup: FC = (): ReactElement => {
                 <DialogActions>
                     <button
                         onClick={() => {
+                            setDevicePermission(true)
                             handleClose();
-                            handleDevicePermissions();
+                            // handleDevicePermissions();
                         }}
                         id="themeButton"
                         className="my-5 font-body2"

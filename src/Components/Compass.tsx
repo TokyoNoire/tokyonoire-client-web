@@ -11,23 +11,30 @@ interface props {
 const Compass = (props: props): ReactElement => {
     const { bearingAngle, currentCoords } = props;
     const { orientation, requestAccessAsync } = Gyroscope();
+    const hasMounted = useRef<boolean>(false);
+    useEffect(() => {
+        if (!hasMounted.current) {
+            requestAccessAsync()
+        }
+        hasMounted.current = true;
+    }, [hasMounted.current])
 
     return (
         <>
-            <div>
+            {/* <div>
                 <button
                     onClick={requestAccessAsync}
                 >Approve device motion to use the compass</button>
-            </div>
-            {/* <div className="mt-6">
+            </div> */}
+            <div className="mt-6">
                 <ul style={{ margin: 0, padding: 0 }}>
-                    <li>Current Coords: <code className="language-text">{currentCoords ? `${currentCoords![1]}, ${currentCoords![0]}` : null}</code></li>
+                    {/* <li>Current Coords: <code className="language-text">{currentCoords ? `${currentCoords![1]}, ${currentCoords![0]}` : null}</code></li> */}
                     <li>Bearing Angle: <code className="language-text">{bearingAngle}</code></li>
                     <li>ɑ: {orientation && <code className="language-text">{orientation.alpha}</code>}</li>
-                    <li>β: {orientation && <code className="language-text">{orientation.beta}</code>}</li>
-                    <li>γ: {orientation && <code className="language-text">{orientation.gamma}</code>}</li>
+                    {/* <li>β: {orientation && <code className="language-text">{orientation.beta}</code>}</li>
+                    <li>γ: {orientation && <code className="language-text">{orientation.gamma}</code>}</li> */}
                 </ul>
-            </div> */}
+            </div>
 
 
             <div className="compass__wrapper">
@@ -44,8 +51,8 @@ const Compass = (props: props): ReactElement => {
                         style={
                             {
                                 transform: `rotateZ(${orientation && orientation.alpha
-                                        ? 180 - orientation.alpha
-                                        : 0
+                                    ? 180 - orientation.alpha
+                                    : 0
                                     }deg) scale(0.4) translateY(300px)`
                             }}
                     />

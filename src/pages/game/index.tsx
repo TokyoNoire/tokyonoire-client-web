@@ -39,8 +39,8 @@ const Game: FC = (): ReactElement => {
   const [typeOfModule, setTypeOfModule] = useState<string>("");
   const [gameObject, setGameObject] = useState<GameModule>(testObject);
 
-  const [geolocationPermission, setGeolocationPermission] = useState<boolean>(false);
-  const [gyroscopePermission, setGyroscopePermission] = useState<boolean>(false);
+  const [devicePermission, setDevicePermission] = useState<boolean>(false);
+
 
 
   const handleClose = () => {
@@ -58,10 +58,10 @@ const Game: FC = (): ReactElement => {
         return (
           <>
             <LocationModule gameObject={gameObject} />
-            <NavigationModule
-              geolocationPermission={geolocationPermission}
-              gyroscopePermission={gyroscopePermission}
-            />
+            {devicePermission
+              ? <NavigationModule/>
+              : <></>
+            }
           </>
         );
 
@@ -91,8 +91,9 @@ const Game: FC = (): ReactElement => {
   return (
     <>
       <HowToPlayPopup
-        // geolocationPermission={geolocationPermission}
-        // gyroscopePermission={gyroscopePermission}
+        setDevicePermission={setDevicePermission}
+      // geolocationPermission={geolocationPermission}
+      // gyroscopePermission={gyroscopePermission}
       />
       {setCurrentComponent()}
     </>

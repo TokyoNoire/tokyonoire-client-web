@@ -1,72 +1,47 @@
 import React, { type FC, type ReactElement, useRef, useState, useEffect } from "react";
 import Compass from "./Compass";
 import Geolocation from "./Helpers/Geolocation";
+import Distance from "./Distance"
+import BearingAngle from "./Helpers/BearingAngle"
 
-interface props {
-    geolocationPermission : boolean;
-    gyroscopePermission : boolean
-  }
-
-const NavigationModule = (props : props): ReactElement => {
+const NavigationModule : FC = (): ReactElement => {
+    const { calcBearingAngle } = BearingAngle();
     const { currentCoords } = Geolocation();
     const [targetCoords, setTargetCoords] = useState<number[]>([139.73046793635865, 35.66015647415277])
-    const [bearingAngle, setBearingAngle] = useState<number | null>(calcBearingAngle());
-    const firstMount = useRef<boolean>(false);
-
-    function toDegrees(number: number) {
-        return number * 180 / Math.PI
-    }
-
-    function toRadians(number: number) {
-        return number * Math.PI / 180
-    }
-
-    function calcBearingAngle() {
-        // Credit to for formula: https://www.movable-type.co.uk/scripts/latlong.html
-        let bearingAngle: number | null = null;
-        if (currentCoords && currentCoords[0] && currentCoords[1]
-            && targetCoords && targetCoords[0] && targetCoords[1]) {
-            const lonO = toRadians(currentCoords[0]),
-                latO = toRadians(currentCoords[1]),
-                lonT = toRadians(targetCoords[0]),
-                latT = toRadians(targetCoords[1]);
-
-            const Y = Math.sin(lonT - lonO) * Math.cos(latT)
-            const X = Math.cos(latO) * Math.sin(latT) - Math.sin(latO) * Math.cos(latT) * Math.cos(lonT - lonO)
-            const Theta = Math.atan2(Y, X)
-            bearingAngle = toDegrees(Theta)
-        }
-        return bearingAngle;
-    }
+    const [bearingAngle, setBearingAngle] = useState<number | null>(calcBearingAngle(currentCoords!, targetCoords));
 
     useEffect(() => {
-        if (!firstMount.current && currentCoords) {
-            setBearingAngle(calcBearingAngle());
-        }
-        firstMount.current = true;
-    }, [firstMount, currentCoords, calcBearingAngle])
-
-    useEffect(() => {
-        if (firstMount) {
-
             const interval = setInterval(() => {
-                setBearingAngle(calcBearingAngle());
+                setBearingAngle(calcBearingAngle(currentCoords!, targetCoords));
                 console.log(bearingAngle)
 
-            }, 3000);
+            }, 1000);
 
             return () => {
                 clearInterval(interval)
             }
-        }
     })
 
     return (
         <>
+            {currentCoords && targetCoords
+            ?
+            <Distance 
+                currentCoords={currentCoords}
+                targetCoords={targetCoords}
+            />
+            :
+            <></>
+        }
+         {currentCoords && bearingAngle
+            ?
             <Compass
                 bearingAngle={bearingAngle}
                 currentCoords={currentCoords}
             />
+            :
+            <></>
+         }
         </>
     );
 };
