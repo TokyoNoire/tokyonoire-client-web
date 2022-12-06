@@ -41,6 +41,7 @@ const GameId: FC = (): ReactElement => {
   const [gameObject, setGameObject] = useState<GameModule | null>(null);
   const router = useRouter();
   const currentIndex = useRef(0);
+  const sentRequest = useRef<boolean>(false);
   const [devicePermission, setDevicePermission] = useState<boolean>(false);
 
 
@@ -51,10 +52,17 @@ const GameId: FC = (): ReactElement => {
   }, []);
 
   useEffect(() => {
-    if (challengeSuccess === true) {
+    if (challengeSuccess && sentRequest.current) {
+      setChallengeSuccess(false);
+      sentRequest.current = false; 
+    }
+  }, [challengeSuccess])
+
+  useEffect(() => {
+    if (challengeSuccess === true && !sentRequest.current) {
       currentIndex.current++;
       getGameObject();
-      setChallengeSuccess(false);
+      sentRequest.current = true;
     }
   }, [challengeSuccess]);
 
