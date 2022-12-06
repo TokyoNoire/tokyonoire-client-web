@@ -9,7 +9,7 @@ import {
 import Gyroscope from "./Helpers/Gyroscope";
 
 interface props {
-    setDevicePermission: Function
+    setDevicePermission: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const HowToPlayPopup = (props: props): ReactElement => {
