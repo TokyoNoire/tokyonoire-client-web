@@ -39,7 +39,7 @@ const GameId: FC = (): ReactElement => {
   const [typeOfModule, setTypeOfModule] = useState<string | null>("");
   const [gameObject, setGameObject] = useState<GameModule | null>(null);
   const router = useRouter();
-  const currentIndex = useRef(2);
+  const currentIndex = useRef(0);
 
   useEffect(() => {
     if (gameObject === null) {
@@ -173,7 +173,6 @@ const GameId: FC = (): ReactElement => {
       </div>
 
       {setCurrentComponent(gameObject?.typeOfModule)}
-      <UseDeviceOrientation />
     </div>
   );
 };
