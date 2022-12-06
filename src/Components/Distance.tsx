@@ -5,12 +5,12 @@ import Geolocation from "./Helpers/Geolocation";
 
 interface props {
   currentCoords: number[] | null;
-  targetCoords: number[] | null
+  targetCoords: number[] | null;
+  setChallengeSuccess: (boolean: boolean) => void;
 }
 
 const Distance = (props: props): ReactElement => {
-  const { currentCoords, targetCoords } = props
-
+  const { setChallengeSuccess, currentCoords, targetCoords } = props
   const { haversineDistance } = Haversine()
   const longitude = currentCoords ? currentCoords[0] : null;
   const latitude = currentCoords ? currentCoords[1] : null;
@@ -20,6 +20,10 @@ const Distance = (props: props): ReactElement => {
     if (currentCoords && currentCoords[0] && currentCoords[1] &&
       targetCoords && targetCoords[0] && targetCoords[1]) {
       setDistance(Math.round(haversineDistance(currentCoords, targetCoords)))
+
+      if (distance && distance < 50) {
+        setChallengeSuccess(true)
+      }
     }
   }, [currentCoords, targetCoords])
 

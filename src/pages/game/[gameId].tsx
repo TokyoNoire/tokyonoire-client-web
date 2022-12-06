@@ -78,21 +78,15 @@ const GameId: FC = (): ReactElement => {
     switch (typeOfModule) {
       case "location":
         return (
-          <LocationModule
-            gameObject={gameObject!}
-            setChallengeSuccess={setChallengeSuccess}
-          />
-        );
-
-      case "location":
-        return (
           <>
             <LocationModule
               gameObject={gameObject!}
               setChallengeSuccess={setChallengeSuccess}
-            />
+              />
             {devicePermission
-              ? <NavigationModule />
+              ? <NavigationModule 
+              setChallengeSuccess={setChallengeSuccess}
+              />
               : <></>
             }
           </>
@@ -156,7 +150,7 @@ const GameId: FC = (): ReactElement => {
       <HowToPlayPopup
         setDevicePermission={setDevicePermission}
       />
-      {setCurrentComponent(gameObject!.typeOfModule)}
+      {gameObject !== null ? setCurrentComponent(gameObject.typeOfModule) : <></>}
     </>
   );
 };
