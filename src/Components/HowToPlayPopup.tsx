@@ -17,6 +17,10 @@ const HowToPlayPopup: FC = (): ReactElement => {
         setOpen(false);
     };
 
+    const handleDevicePermissions = () => {
+        
+    }
+
     return (
         <div>
             <Dialog open={open} onClose={handleClose}>
@@ -28,22 +32,20 @@ const HowToPlayPopup: FC = (): ReactElement => {
                 <DialogContent>
                     <DialogContentText>
                         <p className="text-left font-body1">
-                            This is a welcome message for you the kind player.
+                            For an optimal game experience, we recommend enabling location services for your web browser.
                             <br />
                             <br />
-                            Here we will need to think of our instructions. It needs to in
-                            simple words explain the &quot;go somewhere, resolve a
-                            challenge&quot; principle we are going with.
+                            The game requests access to your current geolocation and your gyroscope to guide you to the different game locations.
+                            We currently do not store any of your device data.
                             <br />
                             <br />
-                            Also explain that some interactions will require user to grant
-                            authorisation for geolocation, webcam and/or gyrometer.
+                            By clicking &quot;I understand&quot;, you will be prompted to enable geolocation and gyroscope functionalities.
                         </p>
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <button
-                        onClick={handleClose}
+                        onClick={() => {handleClose(); handleDevicePermissions()}}
                         id="themeButton"
                         className="my-5 font-body2"
                         type="button"
