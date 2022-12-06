@@ -24,7 +24,7 @@ const Game: FC = (): ReactElement => {
   }
 
   useEffect(() => {
-    return setTypeOfModule("narrativePicture");
+    return setTypeOfModule("location");
   }, []);
 
   const setCurrentComponent = () => {
@@ -33,7 +33,10 @@ const Game: FC = (): ReactElement => {
         return <StartModule />;
 
       case "location":
-        return <LocationModule />;
+        return (<>
+          <LocationModule />
+          <NavigationModule />
+        </>);
 
       case "narrativePicture":
         return <NarrativePictureModule />;
@@ -57,9 +60,7 @@ const Game: FC = (): ReactElement => {
 
   return (
     <>
-      <HowToPlayPopup/>
-      <MapLocationPicker/>
-      <NavigationModule/>
+      <HowToPlayPopup />
       {setCurrentComponent()}
     </>
   );

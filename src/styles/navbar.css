@@ -1,7 +1,11 @@
 .navbar {
     top: 0px;
     position: sticky;
-    z-index: 99;
+    z-index: 97;
+}
+
+.navbar a {
+    color: #fff;
 }
 
 .navbar__main {
@@ -30,13 +34,21 @@
     font-size: 1.5em;
     top: 2.8em;
     text-align: center;
-    min-width: 160px;
-    padding: 12px 16px;
-    z-index: 1;
+    width: 100%;
+    box-shadow: 0px 20px 20px black;
+    z-index: 98;
+    background-color: black;
+    opacity: 1;
 }
 
-.menu:hover {
-    transform: scale(1.1);   
+@media screen and (min-width: 800px) {
+    .menu:hover {
+        transform: scale(1.1);   
+    }
+
+    .menu-item:hover {
+        transform: scale(1.2);
+    }
 }
 
 .menu-item {
@@ -47,16 +59,11 @@
     -webkit-transition: transform 0.5s;
 }
 
-.menu-item:hover {
-    transform: scale(1.2);
-}
-
 .menu__fade-in {
     -o-animation: fade-in 0.5s ease-in 0s 1 normal forwards;
     -moz-animation: fade-in 0.5s ease-in 0s 1 normal forwards;
     -webkit-animation: fade-in 0.5s ease-in 0s 1 normal forwards;
     animation: fade-in 0.5s ease-in 0s 1 normal forwards;
-    opacity: 1;
 }
 
 @keyframes fade-in {
@@ -66,5 +73,22 @@
 
     100% {
         opacity: 1;
+    }
+}
+
+.menu__fade-out {
+    -o-animation: fade-out 0.5s ease-in 0s 1 normal forwards;
+    -moz-animation: fade-out 0.5s ease-in 0s 1 normal forwards;
+    -webkit-animation: fade-out 0.5s ease-in 0s 1 normal forwards;
+    animation: fade-out 0.5s ease-in 0s 1 normal forwards;
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
     }
 }
