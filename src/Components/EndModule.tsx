@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@mui/material";
 import Image from "next/image";
-// import heroImage from "public/Hero.jpg";
+import { useRouter } from "next/router";
 import { GameModule } from "../pages/game/[gameId]";
 
 interface props {
@@ -18,6 +18,12 @@ interface props {
 
 const EndModule = (props: props): ReactElement => {
   const { gameObject, setChallengeSuccess } = props;
+  const router = useRouter();
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    router.push("/");
+  };
 
   return (
     <>
@@ -73,6 +79,7 @@ const EndModule = (props: props): ReactElement => {
           </Table>
         </TableContainer>
         <button
+          onClick={handleClick}
           id="themeButton"
           className="mt-20 mb-10 font-heading"
           type="button"

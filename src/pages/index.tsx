@@ -39,7 +39,6 @@ const Home: NextPage = () => {
 
   const handleOpen = () => {
     setOpen(true);
-    console.log("handleOpen");
   };
   return (
     <>

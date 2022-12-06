@@ -1,4 +1,10 @@
-import React, { type FC, type ReactElement, useState, useEffect } from "react";
+import React, {
+  type FC,
+  type ReactElement,
+  useState,
+  useEffect,
+  useRef,
+} from "react";
 import axios from "axios";
 import {
   Dialog,
@@ -31,11 +37,9 @@ const GameId: FC = (): ReactElement => {
   const [open, setOpen] = useState<boolean>(true);
   const [challengeSuccess, setChallengeSuccess] = useState<boolean>(false);
   const [typeOfModule, setTypeOfModule] = useState<string | null>("");
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [gameObject, setGameObject] = useState<GameModule | null>(null);
   const router = useRouter();
-
-  console.log(router.query.gameId);
+  const currentIndex = useRef(2);
 
   useEffect(() => {
     if (gameObject === null) {
@@ -45,7 +49,7 @@ const GameId: FC = (): ReactElement => {
 
   useEffect(() => {
     if (challengeSuccess === true) {
-      setCurrentIndex(currentIndex + 1);
+      currentIndex.current++;
       getGameObject();
       setChallengeSuccess(false);
     }
@@ -60,10 +64,9 @@ const GameId: FC = (): ReactElement => {
     setOpen(false);
   };
   const getGameObject = async () => {
-    console.log("😩", currentIndex);
     await axios
       .get(
-        `https://tokyo-noire-server-development.herokuapp.com/game/${router.query.gameId}/?index=${currentIndex}`
+        `https://tokyo-noire-server-development.herokuapp.com/game/${router.query.gameId}/?index=${currentIndex.current}`
       )
       .then((response) => setGameObject(response.data));
   };

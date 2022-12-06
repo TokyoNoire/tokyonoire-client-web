@@ -16,7 +16,6 @@ const GameIdForm = (prop: prop): ReactElement => {
   //const [game, setGame] = useState<startModuleInfo>(testObject);
 
   const getGameById = async () => {
-    console.log("this is running");
     await axios
       .get(
         `https://tokyo-noire-server-development.herokuapp.com/?_id=${gameId}`
