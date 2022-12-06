@@ -8,16 +8,23 @@ import {
   TableRow,
 } from "@mui/material";
 import Image from "next/image";
-// import heroImage from "public/Hero.jpg";
-import { GameModule } from "../pages/game";
+import { useRouter } from "next/router";
+import { GameModule } from "../pages/game/[gameId]";
 
 interface props {
   gameObject: GameModule;
+  setChallengeSuccess: (boolean: boolean) => void;
 }
 
-const EndModule = (props:props): ReactElement => {
-  const { gameObject } = props;
-  
+const EndModule = (props: props): ReactElement => {
+  const { gameObject, setChallengeSuccess } = props;
+  const router = useRouter();
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    router.push("/");
+  };
+
   return (
     <>
       <div className="self-center w-4/5 m-10">
@@ -25,7 +32,6 @@ const EndModule = (props:props): ReactElement => {
           <div className="self-center mb-5">
             <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
               {gameObject.title}
-              
             </h1>
             <div className="self-center w-10/12 m-4">
               <img
@@ -34,9 +40,7 @@ const EndModule = (props:props): ReactElement => {
                 className="rounded-lg"
               />
             </div>
-            <p className="px-6 mt-2 font-body1">
-              {gameObject.description}
-            </p>
+            <p className="px-6 mt-2 font-body1">{gameObject.description}</p>
           </div>
         </Card>
       </div>
@@ -75,6 +79,7 @@ const EndModule = (props:props): ReactElement => {
           </Table>
         </TableContainer>
         <button
+          onClick={handleClick}
           id="themeButton"
           className="mt-20 mb-10 font-heading"
           type="button"

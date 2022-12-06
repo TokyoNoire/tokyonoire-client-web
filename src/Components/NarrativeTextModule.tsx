@@ -1,13 +1,14 @@
 import React, { type FC, type ReactElement } from "react";
 import { Card, CardActions } from "@mui/material";
-import { GameModule } from "../pages/game";
+import { GameModule } from "../pages/game/[gameId]";
 
 interface props {
   gameObject: GameModule;
+  setChallengeSuccess: (boolean: boolean) => void;
 }
 
 const NarrativeTextModule = (props: props): ReactElement => {
-  const { gameObject } = props;
+  const { gameObject, setChallengeSuccess } = props;
 
   return (
     <div className="self-center w-4/5 m-10">

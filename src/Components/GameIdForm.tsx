@@ -1,17 +1,28 @@
 import React, { type FC, type ReactElement, useState } from "react";
 import TextField from "@mui/material/TextField";
-import axios from 'axios';
+import axios from "axios";
+import { startModuleInfo } from "../pages";
 
-const GameIdForm: FC = (): ReactElement => {
-  const [gameId, setGameId] = useState<string>("");
-  // const [game, setGame] = useState<startModuleInfo>(testObject);
+interface prop {
+  setGameId: (string: string) => void;
+  setGame: ({}: startModuleInfo) => void;
+  handleOpen: () => void;
+  game: startModuleInfo | null;
+  gameId: string | null;
+}
+const GameIdForm = (prop: prop): ReactElement => {
+  const { setGameId, gameId, setGame, handleOpen, game } = prop;
+
+  //const [game, setGame] = useState<startModuleInfo>(testObject);
 
   const getGameById = async () => {
     await axios
-      .get(`http://localhost:2000/?_id=${gameId}`)
-      .then((response) => console.log(response.data[0]));
+      .get(
+        `https://tokyo-noire-server-development.herokuapp.com/?_id=${gameId}`
+      )
+      .then((response) => setGame(response.data[0]));
   };
-  console.log(gameId)
+  //setGame
 
   return (
     <div className="items-center mx-8 my-48">
@@ -26,7 +37,15 @@ const GameIdForm: FC = (): ReactElement => {
         onChange={(e) => setGameId(e.target.value)}
       />
 
-      <button id="themeButton" className="mt-5 font-heading" type="button">
+      <button
+        id="themeButton"
+        className="mt-5 font-heading"
+        type="button"
+        onClick={() => {
+          getGameById();
+          setTimeout(handleOpen, 2000);
+        }}
+      >
         start
       </button>
     </div>
