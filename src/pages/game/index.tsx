@@ -20,6 +20,7 @@ const Game: FC = (): ReactElement => {
   const [open, setOpen] = useState<boolean>(true);
   const [challengeSuccess, setChallengeSuccess] = useState<boolean>(false);
   const [typeOfModule, setTypeOfModule] = useState<string | null>("");
+  const [currentIndex, setCurrentIndex] = useState<object | null>({});
 
   interface gameModules {
     typeOfModule: string;

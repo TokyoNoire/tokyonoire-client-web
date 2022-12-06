@@ -1,4 +1,5 @@
 // import styles from "./index.module.css";
+import { useState, useEffect } from "react";
 import { type NextPage } from "next";
 import Head from "next/head";
 import tokyoNoireName from "../../public/Title_DarkTheme.svg";
@@ -10,6 +11,7 @@ import StartModule from "../Components/StartModule";
 // import Link from "next/link";
 
 const Home: NextPage = () => {
+  const [gameId, setGameId] = useState<string>("");
   return (
     <>
       <Head>
@@ -23,7 +25,7 @@ const Home: NextPage = () => {
         </div>
       </div>
       <Hero />
-      <GameIdForm />
+      <GameIdForm setGameId={setGameId} gameId={gameId} />
       <StartModule />
     </>
   );
