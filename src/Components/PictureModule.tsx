@@ -20,7 +20,7 @@ const PictureModule = (props:props): ReactElement => {
           <div className="self-center w-10/12 m-4">
             <img
               src={gameObject.image}
-              alt="Tokyo Noire Hero"
+              alt="image"
               className="rounded-lg"
             />
           </div>
