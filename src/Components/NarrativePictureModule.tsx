@@ -5,11 +5,10 @@ import { GameModule } from "../pages/game/[gameId]";
 
 interface props {
   gameObject: GameModule;
-  setChallengeSuccess: (boolean: boolean) => void;
 }
 
 const NarrativePictureModule = (props: props): ReactElement => {
-  const { gameObject, setChallengeSuccess } = props;
+  const { gameObject } = props;
 
   return (
     <div className="self-center w-4/5 m-10">

@@ -5,12 +5,12 @@ import BearingAngle from "./Helpers/BearingAngle"
 import Gyroscope from "./Helpers/Gyroscope"
 
 interface props {
-    setChallengeSuccess: (boolean: boolean) => void;
+    challengeSuccess: boolean;
     locationCoordinates: Array<number>;
 }
 
 const NavigationModule = (props: props): ReactElement => {
-    const { setChallengeSuccess, locationCoordinates } = props;
+    const { challengeSuccess, locationCoordinates } = props;
     const { orientation, requestAccessAsync } = Gyroscope();
 
     const { calcBearingAngle } = BearingAngle();
@@ -69,7 +69,7 @@ const NavigationModule = (props: props): ReactElement => {
                 <Distance
                     currentCoords={currentCoords}
                     targetCoords={targetCoords}
-                    setChallengeSuccess={setChallengeSuccess}
+                    challengeSuccess={challengeSuccess}
                 />
                 :
                 <></>

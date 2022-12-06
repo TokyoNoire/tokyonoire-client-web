@@ -6,11 +6,11 @@ import { GameModule } from "../pages/game/[gameId]";
 
 interface props {
   gameObject: GameModule;
-  setChallengeSuccess: (boolean: boolean) => void;
+  challengeSuccess: boolean;
 }
 
 const PhotoQuestionModule = (props: props): ReactElement => {
-  const { gameObject, setChallengeSuccess } = props;
+  const { gameObject, challengeSuccess } = props;
 
   return (
     <div>
@@ -35,7 +35,7 @@ const PhotoQuestionModule = (props: props): ReactElement => {
         <ChildQuestion
           question={gameObject.question}
           rightAnswer={gameObject.answer}
-          setChallengeSuccess={setChallengeSuccess}
+          challengeSuccess={challengeSuccess}
         />
       </div>
     </div>

@@ -36,13 +36,15 @@ export type GameModule = {
 
 const GameId: FC = (): ReactElement => {
   const [open, setOpen] = useState<boolean>(true);
-  const [challengeSuccess, setChallengeSuccess] = useState<boolean>(false);
+  const challengeSuccess = useRef<boolean>(false);
   const [typeOfModule, setTypeOfModule] = useState<string | null>("");
   const [gameObject, setGameObject] = useState<GameModule | null>(null);
   const router = useRouter();
   const currentIndex = useRef(0);
   const sentRequest = useRef<boolean>(false);
   const [devicePermission, setDevicePermission] = useState<boolean>(false);
+
+  const [dummyState, setDummyState] = useState<boolean>(true);
 
 
   useEffect(() => {
@@ -51,20 +53,18 @@ const GameId: FC = (): ReactElement => {
     }
   }, []);
 
+  console.log(challengeSuccess.current)
+  
   useEffect(() => {
-    if (challengeSuccess && sentRequest.current) {
-      setChallengeSuccess(false);
-      sentRequest.current = false; 
-    }
-  }, [challengeSuccess])
+    if (challengeSuccess.current === true) {
 
-  useEffect(() => {
-    if (challengeSuccess === true && !sentRequest.current) {
+      console.log("yes")
       currentIndex.current++;
       getGameObject();
-      sentRequest.current = true;
+      setDummyState(true)
+      // challengeSuccess.current = false;
     }
-  }, [challengeSuccess]);
+  }, [challengeSuccess.current]);
 
   useEffect(() => {
     if (gameObject !== null) {
@@ -89,12 +89,11 @@ const GameId: FC = (): ReactElement => {
           <>
             <LocationModule
               gameObject={gameObject!}
-              setChallengeSuccess={setChallengeSuccess}
               />
             {devicePermission
               ? <NavigationModule 
               locationCoordinates={gameObject!.locationCoordinates}
-              setChallengeSuccess={setChallengeSuccess}
+              challengeSuccess={challengeSuccess.current}
               />
               : <></>
             }
@@ -105,15 +104,13 @@ const GameId: FC = (): ReactElement => {
         return (
           <NarrativePictureModule
             gameObject={gameObject!}
-            setChallengeSuccess={setChallengeSuccess}
           />
         );
 
       case "narrativeText":
         return (
-          <NarrativePictureModule
+          <NarrativeTextModule
             gameObject={gameObject!}
-            setChallengeSuccess={setChallengeSuccess}
           />
         );
 
@@ -121,7 +118,7 @@ const GameId: FC = (): ReactElement => {
         return (
           <TextQuestionModule
             gameObject={gameObject!}
-            setChallengeSuccess={setChallengeSuccess}
+            challengeSuccess={challengeSuccess.current}
           />
         );
 
@@ -129,23 +126,14 @@ const GameId: FC = (): ReactElement => {
         return (
           <PhotoQuestionModule
             gameObject={gameObject!}
-            setChallengeSuccess={setChallengeSuccess}
+            challengeSuccess={challengeSuccess.current}
           />
         );
-
-      case "narrative":
-        return (
-          <NarrativeTextModule
-            gameObject={gameObject!}
-            setChallengeSuccess={setChallengeSuccess}
-          />
-        );
-
+      
       case "end":
         return (
           <EndModule
             gameObject={gameObject!}
-            setChallengeSuccess={setChallengeSuccess}
           />
         );
 
