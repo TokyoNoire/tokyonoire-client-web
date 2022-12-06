@@ -31,11 +31,12 @@ const Menu: FC = (): ReactElement => {
 
   const [fadeIn, setFadeIn] = useState<boolean>(false)
   const [isShown, setIsShown] = useState<boolean>(false);
-
+  
   const handleClick = () => {
     setIsShown(current => !current)
   }
-
+  
+   console.log(fadeIn)
   return (
     <>
       <Image
@@ -43,14 +44,18 @@ const Menu: FC = (): ReactElement => {
         alt="logo menu button"
         className="logo"
         onClick={() => {
-          handleClick();
-          if (isShown) setFadeIn(false)
-          else setFadeIn(true)
+          if (!fadeIn) setFadeIn(true)
+          if (fadeIn) setFadeIn(false)
         }}
       />
       <ul
-        className={fadeIn ? "menu__fade-in menu__scale-up menu" : "menu"}
-        onAnimationEnd={() => setFadeIn(false)}
+        className={fadeIn ? "menu__fade-in menu__scale-up menu" : "menu__fade-out menu"}
+        onAnimationStart={() => {
+          if (!isShown && fadeIn) setIsShown(true)
+        }}
+        onAnimationEnd={() => {
+          if (!isShown) setIsShown(false)
+        }}
       >
         {isShown && (menuItems.map((menuItem, index) => (
           <li key={index} className="menu-item">
