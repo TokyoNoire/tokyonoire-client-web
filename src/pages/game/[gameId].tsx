@@ -85,6 +85,7 @@ const GameId: FC = (): ReactElement => {
               />
             {devicePermission
               ? <NavigationModule 
+              locationCoordinates={gameObject!.locationCoordinates}
               setChallengeSuccess={setChallengeSuccess}
               />
               : <></>

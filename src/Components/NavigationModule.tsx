@@ -6,17 +6,18 @@ import Gyroscope from "./Helpers/Gyroscope"
 
 interface props {
     setChallengeSuccess: (boolean: boolean) => void;
+    locationCoordinates: Array<number>;
 }
 
 const NavigationModule = (props: props): ReactElement => {
-    const { setChallengeSuccess } = props;
+    const { setChallengeSuccess, locationCoordinates } = props;
     const { orientation, requestAccessAsync } = Gyroscope();
 
     const { calcBearingAngle } = BearingAngle();
 
     const [currentCoords, setCurrentCoords] = useState<number[] | null>(null)
     const coords = useRef<number[] | null>(null);
-    const [targetCoords, setTargetCoords] = useState<number[]>([139.73046793635865, 35.66015647415277])
+    const [targetCoords, setTargetCoords] = useState<number[]>([locationCoordinates[1]!, locationCoordinates[0]!])
     const [bearingAngle, setBearingAngle] = useState<number | null>(calcBearingAngle(currentCoords!, targetCoords));
 
     const [acquiredPermissions, setAcquiredPermissions] = useState<boolean>(false);
