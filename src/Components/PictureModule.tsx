@@ -1,27 +1,31 @@
 import React, { type FC, type ReactElement } from "react";
 import { Card, CardActions } from "@mui/material";
 import Image from "next/image";
-import heroImage from "public/Hero.jpg";
+import { GameModule } from "../pages/game";
 
-const PictureModule: FC = (): ReactElement => {
+interface props {
+  gameObject: GameModule;
+}
+
+const PictureModule = (props:props): ReactElement => {
+  const { gameObject } = props;
+  
   return (
     <div className="self-center w-4/5 m-10">
       <Card>
         <div className="self-center">
           <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
-            Picture module
+            {gameObject.title}
           </h1>
           <div className="self-center w-10/12 m-4">
             <Image
-              src={heroImage}
+              src={gameObject.image}
               alt="Tokyo Noire Hero"
               className="rounded-lg"
             />
           </div>
           <p className="px-6 mt-2 font-body1">
-            Someone&apos;s come up missing, and there is a murder in the air.
-            This scandalous discovery is only the tip of the iceberg. Salad is
-            usually life, but it can also mean death.
+            {gameObject.description}
           </p>
         </div>
         <CardActions>
