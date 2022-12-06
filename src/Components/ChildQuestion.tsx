@@ -1,12 +1,18 @@
 import React, { type FC, type ReactElement, useState } from "react";
 import TextField from "@mui/material/TextField";
 
-const ChildQuestion: FC = (): ReactElement => {
+interface props {
+  question: string;
+}
+
+const ChildQuestion = (props:props): ReactElement => {
   const [answer, setAnswer] = useState<string>("");
+
+  const { question } = props;
 
   return (
     <div className="items-center mx-20 my-48">
-      <h1 className="mb-5 text-m font-heading">&quot;Head, shoulders, knees or toes?&quot;</h1>
+      <h1 className="mb-5 text-m font-heading">&quot;{question}&quot;</h1>
       <TextField
         id="standard-basic"
         fullWidth

@@ -1,30 +1,45 @@
-import React, {type FC, type ReactElement, useEffect, useState, useRef} from "react";
+import { useEffect, useState, useRef } from "react";
 
-const Geolocation: FC = (): ReactElement => {
+ const Geolocation = () => {
 
-  const hasMounted = useRef<boolean>(false);
-  const [location, setLocation] = useState<Array<number> | null>(null);
+   const hasMounted = useRef<boolean>(false);
+   const [currentCoords, setCurrentCoords] = useState<number[] | null>(null)
 
-  useEffect(() => {
-    if (!hasMounted.current) {
-      if ('geolocation' in navigator) {
-        console.log('geolocation available')
-        navigator.geolocation.getCurrentPosition((position) => {
-          setLocation([position.coords.latitude, position.coords.longitude])
-          console.log(position.coords.latitude, position.coords.longitude)
-        });
-      }
-      else console.log('geolocation unavailable')
-    }
+   useEffect(() => {
+     if (!hasMounted.current) {
+       if ('geolocation' in navigator) {
+         navigator.geolocation.getCurrentPosition((position) => {
+           setCurrentCoords([position.coords.longitude, position.coords.latitude])
+         });
+       }
+       else console.error('geolocation unavailable')
+     }      
+     hasMounted.current = true;
+   }, [hasMounted])
 
-    hasMounted.current = true;
-  }, [hasMounted])
 
-  return (
-    <div>
-      <h1>Geolocation: {location ? `lat: ${location[0]}, long: ${location[1]}` : "not found"}</h1>
-    </div>
-  );
-};
+   useEffect(() => {
+     if (hasMounted.current) {
 
-export default Geolocation;
+       const interval = setInterval(() => {
+         if ('geolocation' in navigator) {
+           navigator.geolocation.getCurrentPosition((position) => {
+             setCurrentCoords([position.coords.longitude, position.coords.latitude])
+           });
+         }
+         else console.error('geolocation unavailable')
+       }, 3000);
+
+       return () => {
+         clearInterval(interval)
+       }
+     }
+   })
+
+
+   return ({
+     currentCoords
+   });
+ };
+
+ export default Geolocation;
