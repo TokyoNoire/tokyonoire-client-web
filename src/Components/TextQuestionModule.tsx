@@ -1,15 +1,16 @@
 import React, { type FC, type ReactElement } from "react";
 import { Card } from "@mui/material";
 import ChildQuestion from "./ChildQuestion";
-import { GameModule } from "../pages/game";
+import { GameModule } from "../pages/game/[gameId]";
 
 interface props {
   gameObject: GameModule;
+  setChallengeSuccess: (boolean: boolean) => void;
 }
 
-const TextQuestionModule = (props:props): ReactElement => {
-  const { gameObject } = props;
-  
+const TextQuestionModule = (props: props): ReactElement => {
+  const { gameObject, setChallengeSuccess } = props;
+
   return (
     <div>
       <div className="self-center w-4/5 m-10">
@@ -19,13 +20,15 @@ const TextQuestionModule = (props:props): ReactElement => {
               {gameObject.title}
             </h1>
 
-            <p className="px-6 mt-2 font-body1">
-              {gameObject.description}
-            </p>
+            <p className="px-6 mt-2 font-body1">{gameObject.description}</p>
           </div>
         </Card>
       </div>
-      <ChildQuestion question={gameObject.question}/>
+      <ChildQuestion
+        question={gameObject.question}
+        setChallengeSuccess={setChallengeSuccess}
+        rightAnswer={gameObject.answer}
+      />
     </div>
   );
 };

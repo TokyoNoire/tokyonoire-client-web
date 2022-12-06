@@ -7,6 +7,7 @@ import {
   DialogContentText,
   DialogActions,
 } from "@mui/material";
+import { useRouter } from "next/router";
 import LocationModule from "../../Components/LocationModule";
 import NarrativePictureModule from "../../Components/NarrativePictureModule";
 import TextQuestionModule from "../../Components/TextQuestionModule";
@@ -25,56 +26,105 @@ export type GameModule = {
   image: string;
   locationCoordinates: Array<number>;
 };
-const testObject = {
-  _id: "21312",
-  title: "hellohello",
-  typeOfModule: "location",
-  description:
-    "Akika Mori is the hidden daughter of the late Taikichiro Mori, who was once the richest person on earth. She was being surveilled at all time, her family wanting her to stay hidden from the public and to not be associated with her family. Her dream was to become an actress, despite knowing that her family would never allow it. The worried Mori family requested your services to find their daughter.",
-  question: "when do you sing?",
-  answer: "everyday",
-  image:
-    "https://images.unsplash.com/photo-1513593771513-7b58b6c4af38?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80",
-  locationCoordinates: [1, 2],
-};
-const Game: FC = (): ReactElement => {
+
+const GameId: FC = (): ReactElement => {
   const [open, setOpen] = useState<boolean>(true);
   const [challengeSuccess, setChallengeSuccess] = useState<boolean>(false);
   const [typeOfModule, setTypeOfModule] = useState<string | null>("");
-  const [currentIndex, setCurrentIndex] = useState<object | null>({});
-  const [gameObject, setGameObject] = useState<GameModule>(testObject);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [gameObject, setGameObject] = useState<GameModule | null>(null);
+  const router = useRouter();
 
+  console.log(router.query.gameId);
+
+  useEffect(() => {
+    if (gameObject === null) {
+      getGameObject();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (challengeSuccess === true) {
+      setCurrentIndex(currentIndex + 1);
+      getGameObject();
+      setChallengeSuccess(false);
+    }
+  }, [challengeSuccess]);
+
+  useEffect(() => {
+    if (gameObject !== null) {
+      setTypeOfModule(gameObject.typeOfModule);
+    }
+  }, [gameObject]);
   const handleClose = () => {
     setOpen(false);
   };
+  const getGameObject = async () => {
+    console.log("😩", currentIndex);
+    await axios
+      .get(
+        `https://tokyo-noire-server-development.herokuapp.com/game/${router.query.gameId}/?index=${currentIndex}`
+      )
+      .then((response) => setGameObject(response.data));
+  };
 
-  useEffect(() => {
-    setGameObject(testObject);
-    setTypeOfModule(gameObject.typeOfModule);
-  }, []);
-
-  const setCurrentComponent = () => {
+  const setCurrentComponent = (typeOfModule: string | undefined) => {
     switch (typeOfModule) {
       case "location":
-        return <LocationModule gameObject={gameObject} />;
+        return (
+          <LocationModule
+            gameObject={gameObject!}
+            setChallengeSuccess={setChallengeSuccess}
+          />
+        );
 
       case "narrativePicture":
-        return <NarrativePictureModule gameObject={gameObject} />;
+        return (
+          <NarrativePictureModule
+            gameObject={gameObject!}
+            setChallengeSuccess={setChallengeSuccess}
+          />
+        );
 
       case "narrativeText":
-        return <NarrativePictureModule gameObject={gameObject} />;
+        return (
+          <NarrativePictureModule
+            gameObject={gameObject!}
+            setChallengeSuccess={setChallengeSuccess}
+          />
+        );
 
-      case "textQuestion":
-        return <TextQuestionModule gameObject={gameObject} />;
+      case "question":
+        return (
+          <TextQuestionModule
+            gameObject={gameObject!}
+            setChallengeSuccess={setChallengeSuccess}
+          />
+        );
 
       case "photoQuestion":
-        return <PhotoQuestionModule gameObject={gameObject} />;
+        return (
+          <PhotoQuestionModule
+            gameObject={gameObject!}
+            setChallengeSuccess={setChallengeSuccess}
+          />
+        );
 
       case "narrative":
-        return <NarrativeTextModule gameObject={gameObject} />;
+        return (
+          <NarrativeTextModule
+            gameObject={gameObject!}
+            setChallengeSuccess={setChallengeSuccess}
+          />
+        );
 
       case "end":
-        return <EndModule gameObject={gameObject} />;
+        return (
+          <EndModule
+            gameObject={gameObject!}
+            setChallengeSuccess={setChallengeSuccess}
+          />
+        );
 
       default:
         return null;
@@ -119,10 +169,10 @@ const Game: FC = (): ReactElement => {
         </Dialog>
       </div>
 
-      {setCurrentComponent()}
+      {setCurrentComponent(gameObject?.typeOfModule)}
       <UseDeviceOrientation />
     </div>
   );
 };
 
-export default Game;
+export default GameId;

@@ -1,4 +1,4 @@
-import React, {type FC, type ReactElement, useState} from "react";
+import React, { type FC, type ReactElement, useState } from "react";
 import {
   Box,
   Grid,
@@ -8,23 +8,22 @@ import {
   FormControl,
   Button,
 } from "@mui/material";
-import Link from 'next/link'
+import Link from "next/link";
 import GoogleIcon from "@mui/icons-material/Google";
-import AppleIcon from '@mui/icons-material/Apple';
-import { useRouter } from "next/router";
+import AppleIcon from "@mui/icons-material/Apple";
 
 const SignInForm: FC = (): ReactElement => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   // const router = useRouter();
 
-
   return (
-   <div className="items-center mx-8 my-20">
-     <br/>
-      <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">Sign In</h1>
-      <br/>
-
+    <div className="items-center mx-8 my-20">
+      <br />
+      <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
+        Sign In
+      </h1>
+      <br />
 
       <FormControl>
         <TextField
@@ -41,7 +40,7 @@ const SignInForm: FC = (): ReactElement => {
         </FormHelperText>
       </FormControl>
 
-      <br/>
+      <br />
       <FormControl>
         <TextField
           id="outlined-password-input"
@@ -57,28 +56,24 @@ const SignInForm: FC = (): ReactElement => {
           Password for your account.
         </FormHelperText>
       </FormControl>
-      <br/>
-      <Button
-        type="submit"
-        id="themeButton"
-        className = "font-heading"
-      >
+      <br />
+      <Button type="submit" id="themeButton" className="font-heading">
         Sign In
       </Button>
-      <br/>
+      <br />
       <Button
         type="submit"
         id="themeButton"
-        className = "font-heading"
+        className="font-heading"
         endIcon={<GoogleIcon />}
       >
         Sign in with
       </Button>
-      <br/>
+      <br />
       <Button
         type="submit"
         id="themeButton"
-        className = "font-heading"
+        className="font-heading"
         endIcon={<AppleIcon />}
       >
         Sign in with
@@ -93,12 +88,15 @@ const SignInForm: FC = (): ReactElement => {
           justifyContent: "center",
         }}
       >
-        <br/>
+        <br />
         <Grid container>
-          <Grid item xs sx={{ mx: 2 }} >
-             <Typography color="secondary" variant="body2" >
-              <Link className="mb-5 text-m font-body2" href="/" id="link">  Don&apos;t have an account? Sign in here. </Link>
-              </Typography>
+          <Grid item xs sx={{ mx: 2 }}>
+            <Typography color="secondary" variant="body2">
+              <Link className="mb-5 text-m font-body2" href="/" id="link">
+                {" "}
+                Don&apos;t have an account? Sign in here.{" "}
+              </Link>
+            </Typography>
           </Grid>
         </Grid>
       </Box>
