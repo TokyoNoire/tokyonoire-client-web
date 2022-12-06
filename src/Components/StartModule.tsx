@@ -23,7 +23,7 @@ const StartModule = (props: Props): ReactElement => {
   };
 
   return (
-    <Card className="overflow-auto">
+    <Card className="overflow-auto block">
       <div className="self-center">
         <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
           {game.titleOfGame}

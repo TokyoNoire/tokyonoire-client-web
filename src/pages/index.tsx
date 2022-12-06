@@ -40,6 +40,7 @@ const Home: NextPage = () => {
   const handleOpen = () => {
     setOpen(true);
   };
+
   return (
     <>
       <Head>

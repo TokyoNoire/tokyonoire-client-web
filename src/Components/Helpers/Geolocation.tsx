@@ -2,40 +2,22 @@ import { useEffect, useState, useRef } from "react";
 
 const Geolocation = () => {
 
-  const hasMounted = useRef<boolean>(false);
   const [currentCoords, setCurrentCoords] = useState<number[] | null>(null)
 
   useEffect(() => {
-    if (!hasMounted.current) {
+    const interval = setInterval(() => {
       if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition((position) => {
           setCurrentCoords([position.coords.longitude, position.coords.latitude])
         });
       }
       else console.error('geolocation unavailable')
-    }      
-    hasMounted.current = true;
-  }, [hasMounted])
+    }, 1000);
 
-
-  useEffect(() => {
-    if (hasMounted.current) {
-
-      const interval = setInterval(() => {
-        if ('geolocation' in navigator) {
-          navigator.geolocation.getCurrentPosition((position) => {
-            setCurrentCoords([position.coords.longitude, position.coords.latitude])
-          });
-        }
-        else console.error('geolocation unavailable')
-      }, 10);
-      
-      return () => {
-        clearInterval(interval)
-      }
+    return () => {
+      clearInterval(interval)
     }
   })
-  
 
   return ({
     currentCoords

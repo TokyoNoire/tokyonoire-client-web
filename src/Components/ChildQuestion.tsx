@@ -29,7 +29,7 @@ const ChildQuestion = (props: props): ReactElement => {
         className="mt-5 font-heading"
         type="button"
         onClick={() => {
-          if (answer === rightAnswer) {
+          if (answer.toLowerCase() === rightAnswer) {
             setChallengeSuccess(true);
           }
         }}
