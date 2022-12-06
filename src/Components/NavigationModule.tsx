@@ -2,7 +2,12 @@ import React, { type FC, type ReactElement, useRef, useState, useEffect } from "
 import Compass from "./Compass";
 import Geolocation from "./Helpers/Geolocation";
 
-const NavigationModule: FC = (): ReactElement => {
+interface props {
+    geolocationPermission : boolean;
+    gyroscopePermission : boolean
+  }
+
+const NavigationModule = (props : props): ReactElement => {
     const { currentCoords } = Geolocation();
     const [targetCoords, setTargetCoords] = useState<number[]>([139.73046793635865, 35.66015647415277])
     const [bearingAngle, setBearingAngle] = useState<number | null>(calcBearingAngle());

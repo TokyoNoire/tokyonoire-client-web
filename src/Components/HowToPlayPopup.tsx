@@ -6,20 +6,30 @@ import {
     DialogContentText,
     DialogActions,
 } from "@mui/material";
+import Gyroscope from "./Helpers/Gyroscope";
 
 const HowToPlayPopup: FC = (): ReactElement => {
     const [open, setOpen] = useState<boolean>(true);
+    const { requestAccessAsync } = Gyroscope();
 
     // const handleClickOpen = () => {
     //   setOpen(true);
     // };
+
     const handleClose = () => {
         setOpen(false);
     };
 
-    // const handleDevicePermissions = () => {
 
-    // }
+    const handleDevicePermissions = () => {
+        if ('geolocation' in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                console.log(position)
+            });
+        }
+        else console.error('geolocation unavailable')
+    }
+
 
     return (
         <div>
@@ -45,8 +55,9 @@ const HowToPlayPopup: FC = (): ReactElement => {
                 </DialogContent>
                 <DialogActions>
                     <button
-                        onClick={() => {handleClose(); 
-                            // handleDevicePermissions()
+                        onClick={() => {
+                            handleClose();
+                            handleDevicePermissions();
                         }}
                         id="themeButton"
                         className="my-5 font-body2"
