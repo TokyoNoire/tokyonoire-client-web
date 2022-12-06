@@ -7,12 +7,6 @@ import EndModule from "../../Components/EndModule";
 import NarrativeTextModule from "../../Components/NarrativeTextModule";
 import HowToPlayPopup from "../../Components/HowToPlayPopup";
 import NavigationModule from "../../Components/NavigationModule";
-import MapLocationPicker from "../../Components/Editor/MapLocationPicker";
-import HowToPlayPopup from "../../Components/HowToPlayPopup";
-import Gyroscope from "../../Components/Helpers/Gyroscope";
-import Compass from "../../Components/Compass";
-import { Map } from "@mui/icons-material";
-import Distance from "../../Components/Distance";
 
 export type GameModule = {
   _id: string;
