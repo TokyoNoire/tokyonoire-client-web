@@ -4,7 +4,6 @@ import React, {useEffect, type FC, type ReactElement } from "react";
 import Geolocation from "./Helpers/Geolocation";
 
 const Distance: FC = (): ReactElement => {
-//Latitude: 37.331686. Longitude: -122.030656
   const { haversineDistance } = Haversine()
   const { currentCoords } = Geolocation()
   const longitude = currentCoords? currentCoords[0] : null;

@@ -84,7 +84,6 @@ const Game: FC = (): ReactElement => {
 
   return (
     <div>
-      <Distance/>
       <HowToPlayPopup />
       {setCurrentComponent()}
 
