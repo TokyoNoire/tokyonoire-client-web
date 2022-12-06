@@ -19,7 +19,7 @@ const Compass = (props: props): ReactElement => {
                     onClick={requestAccessAsync}
                 >Approve device motion to use the compass</button>
             </div>
-            <div className="mt-6">
+            {/* <div className="mt-6">
                 <ul style={{ margin: 0, padding: 0 }}>
                     <li>Current Coords: <code className="language-text">{currentCoords ? `${currentCoords![1]}, ${currentCoords![0]}` : null}</code></li>
                     <li>Bearing Angle: <code className="language-text">{bearingAngle}</code></li>
@@ -27,7 +27,7 @@ const Compass = (props: props): ReactElement => {
                     <li>β: {orientation && <code className="language-text">{orientation.beta}</code>}</li>
                     <li>γ: {orientation && <code className="language-text">{orientation.gamma}</code>}</li>
                 </ul>
-            </div>
+            </div> */}
 
 
             <div className="compass__wrapper">

@@ -4,7 +4,7 @@ import Geolocation from "./Helpers/Geolocation";
 
 const NavigationModule: FC = (): ReactElement => {
     const { currentCoords } = Geolocation();
-    const [targetCoords, setTargetCoords] = useState<number[]>([139.72751747645665, 35.658022017846065])
+    const [targetCoords, setTargetCoords] = useState<number[]>([139.73046793635865, 35.66015647415277])
     const [bearingAngle, setBearingAngle] = useState<number | null>(calcBearingAngle());
     const firstMount = useRef<boolean>(false);
 
@@ -34,7 +34,6 @@ const NavigationModule: FC = (): ReactElement => {
         return bearingAngle;
     }
 
-
     useEffect(() => {
         if (!firstMount.current && currentCoords) {
             setBearingAngle(calcBearingAngle());
@@ -56,8 +55,6 @@ const NavigationModule: FC = (): ReactElement => {
             }
         }
     })
-
-
 
     return (
         <>
