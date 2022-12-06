@@ -1,6 +1,6 @@
 import React, { type FC, type ReactElement } from "react";
 import { Card } from "@mui/material";
-import Image from "next/image";
+// import Image from "next/image";
 import ChildQuestion from "./ChildQuestion";
 import { GameModule } from "../pages/game";
 
@@ -21,7 +21,7 @@ const PhotoQuestionModule = (props: props): ReactElement => {
                 {gameObject.title}
               </h1>
               <div className="self-center w-10/12 m-4">
-                <Image
+                <img
                   src={gameObject.image}
                   alt="Tokyo Noire Hero"
                   className="rounded-lg"

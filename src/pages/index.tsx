@@ -66,7 +66,7 @@ const Home: NextPage = () => {
       <Hero />
       <GameIdForm />
 
-      <Dialog className= "h-screen" open={open} onClose={handleClose}>
+      <Dialog className="object-fit" open={open} onClose={handleClose} >
           <StartModule game={ game } handleClose={handleClose}/>
       </Dialog>
     </>

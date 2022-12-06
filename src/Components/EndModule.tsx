@@ -28,7 +28,7 @@ const EndModule = (props:props): ReactElement => {
               
             </h1>
             <div className="self-center w-10/12 m-4">
-              <Image
+              <img
                 src={gameObject.image}
                 alt="Tokyo Noire Hero"
                 className="rounded-lg"

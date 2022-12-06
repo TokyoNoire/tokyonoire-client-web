@@ -1,6 +1,6 @@
 import React, { type FC, type ReactElement } from "react";
 import { Card, CardActions } from "@mui/material";
-import Image from "next/image";
+// import Image from "next/image";
 import { GameModule } from "../pages/game";
 
 interface props {
@@ -18,7 +18,7 @@ const PictureModule = (props:props): ReactElement => {
             {gameObject.title}
           </h1>
           <div className="self-center w-10/12 m-4">
-            <Image
+            <img
               src={gameObject.image}
               alt="Tokyo Noire Hero"
               className="rounded-lg"

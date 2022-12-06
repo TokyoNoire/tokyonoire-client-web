@@ -15,8 +15,7 @@ const StartModule = ( props: Props ): ReactElement => {
   const { game, handleClose } = props;
 
   return (
-    // <div className="self-center w-4/5 m-10">
-      <Card>
+      <Card className="overflow-auto">
         <div className="self-center">
           <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
             {game.title}
@@ -39,26 +38,29 @@ const StartModule = ( props: Props ): ReactElement => {
           </div>
           <p className="px-3 mt-2 font-body1">{game.description}</p>
         </div>
+
         <CardActions>
-          <button
+        <div className="grid grid-cols-2">
+        <button
             id="themeButton"
             className="mt-20 mb-5 font-heading"
             type="button"
           >
             start
           </button>
-          <br/>
           <button
               onClick={handleClose}
               id="themeButton"
-              className="my-5 font-heading"
+              className="mt-20 mb-5 font-heading"
               type="button"
             >
-              Choose a Different Case
+              Choose another
             </button>
+          </div>
         </CardActions>
+        
+    
       </Card>
-    // </div>
   );
 };
 
