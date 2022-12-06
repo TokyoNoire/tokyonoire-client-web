@@ -3,14 +3,14 @@ import TextField from "@mui/material/TextField";
 
 interface props {
   question: string;
-  challengeSuccess: boolean;
+  setChallengeSuccess: (boolean: boolean) => void;
   rightAnswer: string;
 }
 
 const ChildQuestion = (props: props): ReactElement => {
   const [answer, setAnswer] = useState<string>("");
 
-  let { question, challengeSuccess, rightAnswer } = props;
+  const { question, setChallengeSuccess, rightAnswer } = props;
 
   return (
     <div className="items-center mx-20 my-48">
@@ -30,7 +30,7 @@ const ChildQuestion = (props: props): ReactElement => {
         type="button"
         onClick={() => {
           if (answer.toLowerCase() === rightAnswer) {
-            challengeSuccess = true;
+            setChallengeSuccess(true);
           }
         }}
       >

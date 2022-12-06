@@ -5,11 +5,11 @@ import { GameModule } from "../pages/game/[gameId]";
 
 interface props {
   gameObject: GameModule;
-  challengeSuccess: boolean;
+  setChallengeSuccess: (boolean: boolean) => void;
 }
 
 const TextQuestionModule = (props: props): ReactElement => {
-  const { gameObject, challengeSuccess } = props;
+  const { gameObject, setChallengeSuccess } = props;
 
   return (
     <div>
@@ -26,7 +26,7 @@ const TextQuestionModule = (props: props): ReactElement => {
       </div>
       <ChildQuestion
         question={gameObject.question}
-        challengeSuccess={challengeSuccess}
+        setChallengeSuccess={setChallengeSuccess}
         rightAnswer={gameObject.answer}
       />
     </div>

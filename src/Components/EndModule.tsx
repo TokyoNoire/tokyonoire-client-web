@@ -13,10 +13,11 @@ import { GameModule } from "../pages/game/[gameId]";
 
 interface props {
   gameObject: GameModule;
+  setChallengeSuccess: (boolean: boolean) => void;
 }
 
 const EndModule = (props: props): ReactElement => {
-  const { gameObject } = props;
+  const { gameObject, setChallengeSuccess } = props;
   const router = useRouter();
 
   const handleClick = (e: React.MouseEvent) => {

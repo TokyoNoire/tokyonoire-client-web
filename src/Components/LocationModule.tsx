@@ -6,10 +6,11 @@ import { GameModule } from "../pages/game/[gameId]";
 
 interface props {
   gameObject: GameModule;
+  setChallengeSuccess: (boolean: boolean) => void;
 }
 
 const LocationModule = (props: props): ReactElement => {
-  const { gameObject } = props;
+  const { gameObject, setChallengeSuccess } = props;
 
   return (
     <>
