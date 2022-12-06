@@ -23,6 +23,7 @@ const Distance = (props: props): ReactElement => {
 
       if (distance && distance < 50) {
         setChallengeSuccess(true)
+        setDistance(null)
       }
     }
   }, [currentCoords, targetCoords])

@@ -31,7 +31,7 @@ export type GameModule = {
   question: string;
   answer: string;
   image: string;
-  locationCoordinates: Array<number>;
+  locationCoordinates: Array<number> | null;
 };
 
 const GameId: FC = (): ReactElement => {
@@ -51,18 +51,23 @@ const GameId: FC = (): ReactElement => {
     }
   }, []);
 
-  useEffect(() => {
-    if (challengeSuccess && sentRequest.current) {
-      setChallengeSuccess(false);
-      sentRequest.current = false; 
-    }
-  }, [challengeSuccess])
+  // useEffect(() => {
+  //   if (challengeSuccess && sentRequest.current) {
+  //     setChallengeSuccess(false);
+  //     sentRequest.current = false; 
+  //   }
+  // }, [challengeSuccess])
 
   useEffect(() => {
-    if (challengeSuccess === true && !sentRequest.current) {
+    if (challengeSuccess === true 
+      // && !sentRequest.current
+      ) {
       currentIndex.current++;
       getGameObject();
-      sentRequest.current = true;
+      // sentRequest.current = true;
+      gameObject!.locationCoordinates = null;
+            setChallengeSuccess(false);
+
     }
   }, [challengeSuccess]);
 
@@ -93,7 +98,7 @@ const GameId: FC = (): ReactElement => {
               />
             {devicePermission
               ? <NavigationModule 
-              locationCoordinates={gameObject!.locationCoordinates}
+              locationCoordinates={gameObject?.locationCoordinates !== null ? gameObject!.locationCoordinates : [0,0]}
               setChallengeSuccess={setChallengeSuccess}
               />
               : <></>
