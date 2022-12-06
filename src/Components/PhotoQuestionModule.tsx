@@ -2,14 +2,15 @@ import React, { type FC, type ReactElement } from "react";
 import { Card } from "@mui/material";
 // import Image from "next/image";
 import ChildQuestion from "./ChildQuestion";
-import { GameModule } from "../pages/game";
+import { GameModule } from "../pages/game/[gameId]";
 
 interface props {
   gameObject: GameModule;
+  setChallengeSuccess: (boolean: boolean) => void;
 }
 
 const PhotoQuestionModule = (props: props): ReactElement => {
-  const { gameObject } = props;
+  const { gameObject, setChallengeSuccess } = props;
 
   return (
     <div>
@@ -23,7 +24,7 @@ const PhotoQuestionModule = (props: props): ReactElement => {
               <div className="self-center w-10/12 m-4">
                 <img
                   src={gameObject.image}
-                  alt="Tokyo Noire Hero"
+                  alt="Image for question module"
                   className="rounded-lg"
                 />
               </div>
@@ -31,7 +32,11 @@ const PhotoQuestionModule = (props: props): ReactElement => {
             </div>
           </Card>
         </div>
-        <ChildQuestion question={gameObject.question} />
+        <ChildQuestion
+          question={gameObject.question}
+          rightAnswer={gameObject.answer}
+          setChallengeSuccess={setChallengeSuccess}
+        />
       </div>
     </div>
   );
