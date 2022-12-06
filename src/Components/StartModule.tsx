@@ -38,7 +38,7 @@ const StartModule = (props: Props): ReactElement => {
           <p className="self-center font-body2">{game.rating}</p>
         </div>
         <div className="self-center w-10/12 m-4">
-          <img src={game.image} alt="Game Home Image" className="rounded-lg" />
+          {/* <img src={game.image} alt="Game Home Image" className="rounded-lg" /> */}
         </div>
         <p className="px-3 mt-2 font-body1">{game.description}</p>
       </div>
