@@ -17,9 +17,9 @@ const HowToPlayPopup: FC = (): ReactElement => {
         setOpen(false);
     };
 
-    const handleDevicePermissions = () => {
-        
-    }
+    // const handleDevicePermissions = () => {
+
+    // }
 
     return (
         <div>
@@ -45,7 +45,9 @@ const HowToPlayPopup: FC = (): ReactElement => {
                 </DialogContent>
                 <DialogActions>
                     <button
-                        onClick={() => {handleClose(); handleDevicePermissions()}}
+                        onClick={() => {handleClose(); 
+                            // handleDevicePermissions()
+                        }}
                         id="themeButton"
                         className="my-5 font-body2"
                         type="button"

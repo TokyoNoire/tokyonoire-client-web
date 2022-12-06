@@ -5,9 +5,8 @@ import TextQuestionModule from "../../Components/TextQuestionModule";
 import PhotoQuestionModule from "../../Components/PhotoQuestionModule";
 import EndModule from "../../Components/EndModule";
 import NarrativeTextModule from "../../Components/NarrativeTextModule";
-import NavigationModule from "../../Components/NavigationModule";
-import MapLocationPicker from "../../Components/Editor/MapLocationPicker";
 import HowToPlayPopup from "../../Components/HowToPlayPopup";
+import NavigationModule from "../../Components/NavigationModule";
 
 export type GameModule = {
     _id: string;
@@ -53,7 +52,12 @@ const Game: FC = (): ReactElement => {
   const setCurrentComponent = () => {
     switch (typeOfModule) {
       case "location":
-        return <LocationModule gameObject={gameObject}/>;
+        return (
+        <>
+        <LocationModule gameObject={gameObject}/>
+        <NavigationModule/>
+        </>
+        );
 
       case "narrativePicture":
         return <NarrativePictureModule gameObject={gameObject}/>;
@@ -82,8 +86,7 @@ const Game: FC = (): ReactElement => {
     <>
       <HowToPlayPopup />
       {setCurrentComponent()}
-      <UseDeviceOrientation />
-    </div>
+    </>
   );
 };
 

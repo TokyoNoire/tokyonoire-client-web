@@ -8,7 +8,8 @@ interface props {
   gameObject: GameModule;
 }
 
-const LocationModule: FC = (): ReactElement => {
+const LocationModule = (props: props): ReactElement => {
+  const { gameObject } = props;
   
   return (
     <>
