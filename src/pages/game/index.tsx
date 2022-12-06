@@ -92,8 +92,6 @@ const Game: FC = (): ReactElement => {
     <>
       <HowToPlayPopup
         setDevicePermission={setDevicePermission}
-      // geolocationPermission={geolocationPermission}
-      // gyroscopePermission={gyroscopePermission}
       />
       {setCurrentComponent()}
     </>
