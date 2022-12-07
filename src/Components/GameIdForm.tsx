@@ -25,12 +25,13 @@ const GameIdForm = (prop: prop): ReactElement => {
   //setGame
 
   return (
-    <div className="items-center mx-8 my-48">
+    <div className="items-center mx-8 my-32">
       <h1 className="mb-5 text-m font-heading">
         &quot;Hello Detective, are you ready to close a case?&quot;
       </h1>
       <TextField
         id="gameId"
+        className="w-4/5"
         label="Enter a Case ID"
         variant="filled"
         aria-label="enter a game id"
