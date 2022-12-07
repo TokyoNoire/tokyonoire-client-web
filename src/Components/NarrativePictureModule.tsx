@@ -1,16 +1,16 @@
 import React, { type FC, type ReactElement } from "react";
 import { Card, CardActions } from "@mui/material";
 // import Image from "next/image";
-import { GameModule } from "../pages/game";
+import { GameModule } from "../pages/game/[gameId]";
 
 interface props {
   gameObject: GameModule;
+  setChallengeSuccess: (boolean: boolean) => void;
 }
 
+const NarrativePictureModule = (props: props): ReactElement => {
+  const { gameObject, setChallengeSuccess } = props;
 
-const NarrativePictureModule = (props:props): ReactElement => {
-  const { gameObject } = props;
-  
   return (
     <div className="self-center w-4/5 m-10">
       <Card>
@@ -26,9 +26,7 @@ const NarrativePictureModule = (props:props): ReactElement => {
               className="rounded-lg"
             />
           </div>
-          <p className="px-6 mt-2 font-body1">
-            {gameObject.description}
-          </p>
+          <p className="px-6 mt-2 font-body1">{gameObject.description}</p>
         </div>
         <CardActions>
           <button

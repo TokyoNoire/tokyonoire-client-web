@@ -1,32 +1,41 @@
 import { useRef, useState } from "react";
 import Haversine from "./Helpers/Haversine";
-import React, {useEffect, type FC, type ReactElement } from "react";
+import React, { useEffect, type FC, type ReactElement } from "react";
 import Geolocation from "./Helpers/Geolocation";
 
-const Distance: FC = (): ReactElement => {
-  const { haversineDistance } = Haversine()
-  const { currentCoords } = Geolocation()
-  const longitude = currentCoords? currentCoords[0] : null;
-  const latitude = currentCoords? currentCoords[1] : null;
+interface props {
+  currentCoords: number[] | null;
+  targetCoords: number[] | null;
+  setChallengeSuccess: (boolean: boolean) => void;
+}
 
-  const Cupertino = {latitude: 37.331686, longitude: -122.030656}
+const Distance = (props: props): ReactElement => {
+  const { setChallengeSuccess, currentCoords, targetCoords } = props
+  const { haversineDistance } = Haversine()
+  const longitude = currentCoords ? currentCoords[0] : null;
+  const latitude = currentCoords ? currentCoords[1] : null;
+  const [distance, setDistance] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (currentCoords && currentCoords[0] && currentCoords[1] &&
+      targetCoords && targetCoords[0] && targetCoords[1]) {
+      setDistance(Math.round(haversineDistance(currentCoords, targetCoords)))
+
+      if (distance && distance < 50) {
+        setChallengeSuccess(true)
+        setDistance(null)
+      }
+    }
+  }, [currentCoords, targetCoords])
 
   return (
     <>
-    <div>
-      Distance between your location and the destination:    
-      {
-        longitude && latitude ? haversineDistance({latitude, longitude}, Cupertino) : <></>
-      }
-      <br></br>
-      Your coordinates:
-      Latitude: {latitude} Longitude: {longitude}
-      <br></br>
-      Destination coordinates:
-      Latitude: {Cupertino.latitude}  Longitude:  {Cupertino.longitude}
-    </div>
+      <h1 className="self-center">Distance from target</h1>
+      <h1 className="self-center p-1 text-2xl text-center uppercase font-heading">
+        {distance} meters
+      </h1>
     </>
-    );
-  }
+  );
+}
 
 export default Distance;

@@ -2,14 +2,15 @@ import React, { type FC, type ReactElement, useEffect, useRef, useState } from "
 import { Card } from "@mui/material";
 // import Image from "next/image";
 // import heroImage from "public/Hero.jpg";
-import { GameModule } from "../pages/game";
+import { GameModule } from "../pages/game/[gameId]";
 
 interface props {
   gameObject: GameModule;
+  setChallengeSuccess: (boolean: boolean) => void;
 }
 
 const LocationModule = (props: props): ReactElement => {
-  const { gameObject } = props;
+  const { gameObject, setChallengeSuccess } = props;
 
   return (
     <>

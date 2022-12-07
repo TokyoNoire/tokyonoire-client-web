@@ -1,67 +1,87 @@
 import React, { type FC, type ReactElement, useRef, useState, useEffect } from "react";
 import Compass from "./Compass";
-import Geolocation from "./Helpers/Geolocation";
+import Distance from "./Distance"
+import BearingAngle from "./Helpers/BearingAngle"
+import Gyroscope from "./Helpers/Gyroscope"
 
-const NavigationModule: FC = (): ReactElement => {
-    const { currentCoords } = Geolocation();
-    const [targetCoords, setTargetCoords] = useState<number[]>([139.73046793635865, 35.66015647415277])
-    const [bearingAngle, setBearingAngle] = useState<number | null>(calcBearingAngle());
-    const firstMount = useRef<boolean>(false);
+interface props {
+    setChallengeSuccess: (boolean: boolean) => void;
+    locationCoordinates: Array<number>;
+}
 
-    function toDegrees(number: number) {
-        return number * 180 / Math.PI
-    }
+const NavigationModule = (props: props): ReactElement => {
+    const { setChallengeSuccess, locationCoordinates } = props;
+    const { orientation, requestAccessAsync } = Gyroscope();
 
-    function toRadians(number: number) {
-        return number * Math.PI / 180
-    }
+    const { calcBearingAngle } = BearingAngle();
 
-    function calcBearingAngle() {
-        // Credit to for formula: https://www.movable-type.co.uk/scripts/latlong.html
-        let bearingAngle: number | null = null;
-        if (currentCoords && currentCoords[0] && currentCoords[1]
-            && targetCoords && targetCoords[0] && targetCoords[1]) {
-            const lonO = toRadians(currentCoords[0]),
-                latO = toRadians(currentCoords[1]),
-                lonT = toRadians(targetCoords[0]),
-                latT = toRadians(targetCoords[1]);
+    const [currentCoords, setCurrentCoords] = useState<number[] | null>(null)
+    const coords = useRef<number[] | null>(null);
+    const [targetCoords, setTargetCoords] = useState<number[]>([locationCoordinates[1]!, locationCoordinates[0]!])
+    const [bearingAngle, setBearingAngle] = useState<number | null>(calcBearingAngle(currentCoords!, targetCoords));
 
-            const Y = Math.sin(lonT - lonO) * Math.cos(latT)
-            const X = Math.cos(latO) * Math.sin(latT) - Math.sin(latO) * Math.cos(latT) * Math.cos(lonT - lonO)
-            const Theta = Math.atan2(Y, X)
-            bearingAngle = toDegrees(Theta)
-        }
-        return bearingAngle;
-    }
+    const [acquiredPermissions, setAcquiredPermissions] = useState<boolean>(false);
 
     useEffect(() => {
-        if (!firstMount.current && currentCoords) {
-            setBearingAngle(calcBearingAngle());
-        }
-        firstMount.current = true;
-    }, [firstMount, currentCoords, calcBearingAngle])
-
-    useEffect(() => {
-        if (firstMount) {
-
+        console.log(acquiredPermissions)
+        if (acquiredPermissions) {
             const interval = setInterval(() => {
-                setBearingAngle(calcBearingAngle());
-                console.log(bearingAngle)
-
-            }, 3000);
+                if ('geolocation' in navigator) {
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        setCurrentCoords([position.coords.longitude, position.coords.latitude])
+                        coords.current = [position.coords.longitude, position.coords.latitude]
+                        console.log(position)
+                    });
+                }
+                else console.error('geolocation unavailable')
+                setBearingAngle(calcBearingAngle(coords.current!, targetCoords));
+            }, 1000);
 
             return () => {
                 clearInterval(interval)
             }
         }
-    })
+    }, [acquiredPermissions])
+
+    function getPosition(options?: PositionOptions): Promise<GeolocationPosition> {
+        return new Promise((resolve, reject) =>
+            navigator.geolocation.getCurrentPosition(resolve, reject, options)
+        );
+    }
+
+    const handlePermissions = async () => {
+        await requestAccessAsync();
+        const position = await getPosition();
+        console.log(position)
+        setAcquiredPermissions(true);
+    }
+
+    useEffect(() => {
+        if (!acquiredPermissions) {
+            handlePermissions();
+        }
+    }, [acquiredPermissions])
 
     return (
         <>
+            {currentCoords && targetCoords
+                ?
+                <Distance
+                    currentCoords={currentCoords}
+                    targetCoords={targetCoords}
+                    setChallengeSuccess={setChallengeSuccess}
+                />
+                :
+                <></>
+            }
+
             <Compass
                 bearingAngle={bearingAngle}
                 currentCoords={currentCoords}
+                targetCoords={targetCoords}
+                orientation={orientation!}
             />
+
         </>
     );
 };

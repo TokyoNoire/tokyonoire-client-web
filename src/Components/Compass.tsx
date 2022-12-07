@@ -3,35 +3,41 @@ import Image from "next/image";
 import northLetter from "../../Assets/Icons/North-letter.svg"
 import Gyroscope from "./Helpers/Gyroscope";
 
+type DeviceOrientation = {
+    alpha: number | null,
+    beta: number | null,
+    gamma: number | null,
+  };
+
 interface props {
     bearingAngle: number | null;
-    currentCoords: number[] | null
+    currentCoords: number[] | null;
+    targetCoords: number[] | null;
+    orientation: DeviceOrientation
 }
 
 const Compass = (props: props): ReactElement => {
-    const { bearingAngle, currentCoords } = props;
-    const { orientation, requestAccessAsync } = Gyroscope();
+    const { bearingAngle, currentCoords, orientation, targetCoords } = props;
 
     return (
         <>
-            <div>
+            {/* <div>
                 <button
                     onClick={requestAccessAsync}
                 >Approve device motion to use the compass</button>
-            </div>
-            {/* <div className="mt-6">
-                <ul style={{ margin: 0, padding: 0 }}>
-                    <li>Current Coords: <code className="language-text">{currentCoords ? `${currentCoords![1]}, ${currentCoords![0]}` : null}</code></li>
-                    <li>Bearing Angle: <code className="language-text">{bearingAngle}</code></li>
-                    <li>ɑ: {orientation && <code className="language-text">{orientation.alpha}</code>}</li>
-                    <li>β: {orientation && <code className="language-text">{orientation.beta}</code>}</li>
-                    <li>γ: {orientation && <code className="language-text">{orientation.gamma}</code>}</li>
-                </ul>
             </div> */}
-
+            <div className="mt-6">
+                <ul style={{ margin: 0, padding: 0 }}>
+                    {/* <li>Current Coords: <code className="language-text">{currentCoords ? `${currentCoords![1]}, ${currentCoords![0]}` : null}</code></li>
+                    <li>Target Coords: <code className="language-text">{targetCoords ? `${targetCoords![1]}, ${targetCoords![0]}` : null}</code></li>
+                    <li>Bearing Angle: <code className="language-text">{bearingAngle}</code></li>
+                    <li>ɑ: {orientation && <code className="language-text">{orientation.alpha}</code>}</li> */}
+                    {/* <li>β: {orientation && <code className="language-text">{orientation.beta}</code>}</li>
+                    <li>γ: {orientation && <code className="language-text">{orientation.gamma}</code>}</li> */}
+                </ul>
+            </div>
 
             <div className="compass__wrapper">
-
                 <div className="compass">
                     <div className="compass__outer-ring"></div>
                     <div className="compass__center-dot"></div>
@@ -44,12 +50,11 @@ const Compass = (props: props): ReactElement => {
                         style={
                             {
                                 transform: `rotateZ(${orientation && orientation.alpha
-                                        ? 180 - orientation.alpha
-                                        : 0
+                                    ? 180 - orientation.alpha
+                                    : 0
                                     }deg) scale(0.4) translateY(300px)`
                             }}
                     />
-
                 </div>
             </div>
         </>

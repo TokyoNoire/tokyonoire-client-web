@@ -6,32 +6,31 @@ import {
     DialogContentText,
     DialogActions,
 } from "@mui/material";
+import Gyroscope from "./Helpers/Gyroscope";
 
-const HowToPlayPopup: FC = (): ReactElement => {
+
+interface props {
+    setDevicePermission: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const HowToPlayPopup = (props: props): ReactElement => {
+    const { setDevicePermission } = props;
+    const { orientation, requestAccessAsync } = Gyroscope();
+
     const [open, setOpen] = useState<boolean>(true);
 
-    // const handleClickOpen = () => {
-    //   setOpen(true);
-    // };
     const handleClose = () => {
         setOpen(false);
     };
 
-    const handleDevicePermissions = () => {
-        
-    }
-
     return (
         <div>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>
-                    <h1 className="self-center p-5 text-3xl text-center uppercase font-heading">
+                <DialogTitle className="self-center p-5 text-3xl text-center uppercase font-heading">
                         How to Play
-                    </h1>
                 </DialogTitle>
                 <DialogContent>
-                    <DialogContentText>
-                        <p className="text-left font-body1">
+                    <DialogContentText className="text-left font-body1">
                             For an optimal game experience, we recommend enabling location services for your web browser.
                             <br />
                             <br />
@@ -40,12 +39,14 @@ const HowToPlayPopup: FC = (): ReactElement => {
                             <br />
                             <br />
                             By clicking &quot;I understand&quot;, you will be prompted to enable geolocation and gyroscope functionalities.
-                        </p>
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <button
-                        onClick={() => {handleClose(); handleDevicePermissions()}}
+                        onClick={() => {
+                            setDevicePermission(true);
+                            handleClose();
+                        }}
                         id="themeButton"
                         className="my-5 font-body2"
                         type="button"
