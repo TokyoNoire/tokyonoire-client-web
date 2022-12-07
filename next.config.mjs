@@ -7,6 +7,7 @@
 
 /** @type {import("next").NextConfig} */
 const config = {
+  trailingSlash: true,
   reactStrictMode: false,
   swcMinify: true,
   i18n: {
