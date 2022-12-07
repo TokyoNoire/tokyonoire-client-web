@@ -3,6 +3,7 @@ import { Card, CardActions } from "@mui/material";
 import { useRouter } from "next/router";
 import { type startModuleInfo } from "../pages";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
+import ClearIcon from '@mui/icons-material/Clear';
 
 interface Props {
   game: startModuleInfo;
@@ -23,7 +24,8 @@ const StartModule = (props: Props): ReactElement => {
   };
 
   return (
-    <Card className="overflow-auto block">
+    <Card className="relative block overflow-auto">
+      <div className="absolute top-0 right-0"><ClearIcon onClick={handleClose}/></div>
       <div className="self-center">
         <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
           {game.titleOfGame}
@@ -37,32 +39,30 @@ const StartModule = (props: Props): ReactElement => {
           </p>
           <p className="self-center font-body2">{game.rating}</p>
         </div>
-        <div className="self-center w-10/12 m-4">
-          {/* <img src={game.image} alt="Game Home Image" className="rounded-lg" /> */}
+        <div className="self-center">
+          <img src={game.image} alt="Game Home Image" className="rounded-lg w-80 " />
         </div>
-        <p className="px-3 mt-2 font-body1">{game.description}</p>
+        <p className="px-2 mt-2 font-body1">{game.description}</p>
       </div>
 
-      <CardActions>
-        <div className="grid grid-cols-2">
+        <div className="flex flex-row">
           <button
             onClick={handleClick}
             id="themeButton"
-            className="mt-20 mb-5 font-heading"
+            className="mx-2 mt-20 mb-5 font-heading"
             type="button"
           >
             start
           </button>{" "}
-          <button
+          {/* <button
             onClick={handleClose}
             id="themeButton"
             className="mt-20 mb-5 font-heading"
             type="button"
           >
-            Choose another
-          </button>
+            choose another
+          </button> */}
         </div>
-      </CardActions>
     </Card>
   );
 };
