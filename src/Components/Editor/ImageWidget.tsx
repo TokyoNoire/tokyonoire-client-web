@@ -9,13 +9,32 @@ import Image from "next/image";
 import Script from "next/script";
 
 const ImageWidget = (): ReactElement => {
-  const cloudinaryRef = useRef();
+  const cloudinaryRef = useRef<any>();
+  const widgetRef = useRef<any>();
+  const [imageUrl, setImageUrl] = useState<null | string>(null);
   useEffect(() => {
+    // if (cloudinaryRef.current.url !== "url") {
+    //   console.log(cloudinaryRef.current.url);
+    // }
     cloudinaryRef.current = window.cloudinary;
-    console.log("HEllo");
-    console.log(cloudinaryRef.current);
+    //console.log("🍎", cloudinaryRef.current.WIDGET_SOURCES.URL);
+    widgetRef.current = cloudinaryRef.current?.createUploadWidget(
+      {
+        cloudName: "diyzmibyd",
+        uploadPreset: "xc76wyzc",
+      },
+      function (error: any, result: any) {
+        setImageUrl(result.info.url);
+        console.log(imageUrl);
+      },
+      []
+    );
   }, []);
-  return <h1>Hello world</h1>;
+  return (
+    <button id="themeButton" onClick={() => widgetRef.current?.open()}>
+      Select Photo
+    </button>
+  );
 };
 
 export default ImageWidget;

@@ -9,9 +9,11 @@ import ImageWidget from "../../../Components/Editor/ImageWidget";
 const GameBuilder: NextPage = () => {
   return (
     <>
-      <div className="container">
+      <SignUpForm />
+      <SignInForm />
+      {/* <div className="container">
         <ImageWidget />
-      </div>
+      </div> */}
     </>
   );
 };
