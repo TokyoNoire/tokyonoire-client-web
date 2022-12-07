@@ -36,7 +36,7 @@ export type startModuleInfo = {
 const Home: NextPage = () => {
   const [gameId, setGameId] = useState<string>("");
   const [game, setGame] = useState<startModuleInfo | null>(null);
-  const [open, setOpen] = useState<boolean>(true);
+  const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (game !== null) {

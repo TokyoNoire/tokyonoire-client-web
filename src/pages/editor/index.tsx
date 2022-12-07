@@ -1,12 +1,12 @@
 import { type NextPage } from "next";
 // import Link from "next/link";
 
-const Profile: NextPage = () => {
+const Editor: NextPage = () => {
   return (
     <>
-      <h1 className="">Profile Page</h1>
+   <h1>Editor Page</h1>
     </>
   );
 };
 
-export default Profile;
+export default Editor;
