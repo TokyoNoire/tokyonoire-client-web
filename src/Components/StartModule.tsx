@@ -24,8 +24,8 @@ const StartModule = (props: Props): ReactElement => {
   };
 
   return (
-    <Card className="relative block overflow-auto">
-      <div className="absolute top-0 right-0"><ClearIcon onClick={handleClose}/></div>
+    <Card className="relative block overflow-visible">
+      <div className="items-end p-2 top-2 right-2"><ClearIcon onClick={handleClose}/></div>
       <div className="self-center">
         <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
           {game.titleOfGame}
@@ -44,7 +44,6 @@ const StartModule = (props: Props): ReactElement => {
         </div>
         <p className="px-2 mt-2 font-body1">{game.description}</p>
       </div>
-
         <div className="flex flex-row">
           <button
             onClick={handleClick}
