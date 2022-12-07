@@ -30,7 +30,7 @@ const PictureModule = (props: props): ReactElement => {
         <CardActions>
           <button
             id="themeButton"
-            className="mt-20 mb-5 font-heading"
+            className="px-6 mt-20 mb-5 font-heading"
             type="button"
           >
             start

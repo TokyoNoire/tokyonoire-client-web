@@ -4,7 +4,7 @@ import heroImage from 'public/Hero.jpg';
 
 const Hero: FC = (): ReactElement => {
   return (
-    <div className="pt-5">
+    <div className="object-contain">
        <Image
       src={heroImage}
       alt="Tokyo Noire Hero"
