@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 
 const ModuleForms: FC = (): ReactElement => {
   return (
-    <div className="relative w-full h-full rounded shadow-lg md:overflow-scroll bg-darkGrey shadow-slate-100">
+    <div className="relative w-full h-full rounded shadow-lg bg-darkGrey shadow-slate-100">
         <div className="absolute top-2 right-2 hover:shadow-indigo-500/40"><ClearIcon/></div>
       <div className="px-6 py-4">
         <div className="self-center mt-10 mb-2 text-2xl font-bold uppercase font-heading shadow-white">
@@ -47,7 +47,7 @@ const ModuleForms: FC = (): ReactElement => {
           fullWidth
         />
 
-        <button id="themeButton" className="self-center w-4/12 mt-10 mb-5 font-heading"> Save </button>
+        <button id="themeButton" className="self-center w-1/2 mt-10 mb-5"> Save </button>
       </div>
     </div>
   );

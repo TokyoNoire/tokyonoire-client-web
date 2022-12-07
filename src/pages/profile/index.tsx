@@ -4,7 +4,7 @@ import { type NextPage } from "next";
 const Profile: NextPage = () => {
   return (
     <>
-      <h1 className="">Profile Page</h1>
+      <h1 >Profile Page</h1>
     </>
   );
 };
