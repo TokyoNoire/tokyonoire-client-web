@@ -1,12 +1,12 @@
 import { type NextPage } from "next";
 // import Link from "next/link";
 
-const Dashboard: NextPage = () => {
+const Profile: NextPage = () => {
   return (
     <>
-      <h1 className="">Gamebuilder</h1>
+      <h1 >Profile Page</h1>
     </>
   );
 };
 
-export default Dashboard;
+export default Profile;

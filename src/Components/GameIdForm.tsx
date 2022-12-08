@@ -25,7 +25,7 @@ const GameIdForm = (prop: prop): ReactElement => {
   //setGame
 
   return (
-    <div className="items-center mx-8 my-32">
+    <div className="items-center mx-8 my-48 flexCenterDiv">
       <h1 className="mb-5 text-m font-heading">
         &quot;Hello Detective, are you ready to close a case?&quot;
       </h1>

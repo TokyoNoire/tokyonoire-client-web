@@ -24,7 +24,7 @@ const HowToPlayPopup = (props: props): ReactElement => {
     };
 
     return (
-        <div>
+        <div className="flexCenterDiv">
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle className="self-center p-5 text-3xl text-center uppercase font-heading">
                         How to Play
@@ -41,14 +41,14 @@ const HowToPlayPopup = (props: props): ReactElement => {
                             By clicking &quot;I understand&quot;, you will be prompted to enable geolocation and gyroscope functionalities.
                     </DialogContentText>
                 </DialogContent>
-                <DialogActions>
+                <DialogActions className="flexCenterDiv">
                     <button
                         onClick={() => {
                             setDevicePermission(true);
                             handleClose();
                         }}
                         id="themeButton"
-                        className="my-5 font-body2"
+                        className="self-center my-5"
                         type="button"
                     >
                         I understand
