@@ -16,6 +16,7 @@ module.exports = {
     colors: {
       white: "#FFFFF",
       black: "#121212",
+      darkGrey: "#373535"
     },
     fontFamily: {
       title: ['Britannic', 'serif'],

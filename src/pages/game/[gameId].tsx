@@ -6,20 +6,11 @@ import React, {
   useRef,
 } from "react";
 import axios from "axios";
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-} from "@mui/material";
 import { useRouter } from "next/router";
 import LocationModule from "../../Components/LocationModule";
-import NarrativePictureModule from "../../Components/NarrativePictureModule";
-import TextQuestionModule from "../../Components/TextQuestionModule";
-import PhotoQuestionModule from "../../Components/PhotoQuestionModule";
+import NarrativeModule from "../../Components/NarrativeModule";
+import QuestionModule from "../../Components/QuestionModule";
 import EndModule from "../../Components/EndModule";
-import NarrativeTextModule from "../../Components/NarrativeTextModule";
 import NavigationModule from "../../Components/NavigationModule";
 import HowToPlayPopup from "../../Components/HowToPlayPopup";
 
@@ -35,7 +26,6 @@ export type GameModule = {
 };
 
 const GameId: FC = (): ReactElement => {
-  const [open, setOpen] = useState<boolean>(true);
   const [challengeSuccess, setChallengeSuccess] = useState<boolean>(false);
   const [typeOfModule, setTypeOfModule] = useState<string | null>("");
   const [gameObject, setGameObject] = useState<GameModule | null>(null);
@@ -50,13 +40,6 @@ const GameId: FC = (): ReactElement => {
       getGameObject();
     }
   }, []);
-
-  // useEffect(() => {
-  //   if (challengeSuccess && sentRequest.current) {
-  //     setChallengeSuccess(false);
-  //     sentRequest.current = false; 
-  //   }
-  // }, [challengeSuccess])
 
   useEffect(() => {
     if (challengeSuccess === true 
@@ -76,9 +59,7 @@ const GameId: FC = (): ReactElement => {
       setTypeOfModule(gameObject.typeOfModule);
     }
   }, [gameObject]);
-  const handleClose = () => {
-    setOpen(false);
-  };
+
   const getGameObject = async () => {
     await axios
       .get(
@@ -106,17 +87,9 @@ const GameId: FC = (): ReactElement => {
           </>
         );
 
-      case "narrativePicture":
+      case "narrative":
         return (
-          <NarrativePictureModule
-            gameObject={gameObject!}
-            setChallengeSuccess={setChallengeSuccess}
-          />
-        );
-
-      case "narrativeText":
-        return (
-          <NarrativePictureModule
+          <NarrativeModule
             gameObject={gameObject!}
             setChallengeSuccess={setChallengeSuccess}
           />
@@ -124,33 +97,17 @@ const GameId: FC = (): ReactElement => {
 
       case "question":
         return (
-          <TextQuestionModule
+          <QuestionModule
             gameObject={gameObject!}
             setChallengeSuccess={setChallengeSuccess}
           />
         );
 
-      case "photoQuestion":
-        return (
-          <PhotoQuestionModule
-            gameObject={gameObject!}
-            setChallengeSuccess={setChallengeSuccess}
-          />
-        );
-
-      case "narrative":
-        return (
-          <NarrativeTextModule
-            gameObject={gameObject!}
-            setChallengeSuccess={setChallengeSuccess}
-          />
-        );
 
       case "end":
         return (
           <EndModule
             gameObject={gameObject!}
-            setChallengeSuccess={setChallengeSuccess}
           />
         );
 

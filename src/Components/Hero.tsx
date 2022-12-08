@@ -4,7 +4,7 @@ import heroImage from 'public/Hero.jpg';
 
 const Hero: FC = (): ReactElement => {
   return (
-    <div className="object-contain">
+    <div className="object-contain flexCenterDiv">
        <Image
       src={heroImage}
       alt="Tokyo Noire Hero"
