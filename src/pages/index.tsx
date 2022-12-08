@@ -1,4 +1,3 @@
-// import styles from "./index.module.css";
 import { useState, useEffect } from "react";
 import { type NextPage } from "next";
 import Head from "next/head";
@@ -9,7 +8,6 @@ import Hero from "./../Components/Hero";
 import GameIdForm from "../Components/GameIdForm";
 import StartModule from "../Components/StartModule";
 import { Dialog } from "@mui/material";
-// import Link from "next/link";
 
 export type startModuleInfo = {
   _id: string;
@@ -73,9 +71,14 @@ const Home: NextPage = () => {
         handleOpen={handleOpen}
       />
 
-      <Dialog className="flexCenterDiv" open={open} onClose={handleClose} fullScreen>
-        <StartModule game={game!} handleClose={handleClose} gameId={gameId} />
-      </Dialog>
+      {game
+        ?
+        <Dialog className="object-fit flexCenterDiv" open={open} onClose={handleClose} fullScreen>
+          <StartModule game={game!} handleClose={handleClose} gameId={gameId} />
+        </Dialog>
+        :
+        <></>
+      }
     </>
   );
 };

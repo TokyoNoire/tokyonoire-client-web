@@ -28,6 +28,7 @@ const StartModule = (props: Props): ReactElement => {
       <div className="absolute top-3 right-3 flexCenterDiv "><ClearIcon onClick={handleClose}/></div>
       <div className="self-center flexCenterDiv">
         <h1 className="self-center p-5 mt-5 text-2xl text-center uppercase font-heading">
+
           {game.titleOfGame}
         </h1>
         <p className="self-center pb-3 font-heading">{game.author}</p>
@@ -48,6 +49,7 @@ const StartModule = (props: Props): ReactElement => {
       </div>
 
         <div className="flex flex-row flexCenterDiv">
+
           <button
             onClick={handleClick}
             id="themeButton"

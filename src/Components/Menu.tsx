@@ -31,12 +31,11 @@ const Menu: FC = (): ReactElement => {
 
   const [fadeIn, setFadeIn] = useState<boolean>(false)
   const [isShown, setIsShown] = useState<boolean>(false);
-  
+
   const handleClick = () => {
     setIsShown(current => !current)
   }
   
-   console.log(fadeIn)
   return (
     <>
       <Image

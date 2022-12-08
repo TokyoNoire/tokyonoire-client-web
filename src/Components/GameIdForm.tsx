@@ -31,6 +31,7 @@ const GameIdForm = (prop: prop): ReactElement => {
       </h1>
       <TextField
         id="gameId"
+        className="w-4/5"
         label="Enter a Case ID"
         variant="filled"
         aria-label="enter a game id"
