@@ -1,0 +1,12 @@
+@keyframes hover-up-down {
+    0% {
+      /* opacity: 1; */
+    }
+    50% {
+        transform: translateY(0.5rem);
+        
+    }
+    100% {
+      /* opacity: 0; */
+    }
+  }

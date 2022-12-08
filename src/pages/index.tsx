@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { type NextPage } from "next";
 import Head from "next/head";
-import tokyoNoireName from "../../public/Title_DarkTheme.svg";
+import TokyoNoireName from "../../public/Title_DarkTheme.svg";
 import Image from "next/image";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Hero from "./../Components/Hero";
@@ -9,6 +9,7 @@ import GameIdForm from "../Components/GameIdForm";
 import StartModule from "../Components/StartModule";
 import { Dialog } from "@mui/material";
 import FadeDiv from "../Components/Helpers/FadeDiv";
+import NavBar from "../Components/NavBar";
 
 
 export type startModuleInfo = {
@@ -32,7 +33,7 @@ const Home: NextPage = () => {
 
     const maxScreenSize = window.screen.height >= window.screen.width ? window.screen.height : window.screen.width;
 
-    if (maxScreenSize) setShow(false)
+    // if (maxScreenSize) setShow(false)
     // if(/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
     if (maxScreenSize < 1000) {
       console.log("mobile device");
@@ -73,29 +74,38 @@ const Home: NextPage = () => {
         <title>Tokyo Noire</title>
         <meta name="keywords" content="interactive, story, game" />
       </Head>
-      <div className="h-screen mx-5 flexCenterDiv place-items-center">
-        <Image src={tokyoNoireName} alt="Tokyo Noire Hero" priority={true} />
-        <div className=" pt-96">
-          <KeyboardArrowDownIcon />
-        </div>
-      </div>
-      <Hero />
-      <GameIdForm
-        setGameId={setGameId}
-        gameId={gameId}
-        setGame={setGame}
-        game={game}
-        handleOpen={handleOpen}
-      />
 
-      {game
-        ?
-        <Dialog className="object-fit flexCenterDiv" open={open} onClose={handleClose} fullScreen>
-          <StartModule game={game!} handleClose={handleClose} gameId={gameId} />
-        </Dialog>
-        :
-        <></>
-      }
+      <FadeDiv show={show}>
+        <NavBar />
+        <div className="relative h-screen flexCenterDiv place-items-center mx-5 ">
+          <TokyoNoireName alt="Tokyo Noire Name" style={{ maxWidth: "80vw" }} />
+          <div className="absolute bottom-8">
+            <KeyboardArrowDownIcon
+              style={{ animation: `hover-up-down ease-in-out 3s infinite`}}
+              sx={{
+                width: "1.5em",
+                height: "1.5em",
+              }} />
+          </div>
+        </div>
+        <Hero />
+        <GameIdForm
+          setGameId={setGameId}
+          gameId={gameId}
+          setGame={setGame}
+          game={game}
+          handleOpen={handleOpen}
+        />
+        {game
+          ?
+          <Dialog className="object-fit flexCenterDiv" open={open} onClose={handleClose} fullScreen>
+            <StartModule game={game!} handleClose={handleClose} gameId={gameId} />
+          </Dialog>
+          :
+          <></>
+        }
+      </FadeDiv>
+
     </>
   );
 };

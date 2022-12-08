@@ -56,6 +56,10 @@ a {
   margin: 0;
 }
 
+.display-linebreak {
+  white-space: pre-line;
+}
+
 .flexCenterDiv{
   display: flex;
   flex-direction: column;

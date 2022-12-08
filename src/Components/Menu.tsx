@@ -1,5 +1,5 @@
 import React, { type FC, type ReactElement, useState } from "react";
-import logo from '../../public/Logo_DarkTheme.svg';
+import Logo from '../../public/Logo_DarkTheme.svg';
 import Image from "next/image";
 import Link from "next/link";
 
@@ -35,11 +35,10 @@ const Menu: FC = (): ReactElement => {
   const handleClick = () => {
     setIsShown(current => !current)
   }
-  
+
   return (
     <>
-      <Image
-        src={logo}
+      <Logo
         alt="logo menu button"
         className="logo"
         onClick={() => {

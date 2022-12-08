@@ -3,7 +3,7 @@ import React, { useEffect, useState, ReactNode } from "react";
 interface props {
     show: boolean;
     children: ReactNode;
-    duration: number
+    duration?: number
 }
 
 const FadeDiv = (props: props) => {
@@ -23,7 +23,7 @@ const FadeDiv = (props: props) => {
             shouldRender && (
                 <div
                     className="absolute z-50"
-                    style={{ animation: `${show ? "fadeIn" : "fadeOut"} ${duration}s forwards`, width: "100vw", height: "100vh" }}
+                    style={{ animation: `${show ? "fadeIn" : "fadeOut"} ${duration ? duration : 0.5}s forwards`}}
                     onAnimationEnd={onAnimationEnd}
                 >
                     {children}

@@ -1,6 +1,7 @@
 .navbar {
     top: 0px;
-    position: sticky;
+    position: fixed;
+    width: 100vw;
     z-index: 20;
 }
 
@@ -73,6 +74,7 @@
 
     100% {
         opacity: 1;
+        visibility: visible;
     }
 }
 
@@ -87,8 +89,9 @@
     0% {
         opacity: 1;
     }
-
+    
     100% {
         opacity: 0;
+        visibility: hidden;
     }
 }

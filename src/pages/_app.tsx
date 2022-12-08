@@ -7,6 +7,7 @@ import "../styles/mapLocationPicker.css";
 import "../styles/compass.css";
 import "../styles/loadingSpinner.css";
 import "../styles/fade.css"
+import "../styles/animations.css"
 import { useState, useEffect } from "react";
 import LoadingScreen from "../Components/LoadingScreen";
 
@@ -18,35 +19,24 @@ const darkTheme = createTheme({
 
 const MyApp: AppType = ({ Component, pageProps }) => {
 
-  const [dismount, setDismount] = useState<boolean>(false);
-
-
-  // const [deviceType, setDeviceType] = useState<string | null>(null)
-  // useEffect(() => {
-  //   const maxScreenSize = window.screen.height >= window.screen.width ? window.screen.height : window.screen.width;
-  //   // if(/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-  //   if (maxScreenSize < 1000) {
-  //     console.log("mobile device");
-  //     setDeviceType("Mobile")
-  //   } else {
-  //     console.log("not mobile device");
-  //     setDeviceType("Desktop")
-  //   }
-  // }, [])
+  const [loadScreenMounted, setLoadScreenMounted] = useState<boolean>(true);
+  const [durationLoadingScreen] = useState<number>(2000)
 
   return (
 
-    (Component && dismount)
+    (Component && !loadScreenMounted)
       ?
       <>
         <ThemeProvider theme={darkTheme}>
-          <NavBar />
           {/* {!deviceType ? <NavBar /> : <></>} */}
           <Component {...pageProps} />
         </ThemeProvider>
       </>
       :
-      <LoadingScreen setDismount={setDismount} dismount={dismount}/>
+      <LoadingScreen
+        setLoadScreenMounted={setLoadScreenMounted}
+        duration={durationLoadingScreen}
+      />
   );
 };
 
