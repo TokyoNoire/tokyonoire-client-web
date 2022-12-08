@@ -6,30 +6,28 @@ import React, {
   useRef,
 } from "react";
 import Image from "next/image";
-import Script from "next/script";
+import { ResetTvOutlined } from "@mui/icons-material";
 
 const ImageWidget = (): ReactElement => {
   const cloudinaryRef = useRef<any>();
   const widgetRef = useRef<any>();
-  const [imageUrl, setImageUrl] = useState<null | string>(null);
+  const imageUrl = useRef<null | string>(null);
+
   useEffect(() => {
-    // if (cloudinaryRef.current.url !== "url") {
-    //   console.log(cloudinaryRef.current.url);
-    // }
     cloudinaryRef.current = window.cloudinary;
-    //console.log("🍎", cloudinaryRef.current.WIDGET_SOURCES.URL);
     widgetRef.current = cloudinaryRef.current?.createUploadWidget(
       {
-        cloudName: "diyzmibyd",
-        uploadPreset: "xc76wyzc",
+        cloudName: process.env.NEXT_PUBLIC_CLOUDNAME,
+        uploadPreset: process.env.NEXT_PUBLIC_UPLOADPRESET,
       },
       function (error: any, result: any) {
-        setImageUrl(result.info.url);
-        console.log(imageUrl);
-      },
-      []
+        if (result.info.url !== undefined) {
+          imageUrl.current = result.info.url;
+        }
+      }
     );
   }, []);
+
   return (
     <button id="themeButton" onClick={() => widgetRef.current?.open()}>
       Select Photo
