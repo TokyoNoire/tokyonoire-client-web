@@ -9,9 +9,7 @@ const Editor: NextPage = () => {
       <div className="self-center">
         <h1 className="text-7xl">PUT DND HERE</h1>
       </div>
-      <div className="self-center">
         <ModuleForms />
-      </div>
    </div>
     </>
   );

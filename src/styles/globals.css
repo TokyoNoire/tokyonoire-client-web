@@ -51,7 +51,7 @@ a {
   margin: 0;
 }
 
-div{
+.flexCenterDiv{
   display: flex;
   flex-direction: column;
   justify-content: center;

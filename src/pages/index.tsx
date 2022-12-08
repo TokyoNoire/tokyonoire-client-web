@@ -58,7 +58,7 @@ const Home: NextPage = () => {
         <title>Tokyo Noire</title>
         <meta name="keywords" content="interactive, story, game" />
       </Head>
-      <div className="h-screen mx-5 place-items-center">
+      <div className="h-screen mx-5 flexCenterDiv place-items-center">
         <Image src={tokyoNoireName} alt="Tokyo Noire Hero" priority={true} />
         <div className=" pt-96">
           <KeyboardArrowDownIcon />
@@ -73,7 +73,7 @@ const Home: NextPage = () => {
         handleOpen={handleOpen}
       />
 
-      <Dialog className="object-fit" open={open} onClose={handleClose} fullScreen>
+      <Dialog className="flexCenterDiv" open={open} onClose={handleClose} fullScreen>
         <StartModule game={game!} handleClose={handleClose} gameId={gameId} />
       </Dialog>
     </>

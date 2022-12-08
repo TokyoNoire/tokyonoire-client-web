@@ -20,7 +20,7 @@ const SignUpForm: FC = (): ReactElement => {
   // const router = useRouter();
 
   return (
-    <div className="items-center mx-8 my-20">
+    <div className="items-center mx-8 my-20 flexCenterDiv bg-darkGrey">
       <br />
       <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
         Sign Up
