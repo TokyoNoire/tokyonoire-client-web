@@ -2,6 +2,7 @@ import React, { type FC, type ReactElement } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
 import MapLocationPicker from "./MapLocationPicker";
+import ImageWidget from "./ImageWidget";
 
 const FormLocation = (): ReactElement => {
   return (
@@ -16,6 +17,7 @@ const FormLocation = (): ReactElement => {
         <TextField id="title" defaultValue="What's the title of this block?" variant="filled" fullWidth/>
 
         <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Image Upload</p>
+        <ImageWidget/>
 
         <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Description</p>
         <TextField

@@ -9,13 +9,13 @@ import FormStoryInformation from "./FormStoryInformation";
 
 const ModuleForms: FC = (): ReactElement => {
   return (
-     <div className="relative w-full h-full px-6 py-4 rounded shadow-lg  flexCenterDiv bg-darkGrey shadow-slate-100">
+     <div className="relative w-full h-full px-6 py-4 rounded shadow-lg flexCenterDiv bg-darkGrey shadow-slate-100">
       <FormStoryInformation/>
 
-        {/* <FormLocation/>
+        <FormLocation/>
         <FormNarrative/>
         <FormQuestion/>
-        <FormEnd/> */}
+        <FormEnd/>
     </div>
   );
 };

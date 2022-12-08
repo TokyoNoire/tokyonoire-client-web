@@ -1,6 +1,7 @@
 import React, { type FC, type ReactElement } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
+import ImageWidget from "./ImageWidget";
 
 const FormQuestion = (): ReactElement => {
   return (
@@ -17,6 +18,7 @@ const FormQuestion = (): ReactElement => {
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Image Upload
       </p>
+      <ImageWidget/>
       
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Description</p>
       <TextField

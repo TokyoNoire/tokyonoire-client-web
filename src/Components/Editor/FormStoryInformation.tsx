@@ -5,6 +5,7 @@ import FormLocation from "./FormLocation";
 import FormNarrative from "./FormNarrative";
 import FormQuestion from "./FormQuestion";
 import FormEnd from "./FormEnd";
+import ImageWidget from "./ImageWidget";
 
 const FormStoryInformation: FC = (): ReactElement => {
   return (
@@ -37,6 +38,8 @@ const FormStoryInformation: FC = (): ReactElement => {
             <option value="true">Private</option>
             <option value="false">Public</option>
           </select>
+
+          <ImageWidget/>
         </div>
 
         <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Description</p>
