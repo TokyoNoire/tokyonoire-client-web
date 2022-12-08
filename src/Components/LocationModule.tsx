@@ -14,13 +14,12 @@ const LocationModule = (props: props): ReactElement => {
 
   return (
     <>
-      <div className="self-center w-4/5 m-5">
-        <Card>
-          <div className="self-center mb-5">
+      <div className="self-center w-full flexCenterDiv bg-darkGrey">
+          <div className="self-center mb-5 flexCenterDiv">
             <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
               {gameObject.title}
             </h1>
-            <div className="self-center w-10/12 m-4">
+            <div className="self-center w-10/12 m-4 flexCenterDiv">
               <img
                 src={gameObject.image}
                 alt="Tokyo Noire Hero"
@@ -31,10 +30,7 @@ const LocationModule = (props: props): ReactElement => {
               {gameObject.description}
             </p>
           </div>
-        </Card>
       </div>
-      {/* <div className="items-center mx-8 my-48">
-      </div> */}
     </>
   );
 };

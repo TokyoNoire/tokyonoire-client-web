@@ -26,7 +26,7 @@ const Compass = (props: props): ReactElement => {
                     onClick={requestAccessAsync}
                 >Approve device motion to use the compass</button>
             </div> */}
-            <div className="mt-6">
+            <div className="mt-6 flexCenterDiv">
                 <ul style={{ margin: 0, padding: 0 }}>
                     {/* <li>Current Coords: <code className="language-text">{currentCoords ? `${currentCoords![1]}, ${currentCoords![0]}` : null}</code></li>
                     <li>Target Coords: <code className="language-text">{targetCoords ? `${targetCoords![1]}, ${targetCoords![0]}` : null}</code></li>
@@ -37,8 +37,8 @@ const Compass = (props: props): ReactElement => {
                 </ul>
             </div>
 
-            <div className="compass__wrapper">
-                <div className="compass">
+            <div className="compass__wrapper flexCenterDiv">
+                <div className="compass flexCenterDiv">
                     <div className="compass__outer-ring"></div>
                     <div className="compass__center-dot"></div>
                     <div className="direction-arrow" style={{ transform: `rotateZ(${bearingAngle && orientation && orientation.alpha ? bearingAngle - orientation.alpha : null}deg)` }}></div>
