@@ -13,11 +13,10 @@ import { GameModule } from "../pages/game/[gameId]";
 
 interface props {
   gameObject: GameModule;
-  setChallengeSuccess: (boolean: boolean) => void;
 }
 
 const EndModule = (props: props): ReactElement => {
-  const { gameObject, setChallengeSuccess } = props;
+  const { gameObject } = props;
   const router = useRouter();
 
   const handleClick = (e: React.MouseEvent) => {
@@ -27,13 +26,13 @@ const EndModule = (props: props): ReactElement => {
 
   return (
     <>
-      <div className="self-center w-4/5 m-10">
-        <Card>
-          <div className="self-center mb-5">
+      <div className="self-center w-full flexCenterDiv bg-darkGrey">
+
+          <div className="self-center mb-5 flexCenterDiv">
             <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
               {gameObject.title}
             </h1>
-            <div className="self-center w-10/12 m-4">
+            <div className="self-center w-10/12 m-4 flexCenterDiv">
               <img
                 src={gameObject.image}
                 alt="Tokyo Noire Hero"
@@ -42,9 +41,10 @@ const EndModule = (props: props): ReactElement => {
             </div>
             <p className="px-6 mt-2 font-body1">{gameObject.description}</p>
           </div>
-        </Card>
+
       </div>
-      <div className="self-center w-3/4 ">
+      
+      <div className="self-center w-3/4 flexCenterDiv">
         <h1 className="self-center py-20 text-2xl uppercase font-heading">
           Mystery Complete
         </h1>
