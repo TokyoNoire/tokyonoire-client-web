@@ -9,6 +9,7 @@ interface props {
   setQuestion: (question: string) => void;
   setAnswer: (answer: string) => void;
   setHint: (hint: string) => void;
+  setImageUrl: (string: string) => void;
   imageUrl: string;
 }
 
@@ -19,6 +20,7 @@ const FormQuestion = (props: props): ReactElement => {
     setQuestion,
     setAnswer,
     setHint,
+    setImageUrl,
     imageUrl,
   } = props;
 
@@ -39,7 +41,7 @@ const FormQuestion = (props: props): ReactElement => {
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Image Upload
       </p>
-      <ImageWidget imageUrl={imageUrl} />
+      <ImageWidget setImageUrl={setImageUrl} />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Description

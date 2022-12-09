@@ -6,11 +6,12 @@ import ImageWidget from "./ImageWidget";
 interface props {
   setTitle: (title: string) => void;
   setDescription: (description: string) => void;
+  setImageUrl: (string: string) => void;
   imageUrl: string;
 }
 
 const FormEnd = (props: props): ReactElement => {
-  const { setTitle, setDescription, imageUrl } = props;
+  const { setTitle, setDescription, setImageUrl, imageUrl } = props;
 
   return (
     <>
@@ -30,7 +31,7 @@ const FormEnd = (props: props): ReactElement => {
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Image Upload
       </p>
-      <ImageWidget imageUrl={imageUrl} />
+      <ImageWidget setImageUrl={setImageUrl} />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Body</p>
       <TextField

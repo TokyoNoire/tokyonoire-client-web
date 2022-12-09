@@ -8,17 +8,19 @@ interface prop {
   setMinutes: (number: string) => void;
   setRating: (string: string) => void;
   setVisibility: (boolean: string) => void;
-  imageUrl: string | null;
+  setImageUrl: (string: string) => void;
+  imageUrl: string;
 }
 
 const FormStoryInformation = (prop: prop): ReactElement => {
   const {
     setTitle,
     setDescription,
-    imageUrl,
     setMinutes,
     setRating,
     setVisibility,
+    setImageUrl,
+    imageUrl,
   } = prop;
 
   return (
@@ -69,9 +71,17 @@ const FormStoryInformation = (prop: prop): ReactElement => {
           <option value="false">Public</option>
         </select>
       </div>
-      {/* <img src="" alt="preview" /> */}
-      <p className="mt-10 text-sm uppercase font-heading">Image Upload</p>
-      <ImageWidget imageUrl={imageUrl} />
+      {imageUrl ? (
+        <img
+          className="w-3/5 mt-10 self-center"
+          src={`${imageUrl}`}
+          alt="preview"
+        />
+      ) : (
+        ""
+      )}
+      <p className="mt-5 text-sm uppercase font-heading">Image Upload</p>
+      <ImageWidget setImageUrl={setImageUrl} />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Description

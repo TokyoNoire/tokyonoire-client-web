@@ -9,11 +9,19 @@ interface props {
   setDescription: (description: string) => void;
   setCoordinates: (answer: number[]) => void;
   setHint: (hint: string) => void;
+  setImageUrl: (string: string) => void;
   imageUrl: string;
 }
 
 const FormLocation = (props: props): ReactElement => {
-  const { setTitle, setDescription, setCoordinates, imageUrl, setHint } = props;
+  const {
+    setTitle,
+    setDescription,
+    setCoordinates,
+    imageUrl,
+    setImageUrl,
+    setHint,
+  } = props;
 
   return (
     <>
@@ -33,7 +41,7 @@ const FormLocation = (props: props): ReactElement => {
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Image Upload
       </p>
-      <ImageWidget imageUrl={imageUrl} />
+      <ImageWidget setImageUrl={setImageUrl} />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Description

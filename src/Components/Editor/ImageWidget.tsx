@@ -8,10 +8,10 @@ import React, {
 import Image from "next/image";
 import { ResetTvOutlined } from "@mui/icons-material";
 type prop = {
-  imageUrl: string | null;
+  setImageUrl: (string: string) => void;
 };
 const ImageWidget = (prop: prop): ReactElement => {
-  let { imageUrl } = prop;
+  let { setImageUrl } = prop;
   const cloudinaryRef = useRef<any>();
   const widgetRef = useRef<any>();
 
@@ -25,7 +25,7 @@ const ImageWidget = (prop: prop): ReactElement => {
       function (error: any, result: any) {
         if (result.info.url !== undefined) {
           console.log(result.info.url);
-          imageUrl = result.info.url;
+          setImageUrl(result.info.url);
         }
       }
     );
