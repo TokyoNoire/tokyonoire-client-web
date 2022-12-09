@@ -8,6 +8,8 @@ import Hero from "./../Components/Hero";
 import GameIdForm from "../Components/GameIdForm";
 import StartModule from "../Components/StartModule";
 import { Dialog } from "@mui/material";
+import axios from "axios";
+import { LineAxisOutlined } from "@mui/icons-material";
 
 export type startModuleInfo = {
   _id: string;
@@ -35,6 +37,11 @@ const Home: NextPage = () => {
   const [gameId, setGameId] = useState<string>("");
   const [game, setGame] = useState<startModuleInfo | null>(null);
   const [open, setOpen] = useState<boolean>(false);
+
+  //gets public game that are isPublished:true and isPrivate:false
+  const getPublicGame = async () => {
+    await axios.get("/").then((response) => console.log(response.data));
+  };
 
   useEffect(() => {
     if (game !== null) {
@@ -71,14 +78,18 @@ const Home: NextPage = () => {
         handleOpen={handleOpen}
       />
 
-      {game
-        ?
-        <Dialog className="object-fit flexCenterDiv" open={open} onClose={handleClose} fullScreen>
+      {game ? (
+        <Dialog
+          className="object-fit flexCenterDiv"
+          open={open}
+          onClose={handleClose}
+          fullScreen
+        >
           <StartModule game={game!} handleClose={handleClose} gameId={gameId} />
         </Dialog>
-        :
+      ) : (
         <></>
-      }
+      )}
     </>
   );
 };
