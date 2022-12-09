@@ -7,21 +7,13 @@ import ImageWidget from "./ImageWidget";
 interface props {
   setTitle: (title: string) => void;
   setDescription: (description: string) => void;
-  setImage: (image: string) => void;
   setCoordinates: (answer: number[]) => void;
   setHint: (hint: string) => void;
   imageUrl: string;
 }
 
 const FormLocation = (props: props): ReactElement => {
-  const {
-    setTitle,
-    setDescription,
-    setImage,
-    setCoordinates,
-    imageUrl,
-    setHint,
-  } = props;
+  const { setTitle, setDescription, setCoordinates, imageUrl, setHint } = props;
 
   return (
     <>

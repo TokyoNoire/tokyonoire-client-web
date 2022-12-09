@@ -6,12 +6,11 @@ import ImageWidget from "./ImageWidget";
 interface props {
   setTitle: (title: string) => void;
   setDescription: (description: string) => void;
-  setImage: (image: string) => void;
   imageUrl: string;
 }
 
 const FormNarrative = (props: props): ReactElement => {
-  const { setTitle, setDescription, setImage, imageUrl } = props;
+  const { setTitle, setDescription, imageUrl } = props;
 
   return (
     <>

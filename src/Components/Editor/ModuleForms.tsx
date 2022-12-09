@@ -28,31 +28,34 @@ const ModuleForms: FC = (): ReactElement => {
         setVisibility={setVisibility}
       />
 
-      {/* <FormLocation
-      setTitle={setTitle}
-      setDescription={setDescription}
-      imageUrl={imageUrl.current}
-      setCoordinates={setCoordinates}
-      setHint={setHint} />
-      
-      <FormNarrative 
-       setTitle={setTitle}
-       setDescription={setDescription}
-       imageUrl={imageUrl.current}
-       />
-       
+      <FormLocation
+        setTitle={setTitle}
+        setDescription={setDescription}
+        imageUrl={imageUrl.current}
+        setCoordinates={setCoordinates}
+        setHint={setHint}
+      />
+
+      <FormNarrative
+        setTitle={setTitle}
+        setDescription={setDescription}
+        imageUrl={imageUrl.current}
+      />
+
       <FormQuestion
-      setTitle={setTitle}
-      setDescription={setDescription}
-      imageUrl={imageUrl.current} 
-      setQuestion={setQuestion}
-      setAnswer={setAnswer}
-      setHint={setHint} />
-      
-      <FormEnd 
-       setTitle={setTitle}
-       setDescription={setDescription}
-       imageUrl={imageUrl.current}/> */}
+        setTitle={setTitle}
+        setDescription={setDescription}
+        imageUrl={imageUrl.current}
+        setQuestion={setQuestion}
+        setAnswer={setAnswer}
+        setHint={setHint}
+      />
+
+      <FormEnd
+        setTitle={setTitle}
+        setDescription={setDescription}
+        imageUrl={imageUrl.current}
+      />
     </div>
   );
 };
