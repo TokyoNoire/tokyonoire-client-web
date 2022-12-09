@@ -3,7 +3,7 @@ import { useState } from "react";
 import FadeDiv from "../../Components/Helpers/FadeDiv";
 // import Link from "next/link";
 
-const Profile: NextPage = () => {
+const HowToPlay: NextPage = () => {
 
   const [show, setShow] = useState<boolean>(true);
 
@@ -16,4 +16,4 @@ const Profile: NextPage = () => {
   );
 };
 
-export default Profile;
+export default HowToPlay;

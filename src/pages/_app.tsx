@@ -6,7 +6,6 @@ import "../styles/navbar.css";
 import "../styles/mapLocationPicker.css";
 import "../styles/compass.css";
 import "../styles/loadingSpinner.css";
-import "../styles/fade.css";
 import "../styles/animations.css";
 import { useState, useEffect, useRef } from "react";
 import LoadingScreen from "../Components/LoadingScreen";

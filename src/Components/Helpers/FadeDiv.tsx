@@ -3,11 +3,12 @@ import React, { useEffect, useState, ReactNode } from "react";
 interface props {
     show: boolean;
     children: ReactNode;
-    duration?: number
+    duration?: number;
+    className?: string;
 }
 
 const FadeDiv = (props: props) => {
-    const { show, duration, children } = props;
+    const { show, duration, children, className } = props;
     const [shouldRender, setRender] = useState(show);
 
     useEffect(() => {
@@ -22,7 +23,7 @@ const FadeDiv = (props: props) => {
         return (
             shouldRender && (
                 <div
-                    className="absolute"
+                    className={`${className ? className : ""}`}
                     style={{ animation: `${show ? "fadeIn" : "fadeOut"} ${duration ? duration : 1}s forwards`}}
                     onAnimationEnd={onAnimationEnd}
                 >
