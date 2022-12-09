@@ -7,15 +7,12 @@ interface props {
   setTitle: (title: string) => void;
   setDescription: (description: string) => void;
   setImage: (image: string) => void;
+  imageUrl: string;
 }
 
-const FormNarrative = (props:props): ReactElement => {
-  const {
-    setTitle,
-    setDescription,
-    setImage
-    } = props;
-  
+const FormNarrative = (props: props): ReactElement => {
+  const { setTitle, setDescription, setImage, imageUrl } = props;
+
   return (
     <>
       <ClearIcon className="absolute top-2 right-2 hover:shadow-indigo-500/40" />
@@ -24,14 +21,21 @@ const FormNarrative = (props:props): ReactElement => {
       </h1>
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Title</p>
-      <TextField id="title" defaultValue="What is the title of this block?" variant="filled" fullWidth />
+      <TextField
+        id="title"
+        defaultValue="What is the title of this block?"
+        variant="filled"
+        fullWidth
+      />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Image Upload
       </p>
-      <ImageWidget/>
+      <ImageWidget imageUrl={imageUrl} />
 
-      <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Description</p>
+      <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
+        Description
+      </p>
       <TextField
         multiline
         rows={20}
@@ -40,7 +44,6 @@ const FormNarrative = (props:props): ReactElement => {
         fullWidth
       />
       <button id="themeButton" className="self-center w-1/2 mt-10 mb-5">
-  
         Save
       </button>
     </>

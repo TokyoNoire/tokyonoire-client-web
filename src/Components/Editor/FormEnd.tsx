@@ -6,11 +6,11 @@ import ImageWidget from "./ImageWidget";
 interface props {
   setTitle: (title: string) => void;
   setDescription: (description: string) => void;
-  setImage: (image: string) => void;
+  imageUrl: string;
 }
 
-const FormEnd = (props:props): ReactElement => {
-  const { setTitle, setDescription, setImage } = props;
+const FormEnd = (props: props): ReactElement => {
+  const { setTitle, setDescription, imageUrl } = props;
 
   return (
     <>
@@ -20,12 +20,17 @@ const FormEnd = (props:props): ReactElement => {
       </h1>
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Title</p>
-      <TextField id="title" defaultValue="What is the title of this block?" variant="filled" fullWidth />
+      <TextField
+        id="title"
+        defaultValue="What is the title of this block?"
+        variant="filled"
+        fullWidth
+      />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Image Upload
       </p>
-      <ImageWidget/>
+      <ImageWidget imageUrl={imageUrl} />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Body</p>
       <TextField
@@ -36,7 +41,6 @@ const FormEnd = (props:props): ReactElement => {
         fullWidth
       />
       <button id="themeButton" className="self-center w-1/2 mt-10 mb-5">
-  
         Save
       </button>
     </>

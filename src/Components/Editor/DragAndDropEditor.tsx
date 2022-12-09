@@ -1,10 +1,21 @@
-import React, {type FC, type ReactElement, useState, useCallback} from "react";
+import React, {
+  type FC,
+  type ReactElement,
+  useState,
+  useCallback,
+} from "react";
+import ImageWidget from "./ImageWidget";
 
 import { DndContext } from "@dnd-kit/core";
 import { arrayMove, SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-const gameModules = [{id:1, string:"hello"}, {id:2, string:"friend"}, {id:3, string:"turtle"}, {id:4, string:"poop"}];
+const gameModules = [
+  { id: 1, string: "hello" },
+  { id: 2, string: "friend" },
+  { id: 3, string: "turtle" },
+  { id: 4, string: "poop" },
+];
 const contents = gameModules.map((gameModule) => ({
   id: gameModule.id,
   content: gameModule.string,
@@ -18,10 +29,10 @@ interface SortableItemProps {
 function SortableItem({ id, children }: SortableItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
-    const style = {
-      transform: CSS.Transform.toString(transform),
-      transition
-    };
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
@@ -32,10 +43,11 @@ function SortableItem({ id, children }: SortableItemProps) {
 }
 
 const DragAndDropEditor: FC = (): ReactElement => {
-  const [state, setState] = useState<{ id: number; content: string }[]>(contents);
-console.log(state)
+  const [state, setState] =
+    useState<{ id: number; content: string }[]>(contents);
+  console.log(state);
   const handleDragEnd = useCallback(
-    (event:any) => {
+    (event: any) => {
       const { active, over } = event;
       if (over === null) {
         return;
@@ -57,16 +69,14 @@ console.log(state)
     },
     [state]
   );
-  
+
   return (
-        <DndContext onDragEnd={handleDragEnd}>
+    <DndContext onDragEnd={handleDragEnd}>
       <SortableContext items={state}>
         <div className="w-full h-full flexCenterDiv">
           {state.map((item) => (
             <SortableItem key={item.id} id={item.id}>
-              <div>
-                {item.content}
-              </div>
+              <div>{item.content}</div>
             </SortableItem>
           ))}
         </div>
