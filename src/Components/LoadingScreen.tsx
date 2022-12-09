@@ -1,5 +1,4 @@
-import React, { type FC, type ReactElement, useState, useEffect, useRef } from "react";
-import Image from "next/image";
+import React, { type ReactElement, useState, useEffect, useRef } from "react";
 import Logo from '../../public/Logo_DarkTheme.svg';
 import FadeDiv from "./Helpers/FadeDiv";
 import LoadingScreenHints from "./Helpers/LoadingScreenHints";
@@ -7,7 +6,7 @@ import LoadingScreenHints from "./Helpers/LoadingScreenHints";
 
 
 interface props {
-    setLoadScreenMounted: Function
+    setLoadScreenMounted: (boolean: boolean) => void
     duration: number
 }
 
