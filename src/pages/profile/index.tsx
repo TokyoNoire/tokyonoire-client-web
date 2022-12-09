@@ -3,9 +3,9 @@ import { type NextPage } from "next";
 
 const Profile: NextPage = () => {
   return (
-    <>
-      <h1 >Profile Page</h1>
-    </>
+    <main className="w-screen h-screen flex justify-center items-center">
+      <h1 className="text-5xl">Profile Page</h1>
+    </main>
   );
 };
 

@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
 import { type NextPage } from "next";
 import Head from "next/head";
-import tokyoNoireName from "../../public/Title_DarkTheme.svg";
+import TokyoNoireName from "../../public/Title_DarkTheme.svg";
 import Image from "next/image";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Hero from "./../Components/Hero";
 import GameIdForm from "../Components/GameIdForm";
 import StartModule from "../Components/StartModule";
 import { Dialog } from "@mui/material";
+import FadeDiv from "../Components/Helpers/FadeDiv";
+import NavBar from "../Components/NavBar";
+import Link from "next/link";
 
 export type startModuleInfo = {
   _id: string;
@@ -20,18 +23,23 @@ export type startModuleInfo = {
   startLocationCoordinates?: Array<number>;
 };
 
-// let testObject = {
-//   _id: "1239123",
-//   titleOfGame: "de Finibus Bonorum et Malorum",
-//   description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?",
-//   rating: "G",
-//   author: "Aristotle",
-//   image: "https://images.unsplash.com/photo-1605153322277-dd0d7f608b4d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1065&q=80",
-//   estimatedTimeMinutes: "20",
-//   startLocationCoordinates: [10,10]
-// };
-
 const Home: NextPage = () => {
+
+  const [deviceType, setDeviceType] = useState<string | null>(null)
+  const [show, setShow] = useState<boolean>(true);
+
+  // Checks whether the type of device.
+  useEffect(() => {
+
+    const maxScreenSize = window.screen.height >= window.screen.width ? window.screen.height : window.screen.width;
+    // if(/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+    if (maxScreenSize < 1000) {
+      setDeviceType("Mobile")
+    } else {
+      setDeviceType("Desktop")
+    }
+  }, [])
+
   const [gameId, setGameId] = useState<string>("");
   const [game, setGame] = useState<startModuleInfo | null>(null);
   const [open, setOpen] = useState<boolean>(false);
@@ -50,35 +58,72 @@ const Home: NextPage = () => {
     setOpen(true);
   };
 
+  const [mounted, setMounted] = useState<boolean>(false);
+  useEffect(() => {
+    setTimeout(() => setMounted(true), 10000)
+  }, []);
+
   return (
     <>
       <Head>
         <title>Tokyo Noire</title>
         <meta name="keywords" content="interactive, story, game" />
       </Head>
-      <div className="h-screen mx-5 flexCenterDiv place-items-center">
-        <Image src={tokyoNoireName} alt="Tokyo Noire Hero" priority={true} />
-        <div className=" pt-96">
-          <KeyboardArrowDownIcon />
-        </div>
-      </div>
-      <Hero />
-      <GameIdForm
-        setGameId={setGameId}
-        gameId={gameId}
-        setGame={setGame}
-        game={game}
-        handleOpen={handleOpen}
-      />
 
-      {game
-        ?
-        <Dialog className="object-fit flexCenterDiv" open={open} onClose={handleClose} fullScreen>
-          <StartModule game={game!} handleClose={handleClose} gameId={gameId} />
-        </Dialog>
-        :
-        <></>
-      }
+      <FadeDiv show={show}>
+        {/* {deviceType && <NavBar deviceType={deviceType} />} */}
+
+        {deviceType === "Mobile" &&
+          <FadeDiv show={show}>
+            <div className="relative h-screen flexCenterDiv place-items-center mx-5 ">
+              <TokyoNoireName alt="Tokyo Noire Name" style={{ maxWidth: "80vw" }} />
+              <div className="absolute bottom-8">
+                <KeyboardArrowDownIcon
+                  style={{ animation: `hover-up-down ease-in-out 3s infinite` }}
+                  sx={{
+                    width: "1.5em",
+                    height: "1.5em",
+                  }} />
+              </div>
+            </div>
+            <Hero />
+            <GameIdForm
+              setGameId={setGameId}
+              gameId={gameId}
+              setGame={setGame}
+              game={game}
+              handleOpen={handleOpen}
+            />
+            {game
+              ?
+              <Dialog className="object-fit flexCenterDiv" open={open} onClose={handleClose} fullScreen>
+                <StartModule game={game!} handleClose={handleClose} gameId={gameId} />
+              </Dialog>
+              :
+              <></>
+            }
+          </FadeDiv>
+        }
+
+        {deviceType === "Desktop" &&
+          <main className="relative w-screen h-screen flexCenterDiv place-items-center">
+            <TokyoNoireName
+              alt="Tokyo Noire Name"
+              style={{ maxWidth: "80vw", filter: "drop-shadow(0 0 0.5rem grey)", animation: "pulsate 1s ease-in-out infinite alternate" }} />
+
+            <section className="absolute bottom-48">
+              <Link href="/editor">
+                <button
+                  id="themeButton"
+                  style={{ transform: "scale(1.2)" }}
+                >Go To Editor</button>
+              </Link>
+            </section>
+
+          </main>
+        }
+      </FadeDiv>
+
     </>
   );
 };
