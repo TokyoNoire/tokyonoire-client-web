@@ -2,14 +2,13 @@ import { type AppType } from "next/dist/shared/lib/utils";
 import NavBar from "../Components/NavBar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "../styles/globals.css";
-import "../styles/navbar.css";
-import "../styles/mapLocationPicker.css";
+import "../styles/navbar.css";;
+import "../styles/mapLocationPicker.css";;
 import "../styles/compass.css";
 import "../styles/loadingSpinner.css";
 import "../styles/fade.css"
 import "../styles/animations.css"
-import { useState, useEffect, useRef } from "react";
-import LoadingScreen from "../Components/LoadingScreen";
+import { useState, useEffect, useRef } from "react";;import LoadingScreen from "../Components/LoadingScreen";
 
 const darkTheme = createTheme({
   palette: {
@@ -55,7 +54,11 @@ const MyApp: AppType = ({ Component, pageProps }) => {
           {deviceType && <NavBar deviceType={deviceType}/>}
           <Component {...pageProps} deviceType={deviceType} />
         </ThemeProvider>
-      </>
+        <script
+        src="https://upload-widget.cloudinary.com/global/all.js"
+        type="text/javascript"
+      />
+    </>
       :
       <LoadingScreen
         setLoadScreenMounted={setLoadScreenMounted}

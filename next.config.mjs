@@ -15,7 +15,8 @@ const config = {
     })
     return config
   },
-  reactStrictMode: true,
+  // trailingSlash: true,
+  reactStrictMode: false,
   swcMinify: true,
   i18n: {
     locales: ["en"],
