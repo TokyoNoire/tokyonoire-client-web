@@ -4,25 +4,18 @@ import TextField from "@mui/material/TextField";
 import ImageWidget from "./ImageWidget";
 
 interface props {
-  setTitle: (title: string) => void;
-  setDescription: (description: string) => void;
-  setQuestion: (question: string) => void;
-  setAnswer: (answer: string) => void;
-  setHint: (hint: string) => void;
+  title: string;
+  description: string;
+  question: string;
+  answer: string;
+  hint: string;
   setImageUrl: (string: string) => void;
   imageUrl: string;
 }
 
 const FormQuestion = (props: props): ReactElement => {
-  const {
-    setTitle,
-    setDescription,
-    setQuestion,
-    setAnswer,
-    setHint,
-    setImageUrl,
-    imageUrl,
-  } = props;
+  const { title, description, answer, hint, question, setImageUrl, imageUrl } =
+    props;
 
   return (
     <>

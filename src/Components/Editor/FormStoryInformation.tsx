@@ -3,25 +3,19 @@ import TextField from "@mui/material/TextField";
 import ImageWidget from "./ImageWidget";
 
 interface prop {
-  setTitle: (string: string) => void;
-  setDescription: (string: string) => void;
-  setMinutes: (number: string) => void;
-  setRating: (string: string) => void;
-  setVisibility: (boolean: string) => void;
+  title: string;
+  description: string;
+  minutes: string;
+  rating: string;
+  visibility: string;
   setImageUrl: (string: string) => void;
   imageUrl: string;
 }
 
 const FormStoryInformation = (prop: prop): ReactElement => {
-  const {
-    setTitle,
-    setDescription,
-    setMinutes,
-    setRating,
-    setVisibility,
-    setImageUrl,
-    imageUrl,
-  } = prop;
+  let { title, description, minutes, rating, visibility } = prop;
+  //Build is not happy if I set these as let, so I seperated them for now.
+  const { setImageUrl, imageUrl } = prop;
 
   return (
     <>
@@ -34,7 +28,7 @@ const FormStoryInformation = (prop: prop): ReactElement => {
       <TextField
         id="title"
         variant="filled"
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={(e) => (title = e.target.value)}
         fullWidth
       />
 
@@ -47,14 +41,14 @@ const FormStoryInformation = (prop: prop): ReactElement => {
         <TextField
           id="estimated-time"
           type="number"
-          onChange={(e) => setMinutes(e.target.value)}
+          onChange={(e) => (minutes = e.target.value)}
           variant="filled"
         />
 
         <select
           id="rating"
           className="p-2 text-black rounded-sm"
-          onChange={(e) => setRating(e.target.value)}
+          onChange={(e) => (rating = e.target.value)}
         >
           <option value="G">G</option>
           <option value="PG">PG</option>
@@ -65,7 +59,7 @@ const FormStoryInformation = (prop: prop): ReactElement => {
         <select
           id="visibility"
           className="p-2 text-black rounded-sm"
-          onChange={(e) => setVisibility(e.target.value)}
+          onChange={(e) => (visibility = e.target.value)}
         >
           <option value="true">Private</option>
           <option value="false">Public</option>
@@ -91,7 +85,7 @@ const FormStoryInformation = (prop: prop): ReactElement => {
         rows={15}
         defaultValue="Start writing here..."
         variant="filled"
-        onChange={(e) => setDescription(e.target.value)}
+        onChange={(e) => (description = e.target.value)}
         fullWidth
       />
       <button id="themeButton" className="self-center w-1/2 mt-10 mb-5">

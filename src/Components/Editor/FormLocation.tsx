@@ -5,23 +5,17 @@ import MapLocationPicker from "./MapLocationPicker";
 import ImageWidget from "./ImageWidget";
 
 interface props {
-  setTitle: (title: string) => void;
-  setDescription: (description: string) => void;
-  setCoordinates: (answer: number[]) => void;
-  setHint: (hint: string) => void;
+  title: string;
+  description: string;
+  coordinates: number[];
   setImageUrl: (string: string) => void;
   imageUrl: string;
+  hint: string;
 }
 
 const FormLocation = (props: props): ReactElement => {
-  const {
-    setTitle,
-    setDescription,
-    setCoordinates,
-    imageUrl,
-    setImageUrl,
-    setHint,
-  } = props;
+  const { title, description, coordinates, imageUrl, setImageUrl, hint } =
+    props;
 
   return (
     <>

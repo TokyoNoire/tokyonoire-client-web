@@ -1,11 +1,17 @@
-import React, { type FC, type ReactElement, useState, useRef } from "react";
+import React, {
+  type FC,
+  type ReactElement,
+  useState,
+  useRef,
+  useEffect,
+} from "react";
 import FormLocation from "./FormLocation";
 import FormNarrative from "./FormNarrative";
 import FormQuestion from "./FormQuestion";
 import FormEnd from "./FormEnd";
 import FormStoryInformation from "./FormStoryInformation";
 import axios from "axios";
-type GameModules = {
+export type GameModules = {
   typeOfModule: string;
   title: string;
   description: string;
@@ -17,30 +23,31 @@ type GameModules = {
 };
 
 const ModuleForms: FC = (): ReactElement => {
-  const [gameModule, setGameModules] = useState<GameModules[]>([]);
-  const [published, setPublished] = useState<boolean | null>(null);
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [userName, setUserName] = useState<string>("");
-  const [minutes, setMinutes] = useState<string>("");
-  const [rating, setRating] = useState<string>("");
-  const [visibility, setVisibility] = useState<string>("");
-  const [coordinates, setCoordinates] = useState<number[]>([]);
-  const [question, setQuestion] = useState<string>("");
-  const [answer, setAnswer] = useState<string>("");
-  const [hint, setHint] = useState<string>("");
+  const published = useRef<boolean>(false);
+  const title = useRef<string>("");
+  const description = useRef<string>("");
+  const userName = useRef<string>("");
+  const minutes = useRef<string>("");
+  const rating = useRef<string>("");
+  const visibility = useRef<string>("");
+  const coordinates = useRef<number[]>([]);
+  const question = useRef<string>("");
+  const answer = useRef<string>("");
+  const hint = useRef<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
+  const [gameObject, setGameObject] = useState<GameModules>();
+  const [gameModule, setGameModules] = useState<object>({});
 
   const postGame = async () => {
     await axios.post("/editor", {
-      isPublished: published,
-      titleOfGame: title,
-      description: description,
-      author: userName,
-      rating: rating,
-      estimatedMinutes: minutes,
+      isPublished: published.current,
+      titleOfGame: title.current,
+      description: description.current,
+      author: userName.current,
+      rating: rating.current,
+      estimatedMinutes: minutes.current,
       image: imageUrl,
-      isPrivate: visibility,
+      isPrivate: visibility.current,
       gameModules: gameModule,
     });
   };
@@ -48,44 +55,44 @@ const ModuleForms: FC = (): ReactElement => {
   return (
     <div className="relative w-full h-full px-6 py-4 rounded shadow-lg flexCenterDiv bg-darkGrey shadow-slate-100">
       <FormStoryInformation
-        setTitle={setTitle}
-        setDescription={setDescription}
+        title={title.current}
+        description={description.current}
         setImageUrl={setImageUrl}
         imageUrl={imageUrl}
-        setMinutes={setMinutes}
-        setRating={setRating}
-        setVisibility={setVisibility}
+        minutes={minutes.current}
+        rating={rating.current}
+        visibility={visibility.current}
       />
 
       <FormLocation
-        setTitle={setTitle}
-        setDescription={setDescription}
+        title={title.current}
+        description={description.current}
         setImageUrl={setImageUrl}
         imageUrl={imageUrl}
-        setCoordinates={setCoordinates}
-        setHint={setHint}
+        coordinates={coordinates.current}
+        hint={hint.current}
       />
 
       <FormNarrative
-        setTitle={setTitle}
-        setDescription={setDescription}
+        title={title.current}
+        description={description.current}
         setImageUrl={setImageUrl}
         imageUrl={imageUrl}
       />
 
       <FormQuestion
-        setTitle={setTitle}
-        setDescription={setDescription}
+        title={title.current}
+        description={description.current}
         setImageUrl={setImageUrl}
         imageUrl={imageUrl}
-        setQuestion={setQuestion}
-        setAnswer={setAnswer}
-        setHint={setHint}
+        question={question.current}
+        answer={answer.current}
+        hint={hint.current}
       />
 
       <FormEnd
-        setTitle={setTitle}
-        setDescription={setDescription}
+        title={title.current}
+        description={description.current}
         setImageUrl={setImageUrl}
         imageUrl={imageUrl}
       />

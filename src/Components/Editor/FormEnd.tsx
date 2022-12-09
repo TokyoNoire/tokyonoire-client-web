@@ -4,14 +4,14 @@ import TextField from "@mui/material/TextField";
 import ImageWidget from "./ImageWidget";
 
 interface props {
-  setTitle: (title: string) => void;
-  setDescription: (description: string) => void;
+  title: string;
+  description: string;
   setImageUrl: (string: string) => void;
   imageUrl: string;
 }
 
 const FormEnd = (props: props): ReactElement => {
-  const { setTitle, setDescription, setImageUrl, imageUrl } = props;
+  const { title, description, setImageUrl, imageUrl } = props;
 
   return (
     <>
