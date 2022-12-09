@@ -1,5 +1,5 @@
 import React, { type FC, type ReactElement, useState } from "react";
-import logo from '../../public/Logo_DarkTheme.svg';
+import Logo from '../../public/Logo_DarkTheme.svg';
 import Image from "next/image";
 import Link from "next/link";
 
@@ -22,12 +22,12 @@ const menuItems: Array<menuItem> = [
     url: '/how-to-play',
   },
   {
-    title: 'Account',
-    url: '/account',
+    title: 'Profile',
+    url: '/profile',
   }
 ]
 
-const Menu: FC = (): ReactElement => {
+const MenuMobile: FC = (): ReactElement => {
 
   const [fadeIn, setFadeIn] = useState<boolean>(false)
   const [isShown, setIsShown] = useState<boolean>(false);
@@ -35,11 +35,10 @@ const Menu: FC = (): ReactElement => {
   const handleClick = () => {
     setIsShown(current => !current)
   }
-  
+
   return (
     <>
-      <Image
-        src={logo}
+      <Logo
         alt="logo menu button"
         className="logo"
         onClick={() => {
@@ -68,4 +67,4 @@ const Menu: FC = (): ReactElement => {
   );
 };
 
-export default Menu;
+export default MenuMobile;
