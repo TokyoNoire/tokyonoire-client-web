@@ -29,7 +29,7 @@ const ImageWidget = (): ReactElement => {
   }, []);
 
   return (
-    <button id="themeButton" onClick={() => widgetRef.current?.open()}>
+    <button id="themeButton" className="uppercase font-heading"onClick={() => widgetRef.current?.open()}>
       Select Photo
     </button>
   );

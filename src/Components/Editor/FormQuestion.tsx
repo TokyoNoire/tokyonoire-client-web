@@ -1,8 +1,21 @@
 import React, { type FC, type ReactElement } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
+import ImageWidget from "./ImageWidget";
 
-const FormQuestion = (): ReactElement => {
+
+interface props {
+  setTitle: (title: string) => void;
+  setDescription: (description: string) => void;
+  setImage: (image: string) => void;
+  setQuestion: (question: string) => void;
+  setAnswer: (answer: string) => void;
+  setHint: (hint: string) => void;
+}
+
+const FormQuestion = (props:props): ReactElement => {
+  const {setTitle, setDescription, setImage, setQuestion, setAnswer, setHint} = props;
+  
   return (
     <>
       <ClearIcon className="absolute top-2 right-2 hover:shadow-indigo-500/40" />
@@ -17,6 +30,7 @@ const FormQuestion = (): ReactElement => {
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Image Upload
       </p>
+      <ImageWidget/>
       
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Description</p>
       <TextField

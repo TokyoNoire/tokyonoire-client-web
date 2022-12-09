@@ -6,6 +6,7 @@ import "../styles/navbar.css";
 import "../styles/mapLocationPicker.css";
 import "../styles/compass.css";
 
+
 const darkTheme = createTheme({
   palette: {
     mode: "dark",

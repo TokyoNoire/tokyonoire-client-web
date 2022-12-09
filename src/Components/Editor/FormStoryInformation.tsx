@@ -1,12 +1,19 @@
 import React, { type FC, type ReactElement } from "react";
-import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
-import FormLocation from "./FormLocation";
-import FormNarrative from "./FormNarrative";
-import FormQuestion from "./FormQuestion";
-import FormEnd from "./FormEnd";
+import ImageWidget from "./ImageWidget";
 
-const FormStoryInformation: FC = (): ReactElement => {
+interface prop {
+  setTitle: (string: string) => void;
+  setDescription: (string: string) => void;
+  setImage: (string: string) => void;
+  setMinutes: (number: string) => void;
+  setRating: (string: string) => void;
+  setVisibility: (boolean: string) => void;
+}
+
+const FormStoryInformation = (prop: prop) : ReactElement => {
+  const { setTitle, setDescription, setImage, setMinutes, setRating, setVisibility} = prop;
+  
   return (
    <>
         {/* <ClearIcon className="absolute top-2 right-2 hover:shadow-indigo-500/40"/> */}
@@ -15,36 +22,40 @@ const FormStoryInformation: FC = (): ReactElement => {
         </h1>
 
         <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Title</p>
-        <TextField id="title" variant="filled" fullWidth/>
+        <TextField id="title" variant="filled" onChange={(e)=> setTitle(e.target.value)} fullWidth/>
 
-        <div className="grid grid-cols-4 gap-2 mt-10 grid-flow-cols">
+        <div className="grid grid-cols-3 gap-2 mt-10 grid-flow-cols">
           <p className="mb-2 text-sm uppercase font-heading">
             Estimated Time in minutes
           </p>
           <p className="text-sm uppercase font-heading">Rating</p>
           <p className="text-sm uppercase font-heading">Visibility</p>
-          <p className="text-sm uppercase font-heading">Image Upload</p>
-          <TextField id="estimated-time" variant="filled" />
+          <TextField id="estimated-time" type="number" onChange={(e)=> setMinutes(e.target.value)} variant="filled" />
 
-          <select id="rating" className="p-2 text-black rounded-sm ">
+          <select id="rating" className="p-2 text-black rounded-sm" onChange={(e)=> setRating(e.target.value)}>
             <option value="G">G</option>
             <option value="PG">PG</option>
             <option value="PG-13">PG-13</option>
             <option value="R">R</option>
           </select>
 
-          <select id="visibility" className="p-2 text-black rounded-sm ">
+          <select id="visibility" className="p-2 text-black rounded-sm" onChange={(e)=> setVisibility(e.target.value)}>
             <option value="true">Private</option>
             <option value="false">Public</option>
           </select>
-        </div>
 
+        </div>
+        {/* <img src="" alt="preview" /> */}
+          <p className="mt-10 text-sm uppercase font-heading">Image Upload</p>
+          <ImageWidget/>
+          
         <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Description</p>
         <TextField
           multiline
           rows={15}
           defaultValue="Start writing here..."
           variant="filled"
+          onChange={(e)=> setDescription(e.target.value)}
           fullWidth
         />
         <button id="themeButton" className="self-center w-1/2 mt-10 mb-5"> Save </button>

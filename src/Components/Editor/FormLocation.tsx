@@ -2,8 +2,24 @@ import React, { type FC, type ReactElement } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
 import MapLocationPicker from "./MapLocationPicker";
+import ImageWidget from "./ImageWidget";
 
-const FormLocation = (): ReactElement => {
+interface props {
+  setTitle: (title: string) => void;
+  setDescription: (description: string) => void;
+  setImage: (image: string) => void;
+  setCoordinates: (answer: number[]) => void;
+  setHint: (hint: string) => void;
+}
+
+const FormLocation = (props:props): ReactElement => {
+  const {
+    setTitle,
+    setDescription,
+    setImage,
+    setCoordinates,
+    setHint} = props;
+    
   return (
     <> 
     <ClearIcon className="absolute top-2 right-2 hover:shadow-indigo-500/40"/>
@@ -16,6 +32,7 @@ const FormLocation = (): ReactElement => {
         <TextField id="title" defaultValue="What's the title of this block?" variant="filled" fullWidth/>
 
         <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Image Upload</p>
+        <ImageWidget/>
 
         <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Description</p>
         <TextField
