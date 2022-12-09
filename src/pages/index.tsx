@@ -71,7 +71,7 @@ const Home: NextPage = () => {
       </Head>
 
       <FadeDiv show={show}>
-        {deviceType && <NavBar deviceType={deviceType} />}
+        {/* {deviceType && <NavBar deviceType={deviceType} />} */}
 
         {deviceType === "Mobile" &&
           <FadeDiv show={show}>

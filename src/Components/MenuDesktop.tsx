@@ -2,6 +2,8 @@ import React, { type FC, type ReactElement, useState } from "react";
 import Logo from '../../public/Logo_DarkTheme.svg';
 import Link from "next/link";
 
+import { useRouter } from "next/router";
+
 type menuItem = {
   title: string
   url: string
@@ -23,6 +25,8 @@ const menuItems: Array<menuItem> = [
 ]
 
 const MenuDesktop: FC = (): ReactElement => {
+
+  console.log(useRouter())
 
   return (
     <>

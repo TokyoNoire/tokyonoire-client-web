@@ -22,7 +22,7 @@ const FadeDiv = (props: props) => {
         return (
             shouldRender && (
                 <div
-                    className="absolute z-50"
+                    className="absolute"
                     style={{ animation: `${show ? "fadeIn" : "fadeOut"} ${duration ? duration : 0.5}s forwards`}}
                     onAnimationEnd={onAnimationEnd}
                 >
