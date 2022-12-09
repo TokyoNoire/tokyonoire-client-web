@@ -11,6 +11,7 @@ import "../styles/animations.css";
 import { useState, useEffect, useRef } from "react";
 import LoadingScreen from "../Components/LoadingScreen";
 
+
 const darkTheme = createTheme({
   palette: {
     mode: "dark",

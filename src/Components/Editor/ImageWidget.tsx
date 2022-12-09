@@ -7,11 +7,13 @@ import React, {
 } from "react";
 import Image from "next/image";
 import { ResetTvOutlined } from "@mui/icons-material";
-
-const ImageWidget = (): ReactElement => {
+type prop = {
+  setImageUrl: (string: string) => void;
+};
+const ImageWidget = (prop: prop): ReactElement => {
+  const { setImageUrl } = prop;
   const cloudinaryRef = useRef<any>();
   const widgetRef = useRef<any>();
-  const imageUrl = useRef<null | string>(null);
 
   useEffect(() => {
     cloudinaryRef.current = window.cloudinary;
@@ -22,14 +24,19 @@ const ImageWidget = (): ReactElement => {
       },
       function (error: any, result: any) {
         if (result.info.url !== undefined) {
-          imageUrl.current = result.info.url;
+          console.log(result.info.url);
+          setImageUrl(result.info.url);
         }
       }
     );
   }, []);
 
   return (
-    <button id="themeButton" onClick={() => widgetRef.current?.open()}>
+    <button
+      id="themeButton"
+      className="uppercase font-heading"
+      onClick={() => widgetRef.current?.open()}
+    >
       Select Photo
     </button>
   );
