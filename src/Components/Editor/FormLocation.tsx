@@ -4,7 +4,22 @@ import TextField from "@mui/material/TextField";
 import MapLocationPicker from "./MapLocationPicker";
 import ImageWidget from "./ImageWidget";
 
-const FormLocation = (): ReactElement => {
+interface props {
+  setTitle: (title: string) => void;
+  setDescription: (description: string) => void;
+  setImage: (image: string) => void;
+  setCoordinates: (answer: number[]) => void;
+  setHint: (hint: string) => void;
+}
+
+const FormLocation = (props:props): ReactElement => {
+  const {
+    setTitle,
+    setDescription,
+    setImage,
+    setCoordinates,
+    setHint} = props;
+    
   return (
     <> 
     <ClearIcon className="absolute top-2 right-2 hover:shadow-indigo-500/40"/>

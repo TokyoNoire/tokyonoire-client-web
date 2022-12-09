@@ -1,9 +1,10 @@
-import React, { type FC, type ReactElement } from "react";
+import React, { type FC, type ReactElement, useState } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
 import ImageWidget from "./ImageWidget";
 
 const FormNarrative = (): ReactElement => {
+  
   return (
     <>
       <ClearIcon className="absolute top-2 right-2 hover:shadow-indigo-500/40" />
