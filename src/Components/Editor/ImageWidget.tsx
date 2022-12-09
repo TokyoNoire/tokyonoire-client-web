@@ -11,7 +11,7 @@ type prop = {
   setImageUrl: (string: string) => void;
 };
 const ImageWidget = (prop: prop): ReactElement => {
-  let { setImageUrl } = prop;
+  const { setImageUrl } = prop;
   const cloudinaryRef = useRef<any>();
   const widgetRef = useRef<any>();
 

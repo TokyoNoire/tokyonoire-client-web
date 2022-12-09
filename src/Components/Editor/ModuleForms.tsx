@@ -5,8 +5,19 @@ import FormQuestion from "./FormQuestion";
 import FormEnd from "./FormEnd";
 import FormStoryInformation from "./FormStoryInformation";
 import axios from "axios";
+type GameModules = {
+  typeOfModule: string;
+  title: string;
+  description: string;
+  question: string;
+  answer: string[];
+  image: string;
+  locationCoordinates: string[];
+  hint: string;
+};
 
 const ModuleForms: FC = (): ReactElement => {
+  const [gameModule, setGameModules] = useState<GameModules[]>([]);
   const [published, setPublished] = useState<boolean | null>(null);
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -19,7 +30,6 @@ const ModuleForms: FC = (): ReactElement => {
   const [answer, setAnswer] = useState<string>("");
   const [hint, setHint] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
-  const [gameModule, setGameModules] = useState<Object>([]);
 
   const postGame = async () => {
     await axios.post("/editor", {
