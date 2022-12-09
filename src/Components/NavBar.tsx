@@ -1,15 +1,43 @@
 import React, { type FC, type ReactElement } from "react";
-import Menu from "./Menu"
+import MenuMobile from "./MenuMobile"
+import MenuDesktop from "./MenuDesktop"
 
-const NavBar: FC = (): ReactElement => {
+interface props {
+  deviceType: string
+}
+
+const NavBar = (props: props): ReactElement => {
+  const { deviceType } = props;
 
   return (
-    <div className="navbar">
-      <div className="navbar__main">
-        <Menu />
-      </div>
-      <div className="navbar__fade"></div>
-    </div>
+    <>
+      {deviceType === "Mobile" &&
+        (
+          <nav
+            className="top-0 fixed w-screen z-20"
+            style={{ backgroundColor: "rgb(0, 0, 0)", boxShadow: "0 2px 2px rgb(0, 0, 0)" }}
+          >
+            <div className="flex justify-center h-20 items-center">
+              <MenuMobile />
+            </div>
+            <div className="navbar__fade"></div>
+          </nav>
+        )
+      }
+      {deviceType === "Desktop" &&
+        (
+          <nav
+            className="top-0 fixed w-screen z-20"
+            style={{ backgroundColor: "rgb(0, 0, 0)", boxShadow: "0 2px 2px rgb(0, 0, 0)" }}
+          >
+            <div className="flex justify-between h-20 items-center mx-7">
+              <MenuDesktop />
+            </div>
+            <div className="navbar__fade"></div>
+          </nav>
+        )
+      }
+    </>
   );
 };
 

@@ -1,9 +1,9 @@
-.navbar {
+/* .navbar {
     top: 0px;
     position: fixed;
     width: 100vw;
     z-index: 20;
-}
+} */
 
 .navbar a {
     color: #fff;
@@ -13,8 +13,8 @@
     background-color: rgb(0, 0, 0);
     box-shadow: 0 2px 2px rgb(0, 0, 0);
     height: 75px;
-    display: flex;
-    justify-content: center;
+    /* display: flex; */
+    /* justify-content: center; */
     align-items: center;
 }
 

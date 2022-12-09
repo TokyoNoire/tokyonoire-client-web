@@ -11,7 +11,6 @@ import { Dialog } from "@mui/material";
 import FadeDiv from "../Components/Helpers/FadeDiv";
 import NavBar from "../Components/NavBar";
 
-
 export type startModuleInfo = {
   _id: string;
   titleOfGame: string;
@@ -32,8 +31,6 @@ const Home: NextPage = () => {
   useEffect(() => {
 
     const maxScreenSize = window.screen.height >= window.screen.width ? window.screen.height : window.screen.width;
-
-    // if (maxScreenSize) setShow(false)
     // if(/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
     if (maxScreenSize < 1000) {
       console.log("mobile device");
@@ -65,8 +62,7 @@ const Home: NextPage = () => {
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => {
     setTimeout(() => setMounted(true), 10000)
-  }, [])
-
+  }, []);
 
   return (
     <>
@@ -75,36 +71,57 @@ const Home: NextPage = () => {
         <meta name="keywords" content="interactive, story, game" />
       </Head>
 
-      <FadeDiv show={show}>
-        <NavBar />
-        <div className="relative h-screen flexCenterDiv place-items-center mx-5 ">
-          <TokyoNoireName alt="Tokyo Noire Name" style={{ maxWidth: "80vw" }} />
-          <div className="absolute bottom-8">
-            <KeyboardArrowDownIcon
-              style={{ animation: `hover-up-down ease-in-out 3s infinite`}}
-              sx={{
-                width: "1.5em",
-                height: "1.5em",
-              }} />
+      {deviceType === "Mobile" &&
+        <FadeDiv show={show}>
+          <NavBar deviceType={deviceType} />
+          <div className="relative h-screen flexCenterDiv place-items-center mx-5 ">
+            <TokyoNoireName alt="Tokyo Noire Name" style={{ maxWidth: "80vw" }} />
+            <div className="absolute bottom-8">
+              <KeyboardArrowDownIcon
+                style={{ animation: `hover-up-down ease-in-out 3s infinite` }}
+                sx={{
+                  width: "1.5em",
+                  height: "1.5em",
+                }} />
+            </div>
           </div>
-        </div>
-        <Hero />
-        <GameIdForm
-          setGameId={setGameId}
-          gameId={gameId}
-          setGame={setGame}
-          game={game}
-          handleOpen={handleOpen}
-        />
-        {game
-          ?
-          <Dialog className="object-fit flexCenterDiv" open={open} onClose={handleClose} fullScreen>
-            <StartModule game={game!} handleClose={handleClose} gameId={gameId} />
-          </Dialog>
-          :
-          <></>
-        }
-      </FadeDiv>
+          <Hero />
+          <GameIdForm
+            setGameId={setGameId}
+            gameId={gameId}
+            setGame={setGame}
+            game={game}
+            handleOpen={handleOpen}
+          />
+          {game
+            ?
+            <Dialog className="object-fit flexCenterDiv" open={open} onClose={handleClose} fullScreen>
+              <StartModule game={game!} handleClose={handleClose} gameId={gameId} />
+            </Dialog>
+            :
+            <></>
+          }
+        </FadeDiv>
+      }
+
+      {deviceType === "Desktop" &&
+        <FadeDiv show={show}>
+          <NavBar deviceType={deviceType} />
+          <main className="relative w-screen h-screen flexCenterDiv place-items-center">
+            <TokyoNoireName
+              alt="Tokyo Noire Name"
+              style={{ maxWidth: "80vw", filter: "drop-shadow(0 0 0.5rem grey)", animation: "pulsate 1s ease-in-out infinite alternate" }} />
+            <div className="absolute bottom-48">
+              <button
+                id="themeButton"
+                style={{ transform: "scale(1.2)" }}
+              >Go To Editor</button>
+            </div>
+          </main>
+
+
+        </FadeDiv>
+      }
 
     </>
   );

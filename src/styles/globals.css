@@ -40,10 +40,10 @@ body {
   margin: 0;
 }
 
-#__next {
+/* #__next {
   min-height: 100vh;
   justify-content: flex-start;
-}
+} */
 
 a {
   color: inherit;

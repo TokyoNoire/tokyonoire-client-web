@@ -27,7 +27,7 @@ const menuItems: Array<menuItem> = [
   }
 ]
 
-const Menu: FC = (): ReactElement => {
+const MenuMobile: FC = (): ReactElement => {
 
   const [fadeIn, setFadeIn] = useState<boolean>(false)
   const [isShown, setIsShown] = useState<boolean>(false);
@@ -67,4 +67,4 @@ const Menu: FC = (): ReactElement => {
   );
 };
 
-export default Menu;
+export default MenuMobile;
