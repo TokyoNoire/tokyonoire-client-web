@@ -1,5 +1,5 @@
 import React, { type ReactElement, useState, useEffect, useRef } from "react";
-import Logo from '../../public/Logo_DarkTheme.svg';
+import Logo from 'public/Logo_DarkTheme.svg';
 import FadeDiv from "./Helpers/FadeDiv";
 import LoadingScreenHints from "./Helpers/LoadingScreenHints";
 // import {ReactComponent as Logo} from '../../public/Logo_DarkTheme.svg';
@@ -41,15 +41,15 @@ const LoadingScreen = (props: props): ReactElement => {
             ?
             <FadeDiv show={show} duration={fadeDuration}>
                 <div
-                    className="flex flex-column justify-center absolute loader-bg w-screen h-screen items-center z-50">
-                    <Logo className="w-14 z-10" />
+                    className="absolute z-50 flex items-center justify-center w-screen h-screen flex-column loader-bg">
+                    <Logo className="z-10 w-14" />
                     {/* <Image
                             src={logo}
                             alt="logo menu button"
-                            className="w-14 z-10"
+                            className="z-10 w-14"
                         /> */}
                     <div className="loader"></div>
-                    <span className="absolute top-128 text-center display-linebreak" style={{ maxWidth: "90%" }}>{hint}</span>
+                    <span className="absolute text-center top-128 display-linebreak" style={{ maxWidth: "90%" }}>{hint}</span>
                 </div>
             </FadeDiv>
             :
