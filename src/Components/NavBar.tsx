@@ -37,7 +37,10 @@ const NavBar = (props: props): ReactElement => {
             >
               <MenuDesktop />
             </div>
-            <div className="navbar__fade"></div>
+            <div
+              className="h-4 w-full"
+              style={{ background: "linear-gradient(rgb(0, 0, 0, 1), rgba(0, 0, 0, 0))" }}
+            ></div>
           </nav>
         )
       }

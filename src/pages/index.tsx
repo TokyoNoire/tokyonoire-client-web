@@ -1,18 +1,16 @@
 import { useState, useEffect } from "react";
 import { type NextPage } from "next";
+import Link from "next/link";
 import Head from "next/head";
-import TokyoNoireName from "../../public/Title_DarkTheme.svg";
-import Image from "next/image";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import Hero from "./../Components/Hero";
+import axios from "axios";
 import GameIdForm from "../Components/GameIdForm";
 import StartModule from "../Components/StartModule";
-import { Dialog } from "@mui/material";
-import axios from "axios";
-import { LineAxisOutlined } from "@mui/icons-material";
+import Hero from "./../Components/Hero";
 import FadeDiv from "../Components/Helpers/FadeDiv";
 import NavBar from "../Components/NavBar";
-import Link from "next/link";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { Dialog } from "@mui/material";
+import TokyoNoireName from "../../public/Title_DarkTheme.svg";
 
 export type startModuleInfo = {
   _id: string;
@@ -118,7 +116,7 @@ const Home: NextPage = () => {
               alt="Tokyo Noire Name"
               style={{ maxWidth: "80vw", filter: "drop-shadow(0 0 0.5rem grey)", animation: "pulsate 1s ease-in-out infinite alternate" }} />
 
-            <section className="absolute bottom-48">
+            <section className="absolute bottom-1/4">
               <Link href="/editor">
                 <button
                   id="themeButton"

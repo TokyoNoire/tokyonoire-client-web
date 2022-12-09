@@ -23,7 +23,7 @@ const FadeDiv = (props: props) => {
             shouldRender && (
                 <div
                     className="absolute"
-                    style={{ animation: `${show ? "fadeIn" : "fadeOut"} ${duration ? duration : 0.5}s forwards`}}
+                    style={{ animation: `${show ? "fadeIn" : "fadeOut"} ${duration ? duration : 1}s forwards`}}
                     onAnimationEnd={onAnimationEnd}
                 >
                     {children}
