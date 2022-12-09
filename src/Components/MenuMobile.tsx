@@ -22,8 +22,8 @@ const menuItems: Array<menuItem> = [
     url: '/how-to-play',
   },
   {
-    title: 'Account',
-    url: '/account',
+    title: 'Profile',
+    url: '/profile',
   }
 ]
 

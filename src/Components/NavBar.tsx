@@ -15,9 +15,11 @@ const NavBar = (props: props): ReactElement => {
         (
           <nav
             className="top-0 fixed w-screen z-20"
-            style={{ backgroundColor: "rgb(0, 0, 0)", boxShadow: "0 2px 2px rgb(0, 0, 0)" }}
           >
-            <div className="flex justify-center h-20 items-center">
+            <div
+              className="flex justify-center h-20 items-center"
+              style={{ backgroundColor: "rgb(0, 0, 0)", boxShadow: "0 2px 2px rgb(0, 0, 0)" }}
+            >
               <MenuMobile />
             </div>
             <div className="navbar__fade"></div>
@@ -28,9 +30,11 @@ const NavBar = (props: props): ReactElement => {
         (
           <nav
             className="top-0 fixed w-screen z-20"
-            style={{ backgroundColor: "rgb(0, 0, 0)", boxShadow: "0 2px 2px rgb(0, 0, 0)" }}
           >
-            <div className="flex justify-between h-20 items-center mx-7">
+            <div
+              className="flex justify-between h-24 items-center mx-7"
+              style={{ backgroundColor: "rgb(0, 0, 0)", boxShadow: "0 2px 2px rgb(0, 0, 0)" }}
+            >
               <MenuDesktop />
             </div>
             <div className="navbar__fade"></div>

@@ -17,8 +17,8 @@ const menuItems: Array<menuItem> = [
     url: '/how-to-play',
   },
   {
-    title: 'Account',
-    url: '/account',
+    title: 'Profile',
+    url: '/profile',
   }
 ]
 
@@ -26,10 +26,12 @@ const MenuDesktop: FC = (): ReactElement => {
 
   return (
     <>
-      <Logo
-        alt="logo menu button"
-        className="logo"
-      />
+      <Link href="/" className="z-50 w-12">
+        <Logo
+          alt="logo menu button"
+          className="logo"
+        />
+      </Link>
       <ul className="flex gap-12">
         {menuItems.map((menuItem, index) => (
           <li key={index} className="menu-item text-xl">

@@ -10,6 +10,7 @@ import StartModule from "../Components/StartModule";
 import { Dialog } from "@mui/material";
 import FadeDiv from "../Components/Helpers/FadeDiv";
 import NavBar from "../Components/NavBar";
+import Link from "next/link";
 
 export type startModuleInfo = {
   _id: string;
@@ -33,10 +34,8 @@ const Home: NextPage = () => {
     const maxScreenSize = window.screen.height >= window.screen.width ? window.screen.height : window.screen.width;
     // if(/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
     if (maxScreenSize < 1000) {
-      console.log("mobile device");
       setDeviceType("Mobile")
     } else {
-      console.log("not mobile device");
       setDeviceType("Desktop")
     }
   }, [])
@@ -71,57 +70,59 @@ const Home: NextPage = () => {
         <meta name="keywords" content="interactive, story, game" />
       </Head>
 
-      {deviceType === "Mobile" &&
-        <FadeDiv show={show}>
-          <NavBar deviceType={deviceType} />
-          <div className="relative h-screen flexCenterDiv place-items-center mx-5 ">
-            <TokyoNoireName alt="Tokyo Noire Name" style={{ maxWidth: "80vw" }} />
-            <div className="absolute bottom-8">
-              <KeyboardArrowDownIcon
-                style={{ animation: `hover-up-down ease-in-out 3s infinite` }}
-                sx={{
-                  width: "1.5em",
-                  height: "1.5em",
-                }} />
-            </div>
-          </div>
-          <Hero />
-          <GameIdForm
-            setGameId={setGameId}
-            gameId={gameId}
-            setGame={setGame}
-            game={game}
-            handleOpen={handleOpen}
-          />
-          {game
-            ?
-            <Dialog className="object-fit flexCenterDiv" open={open} onClose={handleClose} fullScreen>
-              <StartModule game={game!} handleClose={handleClose} gameId={gameId} />
-            </Dialog>
-            :
-            <></>
-          }
-        </FadeDiv>
-      }
+      <FadeDiv show={show}>
+        {deviceType && <NavBar deviceType={deviceType} />}
 
-      {deviceType === "Desktop" &&
-        <FadeDiv show={show}>
-          <NavBar deviceType={deviceType} />
+        {deviceType === "Mobile" &&
+          <FadeDiv show={show}>
+            <div className="relative h-screen flexCenterDiv place-items-center mx-5 ">
+              <TokyoNoireName alt="Tokyo Noire Name" style={{ maxWidth: "80vw" }} />
+              <div className="absolute bottom-8">
+                <KeyboardArrowDownIcon
+                  style={{ animation: `hover-up-down ease-in-out 3s infinite` }}
+                  sx={{
+                    width: "1.5em",
+                    height: "1.5em",
+                  }} />
+              </div>
+            </div>
+            <Hero />
+            <GameIdForm
+              setGameId={setGameId}
+              gameId={gameId}
+              setGame={setGame}
+              game={game}
+              handleOpen={handleOpen}
+            />
+            {game
+              ?
+              <Dialog className="object-fit flexCenterDiv" open={open} onClose={handleClose} fullScreen>
+                <StartModule game={game!} handleClose={handleClose} gameId={gameId} />
+              </Dialog>
+              :
+              <></>
+            }
+          </FadeDiv>
+        }
+
+        {deviceType === "Desktop" &&
           <main className="relative w-screen h-screen flexCenterDiv place-items-center">
             <TokyoNoireName
               alt="Tokyo Noire Name"
               style={{ maxWidth: "80vw", filter: "drop-shadow(0 0 0.5rem grey)", animation: "pulsate 1s ease-in-out infinite alternate" }} />
-            <div className="absolute bottom-48">
-              <button
-                id="themeButton"
-                style={{ transform: "scale(1.2)" }}
-              >Go To Editor</button>
-            </div>
+
+            <section className="absolute bottom-48">
+              <Link href="/editor">
+                <button
+                  id="themeButton"
+                  style={{ transform: "scale(1.2)" }}
+                >Go To Editor</button>
+              </Link>
+            </section>
+
           </main>
-
-
-        </FadeDiv>
-      }
+        }
+      </FadeDiv>
 
     </>
   );

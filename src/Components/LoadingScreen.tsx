@@ -20,7 +20,6 @@ const LoadingScreen = (props: props): ReactElement => {
 
     const [mounted, setMounted] = useState<boolean>(false);
 
-    console.log(Logo)
     useEffect(() => {
         if (!mounted) {
             setHint(LoadingScreenHints[Math.floor(Math.random() * LoadingScreenHints.length)])
