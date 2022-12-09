@@ -3,7 +3,18 @@ import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
 import ImageWidget from "./ImageWidget";
 
-const FormNarrative = (): ReactElement => {
+interface props {
+  setTitle: (title: string) => void;
+  setDescription: (description: string) => void;
+  setImage: (image: string) => void;
+}
+
+const FormNarrative = (props:props): ReactElement => {
+  const {
+    setTitle,
+    setDescription,
+    setImage
+    } = props;
   
   return (
     <>
