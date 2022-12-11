@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import { type NextPage } from "next";
 import Head from "next/head";
 import TokyoNoireName from "../../public/Title_DarkTheme.svg";
-import Image from "next/image";
+// import Image from "next/image";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Hero from "./../Components/Hero";
 import GameIdForm from "../Components/GameIdForm";
 import StartModule from "../Components/StartModule";
 import { Dialog } from "@mui/material";
 import axios from "axios";
-import { LineAxisOutlined } from "@mui/icons-material";
+// import { LineAxisOutlined } from "@mui/icons-material";
 import FadeDiv from "../Components/Helpers/FadeDiv";
 import NavBar from "../Components/NavBar";
 import Link from "next/link";
@@ -82,7 +82,7 @@ const Home: NextPage = () => {
 
         {deviceType === "Mobile" &&
           <FadeDiv show={show}>
-            <div className="relative h-screen flexCenterDiv place-items-center mx-5 ">
+            <div className="relative h-screen mx-5 flexCenterDiv place-items-center ">
               <TokyoNoireName alt="Tokyo Noire Name" style={{ maxWidth: "80vw" }} />
               <div className="absolute bottom-8">
                 <KeyboardArrowDownIcon

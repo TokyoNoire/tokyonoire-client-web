@@ -6,7 +6,7 @@ import StatusBar from "../../Components/ProfilePage/StatusBar";
 const Profile: NextPage = () => {
   return (
     <>
-    <main className="flex items-center justify-center w-screen h-screen">
+    <main className="flex flex-col items-center justify-center w-screen h-screen">
       <h1 className="text-3xl uppercase font-heading">Profile Page</h1>
       <StatusBar/>
       <GameList/>
