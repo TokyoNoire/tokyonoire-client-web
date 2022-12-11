@@ -1,7 +1,7 @@
 //https://usehooks-ts.com/react-hook/use-local-storage
 import {
-  Dispatch,
-  SetStateAction,
+  type Dispatch,
+  type SetStateAction,
   useCallback,
   useEffect,
   useState,

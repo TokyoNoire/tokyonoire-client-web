@@ -1,4 +1,4 @@
-import React, { type FC, type ReactElement, useState } from "react";
+import React, { type ReactElement, useState } from "react";
 import {
     Dialog,
     DialogTitle,
@@ -6,8 +6,6 @@ import {
     DialogContentText,
     DialogActions,
 } from "@mui/material";
-import Gyroscope from "./Helpers/Gyroscope";
-
 
 interface props {
     setDevicePermission: React.Dispatch<React.SetStateAction<boolean>>
@@ -15,10 +13,7 @@ interface props {
 
 const HowToPlayPopup = (props: props): ReactElement => {
     const { setDevicePermission } = props;
-    const { orientation, requestAccessAsync } = Gyroscope();
-
     const [open, setOpen] = useState<boolean>(true);
-
     const handleClose = () => {
         setOpen(false);
     };

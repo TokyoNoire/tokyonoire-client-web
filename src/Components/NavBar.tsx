@@ -1,4 +1,4 @@
-import React, { type FC, type ReactElement } from "react";
+import React, { type ReactElement } from "react";
 import MenuMobile from "./MenuMobile"
 import MenuDesktop from "./MenuDesktop"
 

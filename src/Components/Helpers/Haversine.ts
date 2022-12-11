@@ -10,13 +10,16 @@ function hav (x: number) {
 
 function haversineDistance (origin: number[], target: number[]) {
 
-  const aLat = toRad(origin[1]!)
-  const bLat = toRad(target[1]!)
-  const aLng = toRad(origin[0]!)
-  const bLng = toRad(target[0]!)
+  if (origin && target && origin[0] && origin[1] && target[0] && target[1]) {
+    const aLat = toRad(origin[1])
+    const bLat = toRad(target[1])
+    const aLng = toRad(origin[0])
+    const bLng = toRad(target[0])
 
-  const ht = hav(bLat - aLat) + Math.cos(aLat) * Math.cos(bLat) * hav(bLng - aLng)
-  return 2 * R * Math.asin(Math.sqrt(ht))
+    const ht = hav(bLat - aLat) + Math.cos(aLat) * Math.cos(bLat) * hav(bLng - aLng)
+    return 2 * R * Math.asin(Math.sqrt(ht))
+  }
+  return null;
 }
 
   return { haversineDistance };

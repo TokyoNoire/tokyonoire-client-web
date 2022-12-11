@@ -1,4 +1,4 @@
-import React, { type FC, type ReactElement, useState, useEffect } from "react";
+import React, { type FC, type ReactElement, useState } from "react";
 import Logo from '../../public/Logo_DarkTheme.svg';
 import Link from "next/link";
 import PublishIcon from "./../../Assets/Icons/publishIcon-darkTheme.svg"
@@ -29,7 +29,7 @@ const menuItems: Array<menuItem> = [
 
 const MenuDesktop: FC = (): ReactElement => {
 
-  const [show, setShow] = useState<boolean>(true);
+  const [show] = useState<boolean>(true);
 
   return (
     <>

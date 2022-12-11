@@ -3,7 +3,7 @@ import FadeDiv from "../../Components/Helpers/FadeDiv";
 
 const Custom404: FC = (): ReactElement => {
 
-    const [show, setShow] = useState<boolean>(true);
+    const [show] = useState<boolean>(true);
 
     return (
         <FadeDiv show={show}>

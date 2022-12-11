@@ -4,6 +4,7 @@ import React, {
   useState,
   useEffect,
   useRef,
+  useCallback,
 } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -27,46 +28,43 @@ export type GameModule = {
 
 const GameId: FC = (): ReactElement => {
   const [challengeSuccess, setChallengeSuccess] = useState<boolean>(false);
-  const [typeOfModule, setTypeOfModule] = useState<string | null>("");
+  const [, setTypeOfModule] = useState<string | null>("");
   const [gameObject, setGameObject] = useState<GameModule | null>(null);
   const router = useRouter();
   const currentIndex = useRef(0);
-  const sentRequest = useRef<boolean>(false);
   const [devicePermission, setDevicePermission] = useState<boolean>(false);
 
+  const getGameObject = useCallback(
+    async () => {
+      await axios
+        .get(
+          `https://tokyo-noire-server-development.herokuapp.com/game/${router.query.gameId}/?index=${currentIndex.current}`
+        )
+        .then((response) => setGameObject(response.data));
+    },
+    [router, currentIndex]
+  );
 
   useEffect(() => {
     if (gameObject === null) {
       getGameObject();
     }
-  }, []);
+  }, [gameObject, getGameObject]);
 
   useEffect(() => {
-    if (challengeSuccess === true 
-      // && !sentRequest.current
-      ) {
+    if (challengeSuccess === true) {
       currentIndex.current++;
       getGameObject();
-      // sentRequest.current = true;
       gameObject!.locationCoordinates = null;
-            setChallengeSuccess(false);
-
+      setChallengeSuccess(false);
     }
-  }, [challengeSuccess]);
+  }, [gameObject, getGameObject, challengeSuccess]);
 
   useEffect(() => {
     if (gameObject !== null) {
       setTypeOfModule(gameObject.typeOfModule);
     }
   }, [gameObject]);
-
-  const getGameObject = async () => {
-    await axios
-      .get(
-        `https://tokyo-noire-server-development.herokuapp.com/game/${router.query.gameId}/?index=${currentIndex.current}`
-      )
-      .then((response) => setGameObject(response.data));
-  };
 
   const setCurrentComponent = (typeOfModule: string | undefined) => {
     switch (typeOfModule) {
@@ -75,12 +73,13 @@ const GameId: FC = (): ReactElement => {
           <>
             <LocationModule
               gameObject={gameObject!}
-              setChallengeSuccess={setChallengeSuccess}
-              />
+            />
             {devicePermission
-              ? <NavigationModule 
-              locationCoordinates={gameObject?.locationCoordinates !== null ? gameObject!.locationCoordinates : [0,0]}
-              setChallengeSuccess={setChallengeSuccess}
+              ? <NavigationModule
+                locationCoordinates={
+                  gameObject?.locationCoordinates !== null ? gameObject!.locationCoordinates : [0, 0]
+                }
+                setChallengeSuccess={setChallengeSuccess}
               />
               : <></>
             }

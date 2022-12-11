@@ -7,7 +7,6 @@ import GameIdForm from "../Components/GameIdForm";
 import StartModule from "../Components/StartModule";
 import Hero from "./../Components/Hero";
 import FadeDiv from "../Components/Helpers/FadeDiv";
-import NavBar from "../Components/NavBar";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Dialog } from "@mui/material";
 import TokyoNoireName from "../../public/Title_DarkTheme.svg";
@@ -26,7 +25,7 @@ export type startModuleInfo = {
 const Home: NextPage = () => {
 
   const [deviceType, setDeviceType] = useState<string | null>(null)
-  const [show, setShow] = useState<boolean>(true);
+  const [show] = useState<boolean>(true);
 
   // Checks whether the type of device.
   useEffect(() => {
@@ -76,7 +75,6 @@ const Home: NextPage = () => {
       </Head>
 
       <FadeDiv show={show}>
-        {/* {deviceType && <NavBar deviceType={deviceType} />} */}
 
         {deviceType === "Mobile" &&
           <FadeDiv show={show}>
@@ -99,13 +97,10 @@ const Home: NextPage = () => {
               game={game}
               handleOpen={handleOpen}
             />
-            {game
-              ?
+            {game &&
               <Dialog className="object-fit flexCenterDiv" open={open} onClose={handleClose} fullScreen>
-                <StartModule game={game!} handleClose={handleClose} gameId={gameId} />
+                <StartModule game={game} handleClose={handleClose} gameId={gameId} />
               </Dialog>
-              :
-              <></>
             }
           </FadeDiv>
         }

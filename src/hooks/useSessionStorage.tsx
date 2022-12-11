@@ -1,8 +1,8 @@
 //https://usehooks-ts.com/react-hook/use-session-storage
 
 import {
-    Dispatch,
-    SetStateAction,
+    type Dispatch,
+    type SetStateAction,
     useCallback,
     useEffect,
     useState,

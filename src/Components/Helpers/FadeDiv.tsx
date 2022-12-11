@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ReactNode } from "react";
+import React, { useEffect, useState, type ReactNode } from "react";
 
 interface props {
     show: boolean;

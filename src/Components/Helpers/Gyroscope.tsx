@@ -33,6 +33,7 @@ const Gyroscope = (): UseDeviceOrientationData => {
   const requestAccessAsync = async (): Promise<boolean> => {
     if (!DeviceOrientationEvent) {
       setError(new Error('Device orientation event is not supported by your browser'));
+      console.error(error)
       return false;
     }
 

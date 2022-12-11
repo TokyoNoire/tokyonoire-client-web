@@ -1,7 +1,7 @@
-import React, { type FC, type ReactElement, useState } from "react";
+import React, { type ReactElement } from "react";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
-import { startModuleInfo } from "../pages";
+import { type startModuleInfo } from "../pages";
 
 interface prop {
   setGameId: (string: string) => void;
@@ -11,9 +11,8 @@ interface prop {
   gameId: string | null;
 }
 const GameIdForm = (prop: prop): ReactElement => {
-  const { setGameId, gameId, setGame, handleOpen, game } = prop;
+  const { setGameId, gameId, setGame, handleOpen } = prop;
 
-  //const [game, setGame] = useState<startModuleInfo>(testObject);
 
   const getGameById = async () => {
     await axios
@@ -22,7 +21,6 @@ const GameIdForm = (prop: prop): ReactElement => {
       )
       .then((response) => setGame(response.data[0]));
   };
-  //setGame
 
   return (
     <div className="items-center mx-8 my-48 flexCenterDiv">

@@ -1,89 +1,87 @@
-import React, { type FC, type ReactElement, useRef, useState, useEffect } from "react";
+import React, { type ReactElement, useRef, useState, useEffect, useCallback } from "react";
 import Compass from "./Compass";
 import Distance from "./Distance"
 import BearingAngle from "./Helpers/BearingAngle"
 import Gyroscope from "./Helpers/Gyroscope"
 
 interface props {
-    setChallengeSuccess: (boolean: boolean) => void;
-    locationCoordinates: Array<number>;
+  setChallengeSuccess: (boolean: boolean) => void;
+  locationCoordinates: number[];
 }
 
 const NavigationModule = (props: props): ReactElement => {
-    const { setChallengeSuccess, locationCoordinates } = props;
-    const { orientation, requestAccessAsync } = Gyroscope();
+  const { setChallengeSuccess, locationCoordinates } = props;
+  const { orientation, requestAccessAsync } = Gyroscope();
 
-    const { calcBearingAngle } = BearingAngle();
+  const { calcBearingAngle } = BearingAngle();
+  const [currentCoords, setCurrentCoords] = useState<number[] | null>(null)
+  const coords = useRef<number[] | null>(null);
+  const [targetCoords] = useState<number[]>([locationCoordinates[1] as number, locationCoordinates[0] as number])
+  const [bearingAngle, setBearingAngle] = useState<number | null>(calcBearingAngle(currentCoords as number[], targetCoords));
 
-    const [currentCoords, setCurrentCoords] = useState<number[] | null>(null)
-    const coords = useRef<number[] | null>(null);
-    const [targetCoords, setTargetCoords] = useState<number[]>([locationCoordinates[1]!, locationCoordinates[0]!])
-    const [bearingAngle, setBearingAngle] = useState<number | null>(calcBearingAngle(currentCoords!, targetCoords));
+  const [acquiredPermissions, setAcquiredPermissions] = useState<boolean>(false);
 
-    const [acquiredPermissions, setAcquiredPermissions] = useState<boolean>(false);
-
-    useEffect(() => {
-        console.log(acquiredPermissions)
-        if (acquiredPermissions) {
-            const interval = setInterval(() => {
-                if ('geolocation' in navigator) {
-                    navigator.geolocation.getCurrentPosition((position) => {
-                        setCurrentCoords([position.coords.longitude, position.coords.latitude])
-                        coords.current = [position.coords.longitude, position.coords.latitude]
-                        console.log(position)
-                    });
-                }
-                else console.error('geolocation unavailable')
-                setBearingAngle(calcBearingAngle(coords.current!, targetCoords));
-            }, 1000);
-
-            return () => {
-                clearInterval(interval)
-            }
+  useEffect(() => {
+    console.log(acquiredPermissions)
+    if (acquiredPermissions) {
+      const interval = setInterval(() => {
+        if ('geolocation' in navigator) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            setCurrentCoords([position.coords.longitude, position.coords.latitude])
+            coords.current = [position.coords.longitude, position.coords.latitude]
+            console.log(position)
+          });
         }
-    }, [acquiredPermissions])
+        else console.error('geolocation unavailable')
+        setBearingAngle(calcBearingAngle(coords.current as number[], targetCoords));
+      }, 1000);
 
-    function getPosition(options?: PositionOptions): Promise<GeolocationPosition> {
-        return new Promise((resolve, reject) =>
-            navigator.geolocation.getCurrentPosition(resolve, reject, options)
-        );
+      return () => {
+        clearInterval(interval)
+      }
     }
+  }, [acquiredPermissions, calcBearingAngle, targetCoords])
 
-    const handlePermissions = async () => {
-        await requestAccessAsync();
-        const position = await getPosition();
-        console.log(position)
-        setAcquiredPermissions(true);
-    }
-
-    useEffect(() => {
-        if (!acquiredPermissions) {
-            handlePermissions();
-        }
-    }, [acquiredPermissions])
-
-    return (
-        <>
-            {currentCoords && targetCoords
-                ?
-                <Distance
-                    currentCoords={currentCoords}
-                    targetCoords={targetCoords}
-                    setChallengeSuccess={setChallengeSuccess}
-                />
-                :
-                <></>
-            }
-
-            <Compass
-                bearingAngle={bearingAngle}
-                currentCoords={currentCoords}
-                targetCoords={targetCoords}
-                orientation={orientation!}
-            />
-
-        </>
+  function getPosition(options?: PositionOptions): Promise<GeolocationPosition> {
+    return new Promise((resolve, reject) =>
+      navigator.geolocation.getCurrentPosition(resolve, reject, options)
     );
+  }
+
+  const handlePermissions = useCallback(async () => {
+    await requestAccessAsync();
+    const position = await getPosition();
+    console.log(position)
+    setAcquiredPermissions(true);
+  }, [requestAccessAsync])
+
+
+  useEffect(() => {
+    if (!acquiredPermissions) {
+      handlePermissions();
+    }
+  }, [acquiredPermissions, handlePermissions])
+
+  return (
+    <>
+      {currentCoords && targetCoords &&
+        <Distance
+          currentCoords={currentCoords}
+          targetCoords={targetCoords}
+          setChallengeSuccess={setChallengeSuccess}
+        />
+      }
+
+      {orientation &&
+        <Compass
+          bearingAngle={bearingAngle}
+          currentCoords={currentCoords}
+          targetCoords={targetCoords}
+          orientation={orientation}
+        />
+      }
+    </>
+  );
 };
 
 export default NavigationModule;
