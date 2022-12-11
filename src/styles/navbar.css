@@ -1,8 +1,9 @@
-.navbar {
+/* .navbar {
     top: 0px;
-    position: sticky;
-    z-index: 97;
-}
+    position: fixed;
+    width: 100vw;
+    z-index: 20;
+} */
 
 .navbar a {
     color: #fff;
@@ -12,8 +13,8 @@
     background-color: rgb(0, 0, 0);
     box-shadow: 0 2px 2px rgb(0, 0, 0);
     height: 75px;
-    display: flex;
-    justify-content: center;
+    /* display: flex; */
+    /* justify-content: center; */
     align-items: center;
 }
 
@@ -36,7 +37,7 @@
     text-align: center;
     width: 100%;
     box-shadow: 0px 20px 20px black;
-    z-index: 98;
+    z-index: 21;
     background-color: black;
     opacity: 1;
 }
@@ -73,6 +74,7 @@
 
     100% {
         opacity: 1;
+        visibility: visible;
     }
 }
 
@@ -87,8 +89,9 @@
     0% {
         opacity: 1;
     }
-
+    
     100% {
         opacity: 0;
+        visibility: hidden;
     }
 }

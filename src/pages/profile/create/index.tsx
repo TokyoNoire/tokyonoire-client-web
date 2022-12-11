@@ -7,13 +7,7 @@ import ImageWidget from "../../../Components/Editor/ImageWidget";
 //cloudinary image widget!!!
 
 const GameBuilder: NextPage = () => {
-  return (
-    <>
-      <div className="container">
-        <ImageWidget />
-      </div>
-    </>
-  );
+  return <></>;
 };
 
 export default GameBuilder;
