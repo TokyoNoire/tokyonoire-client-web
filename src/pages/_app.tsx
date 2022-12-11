@@ -5,18 +5,12 @@ import "../styles/globals.css";
 import "../styles/navbar.css";
 import "../styles/mapLocationPicker.css";
 import "../styles/compass.css";
-<<<<<<< HEAD
-import SignInForm from "../Components/SignInForm";
-import { SessionProvider } from "next-auth/react";
-import AuthRoute from "../Components/AuthRoute";
-=======
 import "../styles/loadingSpinner.css";
 import "../styles/fade.css";
 import "../styles/animations.css";
 import { useState, useEffect, useRef } from "react";
 import LoadingScreen from "../Components/LoadingScreen";
 
->>>>>>> 9396280a05012c5e1eeacaffb9395b15f067cb27
 
 const darkTheme = createTheme({
   palette: {
@@ -54,17 +48,6 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   }, [])
 
   return (
-<<<<<<< HEAD
-    <>
-    <SessionProvider>
-      <ThemeProvider theme={darkTheme}>
-        <NavBar />
-        <SignInForm/>
-        <Component {...pageProps} />
-      </ThemeProvider>
-      </SessionProvider>
-      <script
-=======
 
     (Component && !loadScreenMounted)
       ?
@@ -74,7 +57,6 @@ const MyApp: AppType = ({ Component, pageProps }) => {
           <Component {...pageProps} deviceType={deviceType} />
         </ThemeProvider>
         <script
->>>>>>> 9396280a05012c5e1eeacaffb9395b15f067cb27
         src="https://upload-widget.cloudinary.com/global/all.js"
         type="text/javascript"
       />
