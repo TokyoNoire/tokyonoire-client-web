@@ -1,4 +1,4 @@
-import React, { type FC, type ReactElement, useState } from "react";
+import React, { type FC, type ReactElement, useState, FormEventHandler } from "react";
 import {
   Box,
   Grid,
@@ -11,13 +11,25 @@ import {
 import Link from "next/link";
 import GoogleIcon from "@mui/icons-material/Google";
 import AppleIcon from "@mui/icons-material/Apple";
-// import { useRouter } from "next/router";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const SignUpForm: FC = (): ReactElement => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  // const router = useRouter();
+  const [userInfo, setUserInfo] = useState({ email: "", password: "", name: "" });
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+
+    const res = await signIn("credentials", {
+      email: userInfo.email,
+      password: userInfo.password,
+      name: userInfo.name,
+      redirect: false,
+    });
+
+    console.log(res);
+  };
 
   return (
     <div className="items-center mx-8 my-20 flexCenterDiv bg-darkGrey">
@@ -35,8 +47,10 @@ const SignUpForm: FC = (): ReactElement => {
           label="Name"
           variant="filled"
           aria-describedby="name-input"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={userInfo.name}
+          onChange={({ target }) =>
+          setUserInfo({ ...userInfo, name: target.value })
+        }
         />
         <FormHelperText id="password-helper">Your full name.</FormHelperText>
       </FormControl>
@@ -49,8 +63,10 @@ const SignUpForm: FC = (): ReactElement => {
           variant="filled"
           label="Email"
           aria-describedby="email-address-input"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={userInfo.email}
+          onChange={({ target }) =>
+            setUserInfo({ ...userInfo, email: target.value })
+          }
         />
         <FormHelperText id="password-helper">
           Your e-mail address.
@@ -66,8 +82,10 @@ const SignUpForm: FC = (): ReactElement => {
           label="Password"
           variant="filled"
           aria-describedby="password-input"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={userInfo.password}
+          onChange={({ target }) =>
+            setUserInfo({ ...userInfo, password: target.value })
+          }
         />
         <FormHelperText id="password-helper">
           Password for your account.

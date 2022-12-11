@@ -1,4 +1,5 @@
-import React, { type FC, type ReactElement, useState } from "react";
+'use client'
+import React, { type FC, type ReactElement, useState, FormEventHandler } from "react";
 import {
   Box,
   Grid,
@@ -11,11 +12,22 @@ import {
 import Link from "next/link";
 import GoogleIcon from "@mui/icons-material/Google";
 import AppleIcon from "@mui/icons-material/Apple";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const SignInForm: FC = (): ReactElement => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  // const router = useRouter();
+  const { data: session } = useSession();
+  const [userInfo, setUserInfo] = useState({ email: "", password: "" });
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+
+    const res = await signIn("credentials", {
+      email: userInfo.email,
+      password: userInfo.password,
+      redirect: false,
+    });
+
+    console.log(res);
+  };
 
   return (
     <div className="items-center mx-8 my-20 flexCenterDiv bg-darkGrey">
@@ -25,6 +37,7 @@ const SignInForm: FC = (): ReactElement => {
       </h1>
       <br />
 
+      <form onSubmit={handleSubmit}>
       <FormControl>
         <TextField
           id="email"
@@ -32,8 +45,10 @@ const SignInForm: FC = (): ReactElement => {
           variant="filled"
           label="Email"
           aria-describedby="email-address-input"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={userInfo.email}
+          onChange={({ target }) =>
+            setUserInfo({ ...userInfo, email: target.value })
+          }
         />
         <FormHelperText id="password-helper">
           Your e-mail address.
@@ -49,35 +64,31 @@ const SignInForm: FC = (): ReactElement => {
           label="Password"
           variant="filled"
           aria-describedby="password-input"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={userInfo.password}
+          onChange={({ target }) =>
+            setUserInfo({ ...userInfo, password: target.value })
+          }
         />
         <FormHelperText id="password-helper">
           Password for your account.
         </FormHelperText>
       </FormControl>
       <br />
-      <Button type="submit" id="themeButton" className="font-heading">
+      <Button type="submit" onClick={() => {handleSubmit}} id="themeButton" className="font-heading">
         Sign In
       </Button>
       <br />
       <Button
-        type="submit"
+        type="button"
         id="themeButton"
         className="font-heading"
         endIcon={<GoogleIcon />}
+        onClick={() => signIn()}
       >
         Sign in with
       </Button>
       <br />
-      <Button
-        type="submit"
-        id="themeButton"
-        className="font-heading"
-        endIcon={<AppleIcon />}
-      >
-        Sign in with
-      </Button>
+      </form>
 
       <Box
         sx={{
@@ -94,7 +105,7 @@ const SignInForm: FC = (): ReactElement => {
             <Typography color="secondary" variant="body2">
               <Link className="mb-5 text-m font-body2" href="/" id="link">
                 {" "}
-                Don&apos;t have an account? Sign in here.{" "}
+                Don&apos;t have an account? Sign up here.{" "}
               </Link>
             </Typography>
           </Grid>
