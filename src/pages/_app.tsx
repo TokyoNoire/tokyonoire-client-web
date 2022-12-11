@@ -1,5 +1,5 @@
 import { type AppType } from "next/dist/shared/lib/utils";
-import NavBar from "../Components/NavBar";
+import NavBar from "../Components/Navigation/NavBar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "../styles/globals.css";
 import "../styles/navbar.css";
@@ -27,7 +27,6 @@ const MyApp: AppType = ({ Component, pageProps }) => {
 
   useEffect(() => {
     if (!compCheck.current) {
-      console.log(typeof Component)
       compCheck.current = true
     } else {
       compCheck.current = false
@@ -52,14 +51,14 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       ?
       <>
         <ThemeProvider theme={darkTheme}>
-          {deviceType && <NavBar deviceType={deviceType}/>}
+          {deviceType && <NavBar deviceType={deviceType} />}
           <Component {...pageProps} deviceType={deviceType} />
         </ThemeProvider>
         <script
-        src="https://upload-widget.cloudinary.com/global/all.js"
-        type="text/javascript"
-      />
-    </>
+          src="https://upload-widget.cloudinary.com/global/all.js"
+          type="text/javascript"
+        />
+      </>
       :
       <LoadingScreen
         setLoadScreenMounted={setLoadScreenMounted}

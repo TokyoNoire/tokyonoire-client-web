@@ -1,5 +1,5 @@
 import React, { type FC, type ReactElement, useState } from "react";
-import Logo from '../../public/Logo_DarkTheme.svg';
+import Logo from '../../../public/Logo_DarkTheme.svg';
 import Link from "next/link";
 
 type menuItem = {

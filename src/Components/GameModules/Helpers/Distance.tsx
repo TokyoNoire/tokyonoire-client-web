@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Haversine from "./Helpers/Haversine";
+import Haversine from "./Haversine";
 import React, { useEffect, type ReactElement } from "react";
 
 interface props {
@@ -27,7 +27,7 @@ const Distance = (props: props): ReactElement => {
 
   return (
     <>
-      <h1 className="self-center">Distance from target</h1>
+      <h1 className="self-center text-center mt-8">Distance from target</h1>
       <h1 className="self-center p-1 text-2xl text-center uppercase font-heading">
         {distance} meters
       </h1>

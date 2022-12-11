@@ -1,5 +1,5 @@
 import React, { type ReactElement } from "react";
-import { type GameModule } from "../pages/game/[gameId]";
+import { type GameModule } from "../../pages/game/[gameId]";
 import Image from "next/image";
 
 interface props {
@@ -19,13 +19,13 @@ const NarrativeModule = (props: props): ReactElement => {
 
         <div className="self-center w-10/12 m-4 flexCenterDiv">
           {gameObject.image === null &&
-            <Image src={gameObject.image} alt="Image for question module" className="rounded-lg"></Image>
-            // <img
-            //       src={gameObject.image}
-            //       alt="Image for question module"
-            //       className="rounded-lg"
-            //     />
-                }
+            // <Image src={gameObject.image} alt="Image for question module" className="rounded-lg"></Image>
+            <img
+              src={gameObject.image}
+              alt="Image for question module"
+              className="rounded-lg"
+            />
+          }
 
         </div>
         <p className="px-6 mt-2 font-body1">{gameObject.description}</p>

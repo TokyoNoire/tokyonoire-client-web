@@ -1,5 +1,5 @@
 import React, { type ReactElement, useState } from "react";
-import { type GameModule } from "../pages/game/[gameId]";
+import { type GameModule } from "../../pages/game/[gameId]";
 import TextField from "@mui/material/TextField";
 import Image from "next/image";
 
@@ -22,16 +22,16 @@ const QuestionModule = (props: props): ReactElement => {
           </h1>
 
           {gameObject.image === null &&
-            <Image
-              src={gameObject.image}
-              alt="Image for question module"
-              className="rounded-lg"
-            ></Image>
-            // <img
+            // <Image
             //   src={gameObject.image}
             //   alt="Image for question module"
             //   className="rounded-lg"
-            // />
+            // ></Image>
+            <img
+              src={gameObject.image}
+              alt="Image for question module"
+              className="rounded-lg"
+            />
           }
 
           <p className="px-6 mt-2 font-body1">{gameObject.description}</p>

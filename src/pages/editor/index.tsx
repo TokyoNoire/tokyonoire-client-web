@@ -10,7 +10,7 @@ const Editor: NextPage = () => {
 
   return (
     <FadeDiv show={show}>
-      <div className="grid items-center justify-center grid-cols-2 gap-10 m-5 place-items-stretch">
+      <div className="grid items-center justify-center grid-cols-2 gap-10 m-5 mt-28 place-items-stretch">
         <DragAndDropEditor />
         <ModuleForms />
       </div>

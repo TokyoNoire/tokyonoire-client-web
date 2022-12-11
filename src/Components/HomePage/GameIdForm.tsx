@@ -1,11 +1,11 @@
 import React, { type ReactElement } from "react";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
-import { type startModuleInfo } from "../pages";
+import { type startModuleInfo } from "../../pages";
 
 interface prop {
   setGameId: (string: string) => void;
-  setGame: ({}: startModuleInfo) => void;
+  setGame: ({ }: startModuleInfo) => void;
   handleOpen: () => void;
   game: startModuleInfo | null;
   gameId: string | null;
@@ -23,7 +23,7 @@ const GameIdForm = (prop: prop): ReactElement => {
   };
 
   return (
-    <div className="items-center mx-8 my-48 flexCenterDiv">
+    <div className="items-center mx-8 my-24 flexCenterDiv">
       <h1 className="mb-5 text-m font-heading">
         &quot;Hello Detective, are you ready to close a case?&quot;
       </h1>

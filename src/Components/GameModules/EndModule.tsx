@@ -7,7 +7,7 @@ import {
     TableRow,
 } from "@mui/material";
 import { useRouter } from "next/router";
-import { type GameModule } from "../pages/game/[gameId]";
+import { type GameModule } from "../../pages/game/[gameId]";
 import Image from "next/image";
 
 interface props {
@@ -32,16 +32,16 @@ const EndModule = (props: props): ReactElement => {
                         {gameObject.title}
                     </h1>
                     <div className="self-center w-10/12 m-4 flexCenterDiv">
-                        <Image
+                        {/* <Image
                             src={gameObject.image}
                             alt="Tokyo Noire Hero"
                             className="rounded-lg"
-                        ></Image>
-                        {/* <img
-                src={gameObject.image}
-                alt="Tokyo Noire Hero"
-                className="rounded-lg"
-              /> */}
+                        ></Image> */}
+                        <img
+                            src={gameObject.image}
+                            alt="Tokyo Noire Hero"
+                            className="rounded-lg"
+                        />
                     </div>
                     <p className="px-6 mt-2 font-body1">{gameObject.description}</p>
                 </div>

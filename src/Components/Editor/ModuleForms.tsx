@@ -64,7 +64,7 @@ const ModuleForms: FC = (): ReactElement => {
         visibility={visibility.current}
       />
 
-      <FormLocation
+      {/* <FormLocation
         title={title.current}
         description={description.current}
         setImageUrl={setImageUrl}
@@ -95,7 +95,7 @@ const ModuleForms: FC = (): ReactElement => {
         description={description.current}
         setImageUrl={setImageUrl}
         imageUrl={imageUrl}
-      />
+      /> */}
     </div>
   );
 };

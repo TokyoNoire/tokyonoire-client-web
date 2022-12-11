@@ -8,12 +8,12 @@ import React, {
 } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
-import LocationModule from "../../Components/LocationModule";
-import NarrativeModule from "../../Components/NarrativeModule";
-import QuestionModule from "../../Components/QuestionModule";
-import EndModule from "../../Components/EndModule";
-import NavigationModule from "../../Components/NavigationModule";
-import HowToPlayPopup from "../../Components/HowToPlayPopup";
+import LocationModule from "../../Components/GameModules/LocationModule";
+import NarrativeModule from "../../Components/GameModules/NarrativeModule";
+import QuestionModule from "../../Components/GameModules/QuestionModule";
+import EndModule from "../../Components/GameModules/EndModule";
+import NavigationModule from "../../Components/GameModules/NavigationModule";
+import HowToPlayPopup from "../../Components/GameModules/HowToPlayPopup";
 
 export type GameModule = {
   _id: string;
@@ -120,6 +120,7 @@ const GameId: FC = (): ReactElement => {
       <HowToPlayPopup
         setDevicePermission={setDevicePermission}
       />
+      <div className="h-28 w-screen"></div>
       {gameObject !== null ? setCurrentComponent(gameObject.typeOfModule) : <></>}
     </>
   );

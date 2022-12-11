@@ -1,14 +1,15 @@
 import React, { useEffect, useState, type ReactNode } from "react";
 
 interface props {
-    show: boolean;
+    show?: boolean;
     children: ReactNode;
     duration?: number;
     className?: string;
 }
 
 const FadeDiv = (props: props) => {
-    const { show, duration, children, className } = props;
+    const { duration, children, className } = props;
+    const [show] = useState<boolean>(props.show ? props.show : true)
     const [shouldRender, setRender] = useState(show);
 
     useEffect(() => {
@@ -22,13 +23,13 @@ const FadeDiv = (props: props) => {
     if (shouldRender) {
         return (
             shouldRender && (
-                <div
+                <section
                     className={`${className ? className : ""}`}
-                    style={{ animation: `${show ? "fadeIn" : "fadeOut"} ${duration ? duration : 1}s forwards`}}
+                    style={{ animation: `${show ? "fadeIn" : "fadeOut"} ${duration ? duration : 1}s forwards` }}
                     onAnimationEnd={onAnimationEnd}
                 >
                     {children}
-                </div>
+                </section>
             )
         );
     } else {

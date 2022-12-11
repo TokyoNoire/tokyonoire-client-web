@@ -1,8 +1,9 @@
 import React, { type ReactElement, useRef, useState, useEffect, useCallback } from "react";
-import Compass from "./Compass";
-import Distance from "./Distance"
+import Compass from "./Helpers/Compass";
+import Distance from "./Helpers/Distance"
 import BearingAngle from "./Helpers/BearingAngle"
 import Gyroscope from "./Helpers/Gyroscope"
+import FadeDiv from "../Helpers/FadeDiv";
 
 interface props {
   setChallengeSuccess: (boolean: boolean) => void;
@@ -65,20 +66,22 @@ const NavigationModule = (props: props): ReactElement => {
   return (
     <>
       {currentCoords && targetCoords &&
-        <Distance
-          currentCoords={currentCoords}
-          targetCoords={targetCoords}
-          setChallengeSuccess={setChallengeSuccess}
-        />
-      }
-
-      {orientation &&
-        <Compass
-          bearingAngle={bearingAngle}
-          currentCoords={currentCoords}
-          targetCoords={targetCoords}
-          orientation={orientation}
-        />
+        <FadeDiv>
+          <Distance
+            currentCoords={currentCoords}
+            targetCoords={targetCoords}
+            setChallengeSuccess={setChallengeSuccess}
+          />
+          {
+            orientation &&
+            <Compass
+              bearingAngle={bearingAngle}
+              currentCoords={currentCoords}
+              targetCoords={targetCoords}
+              orientation={orientation}
+            />
+          }
+        </FadeDiv>
       }
     </>
   );

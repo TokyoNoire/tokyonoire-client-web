@@ -1,6 +1,6 @@
 import React, { type ReactElement } from "react";
 import Image from "next/image";
-import northLetter from "../../Assets/Icons/North-letter.svg"
+import northLetter from "../../../../Assets/Icons/North-letter.svg"
 
 type DeviceOrientation = {
     alpha: number | null,
@@ -16,7 +16,7 @@ interface props {
 }
 
 const Compass = (props: props): ReactElement => {
-    const { 
+    const {
         bearingAngle,
         orientation,
         // currentCoords,

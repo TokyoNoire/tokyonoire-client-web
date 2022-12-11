@@ -1,11 +1,11 @@
 import React, { type FC, type ReactElement, useState } from "react";
-import Logo from '../../public/Logo_DarkTheme.svg';
+import Logo from '../../../public/Logo_DarkTheme.svg';
 import Link from "next/link";
-import PublishIcon from "./../../Assets/Icons/publishIcon-darkTheme.svg"
-import SaveIcon from "./../../Assets/Icons/saveIcon-darkTheme.svg"
+import PublishIcon from "./../../../Assets/Icons/publishIcon-darkTheme.svg"
+import SaveIcon from "./../../../Assets/Icons/saveIcon-darkTheme.svg"
 
 import { useRouter } from "next/router";
-import FadeDiv from "./Helpers/FadeDiv";
+import FadeDiv from "../Helpers/FadeDiv";
 
 type menuItem = {
   title: string
