@@ -11,6 +11,8 @@ import FormQuestion from "./FormQuestion";
 import FormEnd from "./FormEnd";
 import FormStoryInformation from "./FormStoryInformation";
 import axios from "axios";
+import { saveGameInfo } from "../../pages/editor";
+
 export type GameModules = {
   typeOfModule: string;
   title: string;
@@ -22,8 +24,16 @@ export type GameModules = {
   hint: string;
 };
 
-const ModuleForms: FC = (): ReactElement => {
+type props = {
+  setGameData: (arg0: saveGameInfo) => void;
+  gameData: saveGameInfo;
+};
+
+const ModuleForms = (props: props): ReactElement => {
+  const { setGameData, gameData } = props;
+
   const published = useRef<boolean>(false);
+  const titleOfGame = useRef<string>("");
   const title = useRef<string>("");
   const description = useRef<string>("");
   const userName = useRef<string>("");
@@ -35,33 +45,21 @@ const ModuleForms: FC = (): ReactElement => {
   const answer = useRef<string>("");
   const hint = useRef<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
-  const [gameObject, setGameObject] = useState<GameModules>();
-  const [gameModule, setGameModules] = useState<object>({});
-
-  const postGame = async () => {
-    await axios.post("/editor", {
-      isPublished: published.current,
-      titleOfGame: title.current,
-      description: description.current,
-      author: userName.current,
-      rating: rating.current,
-      estimatedMinutes: minutes.current,
-      image: imageUrl,
-      isPrivate: visibility.current,
-      gameModules: gameModule,
-    });
-  };
+  const [gameObject, setGameObject] = useState<GameModules | null>(null);
+  const [gameModule, setGameModules] = useState<GameModules[]>([]);
 
   return (
     <div className="relative w-full h-full px-6 py-4 rounded shadow-lg flexCenterDiv bg-darkGrey shadow-slate-100">
       <FormStoryInformation
-        title={title.current}
-        description={description.current}
-        setImageUrl={setImageUrl}
-        imageUrl={imageUrl}
+        titleOfGame={titleOfGame.current}
         minutes={minutes.current}
         rating={rating.current}
         visibility={visibility.current}
+        setImageUrl={setImageUrl}
+        imageUrl={imageUrl}
+        description={description.current}
+        setGameData={setGameData}
+        gameData={gameData}
       />
 
       <FormLocation
