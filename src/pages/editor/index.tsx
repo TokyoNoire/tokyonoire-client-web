@@ -6,7 +6,7 @@ import ModuleForms from "../../Components/Editor/ModuleForms";
 const Editor: NextPage = () => {
   return (
     <>
-   <div className="grid items-center justify-center grid-cols-2 gap-10 m-5 place-items-stretch">
+   <div className="grid items-center justify-center grid-cols-2 gap-10 place-items-stretch">
         <DragAndDropEditor/>
         <ModuleForms />
    </div>

@@ -6,9 +6,9 @@ import ScoreboardIcon from '@mui/icons-material/Scoreboard';
 
 const StatusBar: FC = (): ReactElement => {
   return (
-    <div className = "w-screen p-5 m-5 h-15 bg-darkGrey">
+    <div className = "w-screen mb-5 flexCenterDiv h-36 bg-darkGrey">
       <h1 className="text-xl text-center font-heading">"Welcome back Detective, here is your current status."</h1>
-      <div className="grid self-center grid-cols-4 gap-1 mt-10 text-center place-items-center gri d-rows-3 low-col center">
+      <div className="grid grid-cols-4 grid-rows-3 gap-1 mt-3 rounded-md low-col place-items-center">
         <ScoreboardIcon fontSize="small"/>
         <MapIcon fontSize="small" />
         <AccessTimeFilled fontSize="small" />
