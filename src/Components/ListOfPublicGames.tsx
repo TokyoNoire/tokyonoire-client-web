@@ -1,7 +1,30 @@
 import React, { type FC, type ReactElement, useState } from "react";
 import TextField from "@mui/material/TextField";
+import { startModuleInfo } from "../pages";
 
-const ListOfPublicGames: FC = (): ReactElement => {
+interface props {
+  publicGames: startModuleInfo[];
+}
+
+const ListOfPublicGames = (props: props): ReactElement => {
+const {publicGames} = props;
+
+let publicGamesListing = publicGames.map(publicGame => {
+  return <tbody>
+  <tr className="bg-white border-b">
+    <th
+      scope="row"
+      className="px-6 py-2 font-heading whitespace-nowrap"
+    >
+      {publicGame.titleOfGame}
+    </th>
+    <td className="px-6 py-4 font-heading">{publicGame.author}</td>
+    <td className="px-6 py-4 font-heading">{publicGame.rating}</td>
+    <td className="px-6 py-4 font-heading">{publicGame.estimatedTimeMinutes}</td>
+  </tr>
+</tbody>
+})
+  
   return (
     <div className="w-screen h-screen flexCenterDiv">
       <h1 className="mb-5 text-center text-m font-heading">
@@ -16,7 +39,7 @@ const ListOfPublicGames: FC = (): ReactElement => {
           <option value="name">Name</option>
           <option value="author">Author</option>
           <option value="rating">Rating</option>
-          <option value="location">Location</option>
+          <option value="location">Time</option>
         </select>
         <TextField
           id="caseSearch"
@@ -45,36 +68,11 @@ const ListOfPublicGames: FC = (): ReactElement => {
                 rating
               </th>
               <th scope="col" className="px-6 py-3 font-body2">
-                location
+                time
               </th>
             </tr>
           </thead>
-          <tbody>
-            <tr className="bg-white border-b">
-              <th
-                scope="row"
-                className="px-6 py-2 font-heading whitespace-nowrap"
-              >
-                The Salad Murders
-              </th>
-              <td className="px-6 py-4 font-heading">Kazuki Kagoshima</td>
-              <td className="px-6 py-4 font-heading">G</td>
-              <td className="px-6 py-4 font-heading">Roppongi</td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr className="bg-white border-b">
-              <th
-                scope="row"
-                className="px-6 py-2 font-heading whitespace-nowrap"
-              >
-                The Salad Murders
-              </th>
-              <td className="px-6 py-4 font-heading">Kazuki Kagoshima</td>
-              <td className="px-6 py-4 font-heading">G</td>
-              <td className="px-6 py-4 font-heading">Roppongi</td>
-            </tr>
-          </tbody>
+          {publicGamesListing}
         </table>
       </div>
     </div>
