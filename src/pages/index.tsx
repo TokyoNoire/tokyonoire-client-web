@@ -7,12 +7,13 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Hero from "./../Components/Hero";
 import GameIdForm from "../Components/GameIdForm";
 import StartModule from "../Components/StartModule";
-import { Dialog } from "@mui/material";
+import { Dialog, List } from "@mui/material";
 import axios from "axios";
 // import { LineAxisOutlined } from "@mui/icons-material";
 import FadeDiv from "../Components/Helpers/FadeDiv";
 import NavBar from "../Components/NavBar";
 import Link from "next/link";
+import ListOfPublicGames from "../Components/ListOfPublicGames";
 
 export type startModuleInfo = {
   _id: string;
@@ -101,6 +102,17 @@ const Home: NextPage = () => {
               game={game}
               handleOpen={handleOpen}
             />
+            <div className="w-screen flexCenterDiv">
+             <KeyboardArrowDownIcon
+                  style={{ animation: `hover-up-down ease-in-out 3s infinite` }}
+                  sx={{
+                    width: "1.5em",
+                    height: "1.5em",
+                    alignSelf: "center"
+                  }} 
+                  />
+              </div>
+            <ListOfPublicGames/>
             {game
               ?
               <Dialog className="object-fit flexCenterDiv" open={open} onClose={handleClose} fullScreen>
