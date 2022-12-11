@@ -53,8 +53,8 @@ const ModuleForms: FC = (): ReactElement => {
   };
 
   return (
-    <div className="relative w-full h-full px-6 py-4 rounded shadow-lg flexCenterDiv bg-darkGrey shadow-slate-100">
-      <FormStoryInformation
+    <div className="relative w-full h-144 overflow-scroll justify-start flex flex-col px-6 py-4 rounded shadow-lg bg-darkGrey shadow-slate-100">
+      {/* <FormStoryInformation
         title={title.current}
         description={description.current}
         setImageUrl={setImageUrl}
@@ -62,9 +62,9 @@ const ModuleForms: FC = (): ReactElement => {
         minutes={minutes.current}
         rating={rating.current}
         visibility={visibility.current}
-      />
+      /> */}
 
-      {/* <FormLocation
+      <FormLocation
         title={title.current}
         description={description.current}
         setImageUrl={setImageUrl}
@@ -73,7 +73,7 @@ const ModuleForms: FC = (): ReactElement => {
         hint={hint.current}
       />
 
-      <FormNarrative
+      {/* <FormNarrative
         title={title.current}
         description={description.current}
         setImageUrl={setImageUrl}

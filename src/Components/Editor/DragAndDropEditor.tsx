@@ -1,73 +1,84 @@
-import React, {type FC, type ReactElement, useState, useCallback} from "react";
-import { DndContext } from "@dnd-kit/core";
-import { arrayMove, SortableContext, useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
+import React, { type FC, type ReactElement, useState, useCallback } from "react";
+import {
+  DndContext,
+  useSensor,
+  useSensors,
+  KeyboardSensor,
+  PointerSensor
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  verticalListSortingStrategy,
+  sortableKeyboardCoordinates
+} from "@dnd-kit/sortable";
+import SortableItem from "./Helpers/SortableItem";
+import MockGameModules from "./Helpers/MockGameModules";
+import AddModuleButton from "./Helpers/AddModuleButton";
 
-const gameModules = [ {_id:231, typeOfModule: "location", title: "Akika Spotted", question: "", answer:"", image:"", description: "The last time she was seen was sitting on an unusual bench near the Mori Tower, in Roppongi.", locationCoordinates: [35.659439, 139.728384]}, {_id: 312, typeOfModule: "location", title: "Akika Spotted", question: "", answer:"", image:"", description: "The last time she was seen was sitting on an unusual bench near the Mori Tower, in Roppongi.", locationCoordinates: [35.659439, 139.728384]}];
-const contents = gameModules.map((gameModule,index) => ({
-  id: index,
+// Make an array of mock modules to be displayed.
+const contents = MockGameModules.map((gameModule, index) => ({
+  id: index + 1,
   moduleId: gameModule._id,
   title: gameModule.title,
 }));
 
-interface SortableItemProps {
-  id: number;
-  children: ReactElement;
-}
-
-function SortableItem({ id, children }: SortableItemProps) {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id });
-    const style = {
-      transform: CSS.Transform.toString(transform),
-      transition
-    };
-
-  return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    <div ref={setNodeRef} className="h-52 bg-stone-400 w-52" style={style} {...attributes} {...listeners}>
-      {children}
-    </div>
-  );
-}
-
 const DragAndDropEditor: FC = (): ReactElement => {
-  const [state, setState] = useState<{id:number, title:string, moduleId: number}[]>(contents);
+
+  const [gameModules, setGameModules] = useState<{ id: number, title: string, moduleId: number }[]>(contents);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
   const handleDragEnd = useCallback(
     (event: any) => {
+      // console.log(event)
       const { active, over } = event;
       if (over === null) {
         return;
       }
       if (active.id !== over.id) {
-        const oldIndex = state
-          .map((item) => {
-            return item.id;
-          })
+        const oldIndex = gameModules
+          .map((item) => item.id)
           .indexOf(active.id);
-        const newIndex = state
-          .map((item) => {
-            return item.id;
-          })
+        const newIndex = gameModules
+          .map((item) => item.id)
           .indexOf(over.id);
-        const newState = arrayMove(state, oldIndex, newIndex);
-        setState(newState);
+
+        console.log(oldIndex)
+        console.log(newIndex)
+        const newModulesOrder = arrayMove(gameModules, oldIndex, newIndex);
+        setGameModules(newModulesOrder);
       }
     },
-    [state]
+    [gameModules]
   );
 
   return (
-    <DndContext onDragEnd={handleDragEnd}>
-      <SortableContext items={state}>
-        <div className="w-full h-full flexCenterDiv">
-          {state.map((item) => (
-            <SortableItem key={item.moduleId} id={item.id}>
-              <div>
+    <DndContext
+      sensors={sensors}
+      onDragEnd={handleDragEnd}
+    >
+      <SortableContext
+        items={gameModules}
+        strategy={verticalListSortingStrategy}
+      >
+        <div className="w-full h-full flex flex-col justify-start item-center text-center gap-8">
+          {gameModules.map((item) => (
+            <SortableItem key={item.id} id={item.id}>
+              <div className='h-full w-1/2 flex justify-center items-center bg-darkGrey'>
                 {item.title}
+                {item.id}
               </div>
             </SortableItem>
           ))}
+
+          <AddModuleButton />
+
         </div>
       </SortableContext>
     </DndContext>
