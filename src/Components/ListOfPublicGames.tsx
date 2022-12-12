@@ -9,9 +9,9 @@ interface props {
 const ListOfPublicGames = (props: props): ReactElement => {
 const {publicGames} = props;
 
-let publicGamesListing = publicGames.map(publicGame => {
+const publicGamesListing = publicGames.map(publicGame => {
   console.log(publicGame);
-  return <tbody>
+  return <tbody key={publicGame._id}>
   <tr className="bg-white border-b">
     <th
       scope="row"
