@@ -11,7 +11,6 @@ import { useState, useEffect, useRef, createContext } from "react";
 import LoadingScreen from "../Components/LoadingScreen";
 import Head from "next/head";
 import AppContext from "../AppContext";
-import { GameModules } from "../Components/Editor/ModuleForms";
 import MockGameModules from "../Components/Editor/Helpers/MockGameModules";
 
 export type saveGameInfo = {
@@ -26,6 +25,18 @@ export type saveGameInfo = {
   startLocationCoordinates?: Array<number>;
 };
 
+export type GameModules = {
+  typeOfModule: string;
+  _id?: string;
+  title: string;
+  description: string;
+  question?: string;
+  answer?: string;
+  image?: string;
+  locationCoordinates?: number[];
+  hint?: string;
+};
+
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
@@ -36,7 +47,9 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [loadScreenMounted, setLoadScreenMounted] = useState<boolean>(true);
   const [durationLoadingScreen] = useState<number>(2000);
   const [deviceType, setDeviceType] = useState<string | null>(null);
-  const [gameData, setGameData] = useState<any[]>(MockGameModules);
+  const gameData = useRef<saveGameInfo>();
+  const gameModule = useRef<GameModules[]>();
+  const gameModuleObject = useRef<GameModules>(MockGameModules);
   const compCheck = useRef<boolean>(false);
 
   useEffect(() => {
@@ -63,9 +76,10 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     <AppContext.Provider
       value={{
         state: {
+          gameModuleObject: gameModuleObject,
           gameData: gameData,
+          gameModule: gameModule,
         },
-        setGameData: setGameData,
       }}
     >
       <Head>

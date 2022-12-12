@@ -11,20 +11,8 @@ import FormQuestion from "./FormQuestion";
 import FormEnd from "./FormEnd";
 import FormStoryInformation from "./FormStoryInformation";
 import axios from "axios";
-import { saveGameInfo } from "../../pages/editor";
 import { useContext } from "react";
 import AppContext from "../../AppContext";
-
-export type GameModules = {
-  typeOfModule: string;
-  title: string;
-  description: string;
-  question: string;
-  answer: string[];
-  image: string;
-  locationCoordinates: string[];
-  hint: string;
-};
 
 // type props = {
 //   setGameData: (arg0: saveGameInfo) => void;
@@ -33,7 +21,7 @@ export type GameModules = {
 
 const ModuleForms = (): ReactElement => {
   const value = useContext(AppContext);
-  const { gameData } = value.state;
+  const { gameData, gameModule } = value.state;
   const selectedGameData = value.setGameData;
 
   const published = useRef<boolean>(false);
@@ -49,8 +37,6 @@ const ModuleForms = (): ReactElement => {
   const answer = useRef<string>("");
   const hint = useRef<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
-  const [gameObject, setGameObject] = useState<GameModules | null>(null);
-  const [gameModule, setGameModules] = useState<GameModules[]>([]);
 
   return (
     <>
@@ -63,8 +49,6 @@ const ModuleForms = (): ReactElement => {
           setImageUrl={setImageUrl}
           imageUrl={imageUrl}
           description={description.current}
-          setGameData={value.setGameData}
-          gameData={value.gameData}
         />
 
         <FormLocation

@@ -1,8 +1,8 @@
 import React, { type FC, type ReactElement } from "react";
 import TextField from "@mui/material/TextField";
 import ImageWidget from "./ImageWidget";
-import { saveGameInfo } from "../../pages/editor";
 import { useContext } from "react";
+import AppContext from "../../AppContext";
 
 interface prop {
   titleOfGame: string;
@@ -12,14 +12,14 @@ interface prop {
   visibility: string;
   setImageUrl: (string: string) => void;
   imageUrl: string;
-  setGameData: (arg0: saveGameInfo) => void;
-  gameData: saveGameInfo;
 }
 
 const FormStoryInformation = (prop: prop): ReactElement => {
   let { titleOfGame, description, minutes, rating, visibility } = prop;
   //Build is not happy if I set these as let, so I seperated them for now.
-  const { setImageUrl, imageUrl, setGameData, gameData } = prop;
+  const { setImageUrl, imageUrl } = prop;
+  const value = useContext(AppContext);
+  const { gameData, gameModule, gameModuleObject } = value.state;
 
   return (
     <>
@@ -98,14 +98,15 @@ const FormStoryInformation = (prop: prop): ReactElement => {
         id="themeButton"
         className="self-center w-1/2 mt-10 mb-5"
         onClick={() => {
-          setGameData({
+          gameData.current = {
             titleOfGame: titleOfGame,
             isPublished: visibility,
             description: description,
             image: imageUrl,
             estimatedTimeMinutes: minutes,
             rating: rating,
-          });
+            gameModule: gameModule.current,
+          };
         }}
       >
         {" "}

@@ -2,6 +2,8 @@ import React, { type ReactElement } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
 import ImageWidget from "./ImageWidget";
+import { useContext } from "react";
+import AppContext from "../../AppContext";
 
 interface props {
   title: string;
@@ -12,7 +14,8 @@ interface props {
 
 const FormEnd = (props: props): ReactElement => {
   const { title, description, setImageUrl, imageUrl } = props;
-
+  const value = useContext(AppContext);
+  const { gameData } = value.state;
   return (
     <>
       <ClearIcon className="absolute top-2 right-2 hover:shadow-indigo-500/40" />
@@ -31,6 +34,15 @@ const FormEnd = (props: props): ReactElement => {
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Image Upload
       </p>
+      {imageUrl ? (
+        <img
+          className="w-3/5 mt-10 self-center"
+          src={`${imageUrl}`}
+          alt="preview"
+        />
+      ) : (
+        ""
+      )}
       <ImageWidget setImageUrl={setImageUrl} />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Body</p>

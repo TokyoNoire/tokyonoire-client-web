@@ -3,6 +3,8 @@ import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
 import MapLocationPicker from "./MapLocationPicker";
 import ImageWidget from "./ImageWidget";
+import { useContext } from "react";
+import AppContext from "../../AppContext";
 
 interface props {
   title: string;
@@ -14,8 +16,13 @@ interface props {
 }
 
 const FormLocation = (props: props): ReactElement => {
-  const { title, description, coordinates, imageUrl, setImageUrl, hint } =
-    props;
+  let { title, description, coordinates, imageUrl, hint } = props;
+  const { setImageUrl } = props;
+  const value = useContext(AppContext);
+  const { gameData, gameModule, gameModuleObject } = value.state;
+  const handleClick = () => {
+    gameModule.current.push(gameModuleObject.current);
+  };
 
   return (
     <>
@@ -30,11 +37,21 @@ const FormLocation = (props: props): ReactElement => {
         defaultValue="What's the title of this block?"
         variant="filled"
         fullWidth
+        onChange={(e) => (title = e.target.value)}
       />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Image Upload
       </p>
+      {imageUrl ? (
+        <img
+          className="w-3/5 mt-10 self-center"
+          src={`${imageUrl}`}
+          alt="preview"
+        />
+      ) : (
+        ""
+      )}
       <ImageWidget setImageUrl={setImageUrl} />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
@@ -47,6 +64,7 @@ const FormLocation = (props: props): ReactElement => {
         variant="filled"
         fullWidth
         className="mb-5"
+        onChange={(e) => (description = e.target.value)}
       />
 
       <MapLocationPicker />
@@ -56,8 +74,23 @@ const FormLocation = (props: props): ReactElement => {
         variant="filled"
         defaultValue="Give a hint for the reader!"
         fullWidth
+        onChange={(e) => (hint = e.target.value)}
       />
-      <button id="themeButton" className="self-center w-1/2 mt-10 mb-5">
+      <button
+        id="themeButton"
+        className="self-center w-1/2 mt-10 mb-5"
+        onClick={(e) => {
+          console.log("clicked");
+          gameModuleObject.current = {
+            typeOfModule: "location",
+            title: title,
+            image: imageUrl,
+            description: description,
+            locationCoordinates: [200, 200],
+          };
+          handleClick();
+        }}
+      >
         {" "}
         Save{" "}
       </button>

@@ -1,16 +1,21 @@
-import React, { type FC, type ReactElement, useState, useCallback } from "react";
+import React, {
+  type FC,
+  type ReactElement,
+  useState,
+  useCallback,
+} from "react";
 import {
   DndContext,
   useSensor,
   useSensors,
   KeyboardSensor,
-  PointerSensor
+  PointerSensor,
 } from "@dnd-kit/core";
 import {
   arrayMove,
   SortableContext,
   verticalListSortingStrategy,
-  sortableKeyboardCoordinates
+  sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
 import SortableItem from "./Helpers/SortableItem";
 import MockGameModules from "./Helpers/MockGameModules";
@@ -25,8 +30,8 @@ const contents = MockGameModules.map((gameModule, index) => ({
 }));
 
 const DragAndDropEditor: FC = (): ReactElement => {
-
-  const [gameModules, setGameModules] = useState<{ id: number, title: string, moduleId: number }[]>(contents);
+  const [gameModules, setGameModules] =
+    useState<{ id: number; title: string; moduleId: number }[]>(contents);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -43,15 +48,11 @@ const DragAndDropEditor: FC = (): ReactElement => {
         return;
       }
       if (active.id !== over.id) {
-        const oldIndex = gameModules
-          .map((item) => item.id)
-          .indexOf(active.id);
-        const newIndex = gameModules
-          .map((item) => item.id)
-          .indexOf(over.id);
+        const oldIndex = gameModules.map((item) => item.id).indexOf(active.id);
+        const newIndex = gameModules.map((item) => item.id).indexOf(over.id);
 
-        console.log(oldIndex)
-        console.log(newIndex)
+        console.log(oldIndex);
+        console.log(newIndex);
         const newModulesOrder = arrayMove(gameModules, oldIndex, newIndex);
         setGameModules(newModulesOrder);
       }
@@ -60,10 +61,7 @@ const DragAndDropEditor: FC = (): ReactElement => {
   );
 
   return (
-    <DndContext
-      sensors={sensors}
-      onDragEnd={handleDragEnd}
-    >
+    <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
       <SortableContext
         items={gameModules}
         strategy={verticalListSortingStrategy}
@@ -71,7 +69,7 @@ const DragAndDropEditor: FC = (): ReactElement => {
         <div className="w-full h-full flex flex-col justify-start item-center text-center gap-8">
           {gameModules.map((item) => (
             <SortableItem key={item.id} id={item.id}>
-              <div className='h-full w-1/2 flex justify-center items-center bg-darkGrey'>
+              <div className="h-full w-1/2 flex justify-center items-center bg-darkGrey">
                 {item.title}
                 {item.id}
               </div>
@@ -79,7 +77,6 @@ const DragAndDropEditor: FC = (): ReactElement => {
           ))}
 
           <AddModuleButton />
-
         </div>
       </SortableContext>
     </DndContext>
