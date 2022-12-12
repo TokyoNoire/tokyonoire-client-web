@@ -98,7 +98,6 @@ const AddModuleButton = (): ReactElement => {
                                     </button>
                                 ))}
                             </div>
-
                         </section>
                     }
                 </div>
