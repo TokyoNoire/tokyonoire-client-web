@@ -1,9 +1,12 @@
 import React, {
+  type FC,
   type ReactElement,
+  useState,
   useEffect,
   useRef,
 } from "react";
-
+import Image from "next/image";
+import { ResetTvOutlined } from "@mui/icons-material";
 type prop = {
   setImageUrl: (string: string) => void;
 };
@@ -21,7 +24,6 @@ const ImageWidget = (prop: prop): ReactElement => {
       },
       function (error: any, result: any) {
         if (result.info.url !== undefined) {
-          console.log(result.info.url);
           setImageUrl(result.info.url);
         }
       }
