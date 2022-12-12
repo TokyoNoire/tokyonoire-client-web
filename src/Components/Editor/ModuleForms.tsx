@@ -49,7 +49,7 @@ const ModuleForms = (props: props): ReactElement => {
   const [gameModule, setGameModules] = useState<GameModules[]>([]);
 
   return (
-    <div className="relative w-full h-full px-6 py-4 rounded shadow-lg flexCenterDiv bg-darkGrey shadow-slate-100">
+    <div className="relative w-full h-144 overflow-scroll justify-start flex flex-col px-6 py-4 rounded shadow-lg bg-darkGrey shadow-slate-100">
       <FormStoryInformation
         titleOfGame={titleOfGame.current}
         minutes={minutes.current}
@@ -71,7 +71,7 @@ const ModuleForms = (props: props): ReactElement => {
         hint={hint.current}
       />
 
-      <FormNarrative
+      {/* <FormNarrative
         title={title.current}
         description={description.current}
         setImageUrl={setImageUrl}

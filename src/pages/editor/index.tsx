@@ -4,7 +4,7 @@ import axios from "axios";
 import DragAndDropEditor from "../../Components/Editor/DragAndDropEditor";
 import { type GameModules } from "../../Components/Editor/ModuleForms";
 import ModuleForms from "../../Components/Editor/ModuleForms";
-// import Link from "next/link";
+import FadeDiv from "../../Components/Helpers/FadeDiv";
 
 export type saveGameInfo = {
   titleOfGame: string;
@@ -23,6 +23,7 @@ const Editor: NextPage = () => {
     titleOfGame: "",
     isPublished: "",
   });
+  const [show, setShow] = useState<boolean>(true);
 
   useEffect(() => {
     console.log(gameData);
@@ -32,7 +33,7 @@ const Editor: NextPage = () => {
     await axios.post("editor", gameData);
   };
   return (
-    <>
+    <FadeDiv show={show}>
       <div className="grid items-center justify-center grid-cols-2 gap-10 m-5 place-items-stretch">
         <DragAndDropEditor />
         <ModuleForms setGameData={setGameData} gameData={gameData} />
@@ -47,8 +48,7 @@ const Editor: NextPage = () => {
           Save Game
         </button>
       </div>
-    </>
+    </FadeDiv>
   );
 };
-
 export default Editor;

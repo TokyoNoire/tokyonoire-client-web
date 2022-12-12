@@ -17,7 +17,6 @@ interface prop {
 
 const FormStoryInformation = (prop: prop): ReactElement => {
   let { titleOfGame, description, minutes, rating, visibility } = prop;
-
   //Build is not happy if I set these as let, so I seperated them for now.
   const { setImageUrl, imageUrl, setGameData, gameData } = prop;
 
@@ -31,9 +30,7 @@ const FormStoryInformation = (prop: prop): ReactElement => {
       <TextField
         id="title"
         variant="filled"
-        onChange={(e) => {
-          titleOfGame = e.target.value;
-        }}
+        onChange={(e) => (titleOfGame = e.target.value)}
         fullWidth
       />
       <div className="grid grid-cols-3 gap-2 mt-10 grid-flow-cols">

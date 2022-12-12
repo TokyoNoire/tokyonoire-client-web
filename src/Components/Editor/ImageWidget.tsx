@@ -5,7 +5,6 @@ import React, {
   useEffect,
   useRef,
 } from "react";
-import dotenv from "dotenv";
 import Image from "next/image";
 import { ResetTvOutlined } from "@mui/icons-material";
 type prop = {
