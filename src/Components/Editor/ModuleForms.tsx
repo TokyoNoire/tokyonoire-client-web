@@ -62,7 +62,7 @@ const ModuleForms = (props: props): ReactElement => {
         gameData={gameData}
       />
 
-      <FormLocation
+      {/* <FormLocation
         title={title.current}
         description={description.current}
         setImageUrl={setImageUrl}
@@ -93,7 +93,7 @@ const ModuleForms = (props: props): ReactElement => {
         description={description.current}
         setImageUrl={setImageUrl}
         imageUrl={imageUrl}
-      />
+      /> */}
     </div>
   );
 };

@@ -5,6 +5,7 @@ import React, {
   useEffect,
   useRef,
 } from "react";
+import dotenv from "dotenv";
 import Image from "next/image";
 import { ResetTvOutlined } from "@mui/icons-material";
 type prop = {
@@ -17,6 +18,7 @@ const ImageWidget = (prop: prop): ReactElement => {
 
   useEffect(() => {
     cloudinaryRef.current = window.cloudinary;
+    console.log(cloudinaryRef.current);
     widgetRef.current = cloudinaryRef.current?.createUploadWidget(
       {
         cloudName: process.env.NEXT_PUBLIC_CLOUDNAME,
@@ -24,7 +26,7 @@ const ImageWidget = (prop: prop): ReactElement => {
       },
       function (error: any, result: any) {
         if (result.info.url !== undefined) {
-          console.log(result.info.url);
+          console.log(result);
           setImageUrl(result.info.url);
         }
       }

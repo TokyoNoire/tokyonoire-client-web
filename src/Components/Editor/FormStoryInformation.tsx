@@ -27,15 +27,15 @@ const FormStoryInformation = (prop: prop): ReactElement => {
       <h1 className="self-center mt-10 mb-2 text-2xl font-bold uppercase font-heading">
         Story information
       </h1>
-
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Title</p>
       <TextField
         id="title"
         variant="filled"
-        onChange={(e) => (titleOfGame = e.target.value)}
+        onChange={(e) => {
+          titleOfGame = e.target.value;
+        }}
         fullWidth
       />
-
       <div className="grid grid-cols-3 gap-2 mt-10 grid-flow-cols">
         <p className="mb-2 text-sm uppercase font-heading">
           Estimated Time in minutes

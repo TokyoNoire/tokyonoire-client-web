@@ -21,13 +21,14 @@ export type saveGameInfo = {
 const Editor: NextPage = () => {
   const [gameData, setGameData] = useState<saveGameInfo>({
     titleOfGame: "",
-    isPublished: "false",
+    isPublished: "",
   });
 
   useEffect(() => {
     console.log(gameData);
   }, [gameData]);
   const saveGame = async () => {
+    console.log("post request is being made");
     await axios.post("editor", gameData);
   };
   return (
