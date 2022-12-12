@@ -29,6 +29,7 @@ const testArray = [
     author: "Cole Phelps",
     rating: "G",
     isPrivate: false,
+    estimatedTimeMinutes:20
   },
   {
     _id: "638d8a2f61306a3dc4e94430",
@@ -38,6 +39,7 @@ const testArray = [
     author: "Cole Phelps",
     rating: "G",
     isPrivate: false,
+    estimatedTimeMinutes: 20
   },
 ];
 
@@ -71,7 +73,7 @@ const HomeMobile = (props: props): ReactElement => {
 
   return (
     <>
-      <div className="relative h-screen flexCenterDiv place-items-center mx-5 ">
+      <div className="relative h-screen mx-5 flexCenterDiv place-items-center ">
         <TokyoNoireName alt="Tokyo Noire Name" style={{ maxWidth: "80vw" }} />
         <div className="absolute bottom-8">
           <KeyboardArrowDownIcon

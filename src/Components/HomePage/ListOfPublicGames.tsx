@@ -10,6 +10,7 @@ const ListOfPublicGames = (props: props): ReactElement => {
   const { publicGames } = props;
 
   const publicGamesListing = publicGames.map((publicGame, index) => {
+    console.log(publicGame)
     return <tbody key={index}>
       <tr className="bg-white border-b">
         <th
