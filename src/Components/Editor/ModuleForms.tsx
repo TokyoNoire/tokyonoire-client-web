@@ -12,6 +12,9 @@ import FormEnd from "./FormEnd";
 import FormStoryInformation from "./FormStoryInformation";
 import axios from "axios";
 import { saveGameInfo } from "../../pages/editor";
+import { useContext } from "react";
+import AppContext from "../../AppContext";
+
 export type GameModules = {
   typeOfModule: string;
   title: string;
@@ -23,13 +26,15 @@ export type GameModules = {
   hint: string;
 };
 
-type props = {
-  setGameData: (arg0: saveGameInfo) => void;
-  gameData: saveGameInfo;
-};
+// type props = {
+//   setGameData: (arg0: saveGameInfo) => void;
+//   gameData: saveGameInfo;
+// };
 
-const ModuleForms = (props: props): ReactElement => {
-  const { setGameData, gameData } = props;
+const ModuleForms = (): ReactElement => {
+  const value = useContext(AppContext);
+  const { gameData } = value.state;
+  const selectedGameData = value.setGameData;
 
   const published = useRef<boolean>(false);
   const titleOfGame = useRef<string>("");
@@ -48,52 +53,54 @@ const ModuleForms = (props: props): ReactElement => {
   const [gameModule, setGameModules] = useState<GameModules[]>([]);
 
   return (
-    <div className="relative w-full h-144 overflow-scroll justify-start flex flex-col px-6 py-4 rounded shadow-lg bg-darkGrey shadow-slate-100">
-      <FormStoryInformation
-        titleOfGame={titleOfGame.current}
-        minutes={minutes.current}
-        rating={rating.current}
-        visibility={visibility.current}
-        setImageUrl={setImageUrl}
-        imageUrl={imageUrl}
-        description={description.current}
-        setGameData={setGameData}
-        gameData={gameData}
-      />
+    <>
+      <div className="relative w-full h-144 overflow-scroll justify-start flex flex-col px-6 py-4 rounded shadow-lg bg-darkGrey shadow-slate-100">
+        <FormStoryInformation
+          titleOfGame={titleOfGame.current}
+          minutes={minutes.current}
+          rating={rating.current}
+          visibility={visibility.current}
+          setImageUrl={setImageUrl}
+          imageUrl={imageUrl}
+          description={description.current}
+          setGameData={value.setGameData}
+          gameData={value.gameData}
+        />
 
-      <FormLocation
-        title={title.current}
-        description={description.current}
-        setImageUrl={setImageUrl}
-        imageUrl={imageUrl}
-        coordinates={coordinates.current}
-        hint={hint.current}
-      />
+        <FormLocation
+          title={title.current}
+          description={description.current}
+          setImageUrl={setImageUrl}
+          imageUrl={imageUrl}
+          coordinates={coordinates.current}
+          hint={hint.current}
+        />
 
-      {/* <FormNarrative
-        title={title.current}
-        description={description.current}
-        setImageUrl={setImageUrl}
-        imageUrl={imageUrl}
-      />
+        <FormNarrative
+          title={title.current}
+          description={description.current}
+          setImageUrl={setImageUrl}
+          imageUrl={imageUrl}
+        />
 
-      <FormQuestion
-        title={title.current}
-        description={description.current}
-        setImageUrl={setImageUrl}
-        imageUrl={imageUrl}
-        question={question.current}
-        answer={answer.current}
-        hint={hint.current}
-      />
+        <FormQuestion
+          title={title.current}
+          description={description.current}
+          setImageUrl={setImageUrl}
+          imageUrl={imageUrl}
+          question={question.current}
+          answer={answer.current}
+          hint={hint.current}
+        />
 
-      <FormEnd
-        title={title.current}
-        description={description.current}
-        setImageUrl={setImageUrl}
-        imageUrl={imageUrl}
-      /> */}
-    </div>
+        <FormEnd
+          title={title.current}
+          description={description.current}
+          setImageUrl={setImageUrl}
+          imageUrl={imageUrl}
+        />
+      </div>
+    </>
   );
 };
 

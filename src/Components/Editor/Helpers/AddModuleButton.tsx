@@ -22,9 +22,8 @@ const moduleOptions = [
 
 
 const AddModuleButton = (): ReactElement => {
-    // const { } = props;
-
-    const [renderMultiChoicePanel, setRenderMultiChoicePanel] = useState<boolean>(false);
+    const [renderMultiChoicePanel, setRenderMultiChoicePanel] =
+        useState<boolean>(false);
 
     const handleClickOutside = () => {
         setRenderMultiChoicePanel(false);
@@ -32,8 +31,7 @@ const AddModuleButton = (): ReactElement => {
 
     // const plusButton = useRef<HTMLButtonElement>(UseOutsideClick(handleClickOutside))
     const plusButton = useRef<HTMLButtonElement>(null);
-    UseOutsideClick(plusButton, setRenderMultiChoicePanel, false)
-
+    UseOutsideClick(plusButton, setRenderMultiChoicePanel, false);
 
     const handleMultiChoicePanel = () => {
         console.log(renderMultiChoicePanel)
@@ -43,12 +41,12 @@ const AddModuleButton = (): ReactElement => {
         if (renderMultiChoicePanel) {
             setRenderMultiChoicePanel(false);
         }
-    }
+    };
 
     const handleClick: MouseEventHandler<HTMLDivElement> = (e) => {
         // console.log(e)
-        console.log(e.clientX, " ", e.clientY)
-    }
+        console.log(e.clientX, " ", e.clientY);
+    };
 
     const handleConsole = (event: MouseEvent, index: number) => {
         console.log(moduleOptions[index])
@@ -103,8 +101,11 @@ const AddModuleButton = (): ReactElement => {
                 </div>
             </div>
 
+            {renderMultiChoicePanel && (
+                <section className="w-28 h-28 bg-darkGrey absolute"></section>
+            )}
         </>
-    )
-}
+    );
+};
 
 export default AddModuleButton;

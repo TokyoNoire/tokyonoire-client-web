@@ -19,7 +19,7 @@ export type startModuleInfo = {
 };
 
 interface props {
-  deviceType: string
+  deviceType: string;
 }
 
 const testArray = [
@@ -43,7 +43,8 @@ const testArray = [
   },
 ];
 
-const Home = (props: props) => { // We want to use NextPage type... right now it is no longer a static Next.js page.
+const Home = (props: props) => {
+  // We want to use NextPage type... right now it is no longer a static Next.js page.
   const { deviceType } = props;
   const [show] = useState<boolean>(true);
 
@@ -60,16 +61,10 @@ const Home = (props: props) => { // We want to use NextPage type... right now it
       </Head>
 
       <FadeDiv show={show}>
+        {deviceType === "Mobile" && <HomeMobile show={show} />}
 
-        {deviceType === "Mobile" &&
-          <HomeMobile show={show} />
-        }
-
-        {deviceType === "Desktop" &&
-          <HomeDesktop show={show} />
-        }
+        {deviceType === "Desktop" && <HomeDesktop show={show} />}
       </FadeDiv>
-
     </>
   );
 };
