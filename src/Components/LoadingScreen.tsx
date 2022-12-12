@@ -1,9 +1,7 @@
-import React, { type ReactElement, useState, useEffect, useRef } from "react";
+import React, { type ReactElement, useState, useEffect } from "react";
 import Logo from 'public/Logo_DarkTheme.svg';
 import FadeDiv from "./Helpers/FadeDiv";
 import LoadingScreenHints from "./Helpers/LoadingScreenHints";
-// import {ReactComponent as Logo} from '../../public/Logo_DarkTheme.svg';
-
 
 interface props {
     setLoadScreenMounted: (boolean: boolean) => void
@@ -34,7 +32,7 @@ const LoadingScreen = (props: props): ReactElement => {
         if (!show) {
             setTimeout(() => { setLoadScreenMounted(false) }, fadeDuration * 1000)
         }
-    }, [show, mounted])
+    }, [show, mounted, duration, fadeDuration, setLoadScreenMounted])
 
     return (
         Logo

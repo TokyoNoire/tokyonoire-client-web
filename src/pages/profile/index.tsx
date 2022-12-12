@@ -1,11 +1,18 @@
 import { type NextPage } from "next";
-// import Link from "next/link";
+import GameList from "../../Components/ProfilePage/GameList";
+import StatusBar from "../../Components/ProfilePage/StatusBar";
 
 const Profile: NextPage = () => {
   return (
-    <main className="w-screen h-screen flex justify-center items-center">
-      <h1 className="text-5xl">Profile Page</h1>
-    </main>
+    <>
+      <main className="items-center justify-center mb-5 mt-36">
+        <h1 className="mb-5 text-3xl text-center uppercase font-heading">
+          Profile Page
+        </h1>
+        <StatusBar />
+        <GameList />
+      </main>
+    </>
   );
 };
 
