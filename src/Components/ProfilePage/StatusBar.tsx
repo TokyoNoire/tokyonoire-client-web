@@ -3,15 +3,12 @@ import { AutoStoriesTwoTone } from "@mui/icons-material";
 import AccessTimeFilled from "@mui/icons-material/AccessTimeFilled";
 import MapIcon from "@mui/icons-material/Map";
 import ScoreboardIcon from "@mui/icons-material/Scoreboard";
-import { DefaultSession } from "next-auth";
 
-export function StatusBar( { user } : { user: DefaultSession["user"]}) {
+const StatusBar: FC = (): ReactElement => {
     return (
         <div className="w-screen mb-5 shadow-inner shadow-gray-500 flexCenterDiv h-36 bg-darkGrey">
             <h1 className="text-xl text-center font-heading">
                 &quot;Welcome back Detective, here is your current status.&quot;
-                {user?.name}
-                {user?.email}
             </h1>
             <div className="grid grid-cols-4 grid-rows-3 gap-1 mt-5 rounded-md low-col place-items-center">
                 <ScoreboardIcon fontSize="small" />

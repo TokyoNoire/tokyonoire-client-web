@@ -11,25 +11,15 @@ import {
 import Link from "next/link";
 import GoogleIcon from "@mui/icons-material/Google";
 import AppleIcon from "@mui/icons-material/Apple";
-import { useSession, signIn, signOut } from "next-auth/react";
 
 const SignUpForm: FC = (): ReactElement => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
   const [userInfo, setUserInfo] = useState({ email: "", password: "", name: "" });
-  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-    e.preventDefault();
 
-    const res = await signIn("credentials", {
-      email: userInfo.email,
-      password: userInfo.password,
-      name: userInfo.name,
-      redirect: false,
-    });
-
-    console.log(res);
-  };
+  interface SignUpFormValues {
+    email: string
+    password: string
+    repeatPassword: string
+  }
 
   return (
     <div className="items-center mx-8 my-20 flexCenterDiv bg-darkGrey">
