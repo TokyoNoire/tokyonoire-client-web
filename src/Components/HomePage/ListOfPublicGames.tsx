@@ -22,6 +22,7 @@ const ListOfPublicGames = (props: props): ReactElement => {
         <td className="px-6 py-4 font-heading">{publicGame.author}</td>
         <td className="px-6 py-4 font-heading">{publicGame.rating}</td>
         <td className="px-6 py-4 font-heading">{publicGame.estimatedTimeMinutes}</td>
+        <td className="px-6 py-4 font-heading">{publicGame.startLocation}</td>
       </tr>
     </tbody>
   })
@@ -41,6 +42,7 @@ const ListOfPublicGames = (props: props): ReactElement => {
           <option value="author">Author</option>
           <option value="rating">Rating</option>
           <option value="location">Time</option>
+          <option value="location">Location</option>
         </select>
         <TextField
           id="caseSearch"
@@ -70,6 +72,9 @@ const ListOfPublicGames = (props: props): ReactElement => {
               </th>
               <th scope="col" className="px-6 py-3 font-body2">
                 time
+              </th>
+              <th scope="col" className="px-6 py-3 font-body2">
+                location
               </th>
             </tr>
           </thead>

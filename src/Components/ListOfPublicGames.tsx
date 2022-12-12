@@ -37,10 +37,11 @@ let publicGamesListing = publicGames.map(publicGame => {
           className="p-2 text-black bg-white rounded-sm h-14 font-heading"
         >
           <option value="">Filter</option>
-          <option value="name">Name</option>
+          <option value="name">Title</option>
           <option value="author">Author</option>
           <option value="rating">Rating</option>
           <option value="location">Time</option>
+          <option value="location">Location</option>
         </select>
         <TextField
           id="caseSearch"
@@ -70,6 +71,9 @@ let publicGamesListing = publicGames.map(publicGame => {
               </th>
               <th scope="col" className="px-6 py-3 font-body2">
                 time
+              </th>
+              <th scope="col" className="px-6 py-3 font-body2">
+                location
               </th>
             </tr>
           </thead>

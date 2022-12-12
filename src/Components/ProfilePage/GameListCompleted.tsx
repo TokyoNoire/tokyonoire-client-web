@@ -31,7 +31,7 @@ const GameList: FC = (): ReactElement => {
       scope="row"
       className="px-6 py-2 font-heading whitespace-nowrap"
     >
-      TITLE
+      COMPLETED CASE
     </th>
     <td className="px-6 py-4 font-heading">AUTHOR</td>
     <td className="px-6 py-4 font-heading">RATING</td>

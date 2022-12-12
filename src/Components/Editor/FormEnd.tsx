@@ -31,6 +31,16 @@ const FormEnd = (props: props): ReactElement => {
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Image Upload
       </p>
+      {imageUrl ? (
+        <img
+          className="self-center w-3/5 mt-10"
+          src={`${imageUrl}`}
+          alt="preview"
+        />
+      ) : (
+        ""
+      )}
+      
       <ImageWidget setImageUrl={setImageUrl} />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Body</p>

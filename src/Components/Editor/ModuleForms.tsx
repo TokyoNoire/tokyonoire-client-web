@@ -12,6 +12,7 @@ import FormEnd from "./FormEnd";
 import FormStoryInformation from "./FormStoryInformation";
 import axios from "axios";
 import { saveGameInfo } from "../../pages/editor";
+import { useLocalStorage } from "usehooks-ts";
 export type GameModules = {
   typeOfModule: string;
   title: string;
@@ -47,8 +48,10 @@ const ModuleForms = (props: props): ReactElement => {
   const [gameObject, setGameObject] = useState<GameModules | null>(null);
   const [gameModule, setGameModules] = useState<GameModules[]>([]);
 
+  const [gameObjectLS, setGameObjectLS] = useLocalStorage("", "");
+
   return (
-    <div className="relative w-full h-144 overflow-scroll justify-start flex flex-col px-6 py-4 rounded shadow-lg bg-darkGrey shadow-slate-100">
+    <div className="relative flex flex-col justify-start w-full px-6 py-4 overflow-scroll rounded shadow-lg h-144 bg-darkGrey shadow-slate-100">
       <FormStoryInformation
         titleOfGame={titleOfGame.current}
         minutes={minutes.current}
@@ -70,7 +73,7 @@ const ModuleForms = (props: props): ReactElement => {
         hint={hint.current}
       />
 
-      {/* <FormNarrative
+      <FormNarrative
         title={title.current}
         description={description.current}
         setImageUrl={setImageUrl}
@@ -92,7 +95,7 @@ const ModuleForms = (props: props): ReactElement => {
         description={description.current}
         setImageUrl={setImageUrl}
         imageUrl={imageUrl}
-      /> */}
+      />
     </div>
   );
 };

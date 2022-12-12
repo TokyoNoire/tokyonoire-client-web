@@ -17,6 +17,7 @@ export type startModuleInfo = {
   author?: string | null;
   image?: string;
   estimatedTimeMinutes?: number | null;
+  startLocation?: string | null;
   startLocationCoordinates?: Array<number>;
 };
 
@@ -29,7 +30,8 @@ const testArray = [
     author: "Cole Phelps",
     rating: "G",
     isPrivate: false,
-    estimatedTimeMinutes:20
+    estimatedTimeMinutes:20,
+    startLocation: "Roppongi"
   },
   {
     _id: "638d8a2f61306a3dc4e94430",
@@ -39,7 +41,8 @@ const testArray = [
     author: "Cole Phelps",
     rating: "G",
     isPrivate: false,
-    estimatedTimeMinutes: 20
+    estimatedTimeMinutes: 20,
+    startLocation: "Roppongi"
   },
 ];
 

@@ -15,12 +15,14 @@ export type startModuleInfo = {
   author?: string | null;
   image?: string;
   estimatedTimeMinutes?: number | null;
+  startLocation?: string | null;
   startLocationCoordinates?: Array<number>;
 };
 
 interface props {
   deviceType: string
 }
+
 
 
 const Home = (props: props) => { // We want to use NextPage type... right now it is no longer a static Next.js page.

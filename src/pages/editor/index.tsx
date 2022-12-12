@@ -19,7 +19,6 @@ export type saveGameInfo = {
 };
 
 const Editor: NextPage = () => {
-
   const [show, setShow] = useState<boolean>(true);
   const [gameData, setGameData] = useState<saveGameInfo>({
     titleOfGame: "",
