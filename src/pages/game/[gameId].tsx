@@ -28,22 +28,19 @@ export type GameModule = {
 
 const GameId: FC = (): ReactElement => {
   const [challengeSuccess, setChallengeSuccess] = useState<boolean>(false);
-  const [, setTypeOfModule] = useState<string | null>("");
+  const [TypeOfModule, setTypeOfModule] = useState<string | null>("");
   const [gameObject, setGameObject] = useState<GameModule | null>(null);
   const router = useRouter();
   const currentIndex = useRef(0);
   const [devicePermission, setDevicePermission] = useState<boolean>(false);
 
-  const getGameObject = useCallback(
-    async () => {
-      await axios
-        .get(
-          `https://tokyo-noire-server-development.herokuapp.com/game/${router.query.gameId}/?index=${currentIndex.current}`
-        )
-        .then((response) => setGameObject(response.data));
-    },
-    [router, currentIndex]
-  );
+  const getGameObject = useCallback(async () => {
+    await axios
+      .get(
+        `https://tokyo-noire-server-development.herokuapp.com/game/${router.query.gameId}/?index=${currentIndex.current}`
+      )
+      .then((response) => setGameObject(response.data));
+  }, [router, currentIndex]);
 
   useEffect(() => {
     if (gameObject === null) {
@@ -71,18 +68,19 @@ const GameId: FC = (): ReactElement => {
       case "location":
         return (
           <>
-            <LocationModule
-              gameObject={gameObject!}
-            />
-            {devicePermission
-              ? <NavigationModule
+            <LocationModule gameObject={gameObject!} />
+            {devicePermission ? (
+              <NavigationModule
                 locationCoordinates={
-                  gameObject?.locationCoordinates !== null ? gameObject!.locationCoordinates : [0, 0]
+                  gameObject?.locationCoordinates !== null
+                    ? gameObject!.locationCoordinates
+                    : [0, 0]
                 }
                 setChallengeSuccess={setChallengeSuccess}
               />
-              : <></>
-            }
+            ) : (
+              <></>
+            )}
           </>
         );
 
@@ -102,13 +100,8 @@ const GameId: FC = (): ReactElement => {
           />
         );
 
-
       case "end":
-        return (
-          <EndModule
-            gameObject={gameObject!}
-          />
-        );
+        return <EndModule gameObject={gameObject!} />;
 
       default:
         return null;
@@ -117,11 +110,13 @@ const GameId: FC = (): ReactElement => {
 
   return (
     <>
-      <HowToPlayPopup
-        setDevicePermission={setDevicePermission}
-      />
+      <HowToPlayPopup setDevicePermission={setDevicePermission} />
       <div className="h-28 w-screen"></div>
-      {gameObject !== null ? setCurrentComponent(gameObject.typeOfModule) : <></>}
+      {gameObject !== null ? (
+        setCurrentComponent(gameObject.typeOfModule)
+      ) : (
+        <></>
+      )}
     </>
   );
 };

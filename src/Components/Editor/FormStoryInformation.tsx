@@ -2,6 +2,7 @@ import React, { type FC, type ReactElement } from "react";
 import TextField from "@mui/material/TextField";
 import ImageWidget from "./ImageWidget";
 import { saveGameInfo } from "../../pages/editor";
+import { useContext } from "react";
 
 interface prop {
   titleOfGame: string;
@@ -26,9 +27,11 @@ const FormStoryInformation = (prop: prop): ReactElement => {
       <h1 className="self-center mt-10 mb-2 text-2xl font-bold uppercase font-heading">
         Story information
       </h1>
-      <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Title</p>
+      <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
+        Title of Game
+      </p>
       <TextField
-        id="title"
+        id="titleOfGame"
         variant="filled"
         onChange={(e) => (titleOfGame = e.target.value)}
         fullWidth
@@ -51,6 +54,7 @@ const FormStoryInformation = (prop: prop): ReactElement => {
           className="p-2 text-black rounded-sm"
           onChange={(e) => (rating = e.target.value)}
         >
+          <option value="">Choose a Rating</option>
           <option value="G">G</option>
           <option value="PG">PG</option>
           <option value="PG-13">PG-13</option>
@@ -62,6 +66,7 @@ const FormStoryInformation = (prop: prop): ReactElement => {
           className="p-2 text-black rounded-sm"
           onChange={(e) => (visibility = e.target.value)}
         >
+          <option value="">Choose visibility</option>
           <option value="true">Private</option>
           <option value="false">Public</option>
         </select>

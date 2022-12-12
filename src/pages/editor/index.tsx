@@ -8,7 +8,7 @@ import FadeDiv from "../../Components/Helpers/FadeDiv";
 
 export type saveGameInfo = {
   titleOfGame: string;
-  isPublished: string;
+  isPublished: string | boolean;
   description?: string | null;
   rating?: string | null;
   author?: string | null;
@@ -21,32 +21,18 @@ export type saveGameInfo = {
 const Editor: NextPage = () => {
   const [gameData, setGameData] = useState<saveGameInfo>({
     titleOfGame: "",
-    isPublished: "",
+    isPublished: false,
   });
   const [show, setShow] = useState<boolean>(true);
-
   useEffect(() => {
     console.log(gameData);
   }, [gameData]);
-  const saveGame = async () => {
-    console.log("post request is being made");
-    await axios.post("editor", gameData);
-  };
+
   return (
     <FadeDiv show={show}>
       <div className="grid items-center justify-center grid-cols-2 gap-10 m-5 place-items-stretch">
         <DragAndDropEditor />
-        <ModuleForms setGameData={setGameData} gameData={gameData} />
-        <button id="themeButton" className=" w-1/2 mt-10 mb-5">
-          Publish Game
-        </button>
-        <button
-          id="themeButton"
-          className=" w-1/2 mt-10 mb-5"
-          onClick={saveGame}
-        >
-          Save Game
-        </button>
+        <ModuleForms />
       </div>
     </FadeDiv>
   );
