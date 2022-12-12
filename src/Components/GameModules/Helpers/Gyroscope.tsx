@@ -11,7 +11,6 @@ type UseDeviceOrientationData = {
   requestAccessAsync: () => Promise<boolean>;
 }
 
-
 const Gyroscope = (): UseDeviceOrientationData => {
   const [error, setError] = useState<Error | null>(null);
   const [orientation, setOrientation] = useState<DeviceOrientation | null>(null);
@@ -26,14 +25,15 @@ const Gyroscope = (): UseDeviceOrientationData => {
     });
   };
 
-  const revokeAccessAsync = async (): Promise<void> => {
-    window.removeEventListener('deviceorientation', onDeviceOrientation);
-    setOrientation(null);
-  };
+  // const revokeAccessAsync = async (): Promise<void> => {
+  //   window.removeEventListener('deviceorientation', onDeviceOrientation);
+  //   setOrientation(null);
+  // };
 
   const requestAccessAsync = async (): Promise<boolean> => {
     if (!DeviceOrientationEvent) {
       setError(new Error('Device orientation event is not supported by your browser'));
+      console.error(error)
       return false;
     }
 
@@ -45,8 +45,7 @@ const Gyroscope = (): UseDeviceOrientationData => {
     ) {
       try {
         // @ts-ignore
-        // either "granted" or "denied"
-        permission.current = await DeviceOrientationEvent.requestPermission()
+        permission.current = await DeviceOrientationEvent.requestPermission() // either "granted" or "denied"
       } catch (err) {
         // @ts-ignore
         const e = new Error((err && err.message) || 'unknown error');

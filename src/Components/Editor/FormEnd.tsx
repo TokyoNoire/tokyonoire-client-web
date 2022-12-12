@@ -1,4 +1,4 @@
-import React, { type FC, type ReactElement } from "react";
+import React, { type ReactElement } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
 import ImageWidget from "./ImageWidget";

@@ -1,6 +1,5 @@
 import React, { type FC, type ReactElement, useState } from "react";
-import Logo from '../../public/Logo_DarkTheme.svg';
-import Image from "next/image";
+import Logo from '../../../public/Logo_DarkTheme.svg';
 import Link from "next/link";
 
 type menuItem = {
@@ -31,10 +30,6 @@ const MenuMobile: FC = (): ReactElement => {
 
   const [fadeIn, setFadeIn] = useState<boolean>(false)
   const [isShown, setIsShown] = useState<boolean>(false);
-
-  const handleClick = () => {
-    setIsShown(current => !current)
-  }
 
   return (
     <>

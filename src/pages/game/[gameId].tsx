@@ -4,15 +4,16 @@ import React, {
   useState,
   useEffect,
   useRef,
+  useCallback,
 } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
-import LocationModule from "../../Components/LocationModule";
-import NarrativeModule from "../../Components/NarrativeModule";
-import QuestionModule from "../../Components/QuestionModule";
-import EndModule from "../../Components/EndModule";
-import NavigationModule from "../../Components/NavigationModule";
-import HowToPlayPopup from "../../Components/HowToPlayPopup";
+import LocationModule from "../../Components/GameModules/LocationModule";
+import NarrativeModule from "../../Components/GameModules/NarrativeModule";
+import QuestionModule from "../../Components/GameModules/QuestionModule";
+import EndModule from "../../Components/GameModules/EndModule";
+import NavigationModule from "../../Components/GameModules/NavigationModule";
+import HowToPlayPopup from "../../Components/GameModules/HowToPlayPopup";
 
 export type GameModule = {
   _id: string;
@@ -27,46 +28,43 @@ export type GameModule = {
 
 const GameId: FC = (): ReactElement => {
   const [challengeSuccess, setChallengeSuccess] = useState<boolean>(false);
-  const [typeOfModule, setTypeOfModule] = useState<string | null>("");
+  const [, setTypeOfModule] = useState<string | null>("");
   const [gameObject, setGameObject] = useState<GameModule | null>(null);
   const router = useRouter();
   const currentIndex = useRef(0);
-  const sentRequest = useRef<boolean>(false);
   const [devicePermission, setDevicePermission] = useState<boolean>(false);
 
+  const getGameObject = useCallback(
+    async () => {
+      await axios
+        .get(
+          `https://tokyo-noire-server-development.herokuapp.com/game/${router.query.gameId}/?index=${currentIndex.current}`
+        )
+        .then((response) => setGameObject(response.data));
+    },
+    [router, currentIndex]
+  );
 
   useEffect(() => {
     if (gameObject === null) {
       getGameObject();
     }
-  }, []);
+  }, [gameObject, getGameObject]);
 
   useEffect(() => {
-    if (challengeSuccess === true 
-      // && !sentRequest.current
-      ) {
+    if (challengeSuccess === true) {
       currentIndex.current++;
       getGameObject();
-      // sentRequest.current = true;
       gameObject!.locationCoordinates = null;
-            setChallengeSuccess(false);
-
+      setChallengeSuccess(false);
     }
-  }, [challengeSuccess]);
+  }, [gameObject, getGameObject, challengeSuccess]);
 
   useEffect(() => {
     if (gameObject !== null) {
       setTypeOfModule(gameObject.typeOfModule);
     }
   }, [gameObject]);
-
-  const getGameObject = async () => {
-    await axios
-      .get(
-        `https://tokyo-noire-server-development.herokuapp.com/game/${router.query.gameId}/?index=${currentIndex.current}`
-      )
-      .then((response) => setGameObject(response.data));
-  };
 
   const setCurrentComponent = (typeOfModule: string | undefined) => {
     switch (typeOfModule) {
@@ -75,12 +73,13 @@ const GameId: FC = (): ReactElement => {
           <>
             <LocationModule
               gameObject={gameObject!}
-              setChallengeSuccess={setChallengeSuccess}
-              />
+            />
             {devicePermission
-              ? <NavigationModule 
-              locationCoordinates={gameObject?.locationCoordinates !== null ? gameObject!.locationCoordinates : [0,0]}
-              setChallengeSuccess={setChallengeSuccess}
+              ? <NavigationModule
+                locationCoordinates={
+                  gameObject?.locationCoordinates !== null ? gameObject!.locationCoordinates : [0, 0]
+                }
+                setChallengeSuccess={setChallengeSuccess}
               />
               : <></>
             }
@@ -121,6 +120,7 @@ const GameId: FC = (): ReactElement => {
       <HowToPlayPopup
         setDevicePermission={setDevicePermission}
       />
+      <div className="h-28 w-screen"></div>
       {gameObject !== null ? setCurrentComponent(gameObject.typeOfModule) : <></>}
     </>
   );
