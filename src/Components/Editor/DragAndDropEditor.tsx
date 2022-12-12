@@ -1,4 +1,4 @@
-import React, { type FC, type ReactElement, useState, useCallback } from "react";
+import React, { type FC, type ReactElement, type MouseEvent, useState, useCallback } from "react";
 import {
   DndContext,
   useSensor,
@@ -29,7 +29,11 @@ const DragAndDropEditor: FC = (): ReactElement => {
   const [gameModules, setGameModules] = useState<{ id: number, title: string, moduleId: number }[]>(contents);
 
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      }
+    }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
@@ -59,30 +63,38 @@ const DragAndDropEditor: FC = (): ReactElement => {
     [gameModules]
   );
 
+  const handleClick = (event: MouseEvent) => {
+    console.log(event.target)
+  }
+
   return (
-    <DndContext
-      sensors={sensors}
-      onDragEnd={handleDragEnd}
-    >
-      <SortableContext
-        items={gameModules}
-        strategy={verticalListSortingStrategy}
+    <section className="flex flex-col gap-8">
+      <DndContext
+        sensors={sensors}
+        onDragEnd={handleDragEnd}
       >
-        <div className="w-full h-full flex flex-col justify-start item-center text-center gap-8">
-          {gameModules.map((item) => (
-            <SortableItem key={item.id} id={item.id}>
-              <div className='h-full w-1/2 flex justify-center items-center bg-darkGrey'>
-                {item.title}
-                {item.id}
-              </div>
-            </SortableItem>
-          ))}
+        <SortableContext
+          items={gameModules}
+          strategy={verticalListSortingStrategy}
+        >
+          <div className="w-full h-full flex flex-col justify-start item-center text-center gap-8">
+            {gameModules.map((item) => (
+              <SortableItem key={item.id} id={item.id}>
+                <div
+                  className='h-full w-1/2 flex justify-center items-center bg-darkGrey border-4'
+                  onClick={event => handleClick(event)}
+                >
+                  {`${item.title} Index: ${item.id}`}
 
-          <AddModuleButton />
+                </div>
+              </SortableItem>
+            ))}
+          </div>
+        </SortableContext>
+      </DndContext>
 
-        </div>
-      </SortableContext>
-    </DndContext>
+      <AddModuleButton />
+    </section>
   );
 };
 

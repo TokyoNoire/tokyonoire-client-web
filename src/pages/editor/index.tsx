@@ -35,7 +35,7 @@ const Editor: NextPage = () => {
 
   return (
     <FadeDiv show={show}>
-      <div className="grid items-center justify-center grid-cols-2 gap-10 m-5 place-items-stretch">
+      <div className="grid items-center justify-center grid-cols-2 gap-10 mt-28 m-5 place-items-stretch">
         <DragAndDropEditor />
         <ModuleForms setGameData={setGameData} gameData={gameData} />
         <button id="themeButton" className=" w-1/2 mt-10 mb-5">
