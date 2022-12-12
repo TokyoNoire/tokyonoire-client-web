@@ -1,6 +1,5 @@
 import { type NextPage } from "next";
 import { useEffect, useRef, useState } from "react";
-import axios from "axios";
 import DragAndDropEditor from "../../Components/Editor/DragAndDropEditor";
 import { type GameModules } from "../../Components/Editor/ModuleForms";
 import ModuleForms from "../../Components/Editor/ModuleForms";
@@ -19,20 +18,16 @@ export type saveGameInfo = {
 };
 
 const Editor: NextPage = () => {
-  const [gameData, setGameData] = useState<saveGameInfo>({
-    titleOfGame: "",
-    isPublished: false,
-  });
   const [show, setShow] = useState<boolean>(true);
-  useEffect(() => {
-    console.log(gameData);
-  }, [gameData]);
+
 
   return (
     <FadeDiv show={show}>
       <div className="grid items-center justify-center grid-cols-2 gap-10 mt-28 m-5 place-items-stretch">
         <DragAndDropEditor />
-        <ModuleForms />
+        <div className="relative w-full h-144 overflow-scroll justify-start flex flex-col px-6 py-4 rounded shadow-lg bg-darkGrey shadow-slate-100">
+          <ModuleForms />
+        </div>
       </div>
     </FadeDiv>
   );

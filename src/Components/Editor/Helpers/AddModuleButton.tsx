@@ -2,11 +2,10 @@ import React, {
     type ReactElement,
     type MouseEvent,
     type MouseEventHandler,
-    useEffect,
     useRef,
     useState,
 } from "react";
-import UseOutsideClick from "./UseOutsideClick";
+// import UseOutsideClick from "./UseOutsideClick";
 import AddItemIcon from "../../../../public/addItemIcon-darkTheme.svg";
 import CloseButton from "../../../../Assets/Icons/closeButton-darkTheme.svg"
 
@@ -20,18 +19,12 @@ const moduleOptions = [
     "End Block"
 ]
 
-
 const AddModuleButton = (): ReactElement => {
-    const [renderMultiChoicePanel, setRenderMultiChoicePanel] =
-        useState<boolean>(false);
-
-    const handleClickOutside = () => {
-        setRenderMultiChoicePanel(false);
-    };
+    const [renderMultiChoicePanel, setRenderMultiChoicePanel] = useState<boolean>(false);
 
     // const plusButton = useRef<HTMLButtonElement>(UseOutsideClick(handleClickOutside))
     const plusButton = useRef<HTMLButtonElement>(null);
-    UseOutsideClick(plusButton, setRenderMultiChoicePanel, false);
+    // UseOutsideClick(plusButton, setRenderMultiChoicePanel, false);
 
     const handleMultiChoicePanel = () => {
         console.log(renderMultiChoicePanel)
@@ -43,16 +36,13 @@ const AddModuleButton = (): ReactElement => {
         }
     };
 
-    const handleClick: MouseEventHandler<HTMLDivElement> = (e) => {
-        // console.log(e)
-        console.log(e.clientX, " ", e.clientY);
-    };
+    // const handleClick: MouseEventHandler<HTMLDivElement> = (e) => {
+    //     console.log(e.clientX, " ", e.clientY);
+    // };
 
     const handleConsole = (event: MouseEvent, index: number) => {
         console.log(moduleOptions[index])
     }
-
-
 
     return (
         <>
@@ -70,7 +60,7 @@ const AddModuleButton = (): ReactElement => {
                             alt="Add Module Button"
                             style={{ height: "4rem" }}
                             onClick={handleMultiChoicePanel}
-                            ref={plusButton}
+                            ref={plusButton.current}
                         />
                     </button>
 
@@ -100,10 +90,6 @@ const AddModuleButton = (): ReactElement => {
                     }
                 </div>
             </div>
-
-            {renderMultiChoicePanel && (
-                <section className="w-28 h-28 bg-darkGrey absolute"></section>
-            )}
         </>
     );
 };

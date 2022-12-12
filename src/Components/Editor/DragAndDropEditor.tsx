@@ -1,10 +1,16 @@
-import React, { type FC, type ReactElement, type MouseEvent, useState, useCallback } from "react";
+import React, {
+  type FC, type ReactElement, type MouseEvent,
+  useState,
+  useCallback,
+  useContext,
+  useEffect
+} from "react";
 import {
   DndContext,
   useSensor,
   useSensors,
   KeyboardSensor,
-  PointerSensor
+  PointerSensor,
 } from "@dnd-kit/core";
 import {
   arrayMove,
@@ -13,20 +19,20 @@ import {
   sortableKeyboardCoordinates
 } from "@dnd-kit/sortable";
 import SortableItem from "./Helpers/SortableItem";
-import MockGameModules from "./Helpers/MockGameModules";
 import AddModuleButton from "./Helpers/AddModuleButton";
+import AppContext from "../../AppContext";
+import { type GameModule } from "../../types/global";
 
-// Make an array of mock modules to be displayed.
-const contents = MockGameModules.map((gameModule, index) => ({
-  id: index + 1,
-  moduleId: gameModule._id,
-  title: gameModule.title,
-  typeOfModule: gameModule.typeOfModule,
-}));
+type GameModuleWithId = {
+  id: number;
+} & GameModule;
 
 const DragAndDropEditor: FC = (): ReactElement => {
+  const value = useContext(AppContext)
+  const { gameData, setGameData, gameModules, setGameModules, setActiveModule } = value
 
-  const [gameModules, setGameModules] = useState<{ id: number, title: string, moduleId: number }[]>(contents);
+  const [gameModulesList, setGameModulesList] = useState<GameModuleWithId[] | null>(
+    gameModules.map((gameModule: GameModule, index: number) => ({ id: index + 1, ...gameModule })))
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -41,60 +47,69 @@ const DragAndDropEditor: FC = (): ReactElement => {
 
   const handleDragEnd = useCallback(
     (event: any) => {
-      // console.log(event)
       const { active, over } = event;
       if (over === null) {
         return;
       }
-      if (active.id !== over.id) {
-        const oldIndex = gameModules
-          .map((item) => item.id)
+      if (active.id !== over.id && gameModulesList) {
+        const oldIndex = gameModulesList
+          .map((gameModule: GameModuleWithId) => gameModule.id)
           .indexOf(active.id);
-        const newIndex = gameModules
-          .map((item) => item.id)
+        const newIndex = gameModulesList
+          .map((gameModule: GameModuleWithId) => gameModule.id)
           .indexOf(over.id);
 
-        console.log(oldIndex)
-        console.log(newIndex)
-        const newModulesOrder = arrayMove(gameModules, oldIndex, newIndex);
-        setGameModules(newModulesOrder);
+        // console.log(oldIndex)
+        // console.log(newIndex)
+        const newModulesOrder = arrayMove(gameModulesList, oldIndex, newIndex);
+        // const temp = newModulesOrder[oldIndex].id
+        // newModulesOrder[oldIndex].id = newModulesOrder[newIndex].id
+        // newModulesOrder[newIndex].id = temp
+        setGameModulesList(newModulesOrder);
+        setGameModules(newModulesOrder)
       }
     },
-    [gameModules]
+    [gameModulesList]
   );
 
-  const handleClick = (event: MouseEvent) => {
-    console.log(event.target)
+  const handleClick = (moduleIndex: number) => {
+    // console.log(gameModules[moduleIndex])
+    setActiveModule(gameModules[moduleIndex])
   }
 
   return (
-    <section className="flex flex-col gap-8">
-      <DndContext
-        sensors={sensors}
-        onDragEnd={handleDragEnd}
-      >
-        <SortableContext
-          items={gameModules}
-          strategy={verticalListSortingStrategy}
-        >
-          <div className="w-full h-full flex flex-col justify-start item-center text-center gap-8">
-            {gameModules.map((item) => (
-              <SortableItem key={item.id} id={item.id}>
-                <div
-                  className='h-full w-1/2 flex justify-center items-center bg-darkGrey border-4'
-                  onClick={event => handleClick(event)}
-                >
-                  {`${item.title} Index: ${item.id}`}
+    <>
+      {gameModulesList &&
+        <section className="flex flex-col gap-8">
+          <DndContext
+            sensors={sensors}
+            onDragEnd={handleDragEnd}
+          >
+            <SortableContext
+              items={gameModulesList}
+              strategy={verticalListSortingStrategy}
+            >
+              <div className="w-full h-full flex flex-col justify-start item-center text-center gap-8">
+                {gameModulesList && gameModulesList.map((gameModule: GameModuleWithId, moduleIndex: number) => (
+                  <SortableItem key={gameModule.id} id={gameModule.id!}>
+                    <div
+                      className='h-full w-1/2 flex justify-center items-center bg-darkGrey border-4'
+                      onClick={event => handleClick(moduleIndex)}
+                    >
+                      {`${gameModule.title} Index: ${gameModule.id}`}
 
-                </div>
-              </SortableItem>
-            ))}
-          </div>
-        </SortableContext>
-      </DndContext>
+                    </div>
+                  </SortableItem>
+                ))}
+              </div>
+            </SortableContext>
+          </DndContext>
 
-      <AddModuleButton />
-    </section>
+          <AddModuleButton />
+        </section>
+      }
+    </>
+
   );
 };
 
