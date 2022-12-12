@@ -17,7 +17,6 @@ const ImageWidget = (prop: prop): ReactElement => {
 
   useEffect(() => {
     cloudinaryRef.current = window.cloudinary;
-    console.log(cloudinaryRef.current);
     widgetRef.current = cloudinaryRef.current?.createUploadWidget(
       {
         cloudName: process.env.NEXT_PUBLIC_CLOUDNAME,
@@ -25,7 +24,6 @@ const ImageWidget = (prop: prop): ReactElement => {
       },
       function (error: any, result: any) {
         if (result.info.url !== undefined) {
-          console.log(result);
           setImageUrl(result.info.url);
         }
       }
