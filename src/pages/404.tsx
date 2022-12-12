@@ -1,5 +1,4 @@
-import React, { type FC, type ReactElement, useState, useEffect, useRef } from "react";
-import FadeDiv from "../Components/Helpers/FadeDiv";
+import React, { type FC, type ReactElement } from "react";
 
 const Custom404: FC = (): ReactElement => {
     return (

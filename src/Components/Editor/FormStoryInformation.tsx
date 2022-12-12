@@ -1,21 +1,24 @@
 import React, { type FC, type ReactElement } from "react";
 import TextField from "@mui/material/TextField";
 import ImageWidget from "./ImageWidget";
+import { saveGameInfo } from "../../pages/editor";
 
 interface prop {
-  title: string;
+  titleOfGame: string;
   description: string;
   minutes: string;
   rating: string;
   visibility: string;
   setImageUrl: (string: string) => void;
   imageUrl: string;
+  setGameData: (arg0: saveGameInfo) => void;
+  gameData: saveGameInfo;
 }
 
 const FormStoryInformation = (prop: prop): ReactElement => {
-  let { title, description, minutes, rating, visibility } = prop;
+  let { titleOfGame, description, minutes, rating, visibility } = prop;
   //Build is not happy if I set these as let, so I seperated them for now.
-  const { setImageUrl, imageUrl } = prop;
+  const { setImageUrl, imageUrl, setGameData, gameData } = prop;
 
   return (
     <>
@@ -28,7 +31,7 @@ const FormStoryInformation = (prop: prop): ReactElement => {
       <TextField
         id="title"
         variant="filled"
-        onChange={(e) => (title = e.target.value)}
+        onChange={(e) => (titleOfGame = e.target.value)}
         fullWidth
       />
 
@@ -88,7 +91,20 @@ const FormStoryInformation = (prop: prop): ReactElement => {
         onChange={(e) => (description = e.target.value)}
         fullWidth
       />
-      <button id="themeButton" className="self-center w-1/2 mt-10 mb-5">
+      <button
+        id="themeButton"
+        className="self-center w-1/2 mt-10 mb-5"
+        onClick={() => {
+          setGameData({
+            titleOfGame: titleOfGame,
+            isPublished: visibility,
+            description: description,
+            image: imageUrl,
+            estimatedTimeMinutes: minutes,
+            rating: rating,
+          });
+        }}
+      >
         {" "}
         Save{" "}
       </button>

@@ -1,13 +1,12 @@
-import React, { type FC, type ReactElement, useState, useEffect, useRef } from "react";
+import React, { type ReactElement } from "react";
 import Image from "next/image";
-import northLetter from "../../Assets/Icons/North-letter.svg"
-import Gyroscope from "./Helpers/Gyroscope";
+import northLetter from "../../../../Assets/Icons/North-letter.svg"
 
 type DeviceOrientation = {
     alpha: number | null,
     beta: number | null,
     gamma: number | null,
-  };
+};
 
 interface props {
     bearingAngle: number | null;
@@ -17,7 +16,12 @@ interface props {
 }
 
 const Compass = (props: props): ReactElement => {
-    const { bearingAngle, currentCoords, orientation, targetCoords } = props;
+    const {
+        bearingAngle,
+        orientation,
+        // currentCoords,
+        // targetCoords 
+    } = props;
 
     return (
         <>

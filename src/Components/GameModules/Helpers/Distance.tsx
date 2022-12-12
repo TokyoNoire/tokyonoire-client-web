@@ -1,7 +1,6 @@
-import { useRef, useState } from "react";
-import Haversine from "./Helpers/Haversine";
-import React, { useEffect, type FC, type ReactElement } from "react";
-import Geolocation from "./Helpers/Geolocation";
+import { useState } from "react";
+import Haversine from "./Haversine";
+import React, { useEffect, type ReactElement } from "react";
 
 interface props {
   currentCoords: number[] | null;
@@ -12,25 +11,23 @@ interface props {
 const Distance = (props: props): ReactElement => {
   const { setChallengeSuccess, currentCoords, targetCoords } = props
   const { haversineDistance } = Haversine()
-  const longitude = currentCoords ? currentCoords[0] : null;
-  const latitude = currentCoords ? currentCoords[1] : null;
   const [distance, setDistance] = useState<number | null>(null);
 
   useEffect(() => {
     if (currentCoords && currentCoords[0] && currentCoords[1] &&
       targetCoords && targetCoords[0] && targetCoords[1]) {
-      setDistance(Math.round(haversineDistance(currentCoords, targetCoords)))
+      setDistance(Math.round(haversineDistance(currentCoords, targetCoords) as number))
 
       if (distance && distance < 50) {
         setChallengeSuccess(true)
         setDistance(null)
       }
     }
-  }, [currentCoords, targetCoords])
+  }, [currentCoords, targetCoords, distance, haversineDistance, setChallengeSuccess])
 
   return (
     <>
-      <h1 className="self-center">Distance from target</h1>
+      <h1 className="self-center text-center mt-8">Distance from target</h1>
       <h1 className="self-center p-1 text-2xl text-center uppercase font-heading">
         {distance} meters
       </h1>
