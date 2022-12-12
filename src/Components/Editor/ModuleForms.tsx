@@ -33,8 +33,8 @@ export type GameModules = {
 
 const ModuleForms = (): ReactElement => {
   const value = useContext(AppContext);
-  let { gameData } = value.state;
-  let selectedGameData = value.setGameData;
+  const { gameData } = value.state;
+  const selectedGameData = value.setGameData;
 
   const published = useRef<boolean>(false);
   const titleOfGame = useRef<string>("");

@@ -39,8 +39,8 @@ const menuItems: Array<menuItem> = [
 const MenuDesktop = (): ReactElement => {
   const [show] = useState<boolean>(true);
   const value = useContext(AppContext);
-  let { gameData } = value.state;
-  let selectedGameData = value.setGameData;
+  const { gameData } = value.state;
+  const selectedGameData = value.setGameData;
 
   const postGameObject = async () => {
     await axios.post("/editor", gameData);
