@@ -34,9 +34,9 @@ const Editor: NextPage = () => {
 
   return (
     <>
-   <div className="grid items-center justify-center grid-cols-2 gap-10 m-5 place-items-stretch">
-        <DragAndDropEditor/>
-        {/* <ModuleForms /> */}
+   <div className="grid items-center justify-center w-screen h-screen grid-cols-2 gap-10 m-5 place-items-stretch">
+        <div className=""><DragAndDropEditor/></div>
+        <ModuleForms setGameData={setGameData} gameData={gameData}/>
    </div>
     </>
   );

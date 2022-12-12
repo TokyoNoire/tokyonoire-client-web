@@ -1,11 +1,7 @@
 // import { type NextPage } from "next";
 import React, {
-  type FC,
   type ReactElement,
   useState,
-  useEffect,
-  useRef,
-  useCallback,
 } from "react";
 import GameListCompleted from "../../Components/ProfilePage/GameListCompleted";
 import GameListUncompleted from "../../Components/ProfilePage/GameListUncompleted";

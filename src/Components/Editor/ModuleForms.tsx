@@ -48,7 +48,8 @@ const ModuleForms = (props: props): ReactElement => {
   const [gameObject, setGameObject] = useState<GameModules | null>(null);
   const [gameModule, setGameModules] = useState<GameModules[]>([]);
 
-  const [gameObjectLS, setGameObjectLS] = useLocalStorage("", "");
+  // const [gameObjectLS, setGameObjectLS] = useLocalStorage("", "");
+
 
   return (
     <div className="relative flex flex-col justify-start w-full px-6 py-4 overflow-scroll rounded shadow-lg h-144 bg-darkGrey shadow-slate-100">
