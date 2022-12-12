@@ -1,19 +1,19 @@
 import { type NextPage } from "next";
-import { useState } from "react";
-import FadeDiv from "../../Components/Helpers/FadeDiv";
-// import Link from "next/link";
+import GameList from "../../Components/ProfilePage/GameList";
+import StatusBar from "../../Components/ProfilePage/StatusBar";
 
-const HowToPlay: NextPage = () => {
-
-  const [show, setShow] = useState<boolean>(true);
-
+const Profile: NextPage = () => {
   return (
-    <FadeDiv show={show}>
-      <main className="w-screen h-screen flex justify-center items-center">
-        <h1 className="text-5xl">Profile Page</h1>
+    <>
+      <main className="items-center justify-center mb-5 mt-36">
+        <h1 className="mb-5 text-3xl text-center uppercase font-heading">
+          Profile Page
+        </h1>
+        <StatusBar />
+        <GameList />
       </main>
-    </FadeDiv>
+    </>
   );
 };
 
-export default HowToPlay;
+export default Profile;

@@ -21,6 +21,7 @@ const contents = MockGameModules.map((gameModule, index) => ({
   id: index + 1,
   moduleId: gameModule._id,
   title: gameModule.title,
+  typeOfModule: gameModule.typeOfModule,
 }));
 
 const DragAndDropEditor: FC = (): ReactElement => {

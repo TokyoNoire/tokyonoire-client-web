@@ -7,12 +7,12 @@ import React, {
 } from "react";
 import UseOutsideClick from "./UseOutsideClick";
 
-type props = {
+// type props = {
 
-};
+// };
 
-const AddModuleButton = (props: props): ReactElement => {
-    const { } = props;
+const AddModuleButton = (): ReactElement => {
+    // const { } = props;
 
     const [renderMultiChoicePanel, setRenderMultiChoicePanel] = useState<boolean>(false);
 
@@ -36,9 +36,9 @@ const AddModuleButton = (props: props): ReactElement => {
         console.log(e.clientX, " ", e.clientY)
     }
 
-    useEffect(() => {
+    // useEffect(() => {
 
-    }, [])
+    // }, [])
 
     return (
         <>

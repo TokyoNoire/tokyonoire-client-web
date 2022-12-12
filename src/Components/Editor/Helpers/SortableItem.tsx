@@ -12,12 +12,16 @@ function SortableItem({ id, children }: SortableItemProps) {
         useSortable({ id });
     const style = {
         transform: CSS.Transform.toString(transform),
-        transition
+        transition,
     };
 
     return (
         // eslint-disable-next-line react/jsx-props-no-spreading
-        <div ref={setNodeRef} className="h-24 flex justify-center items-center" style={style} {...attributes} {...listeners}>
+        <div
+            ref={setNodeRef}
+            className="h-24 flex justify-center items-center"
+            style={style} {...attributes} {...listeners}
+        >
             {children}
         </div>
     );
