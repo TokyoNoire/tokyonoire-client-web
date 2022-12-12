@@ -13,21 +13,10 @@ import Link from "next/link";
 import GoogleIcon from "@mui/icons-material/Google";
 import AppleIcon from "@mui/icons-material/Apple";
 import { useSession, signIn, signOut } from "next-auth/react";
+import StatusBar from "./ProfilePage/StatusBar";
 
 const SignInForm: FC = (): ReactElement => {
   const { data: session } = useSession();
-  const [userInfo, setUserInfo] = useState({ email: "", password: "" });
-  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-    e.preventDefault();
-
-    const res = await signIn("credentials", {
-      email: userInfo.email,
-      password: userInfo.password,
-      redirect: false,
-    });
-
-    console.log(res);
-  };
 
   return (
     <div className="items-center mx-8 my-20 flexCenterDiv bg-darkGrey">
@@ -37,7 +26,10 @@ const SignInForm: FC = (): ReactElement => {
       </h1>
       <br />
 
-      <form onSubmit={handleSubmit}>
+      <button onClick={() => signIn()} type="button" className="btn btn-primary">Sign In with Google</button>
+      <StatusBar user={session?.user}/>
+
+      {/* <form onSubmit={handleSubmit}>
       <FormControl>
         <TextField
           id="email"
@@ -88,7 +80,7 @@ const SignInForm: FC = (): ReactElement => {
         Sign in with
       </Button>
       <br />
-      </form>
+      </form> */}
 
       <Box
         sx={{

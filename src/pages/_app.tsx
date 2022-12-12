@@ -9,6 +9,9 @@ import "../styles/loadingSpinner.css";
 import "../styles/animations.css";
 import { useState, useEffect, useRef } from "react";
 import LoadingScreen from "../Components/LoadingScreen";
+import { SessionProvider } from "next-auth/react";
+import Login from "./auth/Login"
+import SignInForm from "../Components/SignInForm";
 
 
 const darkTheme = createTheme({
@@ -50,10 +53,13 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     (Component && !loadScreenMounted)
       ?
       <>
+      <SessionProvider>
+        <SignInForm></SignInForm>
         <ThemeProvider theme={darkTheme}>
           {deviceType && <NavBar deviceType={deviceType} />}
           <Component {...pageProps} deviceType={deviceType} />
         </ThemeProvider>
+        </SessionProvider>
         <script
           src="https://upload-widget.cloudinary.com/global/all.js"
           type="text/javascript"
