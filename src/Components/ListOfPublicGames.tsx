@@ -1,9 +1,9 @@
 import React, { type FC, type ReactElement, useState } from "react";
 import TextField from "@mui/material/TextField";
-import { startModuleInfo } from "../pages";
+import { type saveGameInfo } from "../types/global";
 
 interface props {
-  publicGames: startModuleInfo[];
+  publicGames: saveGameInfo[];
 }
 
 const ListOfPublicGames = (props: props): ReactElement => {

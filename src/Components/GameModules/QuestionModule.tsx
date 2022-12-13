@@ -1,7 +1,6 @@
 import React, { type ReactElement, useState } from "react";
-import { type GameModule } from "../../pages/game/[gameId]";
+import { type GameModule } from "../../types/global";
 import TextField from "@mui/material/TextField";
-import Image from "next/image";
 
 interface props {
   gameObject: GameModule;
