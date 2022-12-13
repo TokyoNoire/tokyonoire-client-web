@@ -27,7 +27,7 @@
     "**/*.cjs",
     "**/*.mjs",
     "next.config.mjs"
-  ],
+, "src/auth/firebase.ts"  ],
   "exclude": [
     "node_modules"
   ]

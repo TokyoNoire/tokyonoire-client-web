@@ -23,7 +23,7 @@ const FormStoryInformation = (prop: prop): ReactElement => {
   //Build is not happy if I set these as let, so I seperated them for now.
   const { setImageUrl, imageUrl, setGameData, gameData } = prop;
   const value = useContext(AppContext);
-  const { setActiveModule } = value;
+  const { setActiveModule, gameModules } = value;
   return (
     <>
       {/* <ClearIcon className="absolute top-2 right-2 hover:shadow-indigo-500/40"/> */}
