@@ -3,7 +3,6 @@ import React, {
   type ReactElement,
   useState,
 } from "react";
-import MapLocationPicker from "../../Components/Editor/MapLocationPicker";
 import GameListCompleted from "../../Components/ProfilePage/GameListCompleted";
 import GameListUncompleted from "../../Components/ProfilePage/GameListUncompleted";
 import StatusBar from "../../Components/ProfilePage/StatusBar";

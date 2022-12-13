@@ -1,3 +1,5 @@
+
+
 import React, { type FC, type ReactElement, useState, useEffect } from "react";
 import FadeDiv from "../Helpers/FadeDiv";
 import GameSearchByID from "./GameSearchByID";
@@ -17,7 +19,6 @@ export type startModuleInfo = {
   author?: string | null;
   image?: string;
   estimatedTimeMinutes?: number | null;
-  startLocation?: string | null;
   startLocationCoordinates?: Array<number>;
 };
 
@@ -30,8 +31,6 @@ const testArray = [
     author: "Cole Phelps",
     rating: "G",
     isPrivate: false,
-    estimatedTimeMinutes:20,
-    startLocation: "Roppongi"
   },
   {
     _id: "638d8a2f61306a3dc4e94430",
@@ -41,8 +40,6 @@ const testArray = [
     author: "Cole Phelps",
     rating: "G",
     isPrivate: false,
-    estimatedTimeMinutes: 20,
-    startLocation: "Roppongi"
   },
 ];
 
@@ -74,13 +71,6 @@ const HomeMobile = (props: props): ReactElement => {
     setOpen(true);
   };
 
-  const handleClick = (event: React.MouseEvent) => {
-    if (event.target instanceof Element) { 
-    setOpen(true);
-    setGameId(event.target.id);
-  };  
-  }
-
   return (
     <>
       <div className="relative h-screen mx-5 flexCenterDiv place-items-center ">
@@ -95,7 +85,6 @@ const HomeMobile = (props: props): ReactElement => {
         </div>
       </div>
       <Hero />
-
       <GameSearchByID
         setGameId={setGameId}
         gameId={gameId}
