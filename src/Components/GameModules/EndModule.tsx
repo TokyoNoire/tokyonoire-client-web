@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/router";
 import { type GameModule } from "../../pages/game/[gameId]";
-import Image from "next/image";
 
 interface props {
     gameObject: GameModule;

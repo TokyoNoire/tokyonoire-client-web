@@ -23,7 +23,7 @@ const Editor: NextPage = () => {
 
   return (
     <FadeDiv show={show}>
-      <div className="grid grid-cols-2 gap-10 mt-28 m-5 place-items-stretch">
+      <div className="grid items-center justify-center grid-cols-2 gap-10 m-5 mt-28 place-items-stretch">
         <DragAndDropEditor />
         <div className="fixed top-28 right-20 w-5/12 h-full">
           <div

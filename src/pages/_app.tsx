@@ -10,6 +10,8 @@ import "../styles/loadingSpinner.css";
 import "../styles/animations.css";
 import AppContext from "../AppContext";
 import LoadingScreen from "../Components/LoadingScreen";
+import SignInForm from "../Components/SignInForm";
+import { AuthProvider } from "../Components/AuthProvider";
 import NavBar from "../Components/Navigation/NavBar";
 import MockGame from "../Components/Editor/Helpers/MockGame";
 import { saveGameInfo, GameModule } from "../types/global";
@@ -24,7 +26,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [loadScreenMounted, setLoadScreenMounted] = useState<boolean>(true);
   const [durationLoadingScreen] = useState<number>(2000);
   const [deviceType, setDeviceType] = useState<string | null>(null);
-
+  const [userId, setUserId] = useState<string>("on est là");
   const [gameData, setGameData] = useState<saveGameInfo>(MockGame);
   const [gameModules, setGameModules] = useState<GameModule[]>(MockGame.gameModules)
   const [activeModule, setActiveModule] = useState(null);
@@ -57,9 +59,13 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         gameModules: gameModules,
         setGameModules: setGameModules,
         activeModule: activeModule,
-        setActiveModule: setActiveModule
+        setActiveModule: setActiveModule,
+        userId: userId,
+        setUserId: setUserId
       }}
-    >
+      >
+      <AuthProvider>
+    
       <Script
         src="https://upload-widget.cloudinary.com/global/all.js"
         type="text/javascript"
@@ -67,6 +73,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
 
       {Component && !loadScreenMounted ? (
         <ThemeProvider theme={darkTheme}>
+          <SignInForm></SignInForm>
           {deviceType && <NavBar deviceType={deviceType} />}
           <Component {...pageProps} deviceType={deviceType} />
         </ThemeProvider>
@@ -76,6 +83,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
           duration={durationLoadingScreen}
         />
       )}
+      </AuthProvider>
     </AppContext.Provider>
   );
 };

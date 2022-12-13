@@ -1,44 +1,43 @@
 import React, { type FC, type ReactElement, useState } from "react";
 import TextField from "@mui/material/TextField";
-import { type startModuleInfo } from "../../pages";
+import { startModuleInfo } from "../pages";
 
 interface props {
   publicGames: startModuleInfo[];
 }
 
 const ListOfPublicGames = (props: props): ReactElement => {
-  const { publicGames } = props;
+const {publicGames} = props;
 
-  const publicGamesListing = publicGames.map((publicGame, index) => {
-    console.log(publicGame)
-    return <tbody key={index}>
-      <tr className="bg-white border-b">
-        <th
-          scope="row"
-          className="px-6 py-2 font-heading whitespace-nowrap"
-        >
-          {publicGame.titleOfGame}
-        </th>
-        <td className="px-6 py-4 font-heading">{publicGame.author}</td>
-        <td className="px-6 py-4 font-heading">{publicGame.rating}</td>
-        <td className="px-6 py-4 font-heading">{publicGame.estimatedTimeMinutes}</td>
-        <td className="px-6 py-4 font-heading">{publicGame.startLocation}</td>
-      </tr>
-    </tbody>
-  })
-
+const publicGamesListing = publicGames.map(publicGame => {
+  console.log(publicGame);
+  return <tbody key={publicGame._id}>
+  <tr className="bg-white border-b">
+    <th
+      scope="row"
+      className="px-6 py-2 font-heading whitespace-nowrap"
+    >
+      {publicGame.titleOfGame}
+    </th>
+    <td className="px-6 py-4 font-heading">{publicGame.author}</td>
+    <td className="px-6 py-4 font-heading">{publicGame.rating}</td>
+    <td className="px-6 py-4 font-heading">{publicGame.estimatedTimeMinutes}</td>
+  </tr>
+</tbody>
+})
+  
   return (
-    <div className="w-screen h-screen mt-20">
+    <div className="w-screen h-screen flexCenterDiv">
       <h1 className="mb-5 text-center text-m font-heading">
-        &quot;Or, do you want to choose an open case?&quot;
+         &quot;Or, do you want to choose an open case?&quot;
       </h1>
       <div className="flex items-center">
-        <select
+      <select
           id="visibility"
           className="p-2 text-black bg-white rounded-sm h-14 font-heading"
         >
           <option value="">Filter</option>
-          <option value="name">Name</option>
+          <option value="name">Title</option>
           <option value="author">Author</option>
           <option value="rating">Rating</option>
           <option value="location">Time</option>
