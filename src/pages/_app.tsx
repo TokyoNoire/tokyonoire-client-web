@@ -49,12 +49,12 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     "currentGameData",
     gameData
   );
+  console.log(gameModules);
 
   useEffect(() => {
     const newGameData = gameData;
     newGameData.gameModules = gameModules;
     setGameData(newGameData);
-    console.log(activeModule);
   }, [gameModules]);
 
   useEffect(() => {
