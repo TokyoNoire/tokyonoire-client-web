@@ -12,8 +12,8 @@ const HomeDesktop = (props: props): ReactElement => {
     <main className="relative w-screen h-screen flexCenterDiv place-items-center">
       <TokyoNoireName
         alt="Tokyo Noire Name"
-        style={{ maxWidth: "80vw", filter: "drop-shadow(0 0 0.5rem grey)", animation: "pulsate 1s ease-in-out infinite alternate" }} />
-
+        style={{ maxWidth: "80vw", filter: "drop-shadow(0 0 0.5rem grey)", animation: "pulsate 1s ease-in-out infinite alternate" }}
+      />
       <section className="absolute bottom-1/4">
         <Link href="/editor">
           <button

@@ -26,7 +26,7 @@ const ListOfPublicGames = (props: props): ReactElement => {
   })
 
   return (
-    <div className="w-screen h-screen flexCenterDiv">
+    <div className="w-screen h-screen ">
       <h1 className="mb-5 text-center text-m font-heading">
         &quot;Or, do you want to choose an open case?&quot;
       </h1>

@@ -10,7 +10,7 @@ interface prop {
   game: startModuleInfo | null;
   gameId: string | null;
 }
-const GameIdForm = (prop: prop): ReactElement => {
+const GameSearchByID = (prop: prop): ReactElement => {
   const { setGameId, gameId, setGame, handleOpen } = prop;
 
 
@@ -51,4 +51,4 @@ const GameIdForm = (prop: prop): ReactElement => {
   );
 };
 
-export default GameIdForm;
+export default GameSearchByID;

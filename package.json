@@ -16,7 +16,6 @@
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.10.16",
     "@mui/material": "^5.10.16",
-    "cloudinary": "^1.32.0",
     "dotenv": "^16.0.3",
     "firebase": "^9.15.0",
     "formik": "^2.2.9",
