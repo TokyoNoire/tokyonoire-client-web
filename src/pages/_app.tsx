@@ -50,7 +50,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     gameData
   );
   console.log(gameModules);
-
+  console.log(JSON.stringify(gameModules[4]));
   useEffect(() => {
     const newGameData = gameData;
     newGameData.gameModules = gameModules;
