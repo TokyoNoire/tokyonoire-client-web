@@ -8,7 +8,7 @@ import { useContext } from "react";
 interface prop {
   titleOfGame: string;
   description: string;
-  minutes: string;
+  minutes: string | number;
   rating: string;
   visibility: string;
   setImageUrl: (string: string) => void;
@@ -47,7 +47,7 @@ const FormStoryInformation = (prop: prop): ReactElement => {
         <TextField
           id="estimated-time"
           type="number"
-          onChange={(e) => (minutes = e.target.value)}
+          onChange={(e) => (minutes = Number(e.target.value))}
           variant="filled"
         />
 

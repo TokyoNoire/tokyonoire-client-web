@@ -32,9 +32,9 @@ const MenuDesktop = (): ReactElement => {
   const [show] = useState<boolean>(true);
   const value = useContext(AppContext);
   const { gameData } = value;
-  const selectedGameData = value.setGameData;
 
-  const postGameObject = async () => {
+  const postGameData = async () => {
+    console.log("this is running");
     await axios.post("/editor", gameData);
   };
 
@@ -51,7 +51,7 @@ const MenuDesktop = (): ReactElement => {
               style={{ backgroundColor: "rgb(20, 20, 20)" }}
             >
               <div className="w-7 cursor-pointer" title="Save as Draft">
-                <SaveIcon onClick={() => console.log(gameData)}></SaveIcon>
+                <SaveIcon onClick={() => postGameData}></SaveIcon>
               </div>
               <div className="w-7 cursor-pointer" title="Publish">
                 <PublishIcon></PublishIcon>
