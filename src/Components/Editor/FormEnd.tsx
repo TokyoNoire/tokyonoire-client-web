@@ -13,10 +13,11 @@ interface props {
 }
 
 const FormEnd = (props: props): ReactElement => {
-  let { title, description, imageUrl } = props;
+  let { title, description } = props;
   const { setImageUrl } = props;
   const value = useContext(AppContext);
-  const { gameData, gameModule, gameModuleObject, setActiveModule } = value;
+  const { gameData, gameModule, gameModuleObject, setActiveModule, imageUrl } =
+    value;
 
   return (
     <>

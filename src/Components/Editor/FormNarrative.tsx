@@ -13,8 +13,8 @@ interface props {
 }
 
 const FormNarrative = (props: props): ReactElement => {
-  let { title, description, imageUrl } = props;
-  const { setImageUrl } = props;
+  let { title, description } = props;
+  const { setImageUrl, imageUrl } = props;
   const value = useContext(AppContext);
   const { gameData, setActiveModule, gameModule, gameModuleObject } = value;
 

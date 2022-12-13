@@ -16,8 +16,8 @@ interface props {
 }
 
 const FormQuestion = (props: props): ReactElement => {
-  let { title, description, answer, hint, question, imageUrl } = props;
-  const { setImageUrl } = props;
+  let { title, description, answer, hint, question } = props;
+  const { setImageUrl, imageUrl } = props;
   const value = useContext(AppContext);
   const { gameData, setActiveModule, gameModule, gameModuleObject } = value;
   const handleClick = () => {

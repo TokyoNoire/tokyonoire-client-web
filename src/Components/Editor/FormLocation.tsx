@@ -16,8 +16,8 @@ interface props {
 }
 
 const FormLocation = (props: props): ReactElement => {
-  let { title, description, coordinates, imageUrl, hint } = props;
-  const { setImageUrl } = props;
+  let { title, description, hint } = props;
+  const { setImageUrl, coordinates, imageUrl } = props;
   const value = useContext(AppContext);
   const { setActiveModule } = value;
 
