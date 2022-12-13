@@ -13,7 +13,7 @@ import ImageWidget from "./ImageWidget";
 interface props {
   title: string;
   description: string;
-  coordinates: number[];
+  coordinates: number[] | null;
   setImageUrl: (string: string) => void;
   imageUrl: string;
   hint: string;
