@@ -1,3 +1,5 @@
+
+
 import React, { type FC, type ReactElement, useState, useEffect } from "react";
 import FadeDiv from "../Helpers/FadeDiv";
 import GameSearchByID from "./GameSearchByID";
@@ -71,7 +73,7 @@ const HomeMobile = (props: props): ReactElement => {
 
   return (
     <>
-      <div className="relative h-screen flexCenterDiv place-items-center mx-5 ">
+      <div className="relative h-screen mx-5 flexCenterDiv place-items-center ">
         <TokyoNoireName alt="Tokyo Noire Name" style={{ maxWidth: "80vw" }} />
         <div className="absolute bottom-8">
           <KeyboardArrowDownIcon
@@ -90,6 +92,17 @@ const HomeMobile = (props: props): ReactElement => {
         game={game}
         handleOpen={handleOpen}
       />
+      
+      <div className="w-screen flexCenterDiv">
+      <KeyboardArrowDownIcon
+            style={{ animation: `hover-up-down ease-in-out 3s infinite` }}
+            sx={{
+              width: "1.5em",
+              height: "1.5em",
+            }} 
+            className="self-center"/>
+      </div>
+      
       <ListOfPublicGames publicGames={publicGames!} />
       {game ? (
         <Dialog

@@ -18,7 +18,7 @@ const FormLocation = (props: props): ReactElement => {
 
   return (
     <>
-      <ClearIcon className="absolute top-2 right-2 hover:shadow-indigo-500/40" />
+      <ClearIcon className="absolute top-2 right-2" />
       <h1 className="self-center mt-10 mb-2 text-2xl font-bold uppercase font-heading">
         Location
       </h1>
@@ -34,6 +34,16 @@ const FormLocation = (props: props): ReactElement => {
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Image Upload
       </p>
+      {imageUrl ? (
+        <img
+          className="self-center w-3/5 mt-10"
+          src={`${imageUrl}`}
+          alt="preview"
+        />
+      ) : (
+        ""
+      )}
+      
       <ImageWidget setImageUrl={setImageUrl} />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
