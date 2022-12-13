@@ -30,15 +30,6 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [gameData, setGameData] = useState<saveGameInfo>(MockGame);
   const [gameModules, setGameModules] = useState<GameModule[]>(MockGame.gameModules)
   const [activeModule, setActiveModule] = useState(null);
-  // const compCheck = useRef<boolean>(false);
-
-  // useEffect(() => {
-  //   if (!compCheck.current) {
-  //     compCheck.current = true;
-  //   } else {
-  //     compCheck.current = false;
-  //   }
-  // }, [Component]);
 
   useEffect(() => {
     const newGameData = gameData
@@ -72,16 +63,17 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         userId: userId,
         setUserId: setUserId
       }}
-      >
+    >
       <AuthProvider>
-    
-      <Script
-        src="https://upload-widget.cloudinary.com/global/all.js"
-        type="text/javascript"
-      />
+
+        <Script
+          src="https://upload-widget.cloudinary.com/global/all.js"
+          type="text/javascript"
+        />
 
       {Component && !loadScreenMounted ? (
         <ThemeProvider theme={darkTheme}>
+          <SignInForm></SignInForm>
           {deviceType && <NavBar deviceType={deviceType} />}
           <Component {...pageProps} deviceType={deviceType} />
         </ThemeProvider>

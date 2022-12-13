@@ -1,5 +1,4 @@
 export type GameModule = {
-  positionId?: number;
   _id: string;
   typeOfModule: string;
   title: string;
@@ -20,7 +19,7 @@ export type saveGameInfo = {
   author?: string | null;
   image?: string | undefined;
   estimatedTimeMinutes?: number | string | null;
-  gameModules?: GameModules[];
+  gameModules?: GameModule[];
   startLocationCoordinates?: Array<number>;
   startLocation?: string | null;
 };
