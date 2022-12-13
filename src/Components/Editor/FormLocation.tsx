@@ -22,8 +22,8 @@ const FormLocation = (props: props): ReactElement => {
   const { gameData, gameModule, gameModuleObject } = value.state;
 
   const handleClick = () => {
-    console.log(gameModule);
     gameModule.current.push(gameModuleObject.current);
+    console.log(gameModule.current);
   };
 
   return (

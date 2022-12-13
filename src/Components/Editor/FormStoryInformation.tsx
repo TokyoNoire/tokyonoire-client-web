@@ -21,8 +21,8 @@ const FormStoryInformation = (prop: prop): ReactElement => {
   const value = useContext(AppContext);
   const { gameData, gameModule, gameModuleObject } = value.state;
   const handleclick = () => {
-    console.log("gameModule:", gameModule);
-    console.log(gameData);
+    console.log("gameModule:", gameModule.current);
+    console.log(gameData.current);
   };
 
   return (
