@@ -1,4 +1,5 @@
-import React, { type FC, type ReactElement } from "react";
+import React, { type FC, type ReactElement, useContext } from "react";
+import AppContext from "../../AppContext";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
 import ImageWidget from "./ImageWidget";
@@ -17,15 +18,24 @@ interface props {
 
 const FormQuestion = (props: props): ReactElement => {
   let { title, description, answer, hint, question } = props;
-  const { setImageUrl, imageUrl } = props;
-  const value = useContext(AppContext);
+  const { setImageUrl, imageUrl } = props; props;
+  const valueconst value == useContext(ApuseContext(AppContext);
   const { gameData, setActiveModule, gameModule, gameModuleObject } = value;
   const handleClick = () => {
-    gameModule.current.push(gameModuleObject.current);
+    gameModule.curContext);
+  cent.nst { usetActiveModule } = valueh(gameModuleObject.current);
   };
+  const handleClose = () => {
+    setActiveModule(null)
+  }
+
+
   return (
     <>
-      <ClearIcon className="absolute top-2 right-2 hover:shadow-indigo-500/40" />
+      <ClearIcon
+        className="absolute top-2 right-2 hover:shadow-indigo-500/40"
+        onClick={handleClose}
+      />
       <h1 className="self-center mt-10 mb-2 text-2xl font-bold uppercase font-heading">
         Question
       </h1>

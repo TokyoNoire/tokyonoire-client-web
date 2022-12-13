@@ -1,24 +1,26 @@
 export type GameModule = {
   positionId?: number;
-  _id: number;
+  _id: string;
   typeOfModule: string;
   title: string;
   description: string;
   question: string;
-  answer: string[];
+  answer: string;
   image: string;
-  locationCoordinates: number[];
+  locationCoordinates: number[] | null;
   hint: string;
 };
 
 export type saveGameInfo = {
+  _id: string;
   titleOfGame: string;
   isPublished: string | boolean;
   description?: string | null;
   rating?: number | string | null;
   author?: string | null;
-  image?: string | null;
+  image?: string | undefined;
   estimatedTimeMinutes?: number | string | null;
   gameModules?: GameModule[];
   startLocationCoordinates?: Array<number>;
+  startLocation?: string | null;
 };

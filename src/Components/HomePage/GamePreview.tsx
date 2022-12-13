@@ -1,13 +1,11 @@
 import React, { type ReactElement } from "react";
 import { useRouter } from "next/router";
-import { type startModuleInfo } from "../../pages";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import ClearIcon from '@mui/icons-material/Clear';
-import Image from "next/image";
-import { maxHeight } from "@mui/system";
+import { type saveGameInfo } from "../../types/global";
 
 interface Props {
-  game: startModuleInfo;
+  game: saveGameInfo;
   handleClose: () => void;
   gameId: string;
 }
@@ -45,17 +43,8 @@ const GamePreview = (props: Props): ReactElement => {
           </p>
           <p className="self-center font-body2">{game.rating}</p>
         </div>
-        <div className="self-center flexCenterDiv my-5">
-          <img src={game.image} alt="Game Home Image" className="w-100" />
-          {/* {
-            game.image &&
-            <Image
-              src={game.image}
-              alt="Game Home Image"
-              className="object-contain"
-              fill
-            ></Image>
-          } */}
+        <div className="self-center my-5 flexCenterDiv">
+          <img src={game.image} alt="Game Image" className="w-100" />
         </div>
         <p className="px-2 mt-5 font-body1">{game.description}</p>
       </div>

@@ -1,4 +1,10 @@
-import React, { useEffect, type FC, type ReactElement } from "react";
+import React, {
+  useEffect,
+  type FC,
+  type ReactElement,
+  useContext,
+} from "react";
+import AppContext from "../../AppContext";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
 import MapLocationPicker from "./MapLocationPicker";
@@ -22,10 +28,19 @@ const FormLocation = (props: props): ReactElement => {
   const { setActiveModule, activeModule } = value;
 
   const handleClick = () => {};
+  const value = useContext(AppContext);
+  const { setActiveModule } = value;
+
+  const handleClose = () => {
+    setActiveModule(null);
+  };
 
   return (
     <>
-      <ClearIcon className="absolute top-2 right-2" />
+      <ClearIcon
+        className="absolute top-2 right-2 hover:shadow-indigo-500/40"
+        onClick={handleClose}
+      />
       <h1 className="self-center mt-10 mb-2 text-2xl font-bold uppercase font-heading">
         Location
       </h1>

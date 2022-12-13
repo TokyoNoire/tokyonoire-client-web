@@ -12,8 +12,13 @@ const Editor: NextPage = () => {
     <FadeDiv show={show}>
       <div className="grid items-center justify-center grid-cols-2 gap-10 m-5 mt-28 place-items-stretch">
         <DragAndDropEditor />
-        <div className="relative flex flex-col justify-start w-full px-6 py-4 overflow-scroll rounded shadow-lg h-144 bg-darkGrey shadow-slate-100">
-          <ModuleForms />
+        <div className="fixed top-28 right-20 w-5/12 h-full">
+          <div
+            className="scrollbar relative w-full justify-start flex flex-col px-6 py-4 rounded shadow-lg bg-darkGrey shadow-slate-100 overflow-x-hidden overflow-y-auto"
+            style={{ height: "calc(100vh - 10rem)" }}
+          >
+            <ModuleForms />
+          </div>
         </div>
       </div>
     </FadeDiv>

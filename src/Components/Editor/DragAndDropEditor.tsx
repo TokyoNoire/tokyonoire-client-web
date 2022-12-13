@@ -48,6 +48,24 @@ const DragAndDropEditor: FC = (): ReactElement => {
     }))
   );
 
+  useEffect(() => {
+    setGameModulesList(
+      gameModules.map((gameModule: GameModule, index: number) => ({
+        id: index + 1,
+        ...gameModule,
+      }))
+    );
+  }, [gameModules]);
+
+  useEffect(() => {
+    setGameModulesList(
+      gameModules.map((gameModule: GameModule, index: number) => ({
+        id: index + 1,
+        ...gameModule,
+      }))
+    );
+  }, [gameModules]);
+
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -72,13 +90,7 @@ const DragAndDropEditor: FC = (): ReactElement => {
         const newIndex = gameModulesList
           .map((gameModule: GameModuleWithId) => gameModule.id)
           .indexOf(over.id);
-
-        // console.log(oldIndex)
-        // console.log(newIndex)
         const newModulesOrder = arrayMove(gameModulesList, oldIndex, newIndex);
-        // const temp = newModulesOrder[oldIndex].id
-        // newModulesOrder[oldIndex].id = newModulesOrder[newIndex].id
-        // newModulesOrder[newIndex].id = temp
         setGameModulesList(newModulesOrder);
         setGameModules(newModulesOrder);
       }

@@ -1,6 +1,6 @@
 import React, { type ReactElement } from "react";
 import Image from "next/image";
-import { type GameModule } from "../../pages/game/[gameId]";
+import { type GameModule } from "../../types/global";
 import FadeDiv from "../Helpers/FadeDiv";
 
 interface props {

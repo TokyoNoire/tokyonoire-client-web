@@ -1,13 +1,13 @@
 import React, { type ReactElement } from "react";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
-import { type startModuleInfo } from "../../pages";
+import { saveGameInfo } from "../../types/global";
 
 interface prop {
   setGameId: (string: string) => void;
-  setGame: ({ }: startModuleInfo) => void;
+  setGame: ({ }: saveGameInfo) => void;
   handleOpen: () => void;
-  game: startModuleInfo | null;
+  game: saveGameInfo | null;
   gameId: string | null;
 }
 const GameSearchByID = (prop: prop): ReactElement => {
