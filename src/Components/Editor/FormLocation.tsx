@@ -25,7 +25,7 @@ const FormLocation = (props: props): ReactElement => {
   const value = useContext(AppContext);
   const { setActiveModule, activeModule } = value;
 
-  const handleClick = () => {};
+  // const handleClick = () => {};
 
   const handleClose = () => {
     setActiveModule(null);
@@ -98,7 +98,7 @@ const FormLocation = (props: props): ReactElement => {
             description: description,
             locationCoordinates: [200, 200],
           });
-          handleClick();
+          // handleClick();
         }}
       >
         {" "}

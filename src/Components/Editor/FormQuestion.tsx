@@ -3,6 +3,8 @@ import AppContext from "../../AppContext";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
 import ImageWidget from "./ImageWidget";
+import { GameModule } from "../../types/global";
+import useReadLocalStorage from "../../hooks/useReadLocalStorage";
 
 interface props {
   title: string;
@@ -12,14 +14,21 @@ interface props {
   hint: string;
   setImageUrl: (string: string) => void;
   imageUrl: string;
+  handleModuleUpdateClick: () => void;
 }
 
 const FormQuestion = (props: props): ReactElement => {
   let { title, description, answer, hint, question } = props;
-  const { setImageUrl, imageUrl } = props;
+  const { setImageUrl, imageUrl, handleModuleUpdateClick } = props;
   props;
   const value = useContext(AppContext);
-  const { gameData, setActiveModule, gameModule, gameModuleObject } = value;
+  const {
+    gameData,
+    setActiveModule,
+    gameModule,
+    gameModuleObject,
+    setCurrentGame,
+  } = value;
 
   const handleClose = () => {
     setActiveModule(null);
@@ -38,9 +47,12 @@ const FormQuestion = (props: props): ReactElement => {
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Title</p>
       <TextField
         variant="filled"
-        defaultValue="What's the title of this block?"
+        defaultValue={title ? title : "What's the title of this block?"}
         fullWidth
-        onChange={(e) => (title = e.target.value)}
+        onChange={(e) => {
+          title = e.target.value;
+          console.log(title);
+        }}
       />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
@@ -57,7 +69,10 @@ const FormQuestion = (props: props): ReactElement => {
         defaultValue="Start writing here..."
         variant="filled"
         fullWidth
-        onChange={(e) => (description = e.target.value)}
+        onChange={(e) => {
+          description = e.target.value;
+          console.log(description);
+        }}
       />
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Question</p>
       <TextField
@@ -84,16 +99,8 @@ const FormQuestion = (props: props): ReactElement => {
       <button
         id="themeButton"
         className="self-center w-1/2 mt-10 mb-5"
-        onClick={(e) => {
-          setActiveModule({
-            typeOfModule: "Question",
-            title: title,
-            image: imageUrl,
-            description: description,
-            question: question,
-            answer: answer,
-            hint: hint,
-          });
+        onClick={() => {
+          handleModuleUpdateClick();
         }}
       >
         {" "}

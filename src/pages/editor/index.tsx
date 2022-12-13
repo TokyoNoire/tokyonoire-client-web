@@ -4,6 +4,8 @@ import DragAndDropEditor from "../../Components/Editor/DragAndDropEditor";
 //import { type GameModules } from "../../Components/Editor/ModuleForms";
 import ModuleForms from "../../Components/Editor/ModuleForms";
 import FadeDiv from "../../Components/Helpers/FadeDiv";
+import { useContext } from "react";
+import AppContext from "../../AppContext";
 
 const Editor: NextPage = () => {
   const [show, setShow] = useState<boolean>(true);

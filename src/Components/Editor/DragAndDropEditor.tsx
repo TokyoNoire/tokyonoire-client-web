@@ -24,6 +24,7 @@ import SortableItem from "./Helpers/SortableItem";
 import AddModuleButton from "./Helpers/AddModuleButton";
 import AppContext from "../../AppContext";
 import { type GameModule } from "../../types/global";
+import { v4 as uuidv4 } from "uuid";
 
 type GameModuleWithId = {
   id: number;
@@ -47,15 +48,6 @@ const DragAndDropEditor: FC = (): ReactElement => {
       ...gameModule,
     }))
   );
-
-  useEffect(() => {
-    setGameModulesList(
-      gameModules.map((gameModule: GameModule, index: number) => ({
-        id: index + 1,
-        ...gameModule,
-      }))
-    );
-  }, [gameModules]);
 
   useEffect(() => {
     setGameModulesList(
@@ -97,10 +89,13 @@ const DragAndDropEditor: FC = (): ReactElement => {
     },
     [gameModulesList]
   );
+  // const handleActiveIndex = (event: any) => {
+  //   setActiveModule(gameModules[event.target.id]);
+  // };
 
-  const handleClick = (moduleIndex: number) => {
+  const handleClick = (moduleIndex: any) => {
     // console.log(gameModules[moduleIndex])
-    setActiveModule(gameModules[moduleIndex]);
+    setActiveModule(gameModulesList![moduleIndex]);
   };
 
   return (
@@ -119,7 +114,11 @@ const DragAndDropEditor: FC = (): ReactElement => {
                       <SortableItem key={gameModule.id} id={gameModule.id!}>
                         <div
                           className="h-full w-1/2 flex justify-center items-center bg-darkGrey border-4"
-                          onClick={(event) => handleClick(moduleIndex)}
+                          onClick={(event: any) => {
+                            // console.log(event);
+                            handleClick(moduleIndex);
+                          }}
+                          id={gameModule.id}
                         >
                           {`${gameModule.title} Index: ${gameModule.id}`}
                         </div>

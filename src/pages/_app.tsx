@@ -15,19 +15,7 @@ import { AuthProvider } from "../Components/AuthProvider";
 import NavBar from "../Components/Navigation/NavBar";
 import MockGame from "../Components/Editor/Helpers/MockGame";
 import { saveGameInfo, GameModule } from "../types/global";
-import { useLocalStorage } from "usehooks-ts";
-
-export type GameModules = {
-  typeOfModule: string;
-  _id?: string;
-  title: string;
-  description: string;
-  question?: string;
-  answer?: string;
-  image?: string;
-  locationCoordinates?: number[];
-  hint?: string;
-};
+import { useLocalStorage, useReadLocalStorage } from "usehooks-ts";
 
 const darkTheme = createTheme({
   palette: {
@@ -49,12 +37,14 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     "currentGameData",
     gameData
   );
-  console.log(gameModules);
-  console.log(JSON.stringify(gameModules[4]));
+  // console.log(gameModules);
+  // console.log(useReadLocalStorage("currentGameData"));
+  // console.log(gameModules);
   useEffect(() => {
     const newGameData = gameData;
     newGameData.gameModules = gameModules;
     setGameData(newGameData);
+    console.log(gameModules);
     console.log("game data updated");
   }, [gameModules]);
 

@@ -4,7 +4,6 @@ import ImageWidget from "./ImageWidget";
 import AppContext from "../../AppContext";
 import { saveGameInfo } from "../../types/global";
 import { useContext } from "react";
-import { start } from "repl";
 
 interface prop {
   titleOfGame: string;
@@ -28,7 +27,6 @@ const FormStoryInformation = (prop: prop): ReactElement => {
   const { setActiveModule, gameModules, setCurrentGame } = value;
 
   const handleClick = () => {
-    console.log(gameData);
     setCurrentGame((prevValue: null) => gameData);
     console.log("🌒localStorag:", localStorage.currentGameData);
   };
@@ -125,6 +123,7 @@ const FormStoryInformation = (prop: prop): ReactElement => {
             image: imageUrl,
             estimatedTimeMinutes: minutes,
             rating: rating,
+            gameModules: gameModules,
           });
           handleClick();
         }}
