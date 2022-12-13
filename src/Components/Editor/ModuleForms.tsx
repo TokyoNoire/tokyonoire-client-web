@@ -26,82 +26,101 @@ export type GameModules = {
   hint: string;
 };
 
-// type props = {
-//   setGameData: (arg0: saveGameInfo) => void;
-//   gameData: saveGameInfo;
-// };
-
 const ModuleForms = (): ReactElement => {
   const value = useContext(AppContext);
-  const { gameData } = value.state;
-  const selectedGameData = value.setGameData;
+  const { activeModule } = value;
 
   const published = useRef<boolean>(false);
   const titleOfGame = useRef<string>("");
-  const title = useRef<string>("");
-  const description = useRef<string>("");
   const userName = useRef<string>("");
   const minutes = useRef<string>("");
   const rating = useRef<string>("");
   const visibility = useRef<string>("");
+
+  const title = useRef<string>("");
+  const description = useRef<string>("");
   const coordinates = useRef<number[]>([]);
   const question = useRef<string>("");
   const answer = useRef<string>("");
   const hint = useRef<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
-  const [gameObject, setGameObject] = useState<GameModules | null>(null);
-  const [gameModule, setGameModules] = useState<GameModules[]>([]);
 
-  return (
-    <>
-      <div className="relative w-full h-144 overflow-scroll justify-start flex flex-col px-6 py-4 rounded shadow-lg bg-darkGrey shadow-slate-100">
-        <FormStoryInformation
-          titleOfGame={titleOfGame.current}
-          minutes={minutes.current}
-          rating={rating.current}
-          visibility={visibility.current}
-          setImageUrl={setImageUrl}
-          imageUrl={imageUrl}
-          description={description.current}
-          setGameData={value.setGameData}
-          gameData={value.gameData}
-        />
+  if (activeModule) {
+    title.current = activeModule.title;
+    description.current = activeModule.description;
+    question.current = activeModule.question;
+    answer.current = activeModule.answer;
+    hint.current = activeModule.hint;
+  }
 
-        <FormLocation
-          title={title.current}
-          description={description.current}
-          setImageUrl={setImageUrl}
-          imageUrl={imageUrl}
-          coordinates={coordinates.current}
-          hint={hint.current}
-        />
+  if (!activeModule) {
+    return (
+      <FormStoryInformation
+        titleOfGame={titleOfGame.current}
+        minutes={minutes.current}
+        rating={rating.current}
+        visibility={visibility.current}
+        setImageUrl={setImageUrl}
+        imageUrl={imageUrl}
+        description={description.current}
+        setGameData={value.setGameData}
+        gameData={value.gameData}
+      />
+    )
+  } else {
 
-        <FormNarrative
-          title={title.current}
-          description={description.current}
-          setImageUrl={setImageUrl}
-          imageUrl={imageUrl}
-        />
+    switch (activeModule.typeOfModule) {
+      case 'narrative':
+        return (
+          <FormNarrative
+            key={activeModule._id}
+            title={title.current}
+            description={description.current}
+            setImageUrl={setImageUrl}
+            imageUrl={imageUrl}
+          />
+        );
 
-        <FormQuestion
-          title={title.current}
-          description={description.current}
-          setImageUrl={setImageUrl}
-          imageUrl={imageUrl}
-          question={question.current}
-          answer={answer.current}
-          hint={hint.current}
-        />
+      case 'location':
+        return (
+          <FormLocation
+            key={activeModule._id}
+            title={title.current}
+            description={description.current}
+            setImageUrl={setImageUrl}
+            imageUrl={imageUrl}
+            coordinates={coordinates.current}
+            hint={hint.current}
+          />
+        );
 
-        <FormEnd
-          title={title.current}
-          description={description.current}
-          setImageUrl={setImageUrl}
-          imageUrl={imageUrl}
-        />
-      </div>
-    </>
-  );
+      case 'question':
+        return (
+          <FormQuestion
+            key={activeModule._id}
+            title={title.current}
+            description={description.current}
+            setImageUrl={setImageUrl}
+            imageUrl={imageUrl}
+            question={question.current}
+            answer={answer.current}
+            hint={hint.current}
+          />
+        );
+
+      case 'end':
+        return (
+          <FormEnd
+            key={activeModule._id}
+            title={title.current}
+            description={description.current}
+            setImageUrl={setImageUrl}
+            imageUrl={imageUrl}
+          />
+        );
+    }
+  }
+  return <></>
 };
 
 export default ModuleForms;

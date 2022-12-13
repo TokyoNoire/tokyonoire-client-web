@@ -23,7 +23,7 @@ const FormNarrative = (props: props): ReactElement => {
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Title</p>
       <TextField
         id="title"
-        defaultValue="What is the title of this block?"
+        defaultValue={title ? title : "What is the title of this block?"}
         variant="filled"
         fullWidth
       />
@@ -39,7 +39,7 @@ const FormNarrative = (props: props): ReactElement => {
       <TextField
         multiline
         rows={20}
-        defaultValue="Start writing here..."
+        defaultValue={description ? description : "Start writing here..."}
         variant="filled"
         fullWidth
       />

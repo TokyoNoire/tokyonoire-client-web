@@ -1,6 +1,6 @@
 import React, { type FC, type ReactElement, useState, useEffect } from "react";
 import FadeDiv from "../Helpers/FadeDiv";
-import GameIdForm from "./GameIdForm";
+import GameSearchByID from "./GameSearchByID";
 import GamePreview from "./GamePreview";
 import Hero from "./Hero";
 import ListOfPublicGames from "./ListOfPublicGames";
@@ -83,6 +83,13 @@ const HomeMobile = (props: props): ReactElement => {
         </div>
       </div>
       <Hero />
+      <GameSearchByID
+        setGameId={setGameId}
+        gameId={gameId}
+        setGame={setGame}
+        game={game}
+        handleOpen={handleOpen}
+      />
       <ListOfPublicGames publicGames={publicGames!} />
       {game ? (
         <Dialog
