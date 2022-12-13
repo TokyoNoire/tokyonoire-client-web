@@ -1,4 +1,4 @@
-import React, { type FC, type ReactElement, useState } from "react";
+import React, { type FC, type ReactElement, useState, FormEventHandler, useContext } from "react";
 import {
   Box,
   Grid,
@@ -11,73 +11,59 @@ import {
 import Link from "next/link";
 import GoogleIcon from "@mui/icons-material/Google";
 import AppleIcon from "@mui/icons-material/Apple";
+import StatusBar from "./ProfilePage/StatusBar";
+import { EmailAuthCredential, getAuth, GoogleAuthProvider, signInWithCredential, signInWithPopup } from 'firebase/auth';
+import AppContext from "../AppContext";
 
 const SignInForm: FC = (): ReactElement => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  // const router = useRouter();
+  const auth = getAuth();
+  const [authing, setAuthing] = useState(false);
+  const value = useContext(AppContext);
+  const { setUserId } = value;
+
+  const signInWithGoogle = async () => {
+      setAuthing(true);
+
+      signInWithPopup(auth, new GoogleAuthProvider())
+          .then((response) => {
+              setUserId(response.user.uid)
+          })
+          .catch((error) => {
+              console.log(error);
+              setAuthing(false);
+          });
+  };
+
+  // const signInWithEmailAndPassword = async () => {
+  //   setAuthing(true);
+
+  //   signInWithCredential(auth, new EmailAuthCredential())
+  //         .then((response) => {
+  //           console.log(response.user.uid)
+  //         })
+  //         .catch((error) => {
+  //           console.log(error);
+  //           setAuthing(false)
+  //         })
+
+  // }
 
   return (
     <div className="items-center mx-8 my-20 flexCenterDiv bg-darkGrey">
       <br />
       <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
-        Sign In
-      </h1>
-      <br />
-
-      <FormControl>
-        <TextField
-          id="email"
-          required
-          variant="filled"
-          label="Email"
-          aria-describedby="email-address-input"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <FormHelperText id="password-helper">
-          Your e-mail address.
-        </FormHelperText>
-      </FormControl>
-
-      <br />
-      <FormControl>
-        <TextField
-          id="outlined-password-input"
-          required
-          autoFocus
-          label="Password"
-          variant="filled"
-          aria-describedby="password-input"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <FormHelperText id="password-helper">
-          Password for your account.
-        </FormHelperText>
-      </FormControl>
-      <br />
-      <Button type="submit" id="themeButton" className="font-heading">
-        Sign In
-      </Button>
       <br />
       <Button
-        type="submit"
+        type="button"
         id="themeButton"
         className="font-heading"
         endIcon={<GoogleIcon />}
+        onClick={() => signInWithGoogle()}
       >
         Sign in with
       </Button>
       <br />
-      <Button
-        type="submit"
-        id="themeButton"
-        className="font-heading"
-        endIcon={<AppleIcon />}
-      >
-        Sign in with
-      </Button>
+      </h1>
 
       <Box
         sx={{
@@ -94,7 +80,7 @@ const SignInForm: FC = (): ReactElement => {
             <Typography color="secondary" variant="body2">
               <Link className="mb-5 text-m font-body2" href="/" id="link">
                 {" "}
-                Don&apos;t have an account? Sign in here.{" "}
+                Don&apos;t have an account? Sign up here.{" "}
               </Link>
             </Typography>
           </Grid>
