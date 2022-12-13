@@ -7,18 +7,6 @@ import HomeMobile from "../Components/HomePage/HomeMobile";
 import { Dialog, List } from "@mui/material";
 import ListOfPublicGames from "../Components/HomePage/ListOfPublicGames";
 
-export type startModuleInfo = {
-  _id: string;
-  titleOfGame: string;
-  description?: string | null;
-  rating?: string | null;
-  author?: string | null;
-  image?: string;
-  estimatedTimeMinutes?: number | null;
-  startLocation?: string | null;
-  startLocationCoordinates?: Array<number>;
-};
-
 interface props {
   deviceType: string;
 }
