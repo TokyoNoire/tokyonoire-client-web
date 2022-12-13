@@ -12,13 +12,15 @@ interface props {
 }
 
 const FormEnd = (props: props): ReactElement => {
-  const { title, description, setImageUrl, imageUrl } = props;
+  let { title, description } = props;
+  const { setImageUrl } = props;
   const value = useContext(AppContext);
-  const { setActiveModule } = value;
+  const { gameData, gameModule, gameModuleObject, setActiveModule, imageUrl } =
+    value;
 
   const handleClose = () => {
-    setActiveModule(null)
-  }
+    setActiveModule(null);
+  };
 
   return (
     <>
@@ -40,6 +42,7 @@ const FormEnd = (props: props): ReactElement => {
         )}
         variant="filled"
         fullWidth
+        onChange={(e) => (title = e.target.value)}
       />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
@@ -68,8 +71,20 @@ const FormEnd = (props: props): ReactElement => {
         )}
         variant="filled"
         fullWidth
+        onChange={(e) => (description = e.target.value)}
       />
-      <button id="themeButton" className="self-center w-1/2 mt-10 mb-5">
+      <button
+        id="themeButton"
+        className="self-center w-1/2 mt-10 mb-5"
+        onClick={() => {
+          setActiveModule({
+            typeOfModule: "end",
+            title: title,
+            image: imageUrl,
+            description: description,
+          });
+        }}
+      >
         Save
       </button>
     </>

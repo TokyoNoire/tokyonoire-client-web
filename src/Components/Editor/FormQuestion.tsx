@@ -3,6 +3,8 @@ import AppContext from "../../AppContext";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
 import ImageWidget from "./ImageWidget";
+import { GameModule } from "../../types/global";
+import useReadLocalStorage from "../../hooks/useReadLocalStorage";
 
 interface props {
   title: string;
@@ -12,17 +14,25 @@ interface props {
   hint: string;
   setImageUrl: (string: string) => void;
   imageUrl: string;
+  handleModuleUpdateClick: () => void;
 }
 
 const FormQuestion = (props: props): ReactElement => {
-  const { title, description, answer, hint, question, setImageUrl, imageUrl } = props;
+  let { title, description, answer, hint, question } = props;
+  const { setImageUrl, imageUrl, handleModuleUpdateClick } = props;
+  props;
   const value = useContext(AppContext);
-  const { setActiveModule } = value;
+  const {
+    gameData,
+    setActiveModule,
+    gameModule,
+    gameModuleObject,
+    setCurrentGame,
+  } = value;
 
   const handleClose = () => {
-    setActiveModule(null)
-  }
-
+    setActiveModule(null);
+  };
 
   return (
     <>
@@ -43,20 +53,15 @@ const FormQuestion = (props: props): ReactElement => {
             : { placeholder: "What's the title of this block?" }
         )}
         fullWidth
+        onChange={(e) => {
+          title = e.target.value;
+          console.log(title);
+        }}
       />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Image Upload
       </p>
-      {imageUrl ? (
-        <img
-          className="self-center w-3/5 mt-10"
-          src={`${imageUrl}`}
-          alt="preview"
-        />
-      ) : (
-        ""
-      )}
       <ImageWidget setImageUrl={setImageUrl} />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
@@ -72,8 +77,11 @@ const FormQuestion = (props: props): ReactElement => {
         )}
         variant="filled"
         fullWidth
+        onChange={(e) => {
+          description = e.target.value;
+          console.log(description);
+        }}
       />
-
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Question</p>
       <TextField
         variant="filled"
@@ -83,6 +91,7 @@ const FormQuestion = (props: props): ReactElement => {
             : { placeholder: "What question do you want to ask?" }
         )}
         fullWidth
+        onChange={(e) => (question = e.target.value)}
       />
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Answer</p>
       <TextField
@@ -93,6 +102,7 @@ const FormQuestion = (props: props): ReactElement => {
             : { placeholder: "The answer to your question is..." }
         )}
         fullWidth
+        onChange={(e) => (answer = e.target.value)}
       />
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Hint</p>
       <TextField
@@ -103,9 +113,16 @@ const FormQuestion = (props: props): ReactElement => {
             : { placeholder: "Give a hint for the reader!" }
         )}
         fullWidth
+        onChange={(e) => (hint = e.target.value)}
       />
 
-      <button id="themeButton" className="self-center w-1/2 mt-10 mb-5">
+      <button
+        id="themeButton"
+        className="self-center w-1/2 mt-10 mb-5"
+        onClick={() => {
+          handleModuleUpdateClick();
+        }}
+      >
         {" "}
         Save{" "}
       </button>

@@ -1,14 +1,14 @@
 import React, { type FC, type ReactElement } from "react";
 import TextField from "@mui/material/TextField";
 import ImageWidget from "./ImageWidget";
-import { type saveGameInfo } from "../../types/global";
+import AppContext from "../../AppContext";
+import { saveGameInfo } from "../../types/global";
 import { useContext } from "react";
-import { start } from "repl";
 
 interface prop {
   titleOfGame: string;
   description: string;
-  minutes: string;
+  minutes: string | number;
   rating: string;
   visibility: string;
   startLocation: string;
@@ -19,10 +19,17 @@ interface prop {
 }
 
 const FormStoryInformation = (prop: prop): ReactElement => {
-  let { titleOfGame, description, minutes, rating, visibility, startLocation } = prop;
+  let { titleOfGame, description, minutes, rating, visibility, startLocation } =
+    prop;
   //Build is not happy if I set these as let, so I seperated them for now.
   const { setImageUrl, imageUrl, setGameData, gameData } = prop;
+  const value = useContext(AppContext);
+  const { setActiveModule, gameModules, setCurrentGame } = value;
 
+  const handleClick = () => {
+    setCurrentGame((prevValue: null) => gameData);
+    console.log("🌒localStorag:", localStorage.currentGameData);
+  };
   return (
     <>
       {/* <ClearIcon className="absolute top-2 right-2 hover:shadow-indigo-500/40"/> */}
@@ -48,7 +55,7 @@ const FormStoryInformation = (prop: prop): ReactElement => {
         <TextField
           id="estimated-time"
           type="number"
-          onChange={(e) => (minutes = e.target.value)}
+          onChange={(e) => (minutes = Number(e.target.value))}
           variant="filled"
         />
 
@@ -113,19 +120,20 @@ const FormStoryInformation = (prop: prop): ReactElement => {
         className="self-center w-1/2 mt-10 mb-5"
         onClick={() => {
           setGameData({
-            _id: "",
+            _id: "321",
             titleOfGame: titleOfGame,
             isPublished: visibility,
             description: description,
             image: imageUrl,
             estimatedTimeMinutes: minutes,
             rating: rating,
-            startLocation: startLocation,
+            gameModules: gameModules,
           });
+          handleClick();
         }}
       >
         {" "}
-        Save{" "}
+        update{" "}
       </button>
     </>
   );
