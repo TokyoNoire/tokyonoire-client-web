@@ -4,13 +4,13 @@ import React, {
     type MouseEventHandler,
     useRef,
     useState,
+    useContext
 } from "react";
-// import UseOutsideClick from "./UseOutsideClick";
+import AppContext from "../../../AppContext";
 import AddItemIcon from "../../../../public/addItemIcon-darkTheme.svg";
 import CloseButton from "../../../../Assets/Icons/closeButton-darkTheme.svg"
+import { GameModuleSchema } from "./GameSchema";
 
-// type props = {
-// };
 
 const moduleOptions = [
     "Narrative Block",
@@ -21,13 +21,15 @@ const moduleOptions = [
 
 const AddModuleButton = (): ReactElement => {
     const [renderMultiChoicePanel, setRenderMultiChoicePanel] = useState<boolean>(false);
+    const value = useContext(AppContext)
+    const { setGameModules, gameModules } = value
+
 
     // const plusButton = useRef<HTMLButtonElement>(UseOutsideClick(handleClickOutside))
     const plusButton = useRef<HTMLButtonElement>(null);
     // UseOutsideClick(plusButton, setRenderMultiChoicePanel, false);
 
     const handleMultiChoicePanel = () => {
-        console.log(renderMultiChoicePanel)
         if (!renderMultiChoicePanel) {
             setRenderMultiChoicePanel(true);
         }
@@ -42,6 +44,27 @@ const AddModuleButton = (): ReactElement => {
 
     const handleConsole = (event: MouseEvent, index: number) => {
         console.log(moduleOptions[index])
+        // console.log(newGameModule)
+        let newGameModule = new GameModuleSchema()
+        switch (moduleOptions[index]) {
+            case "Narrative Block":
+                newGameModule.typeOfModule = "narrative";
+                return setGameModules([...gameModules, newGameModule])
+
+            case "Go-To Location Block":
+                newGameModule.typeOfModule = "location";
+                return setGameModules([...gameModules, newGameModule])
+
+            case "Question Block":
+                newGameModule.typeOfModule = "question";
+                return setGameModules([...gameModules, newGameModule])
+
+            case "End Block":
+                newGameModule.typeOfModule = "end";
+                return setGameModules([...gameModules, newGameModule])
+
+        }
+        console.log(newGameModule);
     }
 
     return (

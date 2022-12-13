@@ -1,9 +1,9 @@
 import React, {
-  type FC, type ReactElement, type MouseEvent,
+  type FC, type ReactElement,
   useState,
   useCallback,
   useContext,
-  useEffect
+  useEffect,
 } from "react";
 import {
   DndContext,
@@ -34,6 +34,11 @@ const DragAndDropEditor: FC = (): ReactElement => {
   const [gameModulesList, setGameModulesList] = useState<GameModuleWithId[] | null>(
     gameModules.map((gameModule: GameModule, index: number) => ({ id: index + 1, ...gameModule })))
 
+
+  useEffect(() => {
+    setGameModulesList(gameModules.map((gameModule: GameModule, index: number) => ({ id: index + 1, ...gameModule })))
+  }, [gameModules])
+
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -58,13 +63,7 @@ const DragAndDropEditor: FC = (): ReactElement => {
         const newIndex = gameModulesList
           .map((gameModule: GameModuleWithId) => gameModule.id)
           .indexOf(over.id);
-
-        // console.log(oldIndex)
-        // console.log(newIndex)
         const newModulesOrder = arrayMove(gameModulesList, oldIndex, newIndex);
-        // const temp = newModulesOrder[oldIndex].id
-        // newModulesOrder[oldIndex].id = newModulesOrder[newIndex].id
-        // newModulesOrder[newIndex].id = temp
         setGameModulesList(newModulesOrder);
         setGameModules(newModulesOrder)
       }
@@ -73,7 +72,6 @@ const DragAndDropEditor: FC = (): ReactElement => {
   );
 
   const handleClick = (moduleIndex: number) => {
-    // console.log(gameModules[moduleIndex])
     setActiveModule(gameModules[moduleIndex])
   }
 
@@ -94,7 +92,7 @@ const DragAndDropEditor: FC = (): ReactElement => {
                   <SortableItem key={gameModule.id} id={gameModule.id!}>
                     <div
                       className='h-full w-1/2 flex justify-center items-center bg-darkGrey border-4'
-                      onClick={event => handleClick(moduleIndex)}
+                      onClick={() => handleClick(moduleIndex)}
                     >
                       {`${gameModule.title} Index: ${gameModule.id}`}
 
