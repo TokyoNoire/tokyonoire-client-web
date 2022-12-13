@@ -91,7 +91,7 @@ const DragAndDropEditor: FC = (): ReactElement => {
                 {gameModulesList && gameModulesList.map((gameModule: GameModuleWithId, moduleIndex: number) => (
                   <SortableItem key={gameModule.id} id={gameModule.id!}>
                     <div
-                      className='flex items-center justify-center w-1/2 h-full border-4 bg-darkGrey'
+                      className='flex items-center justify-center w-1/2 h-full border-4 bg-darkGrey rounded-md'
                       onClick={event => handleClick(moduleIndex)}
                     >
                       {`${gameModule.title} Index: ${gameModule.id}`}

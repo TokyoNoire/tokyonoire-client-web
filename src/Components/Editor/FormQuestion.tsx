@@ -37,7 +37,11 @@ const FormQuestion = (props: props): ReactElement => {
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Title</p>
       <TextField
         variant="filled"
-        defaultValue="What's the title of this block?"
+        {...(
+          title !== ""
+            ? { defaultValue: title }
+            : { placeholder: "What's the title of this block?" }
+        )}
         fullWidth
       />
 
@@ -61,7 +65,11 @@ const FormQuestion = (props: props): ReactElement => {
       <TextField
         multiline
         rows={20}
-        defaultValue="Start writing here..."
+        {...(
+          description !== ""
+            ? { defaultValue: description }
+            : { placeholder: "Start writing here..." }
+        )}
         variant="filled"
         fullWidth
       />
@@ -69,19 +77,31 @@ const FormQuestion = (props: props): ReactElement => {
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Question</p>
       <TextField
         variant="filled"
-        defaultValue="What question do you want to ask?"
+        {...(
+          question !== ""
+            ? { defaultValue: question }
+            : { placeholder: "What question do you want to ask?" }
+        )}
         fullWidth
       />
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Answer</p>
       <TextField
         variant="filled"
-        defaultValue="The answer to your question is..."
+        {...(
+          answer !== ""
+            ? { defaultValue: answer }
+            : { placeholder: "The answer to your question is..." }
+        )}
         fullWidth
       />
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Hint</p>
       <TextField
         variant="filled"
-        defaultValue="Give a hint for the reader!"
+        {...(
+          hint !== ""
+            ? { defaultValue: hint }
+            : { placeholder: "Give a hint for the reader!" }
+        )}
         fullWidth
       />
 

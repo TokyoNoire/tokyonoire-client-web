@@ -1,4 +1,4 @@
-import React, { useEffect, type FC, type ReactElement, useContext } from "react";
+import React, { type ReactElement, useContext } from "react";
 import AppContext from "../../AppContext";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
@@ -36,7 +36,11 @@ const FormLocation = (props: props): ReactElement => {
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Title</p>
       <TextField
         id="title"
-        defaultValue={title ? title : "What's the title of this block?"}
+        {...(
+          title !== ""
+            ? { defaultValue: title }
+            : { placeholder: "What's the title of this block?" }
+        )}
         variant="filled"
         fullWidth
       />
@@ -62,23 +66,38 @@ const FormLocation = (props: props): ReactElement => {
       <TextField
         multiline
         rows={5}
-        defaultValue={description ? description : "Start writing here..."}
+        {...(
+          description !== ""
+            ? { defaultValue: description }
+            : { placeholder: "Start writing here..." }
+        )}
         variant="filled"
         fullWidth
         className="mb-5"
       />
 
+      <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
+        Location
+      </p>
+      {/* <div className="mt-10 relative min-h-[24rem] w-full"> */}
       <MapLocationPicker />
+      {/* </div> */}
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Hint</p>
       <TextField
         variant="filled"
-        defaultValue="Give a hint for the reader!"
+        {...(
+          hint !== ""
+            ? { defaultValue: hint }
+            : { placeholder: "Give a hint for the reader!" }
+        )}
+
+
         fullWidth
       />
       <button id="themeButton" className="self-center w-1/2 mt-10 mb-5">
         {" "}
-        Save{" "}
+        Update{" "}
       </button>
     </>
   );

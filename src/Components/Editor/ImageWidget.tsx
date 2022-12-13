@@ -1,12 +1,8 @@
 import React, {
-  type FC,
   type ReactElement,
-  useState,
   useEffect,
   useRef,
 } from "react";
-import Image from "next/image";
-import { ResetTvOutlined } from "@mui/icons-material";
 type prop = {
   setImageUrl: (string: string) => void;
 };
