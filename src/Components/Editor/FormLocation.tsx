@@ -20,7 +20,9 @@ const FormLocation = (props: props): ReactElement => {
   const { setImageUrl } = props;
   const value = useContext(AppContext);
   const { gameData, gameModule, gameModuleObject } = value.state;
+
   const handleClick = () => {
+    console.log(gameModule);
     gameModule.current.push(gameModuleObject.current);
   };
 

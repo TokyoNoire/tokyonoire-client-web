@@ -21,7 +21,7 @@ export type saveGameInfo = {
   author?: string | null;
   image?: string;
   estimatedTimeMinutes?: number | string | null;
-  gameModules?: GameModules;
+  gameModules?: GameModules[];
   startLocationCoordinates?: Array<number>;
 };
 
@@ -48,8 +48,8 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [durationLoadingScreen] = useState<number>(2000);
   const [deviceType, setDeviceType] = useState<string | null>(null);
   const gameData = useRef<saveGameInfo>();
-  const gameModule = useRef<GameModules[]>();
-  const gameModuleObject = useRef<GameModules>(MockGameModules);
+  const gameModule = useRef<GameModules[]>(MockGameModules);
+  const gameModuleObject = useRef<GameModules>();
   const compCheck = useRef<boolean>(false);
 
   useEffect(() => {

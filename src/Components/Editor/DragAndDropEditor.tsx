@@ -24,14 +24,13 @@ import AddModuleButton from "./Helpers/AddModuleButton";
 // Make an array of mock modules to be displayed.
 const contents = MockGameModules.map((gameModule, index) => ({
   id: index + 1,
-  moduleId: gameModule._id,
   title: gameModule.title,
   typeOfModule: gameModule.typeOfModule,
 }));
 
 const DragAndDropEditor: FC = (): ReactElement => {
   const [gameModules, setGameModules] =
-    useState<{ id: number; title: string; moduleId: number }[]>(contents);
+    useState<{ id: number; title: string }[]>(contents);
 
   const sensors = useSensors(
     useSensor(PointerSensor),

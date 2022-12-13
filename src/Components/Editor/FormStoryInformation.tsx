@@ -20,6 +20,10 @@ const FormStoryInformation = (prop: prop): ReactElement => {
   const { setImageUrl, imageUrl } = prop;
   const value = useContext(AppContext);
   const { gameData, gameModule, gameModuleObject } = value.state;
+  const handleclick = () => {
+    console.log("gameModule:", gameModule);
+    console.log(gameData);
+  };
 
   return (
     <>
@@ -107,6 +111,7 @@ const FormStoryInformation = (prop: prop): ReactElement => {
             rating: rating,
             gameModule: gameModule.current,
           };
+          handleclick();
         }}
       >
         {" "}
