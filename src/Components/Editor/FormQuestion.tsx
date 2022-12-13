@@ -19,8 +19,7 @@ const FormQuestion = (props: props): ReactElement => {
   let { title, description, answer, hint, question, imageUrl } = props;
   const { setImageUrl } = props;
   const value = useContext(AppContext);
-  const { gameData, setActiveModule, gameModule, gameModuleObject } =
-    value.state;
+  const { gameData, setActiveModule, gameModule, gameModuleObject } = value;
   const handleClick = () => {
     gameModule.current.push(gameModuleObject.current);
   };

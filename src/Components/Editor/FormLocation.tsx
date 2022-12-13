@@ -87,7 +87,7 @@ const FormLocation = (props: props): ReactElement => {
         }}
       >
         {" "}
-        Upload{" "}
+        Update{" "}
       </button>
     </>
   );
