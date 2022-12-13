@@ -38,6 +38,7 @@ const ModuleForms = (): ReactElement => {
   const minutes = useRef<string>("");
   const rating = useRef<string>("");
   const visibility = useRef<string>("");
+  const startLocation = useRef<string>("");
 
   const title = useRef<string>("");
   const description = useRef<string>("");
@@ -69,6 +70,7 @@ const ModuleForms = (): ReactElement => {
         description={description.current}
         setGameData={value.setGameData}
         gameData={value.gameData}
+        startLocation = {startLocation.current}
       />
     )
   } else {

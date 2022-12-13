@@ -71,17 +71,18 @@ const MyApp: AppType = ({ Component, pageProps }) => {
           type="text/javascript"
         />
 
-        {Component && !loadScreenMounted ? (
-          <ThemeProvider theme={darkTheme}>
-            {deviceType && <NavBar deviceType={deviceType} />}
-            <Component {...pageProps} deviceType={deviceType} />
-          </ThemeProvider>
-        ) : (
-          <LoadingScreen
-            setLoadScreenMounted={setLoadScreenMounted}
-            duration={durationLoadingScreen}
-          />
-        )}
+      {Component && !loadScreenMounted ? (
+        <ThemeProvider theme={darkTheme}>
+          <SignInForm></SignInForm>
+          {deviceType && <NavBar deviceType={deviceType} />}
+          <Component {...pageProps} deviceType={deviceType} />
+        </ThemeProvider>
+      ) : (
+        <LoadingScreen
+          setLoadScreenMounted={setLoadScreenMounted}
+          duration={durationLoadingScreen}
+        />
+      )}
       </AuthProvider>
     </AppContext.Provider>
   );

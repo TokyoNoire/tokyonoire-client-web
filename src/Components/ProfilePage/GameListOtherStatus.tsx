@@ -22,6 +22,9 @@ const GameList: FC = (): ReactElement => {
               <th scope="col" className="px-6 py-3 font-body2">
                 location
               </th>
+              <th scope="col" className="px-6 py-3 font-body2">
+                status
+              </th>
               
             </tr>
           </thead>
@@ -37,6 +40,7 @@ const GameList: FC = (): ReactElement => {
     <td className="px-6 py-4 font-heading">RATING</td>
     <td className="px-6 py-4 font-heading">ESTIMATED</td>
     <td className="px-6 py-4 font-heading">LOCATION</td>
+    <td className="px-6 py-4 font-heading">Completed or Ongoing</td>
   </tr>
 </tbody>
         </table>
