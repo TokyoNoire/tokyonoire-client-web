@@ -1,15 +1,11 @@
-import React, { type FC, type ReactElement, useState } from "react";
+import React, { type FC, type ReactElement, useState, useContext } from "react";
 import Logo from "../../../public/Logo_DarkTheme.svg";
 import Link from "next/link";
 import PublishIcon from "./../../../Assets/Icons/publishIcon-darkTheme.svg";
 import SaveIcon from "./../../../Assets/Icons/saveIcon-darkTheme.svg";
 import axios from "axios";
-import { useContext } from "react";
-//import { saveGameInfo } from "../../pages/_app";
-
 import { useRouter } from "next/router";
 import FadeDiv from "../Helpers/FadeDiv";
-import { LineAxisOutlined } from "@mui/icons-material";
 import AppContext from "../../AppContext";
 
 type menuItem = {
@@ -32,14 +28,11 @@ const menuItems: Array<menuItem> = [
   },
 ];
 
-// type prop = {
-//   gameData: saveGameInfo;
-// };
-
 const MenuDesktop = (): ReactElement => {
   const [show] = useState<boolean>(true);
   const value = useContext(AppContext);
-  const { gameData } = value.state;
+  const { gameData } = value;
+  const selectedGameData = value.setGameData;
 
   const postGameObject = async () => {
     await axios.post("/editor", gameData);

@@ -16,7 +16,8 @@ const FormNarrative = (props: props): ReactElement => {
   let { title, description, imageUrl } = props;
   const { setImageUrl } = props;
   const value = useContext(AppContext);
-  const { gameData, gameModule, gameModuleObject } = value.state;
+  const { gameData, setActiveModule, gameModule, gameModuleObject } =
+    value.state;
 
   const handleClick = () => {
     gameModule.current.push(gameModuleObject.current);
@@ -31,7 +32,7 @@ const FormNarrative = (props: props): ReactElement => {
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Title</p>
       <TextField
         id="title"
-        defaultValue="What is the title of this block?"
+        defaultValue={title ? title : "What is the title of this block?"}
         variant="filled"
         fullWidth
         onChange={(e) => (title = e.target.value)}
@@ -57,7 +58,7 @@ const FormNarrative = (props: props): ReactElement => {
       <TextField
         multiline
         rows={20}
-        defaultValue="Start writing here..."
+        defaultValue={description ? description : "Start writing here..."}
         variant="filled"
         fullWidth
         onChange={(e) => (description = e.target.value)}

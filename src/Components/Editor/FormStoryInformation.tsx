@@ -19,7 +19,8 @@ const FormStoryInformation = (prop: prop): ReactElement => {
   //Build is not happy if I set these as let, so I seperated them for now.
   const { setImageUrl, imageUrl } = prop;
   const value = useContext(AppContext);
-  const { gameData, gameModule, gameModuleObject } = value.state;
+  const { gameData, gameModule, setActiveModule, gameModuleObject } =
+    value.state;
   const handleclick = () => {
     console.log("gameModule:", gameModule.current);
     console.log(gameData.current);
