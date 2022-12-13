@@ -20,7 +20,7 @@ export type saveGameInfo = {
   author?: string | null;
   image?: string | undefined;
   estimatedTimeMinutes?: number | string | null;
-  gameModules?: GameModules[];
+  gameModules?: GameModule[];
   startLocationCoordinates?: Array<number>;
   startLocation?: string | null;
 };

@@ -30,15 +30,6 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [gameData, setGameData] = useState<saveGameInfo>(MockGame);
   const [gameModules, setGameModules] = useState<GameModule[]>(MockGame.gameModules)
   const [activeModule, setActiveModule] = useState(null);
-  // const compCheck = useRef<boolean>(false);
-
-  // useEffect(() => {
-  //   if (!compCheck.current) {
-  //     compCheck.current = true;
-  //   } else {
-  //     compCheck.current = false;
-  //   }
-  // }, [Component]);
 
   useEffect(() => {
     const newGameData = gameData
