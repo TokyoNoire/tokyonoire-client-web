@@ -1,6 +1,6 @@
 import React, { type FC, type ReactElement, useState, useEffect } from "react";
 import FadeDiv from "../Helpers/FadeDiv";
-import GameIdForm from "./GameIdForm";
+import GameSearchByID from "./GameSearchByID";
 import GamePreview from "./GamePreview";
 import Hero from "./Hero";
 import ListOfPublicGames from "./ListOfPublicGames";
@@ -95,7 +95,26 @@ const HomeMobile = (props: props): ReactElement => {
         </div>
       </div>
       <Hero />
-      <ListOfPublicGames publicGames={publicGames!}/>
+
+      <GameSearchByID
+        setGameId={setGameId}
+        gameId={gameId}
+        setGame={setGame}
+        game={game}
+        handleOpen={handleOpen}
+      />
+      
+      <div className="w-screen flexCenterDiv">
+      <KeyboardArrowDownIcon
+            style={{ animation: `hover-up-down ease-in-out 3s infinite` }}
+            sx={{
+              width: "1.5em",
+              height: "1.5em",
+            }} 
+            className="self-center"/>
+      </div>
+      
+      <ListOfPublicGames publicGames={publicGames!} />
       {game ? (
         <Dialog
           className="object-fit flexCenterDiv"

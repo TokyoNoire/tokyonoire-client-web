@@ -1,4 +1,4 @@
-import React, { type FC, type ReactElement } from "react";
+import React, { useEffect, type FC, type ReactElement } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
 import MapLocationPicker from "./MapLocationPicker";
@@ -14,8 +14,7 @@ interface props {
 }
 
 const FormLocation = (props: props): ReactElement => {
-  const { title, description, coordinates, imageUrl, setImageUrl, hint } =
-    props;
+  const { title, description, coordinates, imageUrl, setImageUrl, hint } = props;
 
   return (
     <>
@@ -27,7 +26,7 @@ const FormLocation = (props: props): ReactElement => {
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Title</p>
       <TextField
         id="title"
-        defaultValue="What's the title of this block?"
+        defaultValue={title ? title : "What's the title of this block?"}
         variant="filled"
         fullWidth
       />
@@ -53,7 +52,7 @@ const FormLocation = (props: props): ReactElement => {
       <TextField
         multiline
         rows={5}
-        defaultValue="Start writing here..."
+        defaultValue={description ? description : "Start writing here..."}
         variant="filled"
         fullWidth
         className="mb-5"
