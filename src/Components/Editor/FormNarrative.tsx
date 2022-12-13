@@ -18,9 +18,6 @@ const FormNarrative = (props: props): ReactElement => {
   const value = useContext(AppContext);
   const { gameData, setActiveModule, gameModule, gameModuleObject } = value;
 
-  const handleClick = () => {
-    gameModule.current.push(gameModuleObject.current);
-  };
   return (
     <>
       <ClearIcon className="absolute top-2 right-2 hover:shadow-indigo-500/40" />
@@ -66,12 +63,11 @@ const FormNarrative = (props: props): ReactElement => {
         id="themeButton"
         className="self-center w-1/2 mt-10 mb-5"
         onClick={() => {
-          gameModuleObject.current = {
+          setActiveModule({
             title: title,
             image: imageUrl,
             description: description,
-          };
-          handleClick();
+          });
         }}
       >
         Save

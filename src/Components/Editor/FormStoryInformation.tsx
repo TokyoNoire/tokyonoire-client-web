@@ -1,8 +1,9 @@
 import React, { type FC, type ReactElement } from "react";
 import TextField from "@mui/material/TextField";
 import ImageWidget from "./ImageWidget";
-import { useContext } from "react";
 import AppContext from "../../AppContext";
+import { saveGameInfo } from "../../types/global";
+import { useContext } from "react";
 
 interface prop {
   titleOfGame: string;
@@ -12,19 +13,16 @@ interface prop {
   visibility: string;
   setImageUrl: (string: string) => void;
   imageUrl: string;
+  setGameData: (arg0: saveGameInfo) => void;
+  gameData: saveGameInfo;
 }
 
 const FormStoryInformation = (prop: prop): ReactElement => {
   let { titleOfGame, description, minutes, rating, visibility } = prop;
   //Build is not happy if I set these as let, so I seperated them for now.
-  const { setImageUrl, imageUrl } = prop;
+  const { setImageUrl, imageUrl, setGameData, gameData } = prop;
   const value = useContext(AppContext);
-  const { gameData, gameModule, setActiveModule, gameModuleObject } = value;
-  const handleclick = () => {
-    console.log("gameModule:", gameModule.current);
-    console.log(gameData.current);
-  };
-
+  const { setActiveModule } = value;
   return (
     <>
       {/* <ClearIcon className="absolute top-2 right-2 hover:shadow-indigo-500/40"/> */}
@@ -102,16 +100,14 @@ const FormStoryInformation = (prop: prop): ReactElement => {
         id="themeButton"
         className="self-center w-1/2 mt-10 mb-5"
         onClick={() => {
-          gameData.current = {
+          setActiveModule({
             titleOfGame: titleOfGame,
             isPublished: visibility,
             description: description,
             image: imageUrl,
             estimatedTimeMinutes: minutes,
             rating: rating,
-            gameModule: gameModule.current,
-          };
-          handleclick();
+          });
         }}
       >
         {" "}

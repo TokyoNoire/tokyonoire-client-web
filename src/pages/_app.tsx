@@ -40,7 +40,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [gameModules, setGameModules] = useState<GameModule[]>(
     MockGame.gameModules
   );
-  const [activeModule, setActiveModule] = useState(null);
+  const [activeModule, setActiveModule] = useState<GameModule | null>(null);
 
   useEffect(() => {
     const newGameData = gameData;

@@ -19,6 +19,6 @@ export type saveGameInfo = {
   author?: string | null;
   image?: string | null;
   estimatedTimeMinutes?: number | string | null;
-  gameModules?: GameModules[];
+  gameModules?: GameModule[];
   startLocationCoordinates?: Array<number>;
 };

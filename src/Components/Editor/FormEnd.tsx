@@ -18,9 +18,6 @@ const FormEnd = (props: props): ReactElement => {
   const value = useContext(AppContext);
   const { gameData, gameModule, gameModuleObject, setActiveModule } = value;
 
-  const handleClick = () => {
-    gameModule.current.push(gameModuleObject.current);
-  };
   return (
     <>
       <ClearIcon className="absolute top-2 right-2 hover:shadow-indigo-500/40" />
@@ -64,13 +61,12 @@ const FormEnd = (props: props): ReactElement => {
         id="themeButton"
         className="self-center w-1/2 mt-10 mb-5"
         onClick={() => {
-          gameModuleObject.current = {
+          setActiveModule({
             typeOfModule: "end",
             title: title,
             image: imageUrl,
             description: description,
-          };
-          handleClick();
+          });
         }}
       >
         Save

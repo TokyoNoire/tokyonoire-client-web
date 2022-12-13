@@ -89,7 +89,7 @@ const FormQuestion = (props: props): ReactElement => {
         id="themeButton"
         className="self-center w-1/2 mt-10 mb-5"
         onClick={(e) => {
-          gameModuleObject.current = {
+          setActiveModule({
             typeOfModule: "Question",
             title: title,
             image: imageUrl,
@@ -97,7 +97,7 @@ const FormQuestion = (props: props): ReactElement => {
             question: question,
             answer: answer,
             hint: hint,
-          };
+          });
           handleClick();
         }}
       >
