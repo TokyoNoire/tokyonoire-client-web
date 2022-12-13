@@ -39,7 +39,7 @@ const AddModuleButton = (): ReactElement => {
   const handleConsole = (event: MouseEvent, index: number) => {
     console.log(moduleOptions[index]);
     // console.log(newGameModule)
-    const newGameModule = GameModuleSchema;
+    const newGameModule = new GameModuleSchema();
     switch (moduleOptions[index]) {
       case "Narrative Block":
         newGameModule.typeOfModule = "narrative";
