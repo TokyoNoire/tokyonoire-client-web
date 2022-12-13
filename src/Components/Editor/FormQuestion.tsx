@@ -3,8 +3,6 @@ import AppContext from "../../AppContext";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
 import ImageWidget from "./ImageWidget";
-import { useContext } from "react";
-import AppContext from "../../AppContext";
 
 interface props {
   title: string;
@@ -18,17 +16,14 @@ interface props {
 
 const FormQuestion = (props: props): ReactElement => {
   let { title, description, answer, hint, question } = props;
-  const { setImageUrl, imageUrl } = props; props;
-  const valueconst value == useContext(ApuseContext(AppContext);
+  const { setImageUrl, imageUrl } = props;
+  props;
+  const value = useContext(AppContext);
   const { gameData, setActiveModule, gameModule, gameModuleObject } = value;
-  const handleClick = () => {
-    gameModule.curContext);
-  cent.nst { usetActiveModule } = valueh(gameModuleObject.current);
-  };
-  const handleClose = () => {
-    setActiveModule(null)
-  }
 
+  const handleClose = () => {
+    setActiveModule(null);
+  };
 
   return (
     <>

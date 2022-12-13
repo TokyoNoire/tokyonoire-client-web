@@ -54,7 +54,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     const newGameData = gameData;
     newGameData.gameModules = gameModules;
     setGameData(newGameData);
-    console.log(gameData);
+    console.log(activeModule);
   }, [gameModules]);
 
   useEffect(() => {
@@ -92,7 +92,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
 
         {Component && !loadScreenMounted ? (
           <ThemeProvider theme={darkTheme}>
-            <SignInForm></SignInForm>
+            {/* <SignInForm></SignInForm> */}
             {deviceType && <NavBar deviceType={deviceType} />}
             <Component {...pageProps} deviceType={deviceType} />
           </ThemeProvider>

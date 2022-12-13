@@ -23,7 +23,13 @@ const FormStoryInformation = (prop: prop): ReactElement => {
   //Build is not happy if I set these as let, so I seperated them for now.
   const { setImageUrl, imageUrl, setGameData, gameData } = prop;
   const value = useContext(AppContext);
-  const { setActiveModule, gameModules } = value;
+  const { setActiveModule, gameModules, setCurrentGame } = value;
+
+  const handleClick = () => {
+    console.log(gameData);
+    setCurrentGame((prevValue: null) => gameData);
+    console.log("🌒localStorag:", localStorage.currentGameData);
+  };
   return (
     <>
       {/* <ClearIcon className="absolute top-2 right-2 hover:shadow-indigo-500/40"/> */}
@@ -102,6 +108,7 @@ const FormStoryInformation = (prop: prop): ReactElement => {
         className="self-center w-1/2 mt-10 mb-5"
         onClick={() => {
           setGameData({
+            _id: "321",
             titleOfGame: titleOfGame,
             isPublished: visibility,
             description: description,
@@ -110,7 +117,7 @@ const FormStoryInformation = (prop: prop): ReactElement => {
             rating: rating,
             gameModules: gameModules,
           });
-          console.log(gameData);
+          handleClick();
         }}
       >
         {" "}

@@ -9,8 +9,6 @@ import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
 import MapLocationPicker from "./MapLocationPicker";
 import ImageWidget from "./ImageWidget";
-import { useContext } from "react";
-import AppContext from "../../AppContext";
 
 interface props {
   title: string;
@@ -28,8 +26,6 @@ const FormLocation = (props: props): ReactElement => {
   const { setActiveModule, activeModule } = value;
 
   const handleClick = () => {};
-  const value = useContext(AppContext);
-  const { setActiveModule } = value;
 
   const handleClose = () => {
     setActiveModule(null);

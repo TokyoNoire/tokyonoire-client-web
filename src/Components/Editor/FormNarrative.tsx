@@ -3,8 +3,6 @@ import AppContext from "../../AppContext";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
 import ImageWidget from "./ImageWidget";
-import { useContext } from "react";
-import AppContext from "../../AppContext";
 
 interface props {
   title: string;
