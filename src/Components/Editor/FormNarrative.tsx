@@ -12,13 +12,20 @@ interface props {
 }
 
 const FormNarrative = (props: props): ReactElement => {
-  const { title, description, setImageUrl, imageUrl } = props;
+  let { title, description } = props;
+  const { setImageUrl, imageUrl } = props;
   const value = useContext(AppContext);
-  const { setActiveModule } = value;
+  const {
+    gameData,
+    setActiveModule,
+    gameModule,
+    gameModuleObject,
+    activeModule,
+  } = value;
 
   const handleClose = () => {
-    setActiveModule(null)
-  }
+    setActiveModule(null);
+  };
 
   return (
     <>
@@ -36,20 +43,21 @@ const FormNarrative = (props: props): ReactElement => {
         defaultValue={title ? title : "What is the title of this block?"}
         variant="filled"
         fullWidth
+        onChange={(e) => (title = e.target.value)}
       />
-
-      <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
-        Image Upload
-      </p>
       {imageUrl ? (
         <img
-          className="self-center w-3/5 mt-10"
+          className="w-3/5 mt-10 self-center"
           src={`${imageUrl}`}
           alt="preview"
         />
       ) : (
         ""
       )}
+
+      <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
+        Image Upload
+      </p>
       <ImageWidget setImageUrl={setImageUrl} />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
@@ -61,8 +69,20 @@ const FormNarrative = (props: props): ReactElement => {
         defaultValue={description ? description : "Start writing here..."}
         variant="filled"
         fullWidth
+        onChange={(e) => (description = e.target.value)}
       />
-      <button id="themeButton" className="self-center w-1/2 mt-10 mb-5">
+      <button
+        id="themeButton"
+        className="self-center w-1/2 mt-10 mb-5"
+        onClick={() => {
+          setActiveModule({
+            title: title,
+            image: imageUrl,
+            description: description,
+          });
+          console.log(activeModule);
+        }}
+      >
         Save
       </button>
     </>

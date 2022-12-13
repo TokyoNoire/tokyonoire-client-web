@@ -3,11 +3,11 @@ export type GameModule = {
   typeOfModule: string;
   title: string;
   description: string;
-  question: string;
-  answer: string;
-  image: string;
-  locationCoordinates: number[] | null;
-  hint: string;
+  question?: string;
+  answer?: string;
+  image?: string;
+  locationCoordinates?: number[] | null;
+  hint?: string;
 };
 
 export type saveGameInfo = {

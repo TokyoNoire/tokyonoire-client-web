@@ -11,11 +11,10 @@ import FormQuestion from "./FormQuestion";
 import FormEnd from "./FormEnd";
 import FormStoryInformation from "./FormStoryInformation";
 import axios from "axios";
-import { saveGameInfo } from "../../pages/editor";
 import { useLocalStorage } from "usehooks-ts";
 import { useContext } from "react";
 import AppContext from "../../AppContext";
-
+import { type GameModule } from "../../types/global";
 
 export type GameModules = {
   typeOfModule: string;
@@ -30,7 +29,7 @@ export type GameModules = {
 
 const ModuleForms = (): ReactElement => {
   const value = useContext(AppContext);
-  const { activeModule } = value;
+  const { activeModule, setActiveModule, setGameModules, gameModules } = value;
 
   const published = useRef<boolean>(false);
   const titleOfGame = useRef<string>("");
@@ -42,20 +41,46 @@ const ModuleForms = (): ReactElement => {
 
   const title = useRef<string>("");
   const description = useRef<string>("");
-  const coordinates = useRef<number[]>([]);
+  const coordinates = useRef<number[] | null>([]);
   const question = useRef<string>("");
   const answer = useRef<string>("");
   const hint = useRef<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
+  const [localStorage, setLocalStorage] = useLocalStorage<string>("", "");
+  const id = useRef<string>("");
+  const typeOfModule = useRef<string>("");
 
-  const [localStorage, setLocalStorage] = useLocalStorage<string>("", ""); 
+  console.log(activeModule);
+  console.log(id.current);
 
-  if (activeModule) {
+  const handleModuleUpdateClick = () => {
+    const updateData: GameModule = {
+      _id: id.current,
+      title: title.current,
+      typeOfModule: typeOfModule.current,
+      description: description.current,
+      locationCoordinates: coordinates.current,
+      question: question.current,
+      answer: answer.current,
+      hint: hint.current,
+      image: imageUrl,
+    };
+    const newGameModules = [...gameModules];
+    for (let i = 0; i < gameModules.length; i++) {
+      if (gameModules[i]!._id === id.current) {
+        newGameModules.splice(i, 1, updateData);
+      }
+    }
+    setGameModules(newGameModules);
+  };
+  if (activeModule !== null) {
+    typeOfModule.current = activeModule.typeOfModule;
     title.current = activeModule.title;
     description.current = activeModule.description;
     question.current = activeModule.question;
     answer.current = activeModule.answer;
     hint.current = activeModule.hint;
+    id.current = activeModule._id;
   }
 
   if (!activeModule) {
@@ -70,13 +95,12 @@ const ModuleForms = (): ReactElement => {
         description={description.current}
         setGameData={value.setGameData}
         gameData={value.gameData}
-        startLocation = {startLocation.current}
+        startLocation={startLocation.current}
       />
-    )
+    );
   } else {
-
     switch (activeModule.typeOfModule) {
-      case 'narrative':
+      case "narrative":
         return (
           <FormNarrative
             key={activeModule._id}
@@ -87,7 +111,7 @@ const ModuleForms = (): ReactElement => {
           />
         );
 
-      case 'location':
+      case "location":
         return (
           <FormLocation
             key={activeModule._id}
@@ -100,10 +124,10 @@ const ModuleForms = (): ReactElement => {
           />
         );
 
-      case 'question':
+      case "question":
         return (
           <FormQuestion
-            key={activeModule._id}
+            key={id.current}
             title={title.current}
             description={description.current}
             setImageUrl={setImageUrl}
@@ -111,10 +135,11 @@ const ModuleForms = (): ReactElement => {
             question={question.current}
             answer={answer.current}
             hint={hint.current}
+            handleModuleUpdateClick={handleModuleUpdateClick}
           />
         );
 
-      case 'end':
+      case "end":
         return (
           <FormEnd
             key={activeModule._id}
@@ -126,7 +151,7 @@ const ModuleForms = (): ReactElement => {
         );
     }
   }
-  return <></>
+  return <></>;
 };
 
 export default ModuleForms;

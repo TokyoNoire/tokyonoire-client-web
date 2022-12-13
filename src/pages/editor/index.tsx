@@ -1,25 +1,14 @@
 import { type NextPage } from "next";
 import { useEffect, useRef, useState } from "react";
 import DragAndDropEditor from "../../Components/Editor/DragAndDropEditor";
-import { type GameModules } from "../../Components/Editor/ModuleForms";
+//import { type GameModules } from "../../Components/Editor/ModuleForms";
 import ModuleForms from "../../Components/Editor/ModuleForms";
 import FadeDiv from "../../Components/Helpers/FadeDiv";
-
-export type saveGameInfo = {
-  titleOfGame: string;
-  isPublished: string | boolean;
-  description?: string | null;
-  rating?: string | null;
-  author?: string | null;
-  image?: string;
-  estimatedTimeMinutes?: number | string | null;
-  gameModules?: GameModules;
-  startLocationCoordinates?: Array<number>;
-};
+import { useContext } from "react";
+import AppContext from "../../AppContext";
 
 const Editor: NextPage = () => {
   const [show, setShow] = useState<boolean>(true);
-
 
   return (
     <FadeDiv show={show}>

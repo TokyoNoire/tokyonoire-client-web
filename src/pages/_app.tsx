@@ -15,6 +15,7 @@ import { AuthProvider } from "../Components/AuthProvider";
 import NavBar from "../Components/Navigation/NavBar";
 import MockGame from "../Components/Editor/Helpers/MockGame";
 import { saveGameInfo, GameModule } from "../types/global";
+import { useLocalStorage, useReadLocalStorage } from "usehooks-ts";
 
 const darkTheme = createTheme({
   palette: {
@@ -28,15 +29,24 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [deviceType, setDeviceType] = useState<string | null>(null);
   const [userId, setUserId] = useState<string>("on est là");
   const [gameData, setGameData] = useState<saveGameInfo>(MockGame);
-  const [gameModules, setGameModules] = useState<GameModule[]>(MockGame.gameModules)
-  const [activeModule, setActiveModule] = useState(null);
-
+  const [gameModules, setGameModules] = useState<GameModule[]>(
+    MockGame.gameModules
+  );
+  const [activeModule, setActiveModule] = useState<GameModule | null>(null);
+  const [currentGame, setCurrentGame] = useLocalStorage(
+    "currentGameData",
+    gameData
+  );
+  // console.log(gameModules);
+  // console.log(useReadLocalStorage("currentGameData"));
+  // console.log(gameModules);
   useEffect(() => {
-    const newGameData = gameData
-    newGameData.gameModules = gameModules
-    setGameData(newGameData)
-    console.log("gameData has been updated")
-  }, [gameModules])
+    const newGameData = gameData;
+    newGameData.gameModules = gameModules;
+    setGameData(newGameData);
+    console.log(gameModules);
+    console.log("game data updated");
+  }, [gameModules]);
 
   useEffect(() => {
     const maxScreenSize =
@@ -60,29 +70,29 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         setGameModules: setGameModules,
         activeModule: activeModule,
         setActiveModule: setActiveModule,
+        setCurrentGame: setCurrentGame,
         userId: userId,
-        setUserId: setUserId
+        setUserId: setUserId,
       }}
     >
       <AuthProvider>
-
         <Script
           src="https://upload-widget.cloudinary.com/global/all.js"
           type="text/javascript"
         />
 
-      {Component && !loadScreenMounted ? (
-        <ThemeProvider theme={darkTheme}>
-          <SignInForm></SignInForm>
-          {deviceType && <NavBar deviceType={deviceType} />}
-          <Component {...pageProps} deviceType={deviceType} />
-        </ThemeProvider>
-      ) : (
-        <LoadingScreen
-          setLoadScreenMounted={setLoadScreenMounted}
-          duration={durationLoadingScreen}
-        />
-      )}
+        {Component && !loadScreenMounted ? (
+          <ThemeProvider theme={darkTheme}>
+            {/* <SignInForm></SignInForm> */}
+            {deviceType && <NavBar deviceType={deviceType} />}
+            <Component {...pageProps} deviceType={deviceType} />
+          </ThemeProvider>
+        ) : (
+          <LoadingScreen
+            setLoadScreenMounted={setLoadScreenMounted}
+            duration={durationLoadingScreen}
+          />
+        )}
       </AuthProvider>
     </AppContext.Provider>
   );

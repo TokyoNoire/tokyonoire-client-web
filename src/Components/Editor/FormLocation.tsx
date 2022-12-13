@@ -1,4 +1,9 @@
-import React, { useEffect, type FC, type ReactElement, useContext } from "react";
+import React, {
+  useEffect,
+  type FC,
+  type ReactElement,
+  useContext,
+} from "react";
 import AppContext from "../../AppContext";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
@@ -8,20 +13,23 @@ import ImageWidget from "./ImageWidget";
 interface props {
   title: string;
   description: string;
-  coordinates: number[];
+  coordinates: number[] | null;
   setImageUrl: (string: string) => void;
   imageUrl: string;
   hint: string;
 }
 
 const FormLocation = (props: props): ReactElement => {
-  const { title, description, coordinates, imageUrl, setImageUrl, hint } = props;
+  let { title, description, hint } = props;
+  const { setImageUrl, coordinates, imageUrl } = props;
   const value = useContext(AppContext);
-  const { setActiveModule } = value;
+  const { setActiveModule, activeModule } = value;
+
+  // const handleClick = () => {};
 
   const handleClose = () => {
-    setActiveModule(null)
-  }
+    setActiveModule(null);
+  };
 
   return (
     <>
@@ -39,6 +47,7 @@ const FormLocation = (props: props): ReactElement => {
         defaultValue={title ? title : "What's the title of this block?"}
         variant="filled"
         fullWidth
+        onChange={(e) => (title = e.target.value)}
       />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
@@ -46,7 +55,7 @@ const FormLocation = (props: props): ReactElement => {
       </p>
       {imageUrl ? (
         <img
-          className="self-center w-3/5 mt-10"
+          className="w-3/5 mt-10 self-center"
           src={`${imageUrl}`}
           alt="preview"
         />
@@ -66,6 +75,7 @@ const FormLocation = (props: props): ReactElement => {
         variant="filled"
         fullWidth
         className="mb-5"
+        onChange={(e) => (description = e.target.value)}
       />
 
       <MapLocationPicker />
@@ -75,10 +85,24 @@ const FormLocation = (props: props): ReactElement => {
         variant="filled"
         defaultValue="Give a hint for the reader!"
         fullWidth
+        onChange={(e) => (hint = e.target.value)}
       />
-      <button id="themeButton" className="self-center w-1/2 mt-10 mb-5">
+      <button
+        id="themeButton"
+        className="self-center w-1/2 mt-10 mb-5"
+        onClick={(e) => {
+          setActiveModule({
+            typeOfModule: "location",
+            title: title,
+            image: imageUrl,
+            description: description,
+            locationCoordinates: [200, 200],
+          });
+          // handleClick();
+        }}
+      >
         {" "}
-        Save{" "}
+        Update{" "}
       </button>
     </>
   );
