@@ -4,7 +4,7 @@ import ImageWidget from "./ImageWidget";
 import AppContext from "../../AppContext";
 import { saveGameInfo } from "../../types/global";
 import { useContext } from "react";
-import gameModules from "./Helpers/MockGameModules";
+import { start } from "repl";
 
 interface prop {
   titleOfGame: string;
@@ -12,6 +12,7 @@ interface prop {
   minutes: string | number;
   rating: string;
   visibility: string;
+  startLocation: string;
   setImageUrl: (string: string) => void;
   imageUrl: string;
   setGameData: (arg0: saveGameInfo) => void;
@@ -19,7 +20,8 @@ interface prop {
 }
 
 const FormStoryInformation = (prop: prop): ReactElement => {
-  let { titleOfGame, description, minutes, rating, visibility } = prop;
+  let { titleOfGame, description, minutes, rating, visibility, startLocation } =
+    prop;
   //Build is not happy if I set these as let, so I seperated them for now.
   const { setImageUrl, imageUrl, setGameData, gameData } = prop;
   const value = useContext(AppContext);
@@ -45,12 +47,13 @@ const FormStoryInformation = (prop: prop): ReactElement => {
         onChange={(e) => (titleOfGame = e.target.value)}
         fullWidth
       />
-      <div className="grid grid-cols-3 gap-2 mt-10 grid-flow-cols">
+      <div className="grid grid-cols-4 gap-2 mt-10 grid-flow-cols">
         <p className="mb-2 text-sm uppercase font-heading">
           Estimated Time in minutes
         </p>
         <p className="text-sm uppercase font-heading">Rating</p>
         <p className="text-sm uppercase font-heading">Visibility</p>
+        <p className="text-sm uppercase font-heading">Start Location</p>
         <TextField
           id="estimated-time"
           type="number"
@@ -79,10 +82,17 @@ const FormStoryInformation = (prop: prop): ReactElement => {
           <option value="true">Private</option>
           <option value="false">Public</option>
         </select>
+
+        <TextField
+          id="start-location"
+          type="text"
+          onChange={(e) => (startLocation = e.target.value)}
+          variant="filled"
+        />
       </div>
       {imageUrl ? (
         <img
-          className="w-3/5 mt-10 self-center"
+          className="self-center w-3/5 mt-10"
           src={`${imageUrl}`}
           alt="preview"
         />
@@ -115,7 +125,6 @@ const FormStoryInformation = (prop: prop): ReactElement => {
             image: imageUrl,
             estimatedTimeMinutes: minutes,
             rating: rating,
-            gameModules: gameModules,
           });
           handleClick();
         }}
