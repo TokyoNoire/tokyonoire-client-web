@@ -1,5 +1,4 @@
 export type GameModule = {
-  positionId?: number;
   _id: string;
   typeOfModule: string;
   title: string;
