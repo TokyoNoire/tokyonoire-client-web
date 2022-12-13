@@ -74,6 +74,13 @@ const HomeMobile = (props: props): ReactElement => {
     setOpen(true);
   };
 
+  const handleClick = (event: React.MouseEvent) => {
+    if (event.target instanceof Element) { 
+    setOpen(true);
+    setGameId(event.target.id);
+  };  
+  }
+
   return (
     <>
       <div className="relative h-screen mx-5 flexCenterDiv place-items-center ">
@@ -88,7 +95,7 @@ const HomeMobile = (props: props): ReactElement => {
         </div>
       </div>
       <Hero />
-      <ListOfPublicGames publicGames={publicGames!} />
+      <ListOfPublicGames publicGames={publicGames!}/>
       {game ? (
         <Dialog
           className="object-fit flexCenterDiv"

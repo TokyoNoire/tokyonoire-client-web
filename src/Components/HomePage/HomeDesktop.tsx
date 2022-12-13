@@ -1,7 +1,7 @@
 import React, { type FC, type ReactElement } from "react";
 import Link from "next/link";
 import TokyoNoireName from "../../../public/Title_DarkTheme.svg";
-import HintPopper from "../GameModules/HintPopper";
+import HintPopper from "../GameModules/Helpers/HintPopper";
 
 interface props {
   show: boolean

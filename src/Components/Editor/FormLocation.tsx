@@ -19,7 +19,7 @@ const FormLocation = (props: props): ReactElement => {
 
   return (
     <>
-      <ClearIcon className="absolute top-2 right-2 hover:shadow-indigo-500/40" />
+      <ClearIcon className="absolute top-2 right-2" />
       <h1 className="self-center mt-10 mb-2 text-2xl font-bold uppercase font-heading">
         Location
       </h1>
