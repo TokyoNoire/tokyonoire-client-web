@@ -4,6 +4,7 @@ import ImageWidget from "./ImageWidget";
 import AppContext from "../../AppContext";
 import { saveGameInfo } from "../../types/global";
 import { useContext } from "react";
+import gameModules from "./Helpers/MockGameModules";
 
 interface prop {
   titleOfGame: string;
@@ -107,6 +108,7 @@ const FormStoryInformation = (prop: prop): ReactElement => {
             image: imageUrl,
             estimatedTimeMinutes: minutes,
             rating: rating,
+            gameModules: gameModules,
           });
           console.log(gameData);
         }}
