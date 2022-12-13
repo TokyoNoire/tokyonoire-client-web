@@ -19,11 +19,13 @@ const FormLocation = (props: props): ReactElement => {
   let { title, description, hint } = props;
   const { setImageUrl, coordinates, imageUrl } = props;
   const value = useContext(AppContext);
-  const { setActiveModule } = value;
+  const { setActiveModule, activeModule } = value;
+
+  const handleClick = () => {};
 
   return (
     <>
-      <ClearIcon className="absolute top-2 right-2 hover:shadow-indigo-500/40" />
+      <ClearIcon className="absolute top-2 right-2" />
       <h1 className="self-center mt-10 mb-2 text-2xl font-bold uppercase font-heading">
         Location
       </h1>
@@ -49,6 +51,7 @@ const FormLocation = (props: props): ReactElement => {
       ) : (
         ""
       )}
+
       <ImageWidget setImageUrl={setImageUrl} />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
@@ -84,6 +87,7 @@ const FormLocation = (props: props): ReactElement => {
             description: description,
             locationCoordinates: [200, 200],
           });
+          handleClick();
         }}
       >
         {" "}

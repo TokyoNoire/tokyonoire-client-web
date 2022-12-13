@@ -16,7 +16,13 @@ const FormNarrative = (props: props): ReactElement => {
   let { title, description } = props;
   const { setImageUrl, imageUrl } = props;
   const value = useContext(AppContext);
-  const { gameData, setActiveModule, gameModule, gameModuleObject } = value;
+  const {
+    gameData,
+    setActiveModule,
+    gameModule,
+    gameModuleObject,
+    activeModule,
+  } = value;
 
   return (
     <>
@@ -33,10 +39,6 @@ const FormNarrative = (props: props): ReactElement => {
         fullWidth
         onChange={(e) => (title = e.target.value)}
       />
-
-      <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
-        Image Upload
-      </p>
       {imageUrl ? (
         <img
           className="w-3/5 mt-10 self-center"
@@ -46,6 +48,10 @@ const FormNarrative = (props: props): ReactElement => {
       ) : (
         ""
       )}
+
+      <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
+        Image Upload
+      </p>
       <ImageWidget setImageUrl={setImageUrl} />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
@@ -68,6 +74,7 @@ const FormNarrative = (props: props): ReactElement => {
             image: imageUrl,
             description: description,
           });
+          console.log(activeModule);
         }}
       >
         Save

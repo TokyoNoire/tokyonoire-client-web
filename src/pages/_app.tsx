@@ -13,6 +13,7 @@ import LoadingScreen from "../Components/LoadingScreen";
 import NavBar from "../Components/Navigation/NavBar";
 import MockGame from "../Components/Editor/Helpers/MockGame";
 import { saveGameInfo, GameModule } from "../types/global";
+import { useLocalStorage } from "usehooks-ts";
 
 export type GameModules = {
   typeOfModule: string;
@@ -41,12 +42,16 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     MockGame.gameModules
   );
   const [activeModule, setActiveModule] = useState<GameModule | null>(null);
+  const [currentGame, setCurrentGame] = useLocalStorage(
+    "currentGameData",
+    gameData
+  );
 
   useEffect(() => {
     const newGameData = gameData;
     newGameData.gameModules = gameModules;
     setGameData(newGameData);
-    console.log("gameData has been updated");
+    console.log(gameData);
   }, [gameModules]);
 
   useEffect(() => {
@@ -71,6 +76,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         setGameModules: setGameModules,
         activeModule: activeModule,
         setActiveModule: setActiveModule,
+        setCurrentGame: setCurrentGame,
       }}
     >
       <Script

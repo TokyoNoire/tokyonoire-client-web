@@ -100,7 +100,7 @@ const FormStoryInformation = (prop: prop): ReactElement => {
         id="themeButton"
         className="self-center w-1/2 mt-10 mb-5"
         onClick={() => {
-          setActiveModule({
+          setGameData({
             titleOfGame: titleOfGame,
             isPublished: visibility,
             description: description,
@@ -108,10 +108,11 @@ const FormStoryInformation = (prop: prop): ReactElement => {
             estimatedTimeMinutes: minutes,
             rating: rating,
           });
+          console.log(gameData);
         }}
       >
         {" "}
-        Save{" "}
+        update{" "}
       </button>
     </>
   );

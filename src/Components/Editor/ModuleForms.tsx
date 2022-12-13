@@ -11,6 +11,7 @@ import FormQuestion from "./FormQuestion";
 import FormEnd from "./FormEnd";
 import FormStoryInformation from "./FormStoryInformation";
 import axios from "axios";
+import { useLocalStorage } from "usehooks-ts";
 import { useContext } from "react";
 import AppContext from "../../AppContext";
 
@@ -43,6 +44,7 @@ const ModuleForms = (): ReactElement => {
   const answer = useRef<string>("");
   const hint = useRef<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
+  const [localStorage, setLocalStorage] = useLocalStorage<string>("", "");
 
   if (activeModule) {
     title.current = activeModule.title;
