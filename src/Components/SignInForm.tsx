@@ -1,4 +1,4 @@
-import React, { type FC, type ReactElement, useState, FormEventHandler } from "react";
+import React, { type FC, type ReactElement, useState, FormEventHandler, useContext } from "react";
 import {
   Box,
   Grid,
@@ -12,24 +12,41 @@ import Link from "next/link";
 import GoogleIcon from "@mui/icons-material/Google";
 import AppleIcon from "@mui/icons-material/Apple";
 import StatusBar from "./ProfilePage/StatusBar";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { EmailAuthCredential, getAuth, GoogleAuthProvider, signInWithCredential, signInWithPopup } from 'firebase/auth';
+import AppContext from "../AppContext";
 
 const SignInForm: FC = (): ReactElement => {
   const auth = getAuth();
   const [authing, setAuthing] = useState(false);
+  const value = useContext(AppContext);
+  const { setUserId } = value;
 
   const signInWithGoogle = async () => {
       setAuthing(true);
 
       signInWithPopup(auth, new GoogleAuthProvider())
           .then((response) => {
-              console.log(response.user.uid);
+              setUserId(response.user.uid)
           })
           .catch((error) => {
               console.log(error);
               setAuthing(false);
           });
   };
+
+  // const signInWithEmailAndPassword = async () => {
+  //   setAuthing(true);
+
+  //   signInWithCredential(auth, new EmailAuthCredential())
+  //         .then((response) => {
+  //           console.log(response.user.uid)
+  //         })
+  //         .catch((error) => {
+  //           console.log(error);
+  //           setAuthing(false)
+  //         })
+
+  // }
 
   return (
     <div className="items-center mx-8 my-20 flexCenterDiv bg-darkGrey">

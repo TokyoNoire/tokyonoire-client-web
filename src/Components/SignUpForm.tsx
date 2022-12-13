@@ -13,6 +13,9 @@ import GoogleIcon from "@mui/icons-material/Google";
 import AppleIcon from "@mui/icons-material/Apple";
 
 const SignUpForm: FC = (): ReactElement => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [userInfo, setUserInfo] = useState({ email: "", password: "", name: "" });
 
   interface SignUpFormValues {
