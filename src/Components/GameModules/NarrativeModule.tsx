@@ -1,5 +1,5 @@
 import React, { type ReactElement } from "react";
-import { type GameModule } from "../../pages/game/[gameId]";
+import { type GameModule } from "../../types/global";
 import Image from "next/image";
 
 interface props {

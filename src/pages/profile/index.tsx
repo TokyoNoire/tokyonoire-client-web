@@ -1,4 +1,3 @@
-// import { type NextPage } from "next";
 import React, {
   type ReactElement,
   useState,
@@ -6,7 +5,6 @@ import React, {
 import GameListCompleted from "../../Components/ProfilePage/GameListCompleted";
 import GameListUncompleted from "../../Components/ProfilePage/GameListUncompleted";
 import StatusBar from "../../Components/ProfilePage/StatusBar";
-// import Link from "next/link";
 
 
 const Profile = (): ReactElement =>  {
