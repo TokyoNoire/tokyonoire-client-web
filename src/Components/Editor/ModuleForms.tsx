@@ -12,8 +12,10 @@ import FormEnd from "./FormEnd";
 import FormStoryInformation from "./FormStoryInformation";
 import axios from "axios";
 import { saveGameInfo } from "../../pages/editor";
+import { useLocalStorage } from "usehooks-ts";
 import { useContext } from "react";
 import AppContext from "../../AppContext";
+
 
 export type GameModules = {
   typeOfModule: string;
@@ -44,6 +46,8 @@ const ModuleForms = (): ReactElement => {
   const answer = useRef<string>("");
   const hint = useRef<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
+
+  const [localStorage, setLocalStorage] = useLocalStorage<string>("", ""); 
 
   if (activeModule) {
     title.current = activeModule.title;

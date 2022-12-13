@@ -1,6 +1,7 @@
 import React, { type FC, type ReactElement } from "react";
 import Link from "next/link";
 import TokyoNoireName from "../../../public/Title_DarkTheme.svg";
+import HintPopper from "../GameModules/Helpers/HintPopper";
 
 interface props {
   show: boolean
@@ -18,6 +19,7 @@ const HomeDesktop = (props: props): ReactElement => {
         <Link href="/editor">
           <button
             id="themeButton"
+            className="font-heading"
             style={{ transform: "scale(1.2)" }}
           >Go To Editor</button>
         </Link>
