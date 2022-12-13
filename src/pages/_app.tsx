@@ -63,26 +63,25 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         userId: userId,
         setUserId: setUserId
       }}
-      >
+    >
       <AuthProvider>
-    
-      <Script
-        src="https://upload-widget.cloudinary.com/global/all.js"
-        type="text/javascript"
-      />
 
-      {Component && !loadScreenMounted ? (
-        <ThemeProvider theme={darkTheme}>
-          <SignInForm></SignInForm>
-          {deviceType && <NavBar deviceType={deviceType} />}
-          <Component {...pageProps} deviceType={deviceType} />
-        </ThemeProvider>
-      ) : (
-        <LoadingScreen
-          setLoadScreenMounted={setLoadScreenMounted}
-          duration={durationLoadingScreen}
+        <Script
+          src="https://upload-widget.cloudinary.com/global/all.js"
+          type="text/javascript"
         />
-      )}
+
+        {Component && !loadScreenMounted ? (
+          <ThemeProvider theme={darkTheme}>
+            {deviceType && <NavBar deviceType={deviceType} />}
+            <Component {...pageProps} deviceType={deviceType} />
+          </ThemeProvider>
+        ) : (
+          <LoadingScreen
+            setLoadScreenMounted={setLoadScreenMounted}
+            duration={durationLoadingScreen}
+          />
+        )}
       </AuthProvider>
     </AppContext.Provider>
   );

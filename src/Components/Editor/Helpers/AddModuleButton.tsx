@@ -24,10 +24,7 @@ const AddModuleButton = (): ReactElement => {
     const value = useContext(AppContext)
     const { setGameModules, gameModules } = value
 
-
-    // const plusButton = useRef<HTMLButtonElement>(UseOutsideClick(handleClickOutside))
     const plusButton = useRef<HTMLButtonElement>(null);
-    // UseOutsideClick(plusButton, setRenderMultiChoicePanel, false);
 
     const handleMultiChoicePanel = () => {
         if (!renderMultiChoicePanel) {
@@ -38,14 +35,10 @@ const AddModuleButton = (): ReactElement => {
         }
     };
 
-    // const handleClick: MouseEventHandler<HTMLDivElement> = (e) => {
-    //     console.log(e.clientX, " ", e.clientY);
-    // };
-
     const handleConsole = (event: MouseEvent, index: number) => {
         console.log(moduleOptions[index])
         // console.log(newGameModule)
-        const newGameModule = new GameModuleSchema()
+        const newGameModule = GameModuleSchema;
         switch (moduleOptions[index]) {
             case "Narrative Block":
                 newGameModule.typeOfModule = "narrative";
