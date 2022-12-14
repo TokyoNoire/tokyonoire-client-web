@@ -14,7 +14,7 @@ export type GameModules = {
   title: string;
   description: string;
   question: string;
-  answer: string[];
+  answer: string;
   image: string;
   locationCoordinates: string[];
   hint: string;

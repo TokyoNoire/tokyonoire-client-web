@@ -103,7 +103,7 @@ const DragAndDropEditor: FC = (): ReactElement => {
                             handleClick(moduleIndex);
                           }}
                         >
-                          {`${gameModule.title} Index: ${gameModule.id}`}
+                          {`${gameModule.title}`}
                         </div>
                       </SortableItem>
                     )
