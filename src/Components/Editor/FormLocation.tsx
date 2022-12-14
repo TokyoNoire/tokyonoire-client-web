@@ -1,7 +1,6 @@
 import React, {
-  useEffect,
-  type FC,
   type ReactElement,
+  type MutableRefObject,
   useContext,
 } from "react";
 import AppContext from "../../AppContext";
@@ -11,19 +10,27 @@ import MapLocationPicker from "./MapLocationPicker";
 import ImageWidget from "./ImageWidget";
 
 interface props {
-  title: string;
-  description: string;
-  coordinates: number[] | null;
+  title: MutableRefObject<string>;
+  description: MutableRefObject<string>;
+  coordinates: MutableRefObject<number[] | null>;
   setImageUrl: (string: string) => void;
   imageUrl: string;
-  hint: string;
+  hint: MutableRefObject<string>;
+  handleModuleUpdateClick: () => void;
 }
 
 const FormLocation = (props: props): ReactElement => {
-  let { title, description, hint } = props;
-  const { setImageUrl, coordinates, imageUrl } = props;
+  const {
+    title,
+    description,
+    coordinates,
+    setImageUrl,
+    imageUrl,
+    hint,
+    handleModuleUpdateClick,
+  } = props;
   const value = useContext(AppContext);
-  const { setActiveModule, activeModule } = value;
+  const { setActiveModule } = value;
 
   // const handleClick = () => {};
 
@@ -45,13 +52,13 @@ const FormLocation = (props: props): ReactElement => {
       <TextField
         id="title"
         {...(
-          title !== ""
-            ? { defaultValue: title }
+          title.current !== ""
+            ? { defaultValue: title.current }
             : { placeholder: "What's the title of this block?" }
         )}
         variant="filled"
         fullWidth
-        onChange={(e) => (title = e.target.value)}
+        onChange={(e) => (title.current = e.target.value)}
       />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
@@ -76,53 +83,43 @@ const FormLocation = (props: props): ReactElement => {
         multiline
         rows={5}
         {...(
-          description !== ""
-            ? { defaultValue: description }
+          description.current !== ""
+            ? { defaultValue: description.current }
             : { placeholder: "Start writing here..." }
         )}
         variant="filled"
         fullWidth
         className="mb-5"
-        onChange={(e) => (description = e.target.value)}
+        onChange={(e) => (description.current = e.target.value)}
       />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Location
       </p>
-      {/* <div className="mt-10 relative min-h-[24rem] w-full"> */}
+
       <MapLocationPicker />
-      {/* </div> */}
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Hint</p>
       <TextField
         variant="filled"
         {...(
-          hint !== ""
-            ? { defaultValue: hint }
+          hint.current !== ""
+            ? { defaultValue: hint.current }
             : { placeholder: "Give a hint for the reader!" }
         )}
 
 
         fullWidth
-        onChange={(e) => (hint = e.target.value)}
+        onChange={(e) => (hint.current = e.target.value)}
       />
       <button
         id="themeButton"
         className="self-center w-1/2 mt-10 mb-5"
-        onClick={(e) => {
-          setActiveModule({
-            typeOfModule: "location",
-            title: title,
-            image: imageUrl,
-            description: description,
-            locationCoordinates: [200, 200],
-          });
-          // handleClick();
+        onClick={() => {
+          handleModuleUpdateClick();
         }}
       >
-        {" "}
-        Update{" "}
-        Update{" "}
+        Update
       </button>
     </>
   );

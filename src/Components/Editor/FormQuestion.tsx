@@ -1,39 +1,40 @@
-import React, { type FC, type ReactElement, useContext } from "react";
+import React, { type ReactElement, useContext, type MutableRefObject } from "react";
 import AppContext from "../../AppContext";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
 import ImageWidget from "./ImageWidget";
-import { GameModule } from "../../types/global";
-import useReadLocalStorage from "../../hooks/useReadLocalStorage";
 
 interface props {
-  title: string;
-  description: string;
-  question: string;
-  answer: string;
-  hint: string;
+  title: MutableRefObject<string>;
+  description: MutableRefObject<string>;
+  question: MutableRefObject<string>;
+  answer: MutableRefObject<string>;
+  hint: MutableRefObject<string>;
   setImageUrl: (string: string) => void;
   imageUrl: string;
   handleModuleUpdateClick: () => void;
 }
 
 const FormQuestion = (props: props): ReactElement => {
-  let { title, description, answer, hint, question } = props;
-  const { setImageUrl, imageUrl, handleModuleUpdateClick } = props;
+  const {
+    title,
+    description,
+    setImageUrl,
+    imageUrl,
+    question,
+    answer,
+    hint,
+    handleModuleUpdateClick,
+  } = props;
   props;
   const value = useContext(AppContext);
-  const {
-    gameData,
-    setActiveModule,
-    gameModule,
-    gameModuleObject,
-    setCurrentGame,
-  } = value;
+  const { setActiveModule } = value;
 
   const handleClose = () => {
     setActiveModule(null);
   };
 
+  console.log(title)
   return (
     <>
       <ClearIcon
@@ -48,13 +49,13 @@ const FormQuestion = (props: props): ReactElement => {
       <TextField
         variant="filled"
         {...(
-          title !== ""
-            ? { defaultValue: title }
+          title.current !== ""
+            ? { defaultValue: title.current }
             : { placeholder: "What's the title of this block?" }
         )}
         fullWidth
         onChange={(e) => {
-          title = e.target.value;
+          title.current = e.target.value;
           console.log(title);
         }}
       />
@@ -71,14 +72,14 @@ const FormQuestion = (props: props): ReactElement => {
         multiline
         rows={20}
         {...(
-          description !== ""
-            ? { defaultValue: description }
+          description.current !== ""
+            ? { defaultValue: description.current }
             : { placeholder: "Start writing here..." }
         )}
         variant="filled"
         fullWidth
         onChange={(e) => {
-          description = e.target.value;
+          description.current = e.target.value;
           console.log(description);
         }}
       />
@@ -86,34 +87,34 @@ const FormQuestion = (props: props): ReactElement => {
       <TextField
         variant="filled"
         {...(
-          question !== ""
-            ? { defaultValue: question }
+          question.current !== ""
+            ? { defaultValue: question.current }
             : { placeholder: "What question do you want to ask?" }
         )}
         fullWidth
-        onChange={(e) => (question = e.target.value)}
+        onChange={(e) => (question.current = e.target.value)}
       />
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Answer</p>
       <TextField
         variant="filled"
         {...(
-          answer !== ""
-            ? { defaultValue: answer }
+          answer.current !== ""
+            ? { defaultValue: answer.current }
             : { placeholder: "The answer to your question is..." }
         )}
         fullWidth
-        onChange={(e) => (answer = e.target.value)}
+        onChange={(e) => (answer.current = e.target.value)}
       />
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Hint</p>
       <TextField
         variant="filled"
         {...(
-          hint !== ""
-            ? { defaultValue: hint }
+          hint.current !== ""
+            ? { defaultValue: hint.current }
             : { placeholder: "Give a hint for the reader!" }
         )}
         fullWidth
-        onChange={(e) => (hint = e.target.value)}
+        onChange={(e) => (hint.current = e.target.value)}
       />
 
       <button
@@ -123,8 +124,7 @@ const FormQuestion = (props: props): ReactElement => {
           handleModuleUpdateClick();
         }}
       >
-        {" "}
-        Save{" "}
+        Update
       </button>
     </>
   );

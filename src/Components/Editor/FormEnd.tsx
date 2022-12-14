@@ -1,21 +1,21 @@
-import React, { type ReactElement, useContext } from "react";
+import React, { type ReactElement, type MutableRefObject, useContext } from "react";
 import AppContext from "../../AppContext";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
 import ImageWidget from "./ImageWidget";
 
 interface props {
-  title: string;
-  description: string;
+  title: MutableRefObject<string>;
+  description: MutableRefObject<string>;
   setImageUrl: (string: string) => void;
   imageUrl: string;
+  handleModuleUpdateClick: () => void;
 }
 
 const FormEnd = (props: props): ReactElement => {
-  let { title, description } = props;
-  const { setImageUrl } = props;
+  const { title, description, setImageUrl, handleModuleUpdateClick } = props;
   const value = useContext(AppContext);
-  const { gameData, gameModule, gameModuleObject, setActiveModule, imageUrl } =
+  const { setActiveModule, imageUrl } =
     value;
 
   const handleClose = () => {
@@ -36,13 +36,13 @@ const FormEnd = (props: props): ReactElement => {
       <TextField
         id="title"
         {...(
-          title !== ""
-            ? { defaultValue: title }
+          title.current !== ""
+            ? { defaultValue: title.current }
             : { placeholder: "What's the title of this block?" }
         )}
         variant="filled"
         fullWidth
-        onChange={(e) => (title = e.target.value)}
+        onChange={(e) => (title.current = e.target.value)}
       />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
@@ -65,27 +65,22 @@ const FormEnd = (props: props): ReactElement => {
         multiline
         rows={20}
         {...(
-          description !== ""
-            ? { defaultValue: description }
+          description.current !== ""
+            ? { defaultValue: description.current }
             : { placeholder: "Start writing here..." }
         )}
         variant="filled"
         fullWidth
-        onChange={(e) => (description = e.target.value)}
+        onChange={(e) => (description.current = e.target.value)}
       />
       <button
         id="themeButton"
         className="self-center w-1/2 mt-10 mb-5"
         onClick={() => {
-          setActiveModule({
-            typeOfModule: "end",
-            title: title,
-            image: imageUrl,
-            description: description,
-          });
+          handleModuleUpdateClick();
         }}
       >
-        Save
+        Update
       </button>
     </>
   );
