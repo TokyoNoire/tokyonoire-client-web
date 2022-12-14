@@ -42,20 +42,17 @@ const DragAndDropEditor: FC = (): ReactElement => {
 
   const [gameModulesList, setGameModulesList] = useState<
     GameModuleWithId[] | null
-  >(
-    gameModules.map((gameModule: GameModule, index: number) => ({
-      id: index + 1,
-      ...gameModule,
-    }))
-  );
+  >(null);
 
   useEffect(() => {
-    setGameModulesList(
-      gameModules.map((gameModule: GameModule, index: number) => ({
-        id: index + 1,
-        ...gameModule,
-      }))
-    );
+    if (gameModules) {
+      setGameModulesList(
+        gameModules.map((gameModule: GameModule, index: number) => ({
+          id: index + 1,
+          ...gameModule,
+        }))
+      );
+    }
   }, [gameModules]);
 
   const sensors = useSensors(
