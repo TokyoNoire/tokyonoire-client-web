@@ -47,7 +47,10 @@ const MenuDesktop = (): ReactElement => {
   };
 
   const publishGame = async () => {
-    await axios.patch(`http://localhost:2000/editor/${gameData._id}`, gameData);
+    await axios.patch(
+      `https://tokyo-noire-server-development.herokuapp.com/editor/${gameData._id}`,
+      gameData
+    );
   };
 
   return (
@@ -73,7 +76,7 @@ const MenuDesktop = (): ReactElement => {
                 <PublishIcon
                   onClick={() => {
                     gameData.isPublished = "true";
-                    console.log(gameData);
+                    console.log(gameData._id);
                     publishGame();
                   }}
                 ></PublishIcon>

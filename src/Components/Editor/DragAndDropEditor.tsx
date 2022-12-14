@@ -30,11 +30,7 @@ type GameModuleWithId = {
 
 const DragAndDropEditor: FC = (): ReactElement => {
   const value = useContext(AppContext);
-  const {
-    gameModules,
-    setGameModules,
-    setActiveModule,
-  } = value;
+  const { gameModules, setGameModules, setActiveModule } = value;
 
   const [gameModulesList, setGameModulesList] = useState<
     GameModuleWithId[] | null
@@ -83,7 +79,6 @@ const DragAndDropEditor: FC = (): ReactElement => {
     [gameModulesList]
   );
 
-
   const handleClick = (moduleIndex: any) => {
     setActiveModule(gameModulesList![moduleIndex]);
   };
@@ -99,17 +94,20 @@ const DragAndDropEditor: FC = (): ReactElement => {
             >
               <div className="w-full h-full flex flex-col justify-start item-center text-center gap-8">
                 {gameModulesList &&
-                  gameModulesList.map((gameModule: GameModuleWithId, moduleIndex: number) => (
-                    <SortableItem key={gameModule.id} id={gameModule.id!}>
-                      <div
-                        className='flex items-center justify-center w-1/2 h-full border-4 bg-darkGrey rounded-md'
-                        onClick={(event: any) => { handleClick(moduleIndex) }}
-                      >
-                        {`${gameModule.title} Index: ${gameModule.id}`}
-                      </div>
-                    </SortableItem>
-                  ))
-                }
+                  gameModulesList.map(
+                    (gameModule: GameModuleWithId, moduleIndex: number) => (
+                      <SortableItem key={gameModule.id} id={gameModule.id!}>
+                        <div
+                          className="flex items-center justify-center w-1/2 h-full border-4 bg-darkGrey rounded-md"
+                          onClick={(event: any) => {
+                            handleClick(moduleIndex);
+                          }}
+                        >
+                          {`${gameModule.title} Index: ${gameModule.id}`}
+                        </div>
+                      </SortableItem>
+                    )
+                  )}
               </div>
             </SortableContext>
           </DndContext>

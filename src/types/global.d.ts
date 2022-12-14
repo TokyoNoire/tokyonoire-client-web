@@ -14,12 +14,13 @@ export type saveGameInfo = {
   _id: string;
   titleOfGame: string;
   isPublished: string | boolean;
+  isPrivate: string | boolean;
   description?: string | null;
   rating?: number | string | null;
   author?: string | null;
   image?: string | undefined;
   estimatedTimeMinutes?: number | string | null;
   gameModules?: GameModule[];
-  startLocationCoordinates?: Array<number>;
+  startingLocationCoordinates?: Array<number> | null;
   startLocation?: string | null;
 };
