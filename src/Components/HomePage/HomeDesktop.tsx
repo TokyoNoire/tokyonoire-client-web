@@ -3,10 +3,11 @@ import Link from "next/link";
 import TokyoNoireName from "../../../public/Title_DarkTheme.svg";
 import HintPopper from "../GameModules/Helpers/HintPopper";
 import AppContext from "../../AppContext";
-import SignInForm from "../../Components/SignInForm"
-import { sign, Sign } from "crypto";
+import SignInForm from "../Authentification/SignInForm"
 import { redirect } from "next/dist/server/api-utils";
 import { useRouter } from "next/router"
+import SignUpForm from "../Authentification/SignUpForm";
+import AuthPage from "../Authentification/AuthPage";
 
 interface props {
   show: boolean
@@ -15,7 +16,7 @@ interface props {
 const HomeDesktop = (props: props): ReactElement => {
   const value = useContext(AppContext);
   const { setUserId, userId } = value;
-  const [signInChallenge, setSignInChallenge] = useState<boolean>(false)
+  const [signInChallenge, setSignInChallenge] = useState<boolean>(false);
   const router = useRouter()
 
   interface prop {
@@ -35,7 +36,7 @@ const HomeDesktop = (props: props): ReactElement => {
 
   return (
     <main className="z-10 relative w-screen h-screen flexCenterDiv place-items-center">
-      {signInChallenge ? (<SignInForm/>) : (<></>)}
+      {signInChallenge ? (<AuthPage/>) : (<></>)}
       <TokyoNoireName
         alt="Tokyo Noire Name"
         style={{ maxWidth: "80vw", filter: "drop-shadow(0 0 0.5rem grey)", animation: "pulsate 1s ease-in-out infinite alternate" }}

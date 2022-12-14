@@ -1,4 +1,4 @@
-import React, { type FC, type ReactElement, useState, FormEventHandler } from "react";
+import React, { type FC, type ReactElement, useEffect, useRef, useContext } from "react";
 import {
   Box,
   Grid,
@@ -11,23 +11,36 @@ import {
 import Link from "next/link";
 import GoogleIcon from "@mui/icons-material/Google";
 import AppleIcon from "@mui/icons-material/Apple";
+import { AuthContext, useAuth } from '../AuthProvider'
+import { EmailAuthCredential } from "firebase/auth";
+import AppContext from "../../AppContext";
 
-const SignUpForm: FC = (): ReactElement => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [userInfo, setUserInfo] = useState({ email: "", password: "", name: "" });
+interface props {
+  setAuthPanel: (string : string) => void
+}
 
-  interface SignUpFormValues {
-    email: string
-    password: string
-    repeatPassword: string
-  }
+const SignUpForm = (props : props): ReactElement => {
+  const { setAuthPanel } = props;
+  const { signUp } = useAuth()
+  const value = useContext(AppContext);
+  const { setUserId, userId } = value;
+  const email = useRef<string>('');
+  const password = useRef<string>('');
+  const name = useRef<string>('');
+  const userInfo = useRef({ email: "", password: "", name: "" });
+  const formSubmitting = useRef<boolean>(false)
+
+  useEffect(() => {
+    console.log(userId)
+    if (userId) {
+      console.log(userId)
+    } 
+  }, [userId])
 
   return (
-    <div className="items-center mx-8 my-20 flexCenterDiv bg-darkGrey">
+    <div className="absolute z-40 items-center flexCenterDiv bg-darkGrey justify-center h-50vh shadow-xl rounded-md">
       <br />
-      <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
+      <h1 className="self-center p-5 text-2xl text-center uppercase font-heading mx-0 my-20">
         Sign Up
       </h1>
       <br />
@@ -40,10 +53,8 @@ const SignUpForm: FC = (): ReactElement => {
           label="Name"
           variant="filled"
           aria-describedby="name-input"
-          value={userInfo.name}
-          onChange={({ target }) =>
-          setUserInfo({ ...userInfo, name: target.value })
-        }
+          placeholder="Name"
+          onChange = {(e)=> name.current = e.target.value}
         />
         <FormHelperText id="password-helper">Your full name.</FormHelperText>
       </FormControl>
@@ -56,10 +67,8 @@ const SignUpForm: FC = (): ReactElement => {
           variant="filled"
           label="Email"
           aria-describedby="email-address-input"
-          value={userInfo.email}
-          onChange={({ target }) =>
-            setUserInfo({ ...userInfo, email: target.value })
-          }
+          placeholder="Email"
+          onChange = {(e)=> email.current = e.target.value}
         />
         <FormHelperText id="password-helper">
           Your e-mail address.
@@ -75,21 +84,30 @@ const SignUpForm: FC = (): ReactElement => {
           label="Password"
           variant="filled"
           aria-describedby="password-input"
-          value={userInfo.password}
-          onChange={({ target }) =>
-            setUserInfo({ ...userInfo, password: target.value })
-          }
+          placeholder="Password"
+          onChange = {(e)=> password.current = e.target.value}
         />
         <FormHelperText id="password-helper">
           Password for your account.
         </FormHelperText>
       </FormControl>
       <br />
-      <Button type="submit" id="themeButton" className="font-heading">
+      <Button type="submit" id="themeButton" className="font-heading" onClick={() => {console.log(typeof email)}}>
+        PUSH ME
+      </Button>
+      <br></br>
+      <Button type="submit" id="themeButton" className="font-heading" onClick={async () => {
+          formSubmitting.current = true;
+          try {
+            await signUp(email.current, password.current)}
+            catch (error) {
+              console.log('signup error', error)
+              formSubmitting.current = false
+            }}}>
         Sign Up
       </Button>
       <br />
-      <Button
+      {/* <Button
         type="submit"
         id="themeButton"
         className="font-heading"
@@ -105,7 +123,7 @@ const SignUpForm: FC = (): ReactElement => {
         endIcon={<AppleIcon />}
       >
         Sign up with
-      </Button>
+      </Button> */}
 
       <Box
         sx={{
@@ -117,17 +135,16 @@ const SignUpForm: FC = (): ReactElement => {
         }}
       >
         <br />
-        <Grid container>
+      </Box>
+      <Grid container>
           <Grid item xs sx={{ mx: 2 }}>
             <Typography color="secondary" variant="body2">
-              <Link className="mb-5 text-m font-body2" href="/" id="link">
-                {" "}
-                Already have an account? Login here.{" "}
-              </Link>
+            <button className="mb-5 text-m font-body2" id="link" onClick={() => setAuthPanel('signin')}>
+                Already have an account? Login here.
+              </button>
             </Typography>
           </Grid>
         </Grid>
-      </Box>
     </div>
   );
 };
