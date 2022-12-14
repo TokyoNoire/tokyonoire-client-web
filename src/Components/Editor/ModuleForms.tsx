@@ -1,17 +1,9 @@
-import React, {
-  type FC,
-  type ReactElement,
-  useState,
-  useRef,
-  useEffect,
-} from "react";
+import React, { type ReactElement, useState, useRef } from "react";
 import FormLocation from "./FormLocation";
 import FormNarrative from "./FormNarrative";
 import FormQuestion from "./FormQuestion";
 import FormEnd from "./FormEnd";
 import FormStoryInformation from "./FormStoryInformation";
-import axios from "axios";
-import { useLocalStorage } from "usehooks-ts";
 import { useContext } from "react";
 import AppContext from "../../AppContext";
 import { type GameModule } from "../../types/global";
@@ -29,7 +21,7 @@ export type GameModules = {
 
 const ModuleForms = (): ReactElement => {
   const value = useContext(AppContext);
-  const { activeModule, setActiveModule, setGameModules, gameModules } = value;
+  const { activeModule, setGameModules, gameModules } = value;
 
   const published = useRef<boolean>(false);
   const titleOfGame = useRef<string>("");
@@ -46,16 +38,16 @@ const ModuleForms = (): ReactElement => {
   const answer = useRef<string>("");
   const hint = useRef<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
-  const [localStorage, setLocalStorage] = useLocalStorage<string>("", "");
-  const id = useRef<string>("");
+  const _id = useRef<string>("");
   const typeOfModule = useRef<string>("");
 
   console.log(activeModule);
-  console.log(id.current);
+  // console.log(_id.current);
+  console.log(title)
 
   const handleModuleUpdateClick = () => {
     const updateData: GameModule = {
-      _id: id.current,
+      _id: _id.current,
       title: title.current,
       typeOfModule: typeOfModule.current,
       description: description.current,
@@ -67,20 +59,21 @@ const ModuleForms = (): ReactElement => {
     };
     const newGameModules = [...gameModules];
     for (let i = 0; i < gameModules.length; i++) {
-      if (gameModules[i]!._id === id.current) {
+      if (gameModules[i]!._id === _id.current) {
         newGameModules.splice(i, 1, updateData);
       }
     }
+    console.log(newGameModules)
     setGameModules(newGameModules);
   };
-  if (activeModule !== null) {
+  if (activeModule) {
     typeOfModule.current = activeModule.typeOfModule;
     title.current = activeModule.title;
     description.current = activeModule.description;
     question.current = activeModule.question;
     answer.current = activeModule.answer;
     hint.current = activeModule.hint;
-    id.current = activeModule._id;
+    _id.current = activeModule._id;
   }
 
   if (!activeModule) {
@@ -103,38 +96,40 @@ const ModuleForms = (): ReactElement => {
       case "narrative":
         return (
           <FormNarrative
-            key={activeModule._id}
-            title={title.current}
-            description={description.current}
+            key={_id.current}
+            title={title}
+            description={description}
             setImageUrl={setImageUrl}
             imageUrl={imageUrl}
+            handleModuleUpdateClick={handleModuleUpdateClick}
           />
         );
 
       case "location":
         return (
           <FormLocation
-            key={activeModule._id}
-            title={title.current}
-            description={description.current}
+            key={_id.current}
+            title={title}
+            description={description}
             setImageUrl={setImageUrl}
             imageUrl={imageUrl}
-            coordinates={coordinates.current}
-            hint={hint.current}
+            coordinates={coordinates}
+            hint={hint}
+            handleModuleUpdateClick={handleModuleUpdateClick}
           />
         );
 
       case "question":
         return (
           <FormQuestion
-            key={id.current}
-            title={title.current}
-            description={description.current}
+            key={_id.current}
+            title={title}
+            description={description}
             setImageUrl={setImageUrl}
             imageUrl={imageUrl}
-            question={question.current}
-            answer={answer.current}
-            hint={hint.current}
+            question={question}
+            answer={answer}
+            hint={hint}
             handleModuleUpdateClick={handleModuleUpdateClick}
           />
         );
@@ -142,11 +137,12 @@ const ModuleForms = (): ReactElement => {
       case "end":
         return (
           <FormEnd
-            key={activeModule._id}
-            title={title.current}
-            description={description.current}
+            key={_id.current}
+            title={title}
+            description={description}
             setImageUrl={setImageUrl}
             imageUrl={imageUrl}
+            handleModuleUpdateClick={handleModuleUpdateClick}
           />
         );
     }

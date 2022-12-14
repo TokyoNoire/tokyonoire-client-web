@@ -100,11 +100,12 @@ const MapLocationPicker: FC = (): ReactElement => {
   return (
     <>
       <div ref={mapElement} className="map" />
-      <div className="coordinates">
+
+      <p className="relative mb-6 text-center ml-2 text-sm p-2">
         {selectedCoord
-          ? `latitude: ${selectedCoord[1]}  longitude: ${selectedCoord[0]}`
+          ? (`lat. ${selectedCoord[1]} & lon. ${selectedCoord[0]}`)
           : "no location selected"}
-      </div>
+      </p>
     </>
   );
 };

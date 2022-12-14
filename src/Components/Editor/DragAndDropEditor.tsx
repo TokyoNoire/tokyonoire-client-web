@@ -1,7 +1,6 @@
 import React, {
   type FC,
   type ReactElement,
-  type MouseEvent,
   useState,
   useCallback,
   useContext,
@@ -24,7 +23,6 @@ import SortableItem from "./Helpers/SortableItem";
 import AddModuleButton from "./Helpers/AddModuleButton";
 import AppContext from "../../AppContext";
 import { type GameModule } from "../../types/global";
-import { v4 as uuidv4 } from "uuid";
 
 type GameModuleWithId = {
   id: number;
@@ -33,8 +31,6 @@ type GameModuleWithId = {
 const DragAndDropEditor: FC = (): ReactElement => {
   const value = useContext(AppContext);
   const {
-    gameData,
-    setGameData,
     gameModules,
     setGameModules,
     setActiveModule,
@@ -86,12 +82,9 @@ const DragAndDropEditor: FC = (): ReactElement => {
     },
     [gameModulesList]
   );
-  // const handleActiveIndex = (event: any) => {
-  //   setActiveModule(gameModules[event.target.id]);
-  // };
+
 
   const handleClick = (moduleIndex: any) => {
-    // console.log(gameModules[moduleIndex])
     setActiveModule(gameModulesList![moduleIndex]);
   };
 
@@ -106,22 +99,17 @@ const DragAndDropEditor: FC = (): ReactElement => {
             >
               <div className="w-full h-full flex flex-col justify-start item-center text-center gap-8">
                 {gameModulesList &&
-                  gameModulesList.map(
-                    (gameModule: GameModuleWithId, moduleIndex: number) => (
-                      <SortableItem key={gameModule.id} id={gameModule.id!}>
-                        <div
-                          className="h-full w-1/2 flex justify-center items-center bg-darkGrey border-4"
-                          onClick={(event: any) => {
-                            // console.log(event);
-                            handleClick(moduleIndex);
-                          }}
-                          id={gameModule.id}
-                        >
-                          {`${gameModule.title} Index: ${gameModule.id}`}
-                        </div>
-                      </SortableItem>
-                    )
-                  )}
+                  gameModulesList.map((gameModule: GameModuleWithId, moduleIndex: number) => (
+                    <SortableItem key={gameModule.id} id={gameModule.id!}>
+                      <div
+                        className='flex items-center justify-center w-1/2 h-full border-4 bg-darkGrey rounded-md'
+                        onClick={(event: any) => { handleClick(moduleIndex) }}
+                      >
+                        {`${gameModule.title} Index: ${gameModule.id}`}
+                      </div>
+                    </SortableItem>
+                  ))
+                }
               </div>
             </SortableContext>
           </DndContext>
