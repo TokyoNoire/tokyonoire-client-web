@@ -49,9 +49,9 @@ const SignInForm: FC = (): ReactElement => {
   // }
 
   return (
-    <div className="items-center mx-8 my-20 flexCenterDiv bg-darkGrey">
+    <div className="absolute z-50 items-center flexCenterDiv bg-darkGrey justify-center h-50vh shadow-xl rounded-md">
       <br />
-      <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
+      <h1 className="self-center p-5 text-2xl text-center uppercase font-heading mx-0 my-20">
       <br />
       <Button
         type="button"
