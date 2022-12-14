@@ -43,6 +43,7 @@ const ModuleForms = (): ReactElement => {
   const isPublished = useRef<string>("");
   const isPrivate = useRef<string>("");
   const startingLocationCoordinates = useRef<number[] | null>([]);
+  const imageUrlGame = useRef<string>("");
 
   const title = useRef<string>("");
   const description = useRef<string>("");
@@ -50,7 +51,8 @@ const ModuleForms = (): ReactElement => {
   const question = useRef<string>("");
   const answer = useRef<string>("");
   const hint = useRef<string>("");
-  const [imageUrl, setImageUrl] = useState<string>("");
+  // const [imageUrl, setImageUrl] = useState<string>("");
+  const imageUrl = useRef<string>("");
   const _id = useRef<string>("");
   const typeOfModule = useRef<string>("");
 
@@ -66,7 +68,7 @@ const ModuleForms = (): ReactElement => {
       question: question.current,
       answer: answer.current,
       hint: hint.current,
-      image: imageUrl,
+      image: imageUrl.current,
     };
     console.log(gameModules);
     const newGameModules = [];
@@ -105,8 +107,9 @@ const ModuleForms = (): ReactElement => {
     answer.current = activeModule.answer;
     hint.current = activeModule.hint;
     _id.current = activeModule._id;
-    // setImageUrl(activeModule.image);
+    imageUrl.current = activeModule.image
   }
+
   if (gameInfoModule) {
     _idGame.current = gameInfoModule._id;
     titleOfGame.current = gameInfoModule.titleOfGame;
@@ -114,20 +117,9 @@ const ModuleForms = (): ReactElement => {
     estimatedTimeMinutes.current = gameInfoModule.estimatedTimeMinutes;
     rating.current = gameInfoModule.rating;
     isPrivate.current = gameInfoModule.isPrivate;
-    startingLocationCoordinates.current =
-      gameInfoModule.startingLocationCoordinates;
-    //setImageUrl(gameInfoModule.image);
+    startingLocationCoordinates.current = gameInfoModule.startingLocationCoordinates;
+    imageUrlGame.current = gameInfoModule.image;
   }
-  // const published = useRef<boolean>(false);
-  // const gameDescription = useRef<string>("");
-  // const gameImage = useRef<string>("");
-  // const titleOfGame = useRef<string>("");
-  // const userName = useRef<string>("");
-  // const estimatedTimeMinutes = useRef<string>("");
-  // const rating = useRef<string>("");
-  // const isPublished = useRef<string>("");
-  // const isPrivate = useRef<string>("");
-  // const startingLocationCoordinates = useRef<number[] | null>([]);
 
   if (!activeModule) {
     return (
@@ -137,8 +129,7 @@ const ModuleForms = (): ReactElement => {
         rating={rating}
         isPublished={isPublished}
         isPrivate={isPrivate}
-        setImageUrl={setImageUrl}
-        imageUrl={imageUrl}
+        imageUrlGame={imageUrlGame}
         gameDescription={gameDescription}
         startingLocationCoordinates={startingLocationCoordinates}
         handleGameInfoModuleUpdateClick={handleGameInfoModuleUpdateClick}
@@ -152,7 +143,6 @@ const ModuleForms = (): ReactElement => {
             key={_id.current}
             title={title}
             description={description}
-            setImageUrl={setImageUrl}
             imageUrl={imageUrl}
             handleModuleUpdateClick={handleModuleUpdateClick}
           />
@@ -164,7 +154,6 @@ const ModuleForms = (): ReactElement => {
             key={_id.current}
             title={title}
             description={description}
-            setImageUrl={setImageUrl}
             imageUrl={imageUrl}
             coordinates={coordinates}
             hint={hint}
@@ -178,7 +167,6 @@ const ModuleForms = (): ReactElement => {
             key={_id.current}
             title={title}
             description={description}
-            setImageUrl={setImageUrl}
             imageUrl={imageUrl}
             question={question}
             answer={answer}
@@ -193,7 +181,6 @@ const ModuleForms = (): ReactElement => {
             key={_id.current}
             title={title}
             description={description}
-            setImageUrl={setImageUrl}
             imageUrl={imageUrl}
             handleModuleUpdateClick={handleModuleUpdateClick}
           />

@@ -1,4 +1,4 @@
-import React, { type ReactElement, useContext, type MutableRefObject } from "react";
+import React, { type ReactElement, type MutableRefObject, useContext, useState } from "react";
 import AppContext from "../../AppContext";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
@@ -10,23 +10,12 @@ interface props {
   question: MutableRefObject<string>;
   answer: MutableRefObject<string>;
   hint: MutableRefObject<string>;
-  setImageUrl: (string: string) => void;
-  imageUrl: string;
+  imageUrl: MutableRefObject<string>;
   handleModuleUpdateClick: () => void;
 }
 
 const FormQuestion = (props: props): ReactElement => {
-  const {
-    title,
-    description,
-    setImageUrl,
-    imageUrl,
-    question,
-    answer,
-    hint,
-    handleModuleUpdateClick,
-  } = props;
-  props;
+  const { title, description, imageUrl, question, answer, hint, handleModuleUpdateClick } = props;
   const value = useContext(AppContext);
   const { setActiveModule } = value;
 
@@ -34,7 +23,6 @@ const FormQuestion = (props: props): ReactElement => {
     setActiveModule(null);
   };
 
-  console.log(title)
   return (
     <>
       <ClearIcon
@@ -63,7 +51,8 @@ const FormQuestion = (props: props): ReactElement => {
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Image Upload
       </p>
-      <ImageWidget setImageUrl={setImageUrl} />
+
+      <ImageWidget imageUrl={imageUrl} />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Description

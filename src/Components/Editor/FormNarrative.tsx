@@ -1,4 +1,4 @@
-import React, { type ReactElement, type MutableRefObject, useContext } from "react";
+import React, { type ReactElement, type MutableRefObject, useContext, } from "react";
 import AppContext from "../../AppContext";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
@@ -7,19 +7,13 @@ import ImageWidget from "./ImageWidget";
 interface props {
   title: MutableRefObject<string>;
   description: MutableRefObject<string>;
-  setImageUrl: (string: string) => void;
-  imageUrl: string;
+  imageUrl: MutableRefObject<string>;
   handleModuleUpdateClick: () => void;
 }
 
 const FormNarrative = (props: props): ReactElement => {
-  const {
-    title,
-    description,
-    setImageUrl,
-    imageUrl,
-    handleModuleUpdateClick
-  } = props;
+  const { title, description, imageUrl, handleModuleUpdateClick } = props;
+
   const value = useContext(AppContext);
   const { setActiveModule } = value;
 
@@ -49,20 +43,12 @@ const FormNarrative = (props: props): ReactElement => {
         fullWidth
         onChange={(e) => (title.current = e.target.value)}
       />
-      {imageUrl ? (
-        <img
-          className="w-3/5 mt-10 self-center"
-          src={`${imageUrl}`}
-          alt="preview"
-        />
-      ) : (
-        ""
-      )}
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Image Upload
       </p>
-      <ImageWidget setImageUrl={setImageUrl} />
+
+      <ImageWidget imageUrl={imageUrl} />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Description

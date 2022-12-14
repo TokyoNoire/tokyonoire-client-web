@@ -20,8 +20,7 @@ const moduleOptions = [
 ];
 
 const AddModuleButton = (): ReactElement => {
-  const [renderMultiChoicePanel, setRenderMultiChoicePanel] =
-    useState<boolean>(false);
+  const [renderMultiChoicePanel, setRenderMultiChoicePanel] = useState<boolean>(false);
   const value = useContext(AppContext);
   const { setGameModules, gameModules } = value;
 
@@ -69,7 +68,7 @@ const AddModuleButton = (): ReactElement => {
       <div className="h-24 flex justify-center items-center">
         <div
           className="w-1/2 h-full flex justify-center items-center"
-          // onClick={handleClickOutside}
+        // onClick={handleClickOutside}
         >
           <button className="w-fit h-fit">
             <AddItemIcon
