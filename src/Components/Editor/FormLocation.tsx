@@ -1,4 +1,8 @@
-import React, { useEffect, type FC, type ReactElement, useContext } from "react";
+import React, {
+  type ReactElement,
+  type MutableRefObject,
+  useContext,
+} from "react";
 import AppContext from "../../AppContext";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
@@ -6,22 +10,33 @@ import MapLocationPicker from "./MapLocationPicker";
 import ImageWidget from "./ImageWidget";
 
 interface props {
-  title: string;
-  description: string;
-  coordinates: number[];
+  title: MutableRefObject<string>;
+  description: MutableRefObject<string>;
+  coordinates: MutableRefObject<number[] | null>;
   setImageUrl: (string: string) => void;
   imageUrl: string;
-  hint: string;
+  hint: MutableRefObject<string>;
+  handleModuleUpdateClick: () => void;
 }
 
 const FormLocation = (props: props): ReactElement => {
-  const { title, description, coordinates, imageUrl, setImageUrl, hint } = props;
+  const {
+    title,
+    description,
+    coordinates,
+    setImageUrl,
+    imageUrl,
+    hint,
+    handleModuleUpdateClick,
+  } = props;
   const value = useContext(AppContext);
   const { setActiveModule } = value;
 
+  // const handleClick = () => {};
+
   const handleClose = () => {
-    setActiveModule(null)
-  }
+    setActiveModule(null);
+  };
 
   return (
     <>
@@ -36,9 +51,14 @@ const FormLocation = (props: props): ReactElement => {
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Title</p>
       <TextField
         id="title"
-        defaultValue={title ? title : "What's the title of this block?"}
+        {...(
+          title.current !== ""
+            ? { defaultValue: title.current }
+            : { placeholder: "What's the title of this block?" }
+        )}
         variant="filled"
         fullWidth
+        onChange={(e) => (title.current = e.target.value)}
       />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
@@ -46,7 +66,7 @@ const FormLocation = (props: props): ReactElement => {
       </p>
       {imageUrl ? (
         <img
-          className="self-center w-3/5 mt-10"
+          className="w-3/5 mt-10 self-center"
           src={`${imageUrl}`}
           alt="preview"
         />
@@ -62,23 +82,44 @@ const FormLocation = (props: props): ReactElement => {
       <TextField
         multiline
         rows={5}
-        defaultValue={description ? description : "Start writing here..."}
+        {...(
+          description.current !== ""
+            ? { defaultValue: description.current }
+            : { placeholder: "Start writing here..." }
+        )}
         variant="filled"
         fullWidth
         className="mb-5"
+        onChange={(e) => (description.current = e.target.value)}
       />
+
+      <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
+        Location
+      </p>
 
       <MapLocationPicker />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Hint</p>
       <TextField
         variant="filled"
-        defaultValue="Give a hint for the reader!"
+        {...(
+          hint.current !== ""
+            ? { defaultValue: hint.current }
+            : { placeholder: "Give a hint for the reader!" }
+        )}
+
+
         fullWidth
+        onChange={(e) => (hint.current = e.target.value)}
       />
-      <button id="themeButton" className="self-center w-1/2 mt-10 mb-5">
-        {" "}
-        Save{" "}
+      <button
+        id="themeButton"
+        className="self-center w-1/2 mt-10 mb-5"
+        onClick={() => {
+          handleModuleUpdateClick();
+        }}
+      >
+        Update
       </button>
     </>
   );

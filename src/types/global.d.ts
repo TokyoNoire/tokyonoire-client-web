@@ -3,23 +3,24 @@ export type GameModule = {
   typeOfModule: string;
   title: string;
   description: string;
-  question: string;
-  answer: string;
-  image: string;
-  locationCoordinates: number[] | null;
-  hint: string;
+  question?: string;
+  answer?: string;
+  image?: string;
+  locationCoordinates?: number[] | null;
+  hint?: string;
 };
 
 export type saveGameInfo = {
   _id: string;
   titleOfGame: string;
   isPublished: string | boolean;
+  isPrivate: string | boolean;
   description?: string | null;
   rating?: number | string | null;
   author?: string | null;
   image?: string | undefined;
   estimatedTimeMinutes?: number | string | null;
   gameModules?: GameModule[];
-  startLocationCoordinates?: Array<number>;
+  startingLocationCoordinates?: Array<number> | null;
   startLocation?: string | null;
 };

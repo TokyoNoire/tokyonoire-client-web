@@ -32,10 +32,26 @@ const MenuDesktop = (): ReactElement => {
   const [show] = useState<boolean>(true);
   const value = useContext(AppContext);
   const { gameData } = value;
-  const selectedGameData = value.setGameData;
 
-  const postGameObject = async () => {
-    await axios.post("/editor", gameData);
+  const postGameData = async () => {
+    await axios.post(
+      "https://tokyo-noire-server-development.herokuapp.com/editor",
+      gameData
+    );
+  };
+  const patchGame = async () => {
+    await axios.patch(
+      `http://localhost:2000/editor/?_id=${gameData._id}`,
+      gameData
+    );
+  };
+
+  const publishGame = async () => {
+    const exampleData = gameData.gameModules
+    await axios.patch(
+      `http://localhost:2000/editor/${gameData._id}`,
+      exampleData
+    );
   };
 
   return (
@@ -51,10 +67,20 @@ const MenuDesktop = (): ReactElement => {
               style={{ backgroundColor: "rgb(20, 20, 20)" }}
             >
               <div className="w-7 cursor-pointer" title="Save as Draft">
-                <SaveIcon onClick={() => console.log("hello world")}></SaveIcon>
+                <SaveIcon
+                  onClick={() => {
+                    postGameData();
+                  }}
+                ></SaveIcon>
               </div>
               <div className="w-7 cursor-pointer" title="Publish">
-                <PublishIcon></PublishIcon>
+                <PublishIcon
+                  onClick={() => {
+                    gameData.isPublished = "true";
+                    console.log(gameData);
+                    publishGame();
+                  }}
+                ></PublishIcon>
               </div>
             </div>
           </FadeDiv>

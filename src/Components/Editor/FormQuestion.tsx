@@ -1,29 +1,40 @@
-import React, { type FC, type ReactElement, useContext } from "react";
+import React, { type ReactElement, useContext, type MutableRefObject } from "react";
 import AppContext from "../../AppContext";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
 import ImageWidget from "./ImageWidget";
 
 interface props {
-  title: string;
-  description: string;
-  question: string;
-  answer: string;
-  hint: string;
+  title: MutableRefObject<string>;
+  description: MutableRefObject<string>;
+  question: MutableRefObject<string>;
+  answer: MutableRefObject<string>;
+  hint: MutableRefObject<string>;
   setImageUrl: (string: string) => void;
   imageUrl: string;
+  handleModuleUpdateClick: () => void;
 }
 
 const FormQuestion = (props: props): ReactElement => {
-  const { title, description, answer, hint, question, setImageUrl, imageUrl } = props;
+  const {
+    title,
+    description,
+    setImageUrl,
+    imageUrl,
+    question,
+    answer,
+    hint,
+    handleModuleUpdateClick,
+  } = props;
+  props;
   const value = useContext(AppContext);
   const { setActiveModule } = value;
 
   const handleClose = () => {
-    setActiveModule(null)
-  }
+    setActiveModule(null);
+  };
 
-
+  console.log(title)
   return (
     <>
       <ClearIcon
@@ -37,22 +48,21 @@ const FormQuestion = (props: props): ReactElement => {
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Title</p>
       <TextField
         variant="filled"
-        defaultValue="What's the title of this block?"
+        {...(
+          title.current !== ""
+            ? { defaultValue: title.current }
+            : { placeholder: "What's the title of this block?" }
+        )}
         fullWidth
+        onChange={(e) => {
+          title.current = e.target.value;
+          console.log(title);
+        }}
       />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Image Upload
       </p>
-      {imageUrl ? (
-        <img
-          className="self-center w-3/5 mt-10"
-          src={`${imageUrl}`}
-          alt="preview"
-        />
-      ) : (
-        ""
-      )}
       <ImageWidget setImageUrl={setImageUrl} />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
@@ -61,33 +71,60 @@ const FormQuestion = (props: props): ReactElement => {
       <TextField
         multiline
         rows={20}
-        defaultValue="Start writing here..."
+        {...(
+          description.current !== ""
+            ? { defaultValue: description.current }
+            : { placeholder: "Start writing here..." }
+        )}
         variant="filled"
         fullWidth
+        onChange={(e) => {
+          description.current = e.target.value;
+          console.log(description);
+        }}
       />
-
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Question</p>
       <TextField
         variant="filled"
-        defaultValue="What question do you want to ask?"
+        {...(
+          question.current !== ""
+            ? { defaultValue: question.current }
+            : { placeholder: "What question do you want to ask?" }
+        )}
         fullWidth
+        onChange={(e) => (question.current = e.target.value)}
       />
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Answer</p>
       <TextField
         variant="filled"
-        defaultValue="The answer to your question is..."
+        {...(
+          answer.current !== ""
+            ? { defaultValue: answer.current }
+            : { placeholder: "The answer to your question is..." }
+        )}
         fullWidth
+        onChange={(e) => (answer.current = e.target.value)}
       />
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Hint</p>
       <TextField
         variant="filled"
-        defaultValue="Give a hint for the reader!"
+        {...(
+          hint.current !== ""
+            ? { defaultValue: hint.current }
+            : { placeholder: "Give a hint for the reader!" }
+        )}
         fullWidth
+        onChange={(e) => (hint.current = e.target.value)}
       />
 
-      <button id="themeButton" className="self-center w-1/2 mt-10 mb-5">
-        {" "}
-        Save{" "}
+      <button
+        id="themeButton"
+        className="self-center w-1/2 mt-10 mb-5"
+        onClick={() => {
+          handleModuleUpdateClick();
+        }}
+      >
+        Update
       </button>
     </>
   );
