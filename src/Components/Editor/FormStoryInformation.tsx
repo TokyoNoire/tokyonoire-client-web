@@ -106,7 +106,11 @@ const FormStoryInformation = (prop: prop): ReactElement => {
       <TextField
         multiline
         rows={15}
-        defaultValue="Start writing here..."
+        {...(
+          description !== ""
+            ? { defaultValue: description }
+            : { placeholder: "Start writing here..." }
+        )}
         variant="filled"
         onChange={(e) => (description = e.target.value)}
         fullWidth
