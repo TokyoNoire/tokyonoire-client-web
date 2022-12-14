@@ -1,7 +1,9 @@
-import React, { type ReactElement } from "react";
+import React, { type ReactElement, useState, useEffect, useCallback, useRef } from "react";
 import TextField from "@mui/material/TextField";
 import { type saveGameInfo } from "../../types/global";
 import SearchIcon from '@mui/icons-material/Search';
+import Gyroscope from "../GameModules/Helpers/Gyroscope";
+import Haversine from "../GameModules/Helpers/Haversine";
 
 interface props {
   publicGames: saveGameInfo[];
@@ -16,9 +18,64 @@ interface props {
 const ListOfPublicGames = (props: props): ReactElement => {
   const { publicGames } = props;
 
+  const {requestAccessAsync } = Gyroscope();
+  const [currentCoords, setCurrentCoords] = useState<number[] | null>(null);
+  const { haversineDistance } = Haversine();
+  const [acquiredPermissions, setAcquiredPermissions] =
+  useState<boolean>(false);
+  const coords = useRef<number[] | null>(null);
+  const isMounted = useRef(false);
+
+  useEffect(() => {
+  
+    if(!isMounted.current){
+      if (acquiredPermissions) {
+        if ("geolocation" in navigator) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            setCurrentCoords([
+              position.coords.latitude,
+              position.coords.longitude,
+            ]);
+            coords.current = [
+              position.coords.latitude,
+              position.coords.longitude,
+            ];
+            isMounted.current = false;
+          });
+        }
+      }
+    }
+ 
+  }, [acquiredPermissions]);
+
+  console.log(currentCoords);
+
+
+
+  function getPosition(
+    options?: PositionOptions
+  ): Promise<GeolocationPosition> {
+    return new Promise((resolve, reject) =>
+      navigator.geolocation.getCurrentPosition(resolve, reject, options)
+    );
+  }
+  const handlePermissions = useCallback(async () => {
+    await requestAccessAsync();
+    const position = await getPosition();
+    console.log(position);
+    setAcquiredPermissions(true);
+  }, [requestAccessAsync]);
+
+  useEffect(() => {
+    if (!acquiredPermissions) {
+      handlePermissions();
+    }
+  }, [acquiredPermissions, handlePermissions]);
+
+  console.log(currentCoords);
+
   const publicGamesListing = publicGames.map((publicGame, index) => {
-    console.log(publicGame)
-    return <tbody key={index}>
+    return <tbody key={index} id={publicGame._id}>
       <tr className="bg-white border-b">
         <th
           scope="row"
@@ -26,7 +83,8 @@ const ListOfPublicGames = (props: props): ReactElement => {
         >
           {publicGame.titleOfGame}
         </th>
-        <td className="px-6 py-4 font-heading">{publicGame.startingLocationCoordinates}</td>
+        <td className="px-6 py-4 font-heading">{Math.round(haversineDistance(currentCoords!, publicGame.startingLocationCoordinates!)!)/1000} km</td>
+        
       </tr>
     </tbody>
   })
@@ -69,7 +127,7 @@ const ListOfPublicGames = (props: props): ReactElement => {
                 case title
               </th>
               <th scope="col" className="px-6 py-3 font-body2">
-                location
+              Distance From You
               </th>
             </tr>
           </thead>
