@@ -12,6 +12,7 @@ interface props {
   gameId: string | null;
 }
 
+
 const ListOfPublicGames = (props: props): ReactElement => {
   const { publicGames } = props;
 
@@ -25,7 +26,7 @@ const ListOfPublicGames = (props: props): ReactElement => {
         >
           {publicGame.titleOfGame}
         </th>
-        <td className="px-6 py-4 font-heading">{publicGame.startLocation}</td>
+        <td className="px-6 py-4 font-heading">{publicGame.startingLocationCoordinates}</td>
       </tr>
     </tbody>
   })
