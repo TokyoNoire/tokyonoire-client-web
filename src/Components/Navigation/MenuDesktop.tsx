@@ -47,10 +47,9 @@ const MenuDesktop = (): ReactElement => {
   };
 
   const publishGame = async () => {
-    const exampleData = gameData.gameModules
     await axios.patch(
       `http://localhost:2000/editor/${gameData._id}`,
-      exampleData
+        gameData
     );
   };
 
