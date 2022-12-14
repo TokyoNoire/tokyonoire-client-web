@@ -44,8 +44,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     const newGameData = gameData;
     newGameData.gameModules = gameModules;
     setGameData(newGameData);
-    console.log(gameModules);
-    console.log("game data updated");
+    console.log(gameData);
   }, [gameModules]);
 
   useEffect(() => {
