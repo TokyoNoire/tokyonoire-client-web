@@ -1,6 +1,7 @@
 import React, { type ReactElement } from "react";
 import TextField from "@mui/material/TextField";
 import { type saveGameInfo } from "../../types/global";
+import SearchIcon from '@mui/icons-material/Search';
 
 interface props {
   publicGames: saveGameInfo[];
@@ -24,9 +25,6 @@ const ListOfPublicGames = (props: props): ReactElement => {
         >
           {publicGame.titleOfGame}
         </th>
-        <td className="px-6 py-4 font-heading">{publicGame.author}</td>
-        <td className="px-6 py-4 font-heading">{publicGame.rating}</td>
-        <td className="px-6 py-4 font-heading">{publicGame.estimatedTimeMinutes}</td>
         <td className="px-6 py-4 font-heading">{publicGame.startLocation}</td>
       </tr>
     </tbody>
@@ -43,11 +41,11 @@ const ListOfPublicGames = (props: props): ReactElement => {
           className="p-2 text-black bg-white rounded-sm h-14 font-heading"
         >
           <option value="">Filter</option>
-          <option value="name">Name</option>
+          <option value="location">Distance From Me</option>
+          <option value="name">Case Title</option>
           <option value="author">Author</option>
           <option value="rating">Rating</option>
-          <option value="location">Time</option>
-          <option value="location">Location</option>
+          <option value="Time">Time</option>
         </select>
         <TextField
           id="caseSearch"
@@ -58,7 +56,7 @@ const ListOfPublicGames = (props: props): ReactElement => {
         //   className=""
         />
         <button id="themeButton" className="self-center h-14 font-heading">
-          search
+          <SearchIcon/>
         </button>
       </div>
 
@@ -68,15 +66,6 @@ const ListOfPublicGames = (props: props): ReactElement => {
             <tr>
               <th scope="col" className="px-6 py-3 font-body2">
                 case title
-              </th>
-              <th scope="col" className="px-6 py-3 font-body2">
-                author
-              </th>
-              <th scope="col" className="px-6 py-3 font-body2">
-                rating
-              </th>
-              <th scope="col" className="px-6 py-3 font-body2">
-                time
               </th>
               <th scope="col" className="px-6 py-3 font-body2">
                 location

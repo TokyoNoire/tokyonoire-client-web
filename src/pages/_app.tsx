@@ -73,7 +73,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
 
       {Component && !loadScreenMounted ? (
         <ThemeProvider theme={darkTheme}>
-          <SignInForm></SignInForm>
+          {/* <SignInForm></SignInForm> */}
           {deviceType && <NavBar deviceType={deviceType} />}
           <Component {...pageProps} deviceType={deviceType} />
         </ThemeProvider>
