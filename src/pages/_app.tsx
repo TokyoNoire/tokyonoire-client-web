@@ -49,7 +49,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const getTest = async () => {
     await axios
       .get(
-        "https://tokyo-noire-server-development.herokuapp.com/editor/63994347a498895824811be2"
+        "http://localhost:2000/editor/63994347a498895824811be2"
       )
       .then((response) => {
         console.log(response.data);
