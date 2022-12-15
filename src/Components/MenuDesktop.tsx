@@ -29,7 +29,7 @@ const MenuDesktop: FC = (): ReactElement => {
 
   return (
     <>
-      <Link href="/" className="z-50 w-12">
+      <Link href="/" className="z-40 w-12">
         <Logo alt="logo menu button" className="logo" />
       </Link>
       <ul className="flex gap-12">
