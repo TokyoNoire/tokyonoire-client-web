@@ -4,11 +4,11 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import MapLocationPicker from "../Helpers/MapLocationPicker";
 
 interface props {
-    coordinates: MutableRefObject<number[] | null>;
+    locationCoordinates: MutableRefObject<number[] | null>;
 }
 
 const BlockLocationPicker = (props: props): ReactElement => {
-    const { coordinates } = props;
+    const { locationCoordinates } = props;
 
     return (
 
@@ -27,7 +27,7 @@ const BlockLocationPicker = (props: props): ReactElement => {
                 </div>
             </div>
 
-            <MapLocationPicker coordinates={coordinates} />
+            <MapLocationPicker locationCoordinates={locationCoordinates} />
         </>
     );
 }

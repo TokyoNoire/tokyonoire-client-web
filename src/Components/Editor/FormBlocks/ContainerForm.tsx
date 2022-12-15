@@ -21,7 +21,7 @@ const ContainerForm = (props: props): ReactElement => {
 
     return (
         <section
-            className="relative w-full justify-start flex flex-col justify-between rounded-lg border-2 border-[#353535] bg-black shadow-lg  shadow-slate-100"
+            className="relative w-full flex flex-col justify-between rounded-lg border-2 border-[#353535] bg-black shadow-lg  shadow-slate-100"
             style={{ height: "calc(100vh - 10rem)" }}
         >
             <div className="absolute z-50 flex justify-center items-center -top-4 -right-3 w-8 h-8 rounded-full bg-black border-2">

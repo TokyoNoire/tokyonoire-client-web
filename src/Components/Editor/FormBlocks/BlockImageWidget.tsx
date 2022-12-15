@@ -6,17 +6,15 @@ import React, {
   useRef,
 } from "react";
 type props = {
-  imageUrl: MutableRefObject<string>;
+  imageURL: MutableRefObject<string>;
 };
 const BlockImageWidget = (props: props): ReactElement => {
-  const { imageUrl } = props;
-  const [displayImage, setDisplayImage] = useState<string | null>(imageUrl ? imageUrl.current : null);
+  const { imageURL } = props;
+  const [displayImage, setDisplayImage] = useState<string | null>(imageURL ? imageURL.current : null);
 
   const cloudinaryRef = useRef<any>();
   const widgetRef = useRef<any>();
 
-
-  console.log(imageUrl)
   useEffect(() => {
     cloudinaryRef.current = window.cloudinary;
     widgetRef.current = cloudinaryRef.current?.createUploadWidget(
@@ -49,7 +47,7 @@ const BlockImageWidget = (props: props): ReactElement => {
       },
       function (error: any, result: any) {
         if (result.info.url !== undefined) {
-          imageUrl.current = result.info.url
+          imageURL.current = result.info.url
           setDisplayImage(result.info.url)
           // setImageUrl(result.info.url);
         }
@@ -60,7 +58,7 @@ const BlockImageWidget = (props: props): ReactElement => {
   return (
     <section className="flex flex-col justify-center gap-4">
       <div
-        {...(imageUrl.current && {
+        {...(imageURL.current && {
           className: "flex flex-col justify-center border-2 rounded-md border-dotted border-[#353535]"
         })}
 
@@ -80,7 +78,7 @@ const BlockImageWidget = (props: props): ReactElement => {
         className="uppercase w-9/12 font-heading self-center"
         onClick={() => widgetRef.current?.open()}
       >
-        {imageUrl.current ?
+        {imageURL.current ?
           "Modify Photo"
           :
           "Select Photo"

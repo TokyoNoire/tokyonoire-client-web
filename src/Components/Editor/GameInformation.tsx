@@ -19,7 +19,7 @@ interface prop {
   isPublished: MutableRefObject<string>;
   isPrivate: MutableRefObject<string>;
   startingLocationCoordinates: MutableRefObject<number[] | null>;
-  imageUrlGame: MutableRefObject<string>;
+  gameImageURL: MutableRefObject<string>;
   handleGameInfoModuleUpdateClick: () => void;
 }
 
@@ -33,7 +33,7 @@ const FormStoryInformation = (prop: prop): ReactElement => {
     isPublished,
     isPrivate,
     startingLocationCoordinates,
-    imageUrlGame,
+    gameImageURL,
     handleGameInfoModuleUpdateClick,
   } = prop;
   const value = useContext(AppContext);
@@ -45,7 +45,7 @@ const FormStoryInformation = (prop: prop): ReactElement => {
 
   return (
     <>
-      <ContainerForm typeOfModule={{ current: "hello" }}>
+      <ContainerForm typeOfModule={{ current: "hello" }} handleModuleUpdateClick={handleGameInfoModuleUpdateClick}>
         {/* <ClearIcon className="absolute top-2 right-2 hover:shadow-indigo-500/40"/> */}
         <h1 className="self-center mt-10 mb-2 text-2xl font-bold uppercase font-heading">
           Story information
@@ -121,7 +121,7 @@ const FormStoryInformation = (prop: prop): ReactElement => {
         </div>
 
         <p className="mt-5 text-sm uppercase font-heading">Image Upload</p>
-        <ImageWidget imageUrl={imageUrlGame} />
+        <ImageWidget imageURL={gameImageURL} />
         <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
           Description
         </p>

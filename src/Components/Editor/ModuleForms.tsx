@@ -7,9 +7,6 @@ import GameInformation from "./GameInformation";
 import { useContext } from "react";
 import AppContext from "../../AppContext";
 import { saveGameInfo, type GameModule } from "../../types/global";
-import { AutoFixHighRounded } from "@mui/icons-material";
-
-import BlockContainer from "./FormBlocks/ContainerForm";
 
 export type GameModules = {
   typeOfModule: string;
@@ -24,55 +21,91 @@ export type GameModules = {
 
 const ModuleForms = (): ReactElement => {
   const value = useContext(AppContext);
-  const {
-    activeModule,
-    setGameModules,
-    gameModules,
-    setGameInfoModule,
-    gameInfoModule,
-    gameData,
+  const { activeModule, gameModules, setGameModules,
+    gameInfoModule, setGameInfoModule, gameData,
   } = value;
   console.log(gameInfoModule);
 
+  // Game Info References
   const _idGame = useRef<string>("");
   const isPublished = useRef<string>("");
   const isPrivate = useRef<string>("");
   const titleOfGame = useRef<string>("");
   const gameDescription = useRef<string>("");
-  const userName = useRef<string>("");
-  const gameImage = useRef<string>("");
+  const author = useRef<string>("");
+  const gameImageURL = useRef<string>("");
   const estimatedTimeMinutes = useRef<string>("");
   const rating = useRef<string>("");
   const startingLocationCoordinates = useRef<number[] | null>([]);
-  const imageUrlGame = useRef<string>("");
 
+  if (gameInfoModule) {
+    _idGame.current = gameInfoModule._id;
+    isPublished.current = gameInfoModule.isPublished;
+    isPrivate.current = gameInfoModule.isPrivate;
+    titleOfGame.current = gameInfoModule.titleOfGame;
+    gameDescription.current = gameInfoModule.description;
+    author.current = "Placeholder Username"
+    gameImageURL.current = gameInfoModule.gameImageURL;
+    estimatedTimeMinutes.current = gameInfoModule.estimatedTimeMinutes;
+    rating.current = gameInfoModule.rating;
+    startingLocationCoordinates.current = gameInfoModule.startingLocationCoordinates;
+  }
+
+  const handleGameInfoModuleUpdateClick = () => {
+    const newGameInfo: saveGameInfo = {
+      _id: _idGame.current,
+      isPublished: isPublished.current,
+      isPrivate: isPrivate.current,
+      titleOfGame: titleOfGame.current,
+      description: gameInfoModule.description,
+      uId: "id to be given after Auth integration",
+      author: "author (username) to be given after Auth integration",
+      rating: rating.current,
+      gameImageURL: gameImageURL.current,
+      estimatedTimeMinutes: estimatedTimeMinutes.current,
+      gameModules: gameData.gameModules,
+      startingLocationCoordinates: startingLocationCoordinates.current,
+    };
+    setGameInfoModule(newGameInfo);
+  };
+
+  // Game Modules References
   const _id = useRef<string>("");
   const typeOfModule = useRef<string>("");
   const title = useRef<string>("");
   const description = useRef<string>("");
+  const imageURL = useRef<string>("");
   const question = useRef<string>("");
   const answer = useRef<string>("");
-  const [image, setImage] = useState<string>("");
-  const locationCoordinates = useRef<number[] | null>([]);
   const hint = useRef<string>("");
-  const imageUrl = useRef<string>("");
+  const locationCoordinates = useRef<number[] | null>([]);
+
+  if (activeModule) {
+    _id.current = activeModule._id;
+    typeOfModule.current = activeModule.typeOfModule;
+    title.current = activeModule.title;
+    description.current = activeModule.description;
+    imageURL.current = activeModule.imageURL
+    question.current = activeModule.question;
+    answer.current = activeModule.answer;
+    hint.current = activeModule.hint;
+    locationCoordinates.current = activeModule.locationCoordinates
+  }
 
   const handleModuleUpdateClick = () => {
     const updateData: GameModule = {
       _id: _id.current,
-      title: title.current,
       typeOfModule: typeOfModule.current,
+      title: title.current,
       description: description.current,
-      locationCoordinates: locationCoordinates.current,
+      imageURL: imageURL.current,
       question: question.current,
       answer: answer.current,
       hint: hint.current,
-      image: imageUrl.current,
+      locationCoordinates: locationCoordinates.current,
     };
-    console.log(gameModules);
     const newGameModules = [];
     for (let i = 0; i < gameModules.length; i++) {
-      console.log(gameModules[i]);
       newGameModules.push(gameModules[i]);
     }
     console.log(newGameModules);
@@ -83,42 +116,6 @@ const ModuleForms = (): ReactElement => {
     }
     setGameModules(newGameModules);
   };
-  const handleGameInfoModuleUpdateClick = () => {
-    const newGameInfo: saveGameInfo = {
-      _id: _idGame.current,
-      titleOfGame: titleOfGame.current,
-      description: gameInfoModule.description,
-      estimatedTimeMinutes: estimatedTimeMinutes.current,
-      rating: rating.current,
-      isPrivate: isPrivate.current,
-      isPublished: isPublished.current,
-      startingLocationCoordinates: startingLocationCoordinates.current,
-      gameModules: gameData.gameModules,
-    };
-    setGameInfoModule(newGameInfo);
-  };
-
-  if (activeModule) {
-    typeOfModule.current = activeModule.typeOfModule;
-    title.current = activeModule.title;
-    description.current = activeModule.description;
-    question.current = activeModule.question;
-    answer.current = activeModule.answer;
-    hint.current = activeModule.hint;
-    _id.current = activeModule._id;
-    imageUrl.current = activeModule.image
-  }
-
-  if (gameInfoModule) {
-    _idGame.current = gameInfoModule._id;
-    titleOfGame.current = gameInfoModule.titleOfGame;
-    gameDescription.current = gameInfoModule.description;
-    estimatedTimeMinutes.current = gameInfoModule.estimatedTimeMinutes;
-    rating.current = gameInfoModule.rating;
-    isPrivate.current = gameInfoModule.isPrivate;
-    startingLocationCoordinates.current = gameInfoModule.startingLocationCoordinates;
-    imageUrlGame.current = gameInfoModule.image;
-  }
 
   if (!activeModule) {
     return (
@@ -128,7 +125,7 @@ const ModuleForms = (): ReactElement => {
         rating={rating}
         isPublished={isPublished}
         isPrivate={isPrivate}
-        imageUrlGame={imageUrlGame}
+        gameImageURL={gameImageURL}
         gameDescription={gameDescription}
         startingLocationCoordinates={startingLocationCoordinates}
         handleGameInfoModuleUpdateClick={handleGameInfoModuleUpdateClick}
@@ -143,7 +140,7 @@ const ModuleForms = (): ReactElement => {
             title={title}
             typeOfModule={typeOfModule}
             description={description}
-            imageUrl={imageUrl}
+            imageURL={imageURL}
             handleModuleUpdateClick={handleModuleUpdateClick}
           />
         );
@@ -155,8 +152,8 @@ const ModuleForms = (): ReactElement => {
             title={title}
             typeOfModule={typeOfModule}
             description={description}
-            imageUrl={imageUrl}
-            coordinates={coordinates}
+            imageURL={imageURL}
+            locationCoordinates={locationCoordinates}
             hint={hint}
             handleModuleUpdateClick={handleModuleUpdateClick}
           />
@@ -169,7 +166,7 @@ const ModuleForms = (): ReactElement => {
             title={title}
             typeOfModule={typeOfModule}
             description={description}
-            imageUrl={imageUrl}
+            imageURL={imageURL}
             question={question}
             answer={answer}
             hint={hint}
@@ -184,7 +181,7 @@ const ModuleForms = (): ReactElement => {
             title={title}
             typeOfModule={typeOfModule}
             description={description}
-            imageUrl={imageUrl}
+            imageURL={imageURL}
             handleModuleUpdateClick={handleModuleUpdateClick}
           />
         );

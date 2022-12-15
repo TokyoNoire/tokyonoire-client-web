@@ -20,7 +20,7 @@ const FormNarrative = (props: props): ReactElement => {
     <ContainerForm typeOfModule={typeOfModule} handleModuleUpdateClick={handleModuleUpdateClick}>
 
       <BlockTitle title={title} />
-      <BlockImageWidget imageUrl={imageUrl} />
+      <BlockImageWidget imageURL={imageURL} />
       <BlockStory description={description} />
 
     </ContainerForm>
