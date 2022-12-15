@@ -20,14 +20,14 @@ const QuestionModule = (props: props): ReactElement => {
             {gameObject.title}
           </h1>
 
-          {gameObject.image === null &&
+          {gameObject.imageURL === null &&
             // <Image
             //   src={gameObject.image}
             //   alt="Image for question module"
             //   className="rounded-lg"
             // ></Image>
             <img
-              src={gameObject.image}
+              src={gameObject.imageURL}
               alt="Image for question module"
               className="rounded-lg"
             />

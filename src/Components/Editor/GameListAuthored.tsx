@@ -8,8 +8,9 @@ import {
   Box
 } from "@mui/material";
 import { saveGameInfo } from "../../types/global";
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridValueGetterParams, GridValueFormatterParams } from '@mui/x-data-grid';
 import axios from "axios";
+import moment from "moment";
 
 const AuthoredListPopup: FC = (): ReactElement => {
   const [open, setOpen] = useState<boolean>(true);
@@ -40,23 +41,27 @@ console.log(gamesAuthored);
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
   {
-    field: 'firstName',
+    field: 'titleOfGame',
     headerName: 'Case Name',
     width: 150,
     editable: true,
   },
   {
-    field: 'lastName',
-    headerName: 'Created',
+    field: 'dateCreated',
+    headerName: 'Created On',
+    type: 'date',
     width: 150,
-    editable: true,
+    valueFormatter: (params: GridValueGetterParams) => 
+     moment(params?.value).format("DD/MM/YYYY hh:mm A"),
+
   },
   {
-    field: 'age',
-    headerName: 'Edited',
-    type: 'number',
-    width: 110,
-    editable: true,
+    field: 'dateUpdated',
+    headerName: 'Last Modified',
+    type: 'date',
+    width: 150,
+    valueFormatter: (params: GridValueGetterParams) => 
+    moment(params?.value).format("DD/MM/YYYY hh:mm A")
   },
   {
     field: 'fullName',
@@ -84,7 +89,6 @@ const rows = [
 
   return (
     <div className="w-full h-full mt-5 overflow-x-auto flexCenterDiv">
-      <Dialog open={open} onClose={handleClose}  fullWidth >
         <p className="self-center p-5 text-xl text-center uppercase font-heading">Welcome USERNAME</p>
         <DialogContent>
           <p className="text-center font-body1">
@@ -102,7 +106,6 @@ const rows = [
         experimentalFeatures={{ newEditingApi: true }}
       />
     </Box>
-      </Dialog>
     </div>
   );
 };

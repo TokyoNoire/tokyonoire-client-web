@@ -14,8 +14,6 @@ const GamePreview = (props: Props): ReactElement => {
   const { game, handleClose, gameId } = props;
   const router = useRouter();
 
-  console.log(game.image)
-
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     router.push({
@@ -44,7 +42,7 @@ const GamePreview = (props: Props): ReactElement => {
           <p className="self-center font-body2">{game.rating}</p>
         </div>
         <div className="self-center my-5 flexCenterDiv">
-          <img src={game.image} alt="Game Image" className="w-100" />
+          <img src={game.gameImageURL} alt="Game Image" className="w-100" />
         </div>
         <p className="px-2 mt-5 font-body1">{game.description}</p>
       </div>

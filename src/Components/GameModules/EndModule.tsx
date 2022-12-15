@@ -37,7 +37,7 @@ const EndModule = (props: props): ReactElement => {
                             className="rounded-lg"
                         ></Image> */}
                         <img
-                            src={gameObject.image}
+                            src={gameObject.imageURL}
                             alt="End Module Image"
                             className="rounded-lg"
                         />

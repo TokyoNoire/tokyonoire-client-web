@@ -1,14 +1,14 @@
 export type saveGameInfo = {
   _id: string;
-  titleOfGame: string;
   isPublished: string | boolean;
+  isPrivate: string | boolean;
+  titleOfGame: string;
   description?: string | null;
   uId?: string;
   author?: string | null;
   rating?: number | string | null;
-  image?: string | undefined;
+  gameImageURL?: string | undefined;
   estimatedTimeMinutes?: number | string | null;
-  isPrivate: string | boolean;
   gameModules?: GameModule[];
   startingLocationCoordinates?: Array<number> | null;
   startLocation?: string | null;
@@ -19,10 +19,10 @@ export type GameModule = {
   typeOfModule: string;
   title: string;
   description: string;
+  imageURL?: string;
+  locationCoordinates?: number[] | null;
   question?: string;
   answer?: string;
-  image?: string;
-  locationCoordinates?: number[] | null;
   hint?: string;
 };
 

@@ -18,10 +18,10 @@ const NarrativeModule = (props: props): ReactElement => {
         </h1>
 
         <div className="self-center w-10/12 m-4 flexCenterDiv">
-          {gameObject.image === null &&
+          {gameObject.imageURL === null &&
             // <Image src={gameObject.image} alt="Image for question module" className="rounded-lg"></Image>
             <img
-              src={gameObject.image}
+              src={gameObject.imageURL}
               alt="Image for question module"
               className="rounded-lg"
             />
