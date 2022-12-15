@@ -3,7 +3,7 @@ import SignUpForm from "./SignUpForm";
 import SignInForm from "./SignInForm";
 import AppContext from "../../AppContext";
 
-const AuthPage: FC = (): ReactElement => {
+const AuthPopUp: FC = (): ReactElement => {
   const value = useContext(AppContext);
   const { userId } = value;
   const [authPanel, setAuthPanel] = useState<string>('signin')
@@ -28,4 +28,4 @@ const AuthPage: FC = (): ReactElement => {
   )
 };
 
-export default AuthPage;
+export default AuthPopUp;
