@@ -2,14 +2,19 @@ import React, {
   type FC,
   type ReactElement,
   type MutableRefObject,
+  type ChangeEvent,
+  type ChangeEventHandler,
+  useState
 } from "react";
-import TextField from "@mui/material/TextField";
 import ImageWidget from "./FormBlocks/BlockImageWidget";
 import AppContext from "../../AppContext";
 import { saveGameInfo } from "../../types/global";
 import { useContext } from "react";
-
+import { TextField, FormControl, Select, MenuItem, InputLabel, type SelectChangeEvent } from "@mui/material";
 import ContainerForm from "./FormBlocks/ContainerForm";
+import BlockTitle from "./FormBlocks/BlockTitle";
+import BlockStory from "./FormBlocks/BlockStory";
+import ContainerGameInfo from "./FormBlocks/ContainerGameInfo";
 
 interface prop {
   titleOfGame: MutableRefObject<string>;
@@ -23,7 +28,7 @@ interface prop {
   handleGameInfoModuleUpdateClick: () => void;
 }
 
-const FormStoryInformation = (prop: prop): ReactElement => {
+const GameInformation = (prop: prop): ReactElement => {
   //Build is not happy if I set these as let, so I seperated them for now.
   const {
     titleOfGame,
@@ -36,116 +41,85 @@ const FormStoryInformation = (prop: prop): ReactElement => {
     gameImageURL,
     handleGameInfoModuleUpdateClick,
   } = prop;
-  const value = useContext(AppContext);
 
-  // const handleClick = () => {
-  //   setCurrentGame((prevValue: null) => gameData);
-  //   console.log("🌒localStorag:", localStorage.currentGameData);
-  // };
+  const [visualRating, setVisualRating] = useState<string>(rating.current);
+  const handleRatingChange = (event: SelectChangeEvent<string>) => {
+    setVisualRating(event.target.value)
+    rating.current = event.target.value;
+  };
+
+  const [visualVisibility, setVisualVisibility] = useState<string>(isPrivate.current);
+  const handleVisibilityChange = (event: SelectChangeEvent<string>) => {
+    setVisualVisibility(event.target.value)
+    isPrivate.current = event.target.value;
+  };
 
   return (
-    <>
-      <ContainerForm typeOfModule={{ current: "hello" }} handleModuleUpdateClick={handleGameInfoModuleUpdateClick}>
-        {/* <ClearIcon className="absolute top-2 right-2 hover:shadow-indigo-500/40"/> */}
-        <h1 className="self-center mt-10 mb-2 text-2xl font-bold uppercase font-heading">
-          Story information
-        </h1>
-        <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
-          Title of Game
-        </p>
-        <TextField
-          id="titleOfGame"
-          variant="filled"
-          {...(titleOfGame.current !== ""
-            ? { defaultValue: titleOfGame.current }
-            : { placeholder: "What's the title of this game?" })}
-          onChange={(e) => (titleOfGame.current = e.target.value)}
-          fullWidth
-        />
-        <div className="grid grid-cols-3 gap-2 mt-10 grid-flow-cols">
-          <p className="mb-2 text-sm uppercase font-heading">
-            Estimated Time in minutes
-          </p>
-          <p className="text-sm uppercase font-heading">Rating</p>
-          <p className="text-sm uppercase font-heading">Visibility</p>
-          {/* <p className="text-sm uppercase font-heading">Start Location</p> */}
+    <ContainerGameInfo handleGameInfoModuleUpdateClick={handleGameInfoModuleUpdateClick}>
+
+      <BlockTitle title={titleOfGame} placeholder={"What is this case called?"} />
+
+      <div className="grid grid-cols-3 gap-3 grid-flow-col mb-6">
+
+        <FormControl sx={{ minWidth: 60 }}>
           <TextField
             id="estimated-time"
+            label="Game Duration Estimate"
             type="number"
-            {...(estimatedTimeMinutes.current !== ""
+            {...(estimatedTimeMinutes.current !== "0"
               ? { defaultValue: estimatedTimeMinutes.current }
-              : { placeholder: "Start writing here..." })}
-            variant="filled"
+              : { placeholder: "0" })}
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
+        </FormControl>
 
-          <select
+        <FormControl sx={{ minWidth: 60 }}>
+          <InputLabel id="rating-label">Rating</InputLabel>
+          <Select
+            labelId="rating"
             id="rating"
-            className="p-2 text-black rounded-sm"
-            {...(rating.current !== ""
-              ? { defaultValue: rating.current }
-              : { placeholder: "" })}
-            onChange={(e) => {
-              rating.current = e.target.value;
-            }}
+            value={visualRating ? visualRating : ''}
+            onChange={(e) => { handleRatingChange(e) }}
+            label="rating"
           >
-            <option value="">Choose a Rating</option>
-            <option value="G">G</option>
-            <option value="PG">PG</option>
-            <option value="PG-13">PG-13</option>
-            <option value="R">R</option>
-          </select>
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={"G"}>G</MenuItem>
+            <MenuItem value={"PG"}>PG</MenuItem>
+            <MenuItem value={"PG-13"}>PG-13</MenuItem>
+            <MenuItem value={"R"}>R</MenuItem>
+          </Select>
+        </FormControl>
 
-          <select
+        <FormControl sx={{ minWidth: 60 }}>
+          <InputLabel id="visibility-label">Visibility</InputLabel>
+          <Select
+            labelId="visibility"
             id="visibility"
-            className="p-2 text-black rounded-sm"
-            {...(isPrivate.current !== ""
-              ? { defaultValue: isPrivate.current }
-              : { placeholder: "" })}
-            onChange={(e) => {
-              isPrivate.current = e.target.value;
-            }}
+            value={visualVisibility ? visualVisibility : 'Public'}
+            onChange={(e) => { handleVisibilityChange(e) }}
+            label="visibility"
           >
-            <option value="">Choose visibility</option>
-            <option value="true">Private</option>
-            <option value="false">Public</option>
-          </select>
+            <MenuItem value={"Public"}>Public</MenuItem>
+            <MenuItem value={"Private"}>Private</MenuItem>
+          </Select>
+        </FormControl>
 
-          {/* <TextField
-          id="start-location"
-          type="text"
-          onChange={(e) => {
-            startingLocationCoordinates.current = e.target.value;
-          }}
-          variant="filled"
-        /> */}
-        </div>
+      </div>
 
-        <p className="mt-5 text-sm uppercase font-heading">Image Upload</p>
-        <ImageWidget imageURL={gameImageURL} />
-        <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
-          Description
-        </p>
-        <TextField
-          multiline
-          rows={15}
-          {...(gameDescription.current !== ""
-            ? { defaultValue: gameDescription.current }
-            : { placeholder: "Start writing here..." })}
-          variant="filled"
-          onChange={(e) => (gameDescription.current = e.target.value)}
-          fullWidth
-        />
-        <button
-          id="themeButton"
-          className="self-center w-1/2 mt-10 mb-5"
-          onClick={() => handleGameInfoModuleUpdateClick()}
-        >
-          {" "}
-          update{" "}
-        </button>
-      </ContainerForm>
-    </>
+      <ImageWidget imageURL={gameImageURL} />
+
+      <BlockStory
+        description={gameDescription}
+        header="Abstract"
+        tip="A short abstract to get players excited about your game."
+      />
+
+    </ContainerGameInfo>
   );
 };
 
-export default FormStoryInformation;
+export default GameInformation;

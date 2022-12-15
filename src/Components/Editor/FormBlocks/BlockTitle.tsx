@@ -2,23 +2,24 @@ import React, { MutableRefObject, ReactElement, ReactNode, useContext } from "re
 import { TextField } from "@mui/material";
 
 interface props {
-    title: MutableRefObject<string>
+    title: MutableRefObject<string>;
+    placeholder?: string;
 }
 
 const BlockTitle = (props: props): ReactElement => {
-    const { title } = props;
+    const { title, placeholder } = props;
     return (
         <TextField
             id="title"
             {...(title.current.length > 1 && { defaultValue: title.current })}
-            placeholder="What's the title of this block?"
+            {...(placeholder ? { placeholder: placeholder } : { placeholder: "Start writing here..." })}
             variant="standard"
             multiline
             minRows={1}
             maxRows={3}
             autoComplete="off"
             fullWidth
-            sx={{ mt: "1.5rem", mb: "2rem" }}
+            sx={{ mt: "1.25rem", mb: "2rem" }}
             inputProps={{ style: { fontSize: "2rem", lineHeight: "2.5rem" }, maxLength: 50 }}
             onKeyDown={(e) => { if (e.code === "Enter") e.preventDefault() }}
             onChange={(e) => (title.current = e.target.value)}

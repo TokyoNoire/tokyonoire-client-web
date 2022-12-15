@@ -6,20 +6,22 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 interface props {
     description: MutableRefObject<string>
+    header?: string;
+    tip?: string;
 }
 
 const BlockStory = (props: props): ReactElement => {
-    const { description } = props;
+    const { description, header, tip } = props;
 
     return (
         <>
             <div className="flex mt-10 gap-2">
                 <p className="text-2xl uppercase font-heading">
-                    Story
+                    {header ? header : "Story"}
                 </p>
                 <div>
                     <Tooltip
-                        title="This is the main text section where you give context for your story."
+                        {...(tip ? { title: tip } : { title: "This is the main text section where you give context for your story." })}
                         placement="right-end"
                     >
                         <InfoOutlinedIcon fontSize="small" />
