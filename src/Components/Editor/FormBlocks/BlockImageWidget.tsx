@@ -72,18 +72,28 @@ const BlockImageWidget = (props: props): ReactElement => {
           />
         )}
       </div>
-      <button
-        id="themeButton"
+      <div className="flex gap-2 justify-center">
+        <button
+          id="themeButton"
+          className="uppercase w-9/12 font-heading self-center"
+          onClick={() => widgetRef.current?.open()}
+        >
+          {imageURL.current ? "Modify Photo" : "Select Photo"}
+        </button>
 
-        className="uppercase w-9/12 font-heading self-center"
-        onClick={() => widgetRef.current?.open()}
-      >
-        {imageURL.current ?
-          "Modify Photo"
-          :
-          "Select Photo"
+        {imageURL.current &&
+          <button
+            id="themeButton"
+            className="uppercase w-9/12 font-heading self-center"
+            onClick={() => {
+              imageURL.current = "";
+              setDisplayImage("");
+            }}
+          >
+            Delete
+          </button>
         }
-      </button>
+      </div>
     </section>
   );
 };
