@@ -16,7 +16,7 @@ export type GameModules = {
   title: string;
   description: string;
   question: string;
-  answer: string;
+  answer: string[];
   image: string;
   locationCoordinates: string[];
   hint: string;
@@ -35,30 +35,27 @@ const ModuleForms = (): ReactElement => {
   console.log(gameInfoModule);
 
   const _idGame = useRef<string>("");
-  const published = useRef<boolean>(false);
-  const gameDescription = useRef<string>("");
-  const gameImage = useRef<string>("");
-  const titleOfGame = useRef<string>("");
-  const userName = useRef<string>("");
-  const estimatedTimeMinutes = useRef<string>("");
-  const rating = useRef<string>("");
   const isPublished = useRef<string>("");
   const isPrivate = useRef<string>("");
+  const titleOfGame = useRef<string>("");
+  const gameDescription = useRef<string>("");
+  const userName = useRef<string>("");
+  const gameImage = useRef<string>("");
+  const estimatedTimeMinutes = useRef<string>("");
+  const rating = useRef<string>("");
   const startingLocationCoordinates = useRef<number[] | null>([]);
   const imageUrlGame = useRef<string>("");
 
-  const title = useRef<string>("");
+  const _id = useRef<string>("");
   const typeOfModule = useRef<string>("");
+  const title = useRef<string>("");
   const description = useRef<string>("");
-  const coordinates = useRef<number[] | null>([]);
   const question = useRef<string>("");
   const answer = useRef<string>("");
+  const [image, setImage] = useState<string>("");
+  const locationCoordinates = useRef<number[] | null>([]);
   const hint = useRef<string>("");
-  // const [imageUrl, setImageUrl] = useState<string>("");
   const imageUrl = useRef<string>("");
-  const _id = useRef<string>("");
-
-  // console.log(_id.current);
 
   const handleModuleUpdateClick = () => {
     const updateData: GameModule = {
@@ -66,7 +63,7 @@ const ModuleForms = (): ReactElement => {
       title: title.current,
       typeOfModule: typeOfModule.current,
       description: description.current,
-      locationCoordinates: coordinates.current,
+      locationCoordinates: locationCoordinates.current,
       question: question.current,
       answer: answer.current,
       hint: hint.current,

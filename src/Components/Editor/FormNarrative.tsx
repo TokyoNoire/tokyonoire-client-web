@@ -9,12 +9,12 @@ interface props {
   title: MutableRefObject<string>;
   typeOfModule: MutableRefObject<string>;
   description: MutableRefObject<string>;
-  imageUrl: MutableRefObject<string>;
+  imageURL: MutableRefObject<string>;
   handleModuleUpdateClick: () => void;
 }
 
 const FormNarrative = (props: props): ReactElement => {
-  const { title, typeOfModule, description, imageUrl, handleModuleUpdateClick } = props;
+  const { title, typeOfModule, description, imageURL, handleModuleUpdateClick } = props;
 
   return (
     <ContainerForm typeOfModule={typeOfModule} handleModuleUpdateClick={handleModuleUpdateClick}>

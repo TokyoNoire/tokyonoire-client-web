@@ -15,18 +15,18 @@ interface props {
   question: MutableRefObject<string>;
   answer: MutableRefObject<string>;
   hint: MutableRefObject<string>;
-  imageUrl: MutableRefObject<string>;
+  image: MutableRefObject<string>;
   handleModuleUpdateClick: () => void;
 }
 
 const FormQuestion = (props: props): ReactElement => {
-  const { title, typeOfModule, description, imageUrl, question, answer, hint, handleModuleUpdateClick } = props;
+  const { title, typeOfModule, description, image, question, answer, hint, handleModuleUpdateClick } = props;
 
   return (
     <ContainerForm typeOfModule={typeOfModule} handleModuleUpdateClick={handleModuleUpdateClick}>
 
       <BlockTitle title={title} />
-      <BlockImageWidget imageUrl={imageUrl} />
+      <BlockImageWidget image={image} />
       <BlockStory description={description} />
       <BlockHint hint={hint} />
       <BlockQuestion question={question} />
