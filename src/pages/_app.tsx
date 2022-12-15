@@ -29,13 +29,6 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [loadScreenMounted, setLoadScreenMounted] = useState<boolean>(true);
   const [durationLoadingScreen] = useState<number>(2000);
   const [deviceType, setDeviceType] = useState<string | null>(null);
-<<<<<<< HEAD
-  const [userId, setUserId] = useState<string>("");
-  const [gameData, setGameData] = useState<saveGameInfo>(MockGame);
-  const [gameModules, setGameModules] = useState<GameModule[]>(MockGame.gameModules)
-  const [activeModule, setActiveModule] = useState(null);
-  // const compCheck = useRef<boolean>(false);
-=======
   const [userId, setUserId] = useState<string>("on est là");
   const [gameData, setGameData] = useState<saveGameInfo | null>(null);
   const [gameModules, setGameModules] = useState<GameModule[]>();
@@ -44,7 +37,6 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [gameInfoModule, setGameInfoModule] = useState<saveGameInfo | null>(
     null
   );
->>>>>>> 2e0c5cb44029a470bc79f1e854dc24b2e170ae9d
 
   const [currentGame, setCurrentGame] = useLocalStorage(
     "currentGameData",
@@ -124,27 +116,9 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       }}
     >
       <AuthProvider>
-<<<<<<< HEAD
-    
-      <Script
-        src="https://upload-widget.cloudinary.com/global/all.js"
-        type="text/javascript"
-      />
-
-      {Component && !loadScreenMounted ? (
-        <ThemeProvider theme={darkTheme}>
-          {deviceType && <NavBar deviceType={deviceType} />}
-          <Component {...pageProps} deviceType={deviceType} />
-        </ThemeProvider>
-      ) : (
-        <LoadingScreen
-          setLoadScreenMounted={setLoadScreenMounted}
-          duration={durationLoadingScreen}
-=======
         <Script
           src="https://upload-widget.cloudinary.com/global/all.js"
           type="text/javascript"
->>>>>>> 2e0c5cb44029a470bc79f1e854dc24b2e170ae9d
         />
 
         {Component && !loadScreenMounted ? (
