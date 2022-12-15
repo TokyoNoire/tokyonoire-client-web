@@ -9,7 +9,6 @@ import BlockImageWidget from "./FormBlocks/BlockImageWidget";
 import BlockStory from "./FormBlocks/BlockStory";
 import BlockLocationPicker from "./FormBlocks/BlockLocationPicker";
 import BlockHint from "./FormBlocks/BlockHint";
-import BlockUpdateButton from "./FormBlocks/BlockUpdateButton";
 
 interface props {
   title: MutableRefObject<string>;
@@ -25,14 +24,13 @@ const FormLocation = (props: props): ReactElement => {
   const { title, typeOfModule, description, coordinates, imageUrl, hint, handleModuleUpdateClick } = props;
 
   return (
-    <ContainerForm typeOfModule={typeOfModule}>
+    <ContainerForm typeOfModule={typeOfModule} handleModuleUpdateClick={handleModuleUpdateClick}>
 
       <BlockTitle title={title} />
       <BlockImageWidget imageUrl={imageUrl} />
       <BlockStory description={description} />
       <BlockLocationPicker coordinates={coordinates} />
       <BlockHint hint={hint} />
-      <BlockUpdateButton handleModuleUpdateClick={handleModuleUpdateClick} />
 
     </ContainerForm>
   );

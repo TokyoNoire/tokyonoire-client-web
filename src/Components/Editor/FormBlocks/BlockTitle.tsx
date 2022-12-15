@@ -18,7 +18,7 @@ const BlockTitle = (props: props): ReactElement => {
             maxRows={3}
             autoComplete="off"
             fullWidth
-            sx={{ mt: "1.25rem", mb: "2rem" }}
+            sx={{ mt: "1.5rem", mb: "2rem" }}
             inputProps={{ style: { fontSize: "2rem", lineHeight: "2.5rem" }, maxLength: 50 }}
             onKeyDown={(e) => { if (e.code === "Enter") e.preventDefault() }}
             onChange={(e) => (title.current = e.target.value)}

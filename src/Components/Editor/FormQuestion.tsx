@@ -5,7 +5,6 @@ import BlockTitle from "./FormBlocks/BlockTitle";
 import BlockImageWidget from "./FormBlocks/BlockImageWidget";
 import BlockStory from "./FormBlocks/BlockStory";
 import BlockHint from "./FormBlocks/BlockHint";
-import BlockUpdateButton from "./FormBlocks/BlockUpdateButton";
 import BlockQuestion from "./FormBlocks/BlockQuestion";
 import BlockAnswer from "./FormBlocks/BlockAnswer";
 
@@ -24,7 +23,7 @@ const FormQuestion = (props: props): ReactElement => {
   const { title, typeOfModule, description, imageUrl, question, answer, hint, handleModuleUpdateClick } = props;
 
   return (
-    <ContainerForm typeOfModule={typeOfModule}>
+    <ContainerForm typeOfModule={typeOfModule} handleModuleUpdateClick={handleModuleUpdateClick}>
 
       <BlockTitle title={title} />
       <BlockImageWidget imageUrl={imageUrl} />
@@ -32,7 +31,6 @@ const FormQuestion = (props: props): ReactElement => {
       <BlockHint hint={hint} />
       <BlockQuestion question={question} />
       <BlockAnswer answer={answer} />
-      <BlockUpdateButton handleModuleUpdateClick={handleModuleUpdateClick} />
 
     </ContainerForm>
   );

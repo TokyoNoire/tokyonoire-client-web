@@ -107,6 +107,7 @@ a {
   scrollbar-gutter: auto;
   border: 1px solid #353535;
   border-radius: 9999px;
+  scrollbar-gutter: stable;
 }
 
 /* .scrollbar::-webkit-scrollbar-track {

@@ -49,7 +49,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const getTest = async () => {
     await axios
       .get(
-        "http://localhost:2000/editor/63994347a498895824811be2"
+        "http://localhost:2000/editor/639a713b73341987c9be7c65"
       )
       .then((response) => {
         console.log(response.data);

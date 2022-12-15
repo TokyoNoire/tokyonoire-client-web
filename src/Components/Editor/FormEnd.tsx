@@ -4,7 +4,6 @@ import ContainerForm from "./FormBlocks/ContainerForm";
 import BlockTitle from "./FormBlocks/BlockTitle";
 import BlockImageWidget from "./FormBlocks/BlockImageWidget";
 import BlockStory from "./FormBlocks/BlockStory";
-import BlockUpdateButton from "./FormBlocks/BlockUpdateButton";
 
 interface props {
   title: MutableRefObject<string>;
@@ -18,12 +17,11 @@ const FormEnd = (props: props): ReactElement => {
   const { title, typeOfModule, description, imageUrl, handleModuleUpdateClick } = props;
 
   return (
-    <ContainerForm typeOfModule={typeOfModule}>
+    <ContainerForm typeOfModule={typeOfModule} handleModuleUpdateClick={handleModuleUpdateClick}>
 
       <BlockTitle title={title} />
       <BlockImageWidget imageUrl={imageUrl} />
       <BlockStory description={description} />
-      <BlockUpdateButton handleModuleUpdateClick={handleModuleUpdateClick} />
 
     </ContainerForm>
   );
