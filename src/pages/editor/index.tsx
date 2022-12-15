@@ -6,14 +6,14 @@ import ModuleForms from "../../Components/Editor/ModuleForms";
 import FadeDiv from "../../Components/Helpers/FadeDiv";
 import { useContext } from "react";
 import AppContext from "../../AppContext";
-// import GameListAuthored from "src/Components/Editor/GameListAuthored";
+import GameListAuthored from "../../Components/Editor/GameListAuthored";
 
 const Editor: NextPage = () => {
   const [show, setShow] = useState<boolean>(true);
 
   return (
     <FadeDiv show={show}>
-      {/* <GameListAuthored/> */}
+      <GameListAuthored/>
       <div className="grid items-center justify-center grid-cols-2 gap-10 m-5 mt-28 place-items-stretch">
         <DragAndDropEditor />
         <div className="fixed w-5/12 h-full top-28 right-20">

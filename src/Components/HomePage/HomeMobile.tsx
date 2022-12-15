@@ -37,12 +37,14 @@ const HomeMobile = (props: props): ReactElement => {
   const [acquiredPermissions, setAcquiredPermissions] =
     useState<boolean>(false);
   const { requestAccessAsync } = Gyroscope();
+  const [devicePermission, setDevicePermission] = useState<boolean>(false);
 
   const handlePermissions = useCallback(async () => {
+    if (devicePermission){
     await requestAccessAsync();
     const position = await getPosition();
     console.log(position);
-    setAcquiredPermissions(true);
+    setAcquiredPermissions(true);}
   }, [requestAccessAsync]);
 
   useEffect(() => {
@@ -90,11 +92,10 @@ const HomeMobile = (props: props): ReactElement => {
   console.log("📍", acquiredPermissions);
   return (
     <>
-      {(!acquiredPermissions) ? (
-        <AuthorizationPopup/>
-      ) : (
-        ""
-      )}
+    
+        <AuthorizationPopup
+        setDevicePermission ={setDevicePermission}/>
+        
       <div className="relative h-screen mx-5 flexCenterDiv place-items-center ">
         <TokyoNoireName alt="Tokyo Noire Name" style={{ maxWidth: "80vw" }} />
         <div className="absolute bottom-8">

@@ -94,13 +94,12 @@ const ListOfPublicGames = (props: props): ReactElement => {
             {publicGame.titleOfGame}
           </th>
           <td className="px-6 py-4 font-heading" id={publicGame._id}>
-            {Math.round(
+            {(Math.round(
               haversineDistance(
                 currentCoords!,
                 publicGame.startingLocationCoordinates!
               )!
-            ) / 1000}{" "}
-            km
+            ) / 1000).toFixed(2)}{" "}
           </td>
         </tr>
       </tbody>
@@ -144,7 +143,7 @@ const ListOfPublicGames = (props: props): ReactElement => {
                 case title
               </th>
               <th scope="col" className="px-6 py-3 font-body2">
-                Distance From You
+                Distance From You (KM)
               </th>
             </tr>
           </thead>

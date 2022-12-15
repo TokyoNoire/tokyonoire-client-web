@@ -1,77 +1,107 @@
-import React, { type FC, type ReactElement, useState } from "react";
+import React, { type FC, type ReactElement, useState, useEffect, useRef } from "react";
 import {
   Dialog,
   DialogTitle,
   DialogContent,
   DialogContentText,
   DialogActions,
+  Box
 } from "@mui/material";
 import { saveGameInfo } from "../../types/global";
+import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import axios from "axios";
 
 const AuthoredListPopup: FC = (): ReactElement => {
   const [open, setOpen] = useState<boolean>(true);
   const [gamesAuthored, setGamesAuthored] = useState<saveGameInfo[] | null>(null)
+  const hasMounted = useRef<boolean>(false);
   
   const handleClose = () => {
     setOpen(false);
   };
+  
+  const getPublicGame = async () => {
+    await axios
+      .get("https://tokyo-noire-server-development.herokuapp.com/test")
+      .then((response) => {
+        setGamesAuthored(response.data);
+      });
+  };
 
-  const gamesAuthoredList = gamesAuthored!.map((gamesAuthored, index) => {
-    return (
-      <tbody key={index} id={gamesAuthored._id}>
-        <tr className="bg-white border-b" id={gamesAuthored._id}>
-          <th
-            scope="row"
-            className="px-6 py-2 font-heading whitespace-nowrap"
-            id={gamesAuthored._id}
-          >
-            {gamesAuthored.titleOfGame}
-          </th>
-          <td className="px-6 py-4 font-heading" id={gamesAuthored._id}>
-            {gamesAuthored.rating}
-          </td>
-          <td className="px-6 py-4 font-heading" id={gamesAuthored._id}>
-            {(gamesAuthored.isPrivate)? "private": "public"}
-            </td>
-            <td className="px-6 py-4 font-heading" id={gamesAuthored._id}>
-            {gamesAuthored.isPublished}
-            </td>
-        </tr>
-      </tbody>
-    );
-  });
+  useEffect(() => {
+    if (!hasMounted.current && !gamesAuthored) {
+      getPublicGame();
+      hasMounted.current = true;
+    }
+  }, [hasMounted]);
+
+console.log(gamesAuthored);
+
+const columns: GridColDef[] = [
+  { field: 'id', headerName: 'ID', width: 90 },
+  {
+    field: 'firstName',
+    headerName: 'Case Name',
+    width: 150,
+    editable: true,
+  },
+  {
+    field: 'lastName',
+    headerName: 'Created',
+    width: 150,
+    editable: true,
+  },
+  {
+    field: 'age',
+    headerName: 'Edited',
+    type: 'number',
+    width: 110,
+    editable: true,
+  },
+  {
+    field: 'fullName',
+    headerName: 'Full name',
+    description: 'This column has a value getter and is not sortable.',
+    sortable: false,
+    width: 160,
+    valueGetter: (params: GridValueGetterParams) =>
+      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+  },
+];
+
+const rows = [
+  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
+  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
+  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
+  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
+  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
+  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
+  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
+  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
+  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+];
+
 
   return (
-    <div className="flexCenterDiv">
-      <Dialog open={open} onClose={handleClose}>
-        <p className="self-center p-5 text-xl text-center uppercase font-heading">Welcome to the Story Editor</p>
+    <div className="w-full h-full mt-5 overflow-x-auto flexCenterDiv">
+      <Dialog open={open} onClose={handleClose}  fullWidth >
+        <p className="self-center p-5 text-xl text-center uppercase font-heading">Welcome USERNAME</p>
         <DialogContent>
           <p className="text-center font-body1">
-          `&quot;Hello detective, are you ready to post a case?`&quot;
+          &quot;Is there a mystery afoot that you&apos;re itching for others to solve?&quot;
           </p>
           </DialogContent>
-        <div className="mt-5 overflow-x-auto">
-          <table className="w-full text-sm text-center ">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr>
-                <th scope="col" className="px-6 py-3 font-body2">
-                  case title
-                </th>
-              
-                <th scope="col" className="px-6 py-3 font-body2">
-                  rating
-                </th>
-                <th scope="col" className="px-6 py-3 font-body2">
-                  visibility
-                </th>
-                <th scope="col" className="px-6 py-3 font-body2">
-                  published
-                </th>
-              </tr>
-            </thead>
-          {gamesAuthoredList}
-          </table>
-        </div>
+        <Box sx={{ height: 400, width: '100%' }}>
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        pageSize={5}
+        rowsPerPageOptions={[5]}
+        checkboxSelection
+        disableSelectionOnClick
+        experimentalFeatures={{ newEditingApi: true }}
+      />
+    </Box>
       </Dialog>
     </div>
   );

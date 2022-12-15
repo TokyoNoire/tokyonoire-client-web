@@ -7,7 +7,12 @@ import {
   DialogActions,
 } from "@mui/material";
 
-const AuthorizationPopup = (): ReactElement => {
+interface props {
+  setDevicePermission: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const AuthorizationPopup = (props:props): ReactElement => {
+  const {setDevicePermission} = props;
   const [open, setOpen] = useState<boolean>(true);
   const handleClose = () => {
     setOpen(false);
@@ -25,28 +30,27 @@ const AuthorizationPopup = (): ReactElement => {
             permissions: your location and your gyroscope in your web browser.
             <br />
             <br />
-            This application will use the access to your current geolocation and
-            your gyroscope to guide you to the different game locations. We do
+            This application will use these functionalities to guide you to the different game locations. We do
             not store any of your device data nor share your data to anyone
             else.
             <br />
             <br />
-            By enabling your location services, you will be able to access our
-            application and start your mystery.
+             By clicking &quot;I understand&quot;, you will be prompted to enable geolocation and gyroscope functionalities.
           </p>
         </DialogContent>
-        {/* <DialogActions className="flexCenterDiv">
-                    <button
-                        onClick={() => {
-                            handleClose();
-                        }}
-                        id="themeButton"
-                        className="self-center my-5"
-                        type="button"
-                    >
-                        I understand
-                    </button>
-                </DialogActions> */}
+        <DialogActions className="flexCenterDiv">
+          <button
+            onClick={() => {
+              setDevicePermission(true);
+              handleClose();
+            }}
+            id="themeButton"
+            className="self-center my-5"
+            type="button"
+          >
+            I understand
+          </button>
+        </DialogActions>
       </Dialog>
     </div>
   );
