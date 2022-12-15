@@ -14,22 +14,14 @@ import QuestionModule from "../../Components/GameModules/QuestionModule";
 import EndModule from "../../Components/GameModules/EndModule";
 import NavigationModule from "../../Components/GameModules/NavigationModule";
 import HowToPlayPopup from "../../Components/GameModules/HowToPlayPopup";
-
-export type GameModule = {
-  _id: string;
-  typeOfModule: string;
-  title: string;
-  description: string;
-  question: string;
-  answer: string;
-  image: string;
-  locationCoordinates: Array<number> | null;
-};
+import { type GameModule } from "../../types/global";
 
 const GameId: FC = (): ReactElement => {
   const [challengeSuccess, setChallengeSuccess] = useState<boolean>(false);
   const [TypeOfModule, setTypeOfModule] = useState<string | null>("");
-  const [gameObject, setGameObject] = useState<GameModule | null>(null);
+  const [gameObject, setGameObject] = useState<GameModule | null | undefined>(
+    null
+  );
   const router = useRouter();
   const currentIndex = useRef(0);
   const [devicePermission, setDevicePermission] = useState<boolean>(false);
@@ -59,7 +51,7 @@ const GameId: FC = (): ReactElement => {
 
   useEffect(() => {
     if (gameObject !== null) {
-      setTypeOfModule(gameObject.typeOfModule);
+      setTypeOfModule(gameObject!.typeOfModule);
     }
   }, [gameObject]);
 
@@ -72,7 +64,7 @@ const GameId: FC = (): ReactElement => {
             {devicePermission ? (
               <NavigationModule
                 locationCoordinates={
-                  gameObject?.locationCoordinates !== null
+                  gameObject?.locationCoordinates
                     ? gameObject!.locationCoordinates
                     : [0, 0]
                 }
@@ -111,9 +103,9 @@ const GameId: FC = (): ReactElement => {
   return (
     <>
       <HowToPlayPopup setDevicePermission={setDevicePermission} />
-      <div className="h-28 w-screen"></div>
+      <div className="w-screen h-28"></div>
       {gameObject !== null ? (
-        setCurrentComponent(gameObject.typeOfModule)
+        setCurrentComponent(gameObject!.typeOfModule)
       ) : (
         <></>
       )}

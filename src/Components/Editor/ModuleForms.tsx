@@ -1,28 +1,20 @@
-import React, {
-  type FC,
-  type ReactElement,
-  useState,
-  useRef,
-  useEffect,
-} from "react";
+import React, { type ReactElement, useState, useRef } from "react";
 import FormLocation from "./FormLocation";
 import FormNarrative from "./FormNarrative";
 import FormQuestion from "./FormQuestion";
 import FormEnd from "./FormEnd";
 import FormStoryInformation from "./FormStoryInformation";
-import axios from "axios";
-import { saveGameInfo } from "../../pages/editor";
-import { useLocalStorage } from "usehooks-ts";
 import { useContext } from "react";
 import AppContext from "../../AppContext";
-
+import { saveGameInfo, type GameModule } from "../../types/global";
+import { AutoFixHighRounded } from "@mui/icons-material";
 
 export type GameModules = {
   typeOfModule: string;
   title: string;
   description: string;
   question: string;
-  answer: string[];
+  answer: string;
   image: string;
   locationCoordinates: string[];
   hint: string;
@@ -30,101 +22,185 @@ export type GameModules = {
 
 const ModuleForms = (): ReactElement => {
   const value = useContext(AppContext);
-  const { activeModule } = value;
+  const {
+    activeModule,
+    setGameModules,
+    gameModules,
+    setGameInfoModule,
+    gameInfoModule,
+    gameData,
+  } = value;
+  console.log(gameInfoModule);
 
+  const _idGame = useRef<string>("");
   const published = useRef<boolean>(false);
+  const gameDescription = useRef<string>("");
+  const gameImage = useRef<string>("");
   const titleOfGame = useRef<string>("");
   const userName = useRef<string>("");
-  const minutes = useRef<string>("");
+  const estimatedTimeMinutes = useRef<string>("");
   const rating = useRef<string>("");
-  const visibility = useRef<string>("");
+  const isPublished = useRef<string>("");
+  const isPrivate = useRef<string>("");
+  const startingLocationCoordinates = useRef<number[] | null>([]);
 
   const title = useRef<string>("");
   const description = useRef<string>("");
-  const coordinates = useRef<number[]>([]);
+  const coordinates = useRef<number[] | null>([]);
   const question = useRef<string>("");
   const answer = useRef<string>("");
   const hint = useRef<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
+  const _id = useRef<string>("");
+  const typeOfModule = useRef<string>("");
 
-  const [localStorage, setLocalStorage] = useLocalStorage<string>("", ""); 
+  // console.log(_id.current);
+
+  const handleModuleUpdateClick = () => {
+    const updateData: GameModule = {
+      _id: _id.current,
+      title: title.current,
+      typeOfModule: typeOfModule.current,
+      description: description.current,
+      locationCoordinates: coordinates.current,
+      question: question.current,
+      answer: answer.current,
+      hint: hint.current,
+      image: imageUrl,
+    };
+    console.log(gameModules);
+    const newGameModules = [];
+    for (let i = 0; i < gameModules.length; i++) {
+      console.log(gameModules[i]);
+      newGameModules.push(gameModules[i]);
+    }
+    console.log(newGameModules);
+    for (let i = 0; i < gameModules.length; i++) {
+      if (gameModules[i]!._id === _id.current) {
+        newGameModules.splice(i, 1, updateData);
+      }
+    }
+    setGameModules(newGameModules);
+  };
+  const handleGameInfoModuleUpdateClick = () => {
+    const newGameInfo: saveGameInfo = {
+      _id: _idGame.current,
+      titleOfGame: titleOfGame.current,
+      description: gameInfoModule.description,
+      estimatedTimeMinutes: estimatedTimeMinutes.current,
+      rating: rating.current,
+      isPrivate: isPrivate.current,
+      isPublished: isPublished.current,
+      startingLocationCoordinates: startingLocationCoordinates.current,
+      gameModules: gameData.gameModules,
+    };
+    setGameInfoModule(newGameInfo);
+  };
 
   if (activeModule) {
+    typeOfModule.current = activeModule.typeOfModule;
     title.current = activeModule.title;
     description.current = activeModule.description;
     question.current = activeModule.question;
     answer.current = activeModule.answer;
     hint.current = activeModule.hint;
+    _id.current = activeModule._id;
+    // setImageUrl(activeModule.image);
   }
+  if (gameInfoModule) {
+    _idGame.current = gameInfoModule._id;
+    titleOfGame.current = gameInfoModule.titleOfGame;
+    gameDescription.current = gameInfoModule.description;
+    estimatedTimeMinutes.current = gameInfoModule.estimatedTimeMinutes;
+    rating.current = gameInfoModule.rating;
+    isPrivate.current = gameInfoModule.isPrivate;
+    startingLocationCoordinates.current =
+      gameInfoModule.startingLocationCoordinates;
+    //setImageUrl(gameInfoModule.image);
+  }
+  // const published = useRef<boolean>(false);
+  // const gameDescription = useRef<string>("");
+  // const gameImage = useRef<string>("");
+  // const titleOfGame = useRef<string>("");
+  // const userName = useRef<string>("");
+  // const estimatedTimeMinutes = useRef<string>("");
+  // const rating = useRef<string>("");
+  // const isPublished = useRef<string>("");
+  // const isPrivate = useRef<string>("");
+  // const startingLocationCoordinates = useRef<number[] | null>([]);
 
   if (!activeModule) {
     return (
       <FormStoryInformation
-        titleOfGame={titleOfGame.current}
-        minutes={minutes.current}
-        rating={rating.current}
-        visibility={visibility.current}
+        titleOfGame={titleOfGame}
+        estimatedTimeMinutes={estimatedTimeMinutes}
+        rating={rating}
+        isPublished={isPublished}
+        isPrivate={isPrivate}
         setImageUrl={setImageUrl}
         imageUrl={imageUrl}
-        description={description.current}
-        setGameData={value.setGameData}
-        gameData={value.gameData}
+        gameDescription={gameDescription}
+        startingLocationCoordinates={startingLocationCoordinates}
+        handleGameInfoModuleUpdateClick={handleGameInfoModuleUpdateClick}
       />
-    )
+    );
   } else {
-
     switch (activeModule.typeOfModule) {
-      case 'narrative':
+      case "narrative":
         return (
           <FormNarrative
-            key={activeModule._id}
-            title={title.current}
-            description={description.current}
+            key={_id.current}
+            title={title}
+            description={description}
             setImageUrl={setImageUrl}
             imageUrl={imageUrl}
+            handleModuleUpdateClick={handleModuleUpdateClick}
           />
         );
 
-      case 'location':
+      case "location":
         return (
           <FormLocation
-            key={activeModule._id}
-            title={title.current}
-            description={description.current}
+            key={_id.current}
+            title={title}
+            description={description}
             setImageUrl={setImageUrl}
             imageUrl={imageUrl}
-            coordinates={coordinates.current}
-            hint={hint.current}
+            coordinates={coordinates}
+            hint={hint}
+            handleModuleUpdateClick={handleModuleUpdateClick}
           />
         );
 
-      case 'question':
+      case "question":
         return (
           <FormQuestion
-            key={activeModule._id}
-            title={title.current}
-            description={description.current}
+            key={_id.current}
+            title={title}
+            description={description}
             setImageUrl={setImageUrl}
             imageUrl={imageUrl}
-            question={question.current}
-            answer={answer.current}
-            hint={hint.current}
+            question={question}
+            answer={answer}
+            hint={hint}
+            handleModuleUpdateClick={handleModuleUpdateClick}
           />
         );
 
-      case 'end':
+      case "end":
         return (
           <FormEnd
-            key={activeModule._id}
-            title={title.current}
-            description={description.current}
+            key={_id.current}
+            title={title}
+            description={description}
             setImageUrl={setImageUrl}
             imageUrl={imageUrl}
+            handleModuleUpdateClick={handleModuleUpdateClick}
           />
         );
     }
   }
-  return <></>
+  return <></>;
 };
 
 export default ModuleForms;

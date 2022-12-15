@@ -1,12 +1,10 @@
-// import { type NextPage } from "next";
 import React, {
   type ReactElement,
   useState,
 } from "react";
-import GameListCompleted from "../../Components/ProfilePage/GameListCompleted";
-import GameListUncompleted from "../../Components/ProfilePage/GameListUncompleted";
+import GameListCompleted from "../../Components/ProfilePage/GameListAuthored";
+import GameListUncompleted from "../../Components/ProfilePage/GameListOtherStatus";
 import StatusBar from "../../Components/ProfilePage/StatusBar";
-// import Link from "next/link";
 
 
 const Profile = (): ReactElement =>  {
@@ -28,7 +26,7 @@ const Profile = (): ReactElement =>  {
               id = "themeButton"
               onClick = {()=>isShowing(true)}
             >
-              Completed
+              Authored
             </a>
           </li>
           <li className="mr-2">
@@ -38,7 +36,7 @@ const Profile = (): ReactElement =>  {
               id = "themeButton"
               onClick = {()=>isShowing(false)}
             >
-              Ongoing
+              Case Status
             </a>
           </li>
         </ul>

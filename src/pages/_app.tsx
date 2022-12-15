@@ -15,6 +15,9 @@ import { AuthProvider } from "../Components/AuthProvider";
 import NavBar from "../Components/Navigation/NavBar";
 import MockGame from "../Components/Editor/Helpers/MockGame";
 import { saveGameInfo, GameModule } from "../types/global";
+import { useLocalStorage, useReadLocalStorage } from "usehooks-ts";
+import { LineAxisOutlined } from "@mui/icons-material";
+import axios from "axios";
 
 const darkTheme = createTheme({
   palette: {
@@ -26,26 +29,70 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [loadScreenMounted, setLoadScreenMounted] = useState<boolean>(true);
   const [durationLoadingScreen] = useState<number>(2000);
   const [deviceType, setDeviceType] = useState<string | null>(null);
+<<<<<<< HEAD
   const [userId, setUserId] = useState<string>("");
   const [gameData, setGameData] = useState<saveGameInfo>(MockGame);
   const [gameModules, setGameModules] = useState<GameModule[]>(MockGame.gameModules)
   const [activeModule, setActiveModule] = useState(null);
   // const compCheck = useRef<boolean>(false);
+=======
+  const [userId, setUserId] = useState<string>("on est là");
+  const [gameData, setGameData] = useState<saveGameInfo | null>(null);
+  const [gameModules, setGameModules] = useState<GameModule[]>();
+  const hasMounted = useRef<boolean>(false);
+  const [activeModule, setActiveModule] = useState<GameModule | null>(null);
+  const [gameInfoModule, setGameInfoModule] = useState<saveGameInfo | null>(
+    null
+  );
+>>>>>>> 2e0c5cb44029a470bc79f1e854dc24b2e170ae9d
 
-  // useEffect(() => {
-  //   if (!compCheck.current) {
-  //     compCheck.current = true;
-  //   } else {
-  //     compCheck.current = false;
-  //   }
-  // }, [Component]);
+  const [currentGame, setCurrentGame] = useLocalStorage(
+    "currentGameData",
+    gameData
+  );
+  // console.log(gameModules);
+  // console.log(useReadLocalStorage("currentGameData"));
+  // console.log(gameModules);
+
+  const getTest = async () => {
+    await axios
+      .get(
+        "http://localhost:2000/editor/63994347a498895824811be2"
+      )
+      .then((response) => {
+        console.log(response.data);
+        setGameData(response.data[0]);
+        setGameModules(response.data[0].gameModules);
+        setGameInfoModule(response.data[0]);
+      });
+  };
 
   useEffect(() => {
-    const newGameData = gameData
-    newGameData.gameModules = gameModules
-    setGameData(newGameData)
-    console.log("gameData has been updated")
-  }, [gameModules])
+    if (!hasMounted.current) {
+      getTest();
+      hasMounted.current = true;
+    }
+  }, [hasMounted]);
+
+  useEffect(() => {
+    if (gameData) {
+      const newGameData = gameData;
+      newGameData.gameModules = gameModules;
+      setGameData(newGameData);
+      console.log(gameData);
+      console.log("gameData has been updated");
+    }
+  }, [gameModules]);
+
+  useEffect(() => {
+    if (gameData && gameInfoModule) {
+      let newGameData = gameData;
+      newGameData = gameInfoModule;
+      setGameData(newGameData);
+      console.log(gameData);
+      console.log("gameData has been updated");
+    }
+  }, [gameInfoModule]);
 
   useEffect(() => {
     const maxScreenSize =
@@ -69,11 +116,15 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         setGameModules: setGameModules,
         activeModule: activeModule,
         setActiveModule: setActiveModule,
+        setCurrentGame: setCurrentGame,
         userId: userId,
-        setUserId: setUserId
+        setUserId: setUserId,
+        setGameInfoModule: setGameInfoModule,
+        gameInfoModule: gameInfoModule,
       }}
-      >
+    >
       <AuthProvider>
+<<<<<<< HEAD
     
       <Script
         src="https://upload-widget.cloudinary.com/global/all.js"
@@ -89,8 +140,25 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         <LoadingScreen
           setLoadScreenMounted={setLoadScreenMounted}
           duration={durationLoadingScreen}
+=======
+        <Script
+          src="https://upload-widget.cloudinary.com/global/all.js"
+          type="text/javascript"
+>>>>>>> 2e0c5cb44029a470bc79f1e854dc24b2e170ae9d
         />
-      )}
+
+        {Component && !loadScreenMounted ? (
+          <ThemeProvider theme={darkTheme}>
+            {/* <SignInForm></SignInForm> */}
+            {deviceType && <NavBar deviceType={deviceType} />}
+            <Component {...pageProps} deviceType={deviceType} />
+          </ThemeProvider>
+        ) : (
+          <LoadingScreen
+            setLoadScreenMounted={setLoadScreenMounted}
+            duration={durationLoadingScreen}
+          />
+        )}
       </AuthProvider>
     </AppContext.Provider>
   );

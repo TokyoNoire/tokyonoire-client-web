@@ -1,9 +1,10 @@
 import React, {
-  type FC, type ReactElement, type MouseEvent,
+  type FC,
+  type ReactElement,
   useState,
   useCallback,
   useContext,
-  useEffect
+  useEffect,
 } from "react";
 import {
   DndContext,
@@ -16,7 +17,7 @@ import {
   arrayMove,
   SortableContext,
   verticalListSortingStrategy,
-  sortableKeyboardCoordinates
+  sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
 import SortableItem from "./Helpers/SortableItem";
 import AddModuleButton from "./Helpers/AddModuleButton";
@@ -28,17 +29,29 @@ type GameModuleWithId = {
 } & GameModule;
 
 const DragAndDropEditor: FC = (): ReactElement => {
-  const value = useContext(AppContext)
-  const { gameData, setGameData, gameModules, setGameModules, setActiveModule } = value
+  const value = useContext(AppContext);
+  const { gameModules, setGameModules, setActiveModule } = value;
 
-  const [gameModulesList, setGameModulesList] = useState<GameModuleWithId[] | null>(
-    gameModules.map((gameModule: GameModule, index: number) => ({ id: index + 1, ...gameModule })))
+  const [gameModulesList, setGameModulesList] = useState<
+    GameModuleWithId[] | null
+  >(null);
+
+  useEffect(() => {
+    if (gameModules) {
+      setGameModulesList(
+        gameModules.map((gameModule: GameModule, index: number) => ({
+          id: index + 1,
+          ...gameModule,
+        }))
+      );
+    }
+  }, [gameModules]);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
         distance: 8,
-      }
+      },
     }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
@@ -58,58 +71,51 @@ const DragAndDropEditor: FC = (): ReactElement => {
         const newIndex = gameModulesList
           .map((gameModule: GameModuleWithId) => gameModule.id)
           .indexOf(over.id);
-
-        // console.log(oldIndex)
-        // console.log(newIndex)
         const newModulesOrder = arrayMove(gameModulesList, oldIndex, newIndex);
-        // const temp = newModulesOrder[oldIndex].id
-        // newModulesOrder[oldIndex].id = newModulesOrder[newIndex].id
-        // newModulesOrder[newIndex].id = temp
         setGameModulesList(newModulesOrder);
-        setGameModules(newModulesOrder)
+        setGameModules(newModulesOrder);
       }
     },
     [gameModulesList]
   );
 
-  const handleClick = (moduleIndex: number) => {
-    // console.log(gameModules[moduleIndex])
-    setActiveModule(gameModules[moduleIndex])
-  }
+  const handleClick = (moduleIndex: any) => {
+    setActiveModule(gameModulesList![moduleIndex]);
+  };
 
   return (
     <>
-      {gameModulesList &&
+      {gameModulesList && (
         <section className="flex flex-col gap-8">
-          <DndContext
-            sensors={sensors}
-            onDragEnd={handleDragEnd}
-          >
+          <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
             <SortableContext
               items={gameModulesList}
               strategy={verticalListSortingStrategy}
             >
-              <div className="flex flex-col justify-start w-full h-full gap-8 text-center item-center">
-                {gameModulesList && gameModulesList.map((gameModule: GameModuleWithId, moduleIndex: number) => (
-                  <SortableItem key={gameModule.id} id={gameModule.id!}>
-                    <div
-                      className='flex items-center justify-center w-1/2 h-full border-4 bg-darkGrey'
-                      onClick={event => handleClick(moduleIndex)}
-                    >
-                      {`${gameModule.title} Index: ${gameModule.id}`}
-
-                    </div>
-                  </SortableItem>
-                ))}
+              <div className="w-full h-full flex flex-col justify-start item-center text-center gap-8">
+                {gameModulesList &&
+                  gameModulesList.map(
+                    (gameModule: GameModuleWithId, moduleIndex: number) => (
+                      <SortableItem key={gameModule.id} id={gameModule.id!}>
+                        <div
+                          className="flex items-center justify-center w-1/2 h-full border-4 bg-darkGrey rounded-md"
+                          onClick={(event: any) => {
+                            handleClick(moduleIndex);
+                          }}
+                        >
+                          {`${gameModule.title}`}
+                        </div>
+                      </SortableItem>
+                    )
+                  )}
               </div>
             </SortableContext>
           </DndContext>
 
           <AddModuleButton />
         </section>
-      }
+      )}
     </>
-
   );
 };
 

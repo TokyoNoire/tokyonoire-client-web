@@ -4,7 +4,7 @@ import TokyoNoireName from "../../../public/Title_DarkTheme.svg";
 import HintPopper from "../GameModules/Helpers/HintPopper";
 import AppContext from "../../AppContext";
 import { useRouter } from "next/router"
-import AuthPage from "../Authentification/AuthPage";
+import AuthPage from "../Authentification/AuthPopUp";
 
 interface props {
   show: boolean
