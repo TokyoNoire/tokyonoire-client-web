@@ -3,6 +3,14 @@ import { useRouter } from "next/router";
 import { type saveGameInfo } from "../../types/global";
 import { Button, Menu, MenuItem } from "@mui/material";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { LineAxisOutlined } from "@mui/icons-material";
+import axios from 'axios'
+import { v4 as uuidv4 } from "uuid";
+import { GameDataSchema } from "../../Components/Editor/Helpers/GameDataSchema"
+import { GameModuleSchema } from "../../Components/Editor/Helpers/GameSchema"
+import AppContext from "../../AppContext";
+import { useContext } from "react";
+import App from "next/app";
 
 interface Props {
     game: saveGameInfo;
@@ -10,7 +18,10 @@ interface Props {
     gameId: string;
 }
 
+
 const Editor = (props: Props): ReactElement => {
+    const value = useContext(AppContext);
+    const {setGameData,setGameModules,setGameInfoModule} = value
     // const { game, gameId } = props;
     const router = useRouter();
 
@@ -24,12 +35,21 @@ const Editor = (props: Props): ReactElement => {
     };
 
     // Kazuki: this function below is connected to the open New Case button. I assume the request happens here.
-    const handleCreateNewGameClick = (e: React.MouseEvent) => {
+    const handleCreateNewGameClick = async (e: React.MouseEvent) => {
         e.preventDefault();
-        router.push({
-            pathname: "/editor/[gameId]",
-            query: { gameId: "gameId" },
-        });
+        const templateGameData = new GameDataSchema();
+        templateGameData.titleOfGame = `game#${templateGameData._id}`;
+        console.log(templateGameData)
+        await axios.post("http://localhost:2000/editor", templateGameData)
+            .then(response => {
+                setGameData(response.data);
+                setGameModules(response.data.gameModules);
+                setGameInfoModule(response.data);
+            })
+         router.push({
+             pathname: "/editor/[gameId]",
+             query: { gameId: "gameId" },
+         });
     };
 
     return (
