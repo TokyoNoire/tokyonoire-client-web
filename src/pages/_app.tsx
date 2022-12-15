@@ -10,7 +10,7 @@ import "../styles/loadingSpinner.css";
 import "../styles/animations.css";
 import AppContext from "../AppContext";
 import LoadingScreen from "../Components/LoadingScreen";
-import SignInForm from "../Components/SignInForm";
+import SignInForm from "../Components/Authentification/SignInForm";
 import { AuthProvider } from "../Components/AuthProvider";
 import NavBar from "../Components/Navigation/NavBar";
 import MockGame from "../Components/Editor/Helpers/MockGame";
