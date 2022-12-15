@@ -8,7 +8,7 @@ import React, {
 type props = {
   imageUrl: MutableRefObject<string>;
 };
-const ImageWidget = (props: props): ReactElement => {
+const BlockImageWidget = (props: props): ReactElement => {
   const { imageUrl } = props;
   const [displayImage, setDisplayImage] = useState<string | null>(imageUrl ? imageUrl.current : null);
 
@@ -58,23 +58,36 @@ const ImageWidget = (props: props): ReactElement => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center">
-      {displayImage && (
-        <img
-          className="w-9/12 mt-10 self-center"
-          src={`${displayImage}`}
-          alt="preview"
-        />
-      )}
+    <section className="flex flex-col justify-center gap-4">
+      <div
+        {...(imageUrl.current && {
+          className: "flex flex-col justify-center border-2 rounded-md border-dotted border-[#353535]"
+        })}
+
+
+      >
+        {displayImage && (
+          <img
+            className="w-9/12 self-center"
+            src={`${displayImage}`}
+            alt="preview"
+          />
+        )}
+      </div>
       <button
         id="themeButton"
+
         className="uppercase w-9/12 font-heading self-center"
         onClick={() => widgetRef.current?.open()}
       >
-        Select Photo
+        {imageUrl.current ?
+          "Modify Photo"
+          :
+          "Select Photo"
+        }
       </button>
-    </div>
+    </section>
   );
 };
 
-export default ImageWidget;
+export default BlockImageWidget;

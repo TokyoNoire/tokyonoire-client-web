@@ -3,11 +3,13 @@ import FormLocation from "./FormLocation";
 import FormNarrative from "./FormNarrative";
 import FormQuestion from "./FormQuestion";
 import FormEnd from "./FormEnd";
-import FormStoryInformation from "./FormStoryInformation";
+import GameInformation from "./GameInformation";
 import { useContext } from "react";
 import AppContext from "../../AppContext";
 import { saveGameInfo, type GameModule } from "../../types/global";
 import { AutoFixHighRounded } from "@mui/icons-material";
+
+import BlockContainer from "./FormBlocks/ContainerForm";
 
 export type GameModules = {
   typeOfModule: string;
@@ -46,6 +48,7 @@ const ModuleForms = (): ReactElement => {
   const imageUrlGame = useRef<string>("");
 
   const title = useRef<string>("");
+  const typeOfModule = useRef<string>("");
   const description = useRef<string>("");
   const coordinates = useRef<number[] | null>([]);
   const question = useRef<string>("");
@@ -54,7 +57,6 @@ const ModuleForms = (): ReactElement => {
   // const [imageUrl, setImageUrl] = useState<string>("");
   const imageUrl = useRef<string>("");
   const _id = useRef<string>("");
-  const typeOfModule = useRef<string>("");
 
   // console.log(_id.current);
 
@@ -123,7 +125,7 @@ const ModuleForms = (): ReactElement => {
 
   if (!activeModule) {
     return (
-      <FormStoryInformation
+      <GameInformation
         titleOfGame={titleOfGame}
         estimatedTimeMinutes={estimatedTimeMinutes}
         rating={rating}
@@ -142,6 +144,7 @@ const ModuleForms = (): ReactElement => {
           <FormNarrative
             key={_id.current}
             title={title}
+            typeOfModule={typeOfModule}
             description={description}
             imageUrl={imageUrl}
             handleModuleUpdateClick={handleModuleUpdateClick}
@@ -153,6 +156,7 @@ const ModuleForms = (): ReactElement => {
           <FormLocation
             key={_id.current}
             title={title}
+            typeOfModule={typeOfModule}
             description={description}
             imageUrl={imageUrl}
             coordinates={coordinates}
@@ -166,6 +170,7 @@ const ModuleForms = (): ReactElement => {
           <FormQuestion
             key={_id.current}
             title={title}
+            typeOfModule={typeOfModule}
             description={description}
             imageUrl={imageUrl}
             question={question}
@@ -180,6 +185,7 @@ const ModuleForms = (): ReactElement => {
           <FormEnd
             key={_id.current}
             title={title}
+            typeOfModule={typeOfModule}
             description={description}
             imageUrl={imageUrl}
             handleModuleUpdateClick={handleModuleUpdateClick}
