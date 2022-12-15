@@ -33,15 +33,14 @@ const ModuleForms = (): ReactElement => {
   console.log(gameInfoModule);
 
   const _idGame = useRef<string>("");
-  const published = useRef<boolean>(false);
-  const gameDescription = useRef<string>("");
-  const gameImage = useRef<string>("");
-  const titleOfGame = useRef<string>("");
-  const userName = useRef<string>("");
-  const estimatedTimeMinutes = useRef<string>("");
-  const rating = useRef<string>("");
   const isPublished = useRef<string>("");
   const isPrivate = useRef<string>("");
+  const titleOfGame = useRef<string>("");
+  const gameDescription = useRef<string>("");
+  const userName = useRef<string>("");
+  const gameImage = useRef<string>("");
+  const estimatedTimeMinutes = useRef<string>("");
+  const rating = useRef<string>("");
   const startingLocationCoordinates = useRef<number[] | null>([]);
 
   const title = useRef<string>("");
@@ -50,7 +49,7 @@ const ModuleForms = (): ReactElement => {
   const question = useRef<string>("");
   const answer = useRef<string>("");
   const hint = useRef<string>("");
-  const [imageUrl, setImageUrl] = useState<string>("");
+  const [image, setImage] = useState<string>("");
   const _id = useRef<string>("");
   const typeOfModule = useRef<string>("");
 
@@ -66,7 +65,7 @@ const ModuleForms = (): ReactElement => {
       question: question.current,
       answer: answer.current,
       hint: hint.current,
-      image: imageUrl,
+      image: image,
     };
     console.log(gameModules);
     const newGameModules = [];
@@ -105,7 +104,7 @@ const ModuleForms = (): ReactElement => {
     answer.current = activeModule.answer;
     hint.current = activeModule.hint;
     _id.current = activeModule._id;
-    // setImageUrl(activeModule.image);
+    // setImage(activeModule.image);
   }
   if (gameInfoModule) {
     _idGame.current = gameInfoModule._id;
@@ -116,19 +115,8 @@ const ModuleForms = (): ReactElement => {
     isPrivate.current = gameInfoModule.isPrivate;
     startingLocationCoordinates.current =
       gameInfoModule.startingLocationCoordinates;
-    //setImageUrl(gameInfoModule.image);
+    //setImage(gameInfoModule.image);
   }
-  // const published = useRef<boolean>(false);
-  // const gameDescription = useRef<string>("");
-  // const gameImage = useRef<string>("");
-  // const titleOfGame = useRef<string>("");
-  // const userName = useRef<string>("");
-  // const estimatedTimeMinutes = useRef<string>("");
-  // const rating = useRef<string>("");
-  // const isPublished = useRef<string>("");
-  // const isPrivate = useRef<string>("");
-  // const startingLocationCoordinates = useRef<number[] | null>([]);
-
   if (!activeModule) {
     return (
       <FormStoryInformation
@@ -137,8 +125,8 @@ const ModuleForms = (): ReactElement => {
         rating={rating}
         isPublished={isPublished}
         isPrivate={isPrivate}
-        setImageUrl={setImageUrl}
-        imageUrl={imageUrl}
+        setImage={setImage}
+        image={image}
         gameDescription={gameDescription}
         startingLocationCoordinates={startingLocationCoordinates}
         handleGameInfoModuleUpdateClick={handleGameInfoModuleUpdateClick}
@@ -152,8 +140,8 @@ const ModuleForms = (): ReactElement => {
             key={_id.current}
             title={title}
             description={description}
-            setImageUrl={setImageUrl}
-            imageUrl={imageUrl}
+            setImage={setImage}
+            image={image}
             handleModuleUpdateClick={handleModuleUpdateClick}
           />
         );
@@ -164,8 +152,8 @@ const ModuleForms = (): ReactElement => {
             key={_id.current}
             title={title}
             description={description}
-            setImageUrl={setImageUrl}
-            imageUrl={imageUrl}
+            setImage={setImage}
+            image={image}
             coordinates={coordinates}
             hint={hint}
             handleModuleUpdateClick={handleModuleUpdateClick}
@@ -178,8 +166,8 @@ const ModuleForms = (): ReactElement => {
             key={_id.current}
             title={title}
             description={description}
-            setImageUrl={setImageUrl}
-            imageUrl={imageUrl}
+            setImage={setImage}
+            image={image}
             question={question}
             answer={answer}
             hint={hint}
@@ -193,8 +181,8 @@ const ModuleForms = (): ReactElement => {
             key={_id.current}
             title={title}
             description={description}
-            setImageUrl={setImageUrl}
-            imageUrl={imageUrl}
+            setImage={setImage}
+            image={image}
             handleModuleUpdateClick={handleModuleUpdateClick}
           />
         );

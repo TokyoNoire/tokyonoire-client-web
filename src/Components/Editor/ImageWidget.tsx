@@ -4,10 +4,10 @@ import React, {
   useRef,
 } from "react";
 type prop = {
-  setImageUrl: (string: string) => void;
+  setImage: (string: string) => void;
 };
 const ImageWidget = (prop: prop): ReactElement => {
-  const { setImageUrl } = prop;
+  const { setImage } = prop;
   const cloudinaryRef = useRef<any>();
   const widgetRef = useRef<any>();
 
@@ -20,7 +20,7 @@ const ImageWidget = (prop: prop): ReactElement => {
       },
       function (error: any, result: any) {
         if (result.info.url !== undefined) {
-          setImageUrl(result.info.url);
+          setImage(result.info.url);
         }
       }
     );

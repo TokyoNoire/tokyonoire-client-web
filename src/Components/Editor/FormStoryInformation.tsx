@@ -17,8 +17,8 @@ interface prop {
   isPublished: MutableRefObject<string>;
   isPrivate: MutableRefObject<string>;
   startingLocationCoordinates: MutableRefObject<number[] | null>;
-  setImageUrl: (string: string) => void;
-  imageUrl: string;
+  setImage: (string: string) => void;
+  image: string;
   handleGameInfoModuleUpdateClick: () => void;
 }
 
@@ -32,8 +32,8 @@ const FormStoryInformation = (prop: prop): ReactElement => {
     isPublished,
     isPrivate,
     startingLocationCoordinates,
-    setImageUrl,
-    imageUrl,
+    setImage,
+    image,
     handleGameInfoModuleUpdateClick,
   } = prop;
   const value = useContext(AppContext);
@@ -119,17 +119,17 @@ const FormStoryInformation = (prop: prop): ReactElement => {
           variant="filled"
         /> */}
       </div>
-      {imageUrl !== "" ? (
+      {image !== "" ? (
         <img
           className="self-center w-3/5 mt-10"
-          src={`${imageUrl}`}
+          src={`${image}`}
           alt="preview"
         />
       ) : (
         ""
       )}
       <p className="mt-5 text-sm uppercase font-heading">Image Upload</p>
-      <ImageWidget setImageUrl={setImageUrl} />
+      <ImageWidget setImage={setImage} />
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Description
       </p>

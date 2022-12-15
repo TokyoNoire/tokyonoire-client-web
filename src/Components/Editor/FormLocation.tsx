@@ -12,9 +12,9 @@ import ImageWidget from "./ImageWidget";
 interface props {
   title: MutableRefObject<string>;
   description: MutableRefObject<string>;
-  coordinates: MutableRefObject<number[] | null>;
-  setImageUrl: (string: string) => void;
-  imageUrl: string;
+  locationCoordinates: MutableRefObject<number[] | null>;
+  setImage: (string: string) => void;
+  image: string;
   hint: MutableRefObject<string>;
   handleModuleUpdateClick: () => void;
 }
@@ -23,9 +23,9 @@ const FormLocation = (props: props): ReactElement => {
   const {
     title,
     description,
-    coordinates,
-    setImageUrl,
-    imageUrl,
+    locationCoordinates,
+    setImage,
+    image,
     hint,
     handleModuleUpdateClick,
   } = props;
@@ -64,17 +64,17 @@ const FormLocation = (props: props): ReactElement => {
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Image Upload
       </p>
-      {imageUrl ? (
+      {image ? (
         <img
           className="w-3/5 mt-10 self-center"
-          src={`${imageUrl}`}
+          src={`${image}`}
           alt="preview"
         />
       ) : (
         ""
       )}
 
-      <ImageWidget setImageUrl={setImageUrl} />
+      <ImageWidget setImage={setImage} />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Description
