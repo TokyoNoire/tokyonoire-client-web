@@ -21,10 +21,9 @@ export type GameModules = {
 
 const ModuleForms = (): ReactElement => {
   const value = useContext(AppContext);
-  const { activeModule, gameModules, setGameModules,
+  const { activeModule, setActiveModule, gameModules, setGameModules,
     gameInfoModule, setGameInfoModule, gameData,
   } = value;
-  console.log(gameInfoModule);
 
   // Game Info References
   const _idGame = useRef<string>("");
@@ -81,6 +80,8 @@ const ModuleForms = (): ReactElement => {
   const locationCoordinates = useRef<number[] | null>([]);
 
   if (activeModule) {
+    console.log("I ran")
+    console.log(activeModule)
     _id.current = activeModule._id;
     typeOfModule.current = activeModule.typeOfModule;
     title.current = activeModule.title;
@@ -115,6 +116,7 @@ const ModuleForms = (): ReactElement => {
       }
     }
     setGameModules(newGameModules);
+    setActiveModule(updateData);
   };
 
   if (!activeModule) {

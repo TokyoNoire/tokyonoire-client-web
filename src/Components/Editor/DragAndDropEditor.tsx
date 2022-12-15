@@ -23,6 +23,7 @@ import SortableItem from "./Helpers/SortableItem";
 import AddModuleButton from "./Helpers/AddModuleButton";
 import AppContext from "../../AppContext";
 import { type GameModule } from "../../types/global";
+import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 
 type GameModuleWithId = {
   id: number;
@@ -30,7 +31,7 @@ type GameModuleWithId = {
 
 const DragAndDropEditor: FC = (): ReactElement => {
   const value = useContext(AppContext);
-  const { gameModules, setGameModules, setActiveModule } = value;
+  const { gameModules, setGameModules, activeModule, setActiveModule } = value;
 
   const [gameModulesList, setGameModulesList] = useState<
     GameModuleWithId[] | null
@@ -83,11 +84,12 @@ const DragAndDropEditor: FC = (): ReactElement => {
     setActiveModule(gameModulesList![moduleIndex]);
   };
 
+  // console.log("re-rendered")
   return (
     <>
       {gameModulesList && (
         <section className="flex flex-col gap-8">
-          <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+          <DndContext sensors={sensors} onDragEnd={handleDragEnd} modifiers={[restrictToVerticalAxis]}>
             <SortableContext
               items={gameModulesList}
               strategy={verticalListSortingStrategy}
@@ -98,7 +100,13 @@ const DragAndDropEditor: FC = (): ReactElement => {
                     (gameModule: GameModuleWithId, moduleIndex: number) => (
                       <SortableItem key={gameModule.id} id={gameModule.id!}>
                         <div
-                          className="flex items-center justify-center w-1/2 h-full border-4 bg-darkGrey rounded-md"
+                          className="flex items-center justify-center w-1/2 h-full border-2 border-[#353535] rounded-md"
+                          style={activeModule ? (() => activeModule.id === gameModule.id ? { transition: "all 0.5s", transform: "scale(1.05)", boxShadow: "0px 0px 20px white" } : undefined)() : undefined}
+                          // {...(activeModule.id === gameModule.id ? {
+                          //   style: "box-shadow: 3px 3px 3px white"
+                          //   // activeModule.id === gameModule.id ? "box-shadow: 3px 3px 3px white" : ""
+                          // }
+                          // )}
                           onClick={(event: any) => {
                             handleClick(moduleIndex);
                           }}

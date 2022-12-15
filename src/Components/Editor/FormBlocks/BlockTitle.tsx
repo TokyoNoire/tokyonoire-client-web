@@ -8,6 +8,7 @@ interface props {
 
 const BlockTitle = (props: props): ReactElement => {
     const { title, placeholder } = props;
+
     return (
         <TextField
             id="title"

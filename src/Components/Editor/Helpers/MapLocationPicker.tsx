@@ -27,7 +27,6 @@ interface props {
 
 const MapLocationPicker = (props: props): ReactElement => {
   const { locationCoordinates } = props;
-  console.log(locationCoordinates.current)
   const didMount = useRef<boolean>(false);
   const [map, setMap] = useState<Map>();
   const mapElement = useRef<HTMLDivElement>(null);
