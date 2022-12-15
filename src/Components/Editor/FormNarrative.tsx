@@ -7,8 +7,8 @@ import ImageWidget from "./ImageWidget";
 interface props {
   title: MutableRefObject<string>;
   description: MutableRefObject<string>;
-  setImageUrl: (string: string) => void;
-  imageUrl: string;
+  setImage: (string: string) => void;
+  image: string;
   handleModuleUpdateClick: () => void;
 }
 
@@ -16,8 +16,8 @@ const FormNarrative = (props: props): ReactElement => {
   const {
     title,
     description,
-    setImageUrl,
-    imageUrl,
+    setImage,
+    image,
     handleModuleUpdateClick
   } = props;
   const value = useContext(AppContext);
@@ -49,10 +49,10 @@ const FormNarrative = (props: props): ReactElement => {
         fullWidth
         onChange={(e) => (title.current = e.target.value)}
       />
-      {imageUrl ? (
+      {image ? (
         <img
           className="w-3/5 mt-10 self-center"
-          src={`${imageUrl}`}
+          src={`${image}`}
           alt="preview"
         />
       ) : (
@@ -62,7 +62,7 @@ const FormNarrative = (props: props): ReactElement => {
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Image Upload
       </p>
-      <ImageWidget setImageUrl={setImageUrl} />
+      <ImageWidget setImage={setImage} />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Description
