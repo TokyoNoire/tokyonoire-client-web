@@ -10,8 +10,8 @@ interface props {
   question: MutableRefObject<string>;
   answer: MutableRefObject<string>;
   hint: MutableRefObject<string>;
-  setImageUrl: (string: string) => void;
-  imageUrl: string;
+  setImage: (string: string) => void;
+  image: string;
   handleModuleUpdateClick: () => void;
 }
 
@@ -19,8 +19,8 @@ const FormQuestion = (props: props): ReactElement => {
   const {
     title,
     description,
-    setImageUrl,
-    imageUrl,
+    setImage,
+    image,
     question,
     answer,
     hint,
@@ -63,7 +63,7 @@ const FormQuestion = (props: props): ReactElement => {
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Image Upload
       </p>
-      <ImageWidget setImageUrl={setImageUrl} />
+      <ImageWidget setImage={setImage} />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Description

@@ -4,7 +4,7 @@ import TokyoNoireName from "../../../public/Title_DarkTheme.svg";
 import HintPopper from "../GameModules/Helpers/HintPopper";
 import AppContext from "../../AppContext";
 import { useRouter } from "next/router"
-import AuthPage from "../Authentification/AuthPopUp";
+import AuthPopUp from "../Authentification/AuthPopUp";
 
 interface props {
   show: boolean
@@ -34,7 +34,7 @@ const HomeDesktop = (props: props): ReactElement => {
   return (
     <>
     <main className="z-10 relative w-screen h-screen flexCenterDiv place-items-center">
-    {signInChallenge ? (<AuthPage/>) : (<></>)}
+    {signInChallenge ? (<AuthPopUp/>) : (<></>)}
       <TokyoNoireName
         alt="Tokyo Noire Name"
         style={{ maxWidth: "80vw", filter: "drop-shadow(0 0 0.5rem grey)", animation: "pulsate 1s ease-in-out infinite alternate" }}

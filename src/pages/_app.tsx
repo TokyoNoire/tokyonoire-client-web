@@ -28,7 +28,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [loadScreenMounted, setLoadScreenMounted] = useState<boolean>(true);
   const [durationLoadingScreen] = useState<number>(2000);
   const [deviceType, setDeviceType] = useState<string | null>(null);
-  const [userId, setUserId] = useState<string>("on est là");
+  const [userId, setUserId] = useState<string>('');
   const [gameData, setGameData] = useState<saveGameInfo | null>(null);
   const [gameModules, setGameModules] = useState<GameModule[]>();
   const hasMounted = useRef<boolean>(false);
@@ -44,19 +44,19 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   // console.log(gameModules);
   // console.log(useReadLocalStorage("currentGameData"));
   // console.log(gameModules);
-
-  // const getTest = async () => {
-  //   await axios
-  //     .get(
-  //       "http://localhost:2000/editor/63994347a498895824811be2"
-  //     )
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       setGameData(response.data[0]);
-  //       setGameModules(response.data[0].gameModules);
-  //       setGameInfoModule(response.data[0]);
-  //     });
-  // };
+  
+  const getTest = async () => {
+    await axios
+      .get(
+        "http://localhost:2000/editor/639a713b73341987c9be7c65"
+      )
+      .then((response) => {
+        console.log(response.data);
+        setGameData(response.data[0]);
+        setGameModules(response.data[0].gameModules);
+        setGameInfoModule(response.data[0]);
+      });
+  };
 
   // useEffect(() => {
   //   if (!hasMounted.current) {
