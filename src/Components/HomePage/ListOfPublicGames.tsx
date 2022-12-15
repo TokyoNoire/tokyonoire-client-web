@@ -69,8 +69,9 @@ const ListOfPublicGames = (props: props): ReactElement => {
     }
   }, [acquiredPermissions]);
 
-  const handleClick = (e: MouseEventHandler<HTMLTableSectionElement>) => {
-    setGameId(e.target!.id!);
+  const handleClick = (event: React.MouseEvent<HTMLSelectElement>) => {
+    // @ts-expect-error
+    setGameId(event.target!.id!);
     getGameById();
     setTimeout(handleOpen, 2000);
     // console.log(e.target!.id!, gameId);
@@ -79,7 +80,12 @@ const ListOfPublicGames = (props: props): ReactElement => {
   const publicGamesListing = publicGames.map((publicGame, index) => {
     return (
       <tbody key={index} id={publicGame._id}>
-        <tr className="bg-white border-b" id={publicGame._id} onClick={handleClick}>
+        <tr
+          className="bg-white border-b"
+          id={publicGame._id}
+          // @ts-expect-error
+          onClick={handleClick}
+        >
           <th
             scope="row"
             className="px-6 py-2 font-heading whitespace-nowrap"

@@ -47,7 +47,7 @@ const AuthoredListPopup: FC = (): ReactElement => {
         <p className="self-center p-5 text-xl text-center uppercase font-heading">Welcome to the Story Editor</p>
         <DialogContent>
           <p className="text-center font-body1">
-          "Hello detective, are you ready to post a case?"
+          `&quot;Hello detective, are you ready to post a case?`&quot;
           </p>
           </DialogContent>
         <div className="mt-5 overflow-x-auto">
