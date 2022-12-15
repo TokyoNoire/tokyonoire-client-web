@@ -33,25 +33,17 @@ const MenuDesktop = (): ReactElement => {
   const value = useContext(AppContext);
   const { gameData } = value;
 
-  //post request for when a user creates a new game.
-  const postGameData = async () => {
-    await axios.post(
-      "https://tokyo-noire-server-development.herokuapp.com/editor",
-      gameData
-    );
-  };
-  
   const saveDraft = async () => {
     await axios.patch(
       `http://localhost:2000/editor/${gameData._id}`,
-        gameData
+      gameData
       )
     }
 
   const publishGame = async () => {
     await axios.patch(
       `http://localhost:2000/editor/${gameData._id}`,
-        gameData
+      gameData
     )
   };
 
