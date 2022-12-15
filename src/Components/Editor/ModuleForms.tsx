@@ -43,15 +43,15 @@ const ModuleForms = (): ReactElement => {
   const rating = useRef<string>("");
   const startingLocationCoordinates = useRef<number[] | null>([]);
 
-  const title = useRef<string>("");
-  const description = useRef<string>("");
-  const coordinates = useRef<number[] | null>([]);
-  const question = useRef<string>("");
-  const answer = useRef<string>("");
-  const hint = useRef<string>("");
-  const [image, setImage] = useState<string>("");
   const _id = useRef<string>("");
   const typeOfModule = useRef<string>("");
+  const title = useRef<string>("");
+  const description = useRef<string>("");
+  const question = useRef<string>("");
+  const answer = useRef<string>("");
+  const [image, setImage] = useState<string>("");
+  const locationCoordinates = useRef<number[] | null>([]);
+  const hint = useRef<string>("");
 
   // console.log(_id.current);
 
@@ -61,7 +61,7 @@ const ModuleForms = (): ReactElement => {
       title: title.current,
       typeOfModule: typeOfModule.current,
       description: description.current,
-      locationCoordinates: coordinates.current,
+      locationCoordinates: locationCoordinates.current,
       question: question.current,
       answer: answer.current,
       hint: hint.current,
@@ -154,7 +154,7 @@ const ModuleForms = (): ReactElement => {
             description={description}
             setImage={setImage}
             image={image}
-            coordinates={coordinates}
+            locationCoordinates={locationCoordinates}
             hint={hint}
             handleModuleUpdateClick={handleModuleUpdateClick}
           />
