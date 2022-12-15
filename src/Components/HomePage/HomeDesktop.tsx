@@ -16,10 +16,6 @@ const HomeDesktop = (props: props): ReactElement => {
   const [signInChallenge, setSignInChallenge] = useState<boolean>(false);
   const router = useRouter()
 
-  interface prop {
-    isConnected: boolean
-  }
-
   useEffect(() => {
     console.log(userId)
     if (userId && signInChallenge === true) {
@@ -32,7 +28,6 @@ const HomeDesktop = (props: props): ReactElement => {
   }
 
   return (
-    <>
     <main className="z-10 relative w-screen h-screen flexCenterDiv place-items-center">
     {signInChallenge ? (<AuthPopUp/>) : (<></>)}
       <TokyoNoireName
@@ -61,7 +56,6 @@ const HomeDesktop = (props: props): ReactElement => {
         )}
       </section>
     </main>
-    </>
   );
 };
 

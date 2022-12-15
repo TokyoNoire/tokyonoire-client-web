@@ -14,6 +14,9 @@ import AppleIcon from "@mui/icons-material/Apple";
 import { AuthContext, useAuth } from '../AuthProvider'
 import { EmailAuthCredential } from "firebase/auth";
 import AppContext from "../../AppContext";
+import { getFirestore, query, getDocs, collection, where, addDoc, } from "firebase/firestore";
+import app from '../../../src/auth/firebase'
+import { auth, db } from '../../../src/auth/firebase'
 
 interface props {
   setAuthPanel: (string : string) => void
@@ -27,7 +30,6 @@ const SignUpForm = (props : props): ReactElement => {
   const email = useRef<string>('');
   const password = useRef<string>('');
   const name = useRef<string>('');
-  const userInfo = useRef({ email: "", password: "", name: "" });
   const formSubmitting = useRef<boolean>(false)
 
   useEffect(() => {
@@ -39,7 +41,7 @@ const SignUpForm = (props : props): ReactElement => {
 
   return (
     <>
-      <h1 className="self-center p-5 text-2xl text-center uppercase font-heading mx-0 my-20">
+      <h1 className="self-center p-5 text-2xl text-center uppercase font-heading mx-20 my-20">
         Sign Up
       </h1>
       <br />
@@ -98,7 +100,13 @@ const SignUpForm = (props : props): ReactElement => {
       <Button type="submit" id="themeButton" className="font-heading" onClick={async () => {
           formSubmitting.current = true;
           try {
-            await signUp(email.current, password.current)}
+            await signUp(email.current, password.current)
+            addDoc(collection(db, "users"), {
+              uid: userId,
+              name,
+              authProvider: "local",
+              email,
+            })}
             catch (error) {
               console.log('signup error', error)
               formSubmitting.current = false
@@ -138,7 +146,7 @@ const SignUpForm = (props : props): ReactElement => {
       <Grid container>
           <Grid item xs sx={{ mx: 2 }}>
             <Typography color="secondary" variant="body2">
-            <button className="mb-5 text-m font-body2" id="link" onClick={() => setAuthPanel('signin')}>
+            <button className="mb-5 text-m text-center font-body2" id="link" onClick={() => setAuthPanel('signin')}>
                 Already have an account? Login here.
               </button>
             </Typography>
