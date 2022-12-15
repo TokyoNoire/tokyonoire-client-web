@@ -54,12 +54,12 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       });
   };
 
-  // useEffect(() => {
-  //   if (!hasMounted.current) {
-  //     getTest();
-  //     hasMounted.current = true;
-  //   }
-  // }, [hasMounted]);
+  useEffect(() => {
+    if (!hasMounted.current) {
+      getTest();
+      hasMounted.current = true;
+    }
+  }, [hasMounted]);
 
   useEffect(() => {
     if (gameData) {

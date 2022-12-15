@@ -1,7 +1,6 @@
 import React, {
   type ReactElement,
   type MouseEvent,
-  type MouseEventHandler,
   useRef,
   useState,
   useContext,
@@ -33,26 +32,31 @@ const AddModuleButton = (): ReactElement => {
     console.log(ModuleOptions[index]);
     // console.log(newGameModule)
     const newGameModule = new GameModuleSchema();
+    newGameModule._id = uuidv4();
+    const newGameModulesList = [...gameModules]
     switch (ModuleOptions[index]) {
       case "Narrative Block":
         newGameModule.typeOfModule = "narrative";
-        newGameModule._id = uuidv4();
-        return setGameModules([...gameModules, newGameModule]);
+        newGameModule.title = "New Narrative Block";
+        newGameModulesList.splice(newGameModulesList.length - 1, 0, newGameModule);
+        return setGameModules(newGameModulesList);
 
       case "Go-To Location Block":
         newGameModule.typeOfModule = "location";
-        newGameModule._id = uuidv4();
-        return setGameModules([...gameModules, newGameModule]);
+        newGameModule.title = "New Go-To Location Block";
+        newGameModulesList.splice(newGameModulesList.length - 1, 0, newGameModule);
+        return setGameModules(newGameModulesList);
 
       case "Question Block":
         newGameModule.typeOfModule = "question";
-        newGameModule._id = uuidv4();
-        return setGameModules([...gameModules, newGameModule]);
+        newGameModule.title = "New Question Block";
+        newGameModulesList.splice(newGameModulesList.length - 1, 0, newGameModule);
+        return setGameModules(newGameModulesList);
 
-      case "End Block":
-        newGameModule.typeOfModule = "end";
-        newGameModule._id = uuidv4();
-        return setGameModules([...gameModules, newGameModule]);
+      // case "End Block":
+      //   newGameModule.typeOfModule = "end";
+      //   newGameModulesList.splice(newGameModulesList.length - 1, 0, newGameModule);
+      //   return setGameModules(newGameModulesList);
     }
     console.log(newGameModule);
   };

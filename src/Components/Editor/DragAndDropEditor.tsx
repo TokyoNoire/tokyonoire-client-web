@@ -84,31 +84,44 @@ const DragAndDropEditor: FC = (): ReactElement => {
     setActiveModule(gameModulesList![moduleIndex]);
   };
 
-  // console.log("re-rendered")
   return (
     <>
       {gameModulesList && (
         <section className="flex flex-col gap-8">
+
+          {gameModulesList && gameModulesList[0] &&
+            <SortableItem key={gameModulesList[0].id} id={gameModulesList[0].id}>
+              <div
+                className="flex items-center justify-center w-1/2 h-full border-2 border-[#353535] rounded-md transition-all duration-500"
+                style={activeModule ? (() => activeModule.id === 1
+                  ? { transition: "all 0.5s", transform: "scale(1.05)", boxShadow: "0px 0px 20px white" }
+                  : undefined)() : undefined}
+                onClick={(event: any) => {
+                  setActiveModule(gameModulesList![0]);
+                }}
+              >
+                {`${gameModulesList[0].title}`}
+              </div>
+            </SortableItem>
+          }
+
           <DndContext sensors={sensors} onDragEnd={handleDragEnd} modifiers={[restrictToVerticalAxis]}>
             <SortableContext
               items={gameModulesList}
               strategy={verticalListSortingStrategy}
             >
               <div className="flex flex-col justify-start w-full h-full gap-8 text-center item-center">
-                {gameModulesList &&
-                  gameModulesList.map(
+                <>
+                  {gameModulesList && gameModulesList.slice(1, -1).map(
                     (gameModule: GameModuleWithId, moduleIndex: number) => (
                       <SortableItem key={gameModule.id} id={gameModule.id!}>
                         <div
-                          className="flex items-center justify-center w-1/2 h-full border-2 border-[#353535] rounded-md"
-                          style={activeModule ? (() => activeModule.id === gameModule.id ? { transition: "all 0.5s", transform: "scale(1.05)", boxShadow: "0px 0px 20px white" } : undefined)() : undefined}
-                          // {...(activeModule.id === gameModule.id ? {
-                          //   style: "box-shadow: 3px 3px 3px white"
-                          //   // activeModule.id === gameModule.id ? "box-shadow: 3px 3px 3px white" : ""
-                          // }
-                          // )}
+                          className="flex items-center justify-center w-1/2 h-full border-2 border-[#353535] rounded-md transition-all duration-500"
+                          style={activeModule ? (() => activeModule.id === gameModule.id
+                            ? { transition: "all 0.5s", transform: "scale(1.05)", boxShadow: "0px 0px 20px white" }
+                            : undefined)() : undefined}
                           onClick={(event: any) => {
-                            handleClick(moduleIndex);
+                            handleClick(moduleIndex + 1);
                           }}
                         >
                           {`${gameModule.title}`}
@@ -116,11 +129,30 @@ const DragAndDropEditor: FC = (): ReactElement => {
                       </SortableItem>
                     )
                   )}
+                </>
               </div>
             </SortableContext>
           </DndContext>
 
           <AddModuleButton />
+
+          {gameModulesList && gameModulesList[gameModulesList.length - 1] &&
+            <SortableItem key={gameModulesList[gameModulesList.length - 1]!.id} id={gameModulesList[gameModulesList.length - 1]!.id}>
+              <div
+                className="flex items-center justify-center w-1/2 h-full border-2 border-[#353535] rounded-md transition-all duration-500"
+                style={activeModule ? (() => activeModule.id === gameModulesList[gameModulesList.length - 1]!.id
+                  ? { transition: "all 0.5s", transform: "scale(1.05)", boxShadow: "0px 0px 20px white" }
+                  : undefined)() : undefined}
+                onClick={(event: any) => {
+                  setActiveModule(gameModulesList![gameModulesList.length - 1]);
+                }}
+              >
+                {`${gameModulesList[gameModulesList.length - 1]!.title}`}
+              </div>
+            </SortableItem>
+          }
+
+
         </section>
       )}
     </>
