@@ -46,18 +46,19 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   // console.log(useReadLocalStorage("currentGameData"));
   // console.log(gameModules);
 
-  // const getTest = async () => {
-  //   await axios
-  //     .get(
-  //       "http://localhost:2000/editor/63994347a498895824811be2"
-  //     )
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       setGameData(response.data[0]);
-  //       setGameModules(response.data[0].gameModules);
-  //       setGameInfoModule(response.data[0]);
-  //     });
-  // };
+  const getTest = async () => {
+    await axios
+      .get(
+        "http://localhost:2000/editor/639a713b73341987c9be7c65"
+      )
+      .then((response) => {
+        console.log(response.data);
+        setGameData(response.data[0]);
+        setGameModules(response.data[0].gameModules);
+        setGameInfoModule(response.data[0]);
+      });
+  };
+
 
   // useEffect(() => {
   //   if (!hasMounted.current) {

@@ -7,15 +7,15 @@ import ImageWidget from "./ImageWidget";
 interface props {
   title: MutableRefObject<string>;
   description: MutableRefObject<string>;
-  setImageUrl: (string: string) => void;
-  imageUrl: string;
+  setImage: (string: string) => void;
+  image: string;
   handleModuleUpdateClick: () => void;
 }
 
 const FormEnd = (props: props): ReactElement => {
-  const { title, description, setImageUrl, handleModuleUpdateClick } = props;
+  const { title, description, setImage, handleModuleUpdateClick } = props;
   const value = useContext(AppContext);
-  const { setActiveModule, imageUrl } =
+  const { setActiveModule, image } =
     value;
 
   const handleClose = () => {
@@ -48,17 +48,17 @@ const FormEnd = (props: props): ReactElement => {
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
         Image Upload
       </p>
-      {imageUrl ? (
+      {image ? (
         <img
           className="self-center w-3/5 mt-10"
-          src={`${imageUrl}`}
+          src={`${image}`}
           alt="preview"
         />
       ) : (
         ""
       )}
 
-      <ImageWidget setImageUrl={setImageUrl} />
+      <ImageWidget setImage={setImage} />
 
       <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Body</p>
       <TextField
