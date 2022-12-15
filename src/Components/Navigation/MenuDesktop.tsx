@@ -40,18 +40,18 @@ const MenuDesktop = (): ReactElement => {
       gameData
     );
   };
-  
+
   const saveDraft = async () => {
     await axios.patch(
       `http://localhost:2000/editor/${gameData._id}`,
-        gameData
-    );
+      gameData
+    ).then(res => console.log(res));
   };
 
   const publishGame = async () => {
     await axios.patch(
       `http://localhost:2000/editor/${gameData._id}`,
-        gameData
+      gameData
     );
   };
 
@@ -61,7 +61,7 @@ const MenuDesktop = (): ReactElement => {
         <Link href="/" title="Homepage" className="z-50 w-12">
           <Logo alt="logo menu button" className="logo" />
         </Link>
-        {useRouter().pathname === "/editor" && (
+        {useRouter().pathname.includes("/editor/") && (
           <FadeDiv show={show}>
             <div
               className="flex py-3 px-8 rounded-full gap-10"
