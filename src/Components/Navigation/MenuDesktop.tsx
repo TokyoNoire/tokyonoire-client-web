@@ -45,14 +45,14 @@ const MenuDesktop = (): ReactElement => {
     await axios.patch(
       `http://localhost:2000/editor/${gameData._id}`,
         gameData
-      ).then(response => console.log(response))
+      )
     }
 
   const publishGame = async () => {
     await axios.patch(
       `http://localhost:2000/editor/${gameData._id}`,
         gameData
-    ).then(response => console.log(response))
+    )
   };
 
   return (
