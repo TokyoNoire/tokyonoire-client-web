@@ -8,10 +8,7 @@ import {
   FormControl,
   Button,
 } from "@mui/material";
-import Link from "next/link";
 import GoogleIcon from "@mui/icons-material/Google";
-import AppleIcon from "@mui/icons-material/Apple";
-import StatusBar from "../ProfilePage/StatusBar";
 import { EmailAuthCredential, getAuth, GoogleAuthProvider, signInWithCredential, signInWithPopup } from 'firebase/auth';
 import AppContext from "../../AppContext";
 import { useAuth } from "../AuthProvider";
@@ -27,11 +24,6 @@ const SignInForm = (props : props): ReactElement => {
   const [authing, setAuthing] = useState(false);
   const value = useContext(AppContext);
   const { setUserId } = value;
-  const [signUpPopUp, setSignUpPopUp] = useState<boolean>(false)
-
-  const handleClick = () => {
-    setSignUpPopUp(true);
-  }
 
   const signInWithGoogle = async () => {
       setAuthing(true);
@@ -60,8 +52,7 @@ const SignInForm = (props : props): ReactElement => {
   }
 
   return (
-    <div className="absolute z-50 items-center flexCenterDiv bg-darkGrey justify-center h-50vh shadow-xl rounded-md">
-      <br />
+    <>
       <h1 className="self-center p-5 text-2xl text-center uppercase font-heading mx-20 my-20">
       <br />
       {/* <FormControl>
@@ -120,13 +111,13 @@ const SignInForm = (props : props): ReactElement => {
       <Grid container>
           <Grid item xs sx={{ mx: 2 }}>
             <Typography color="secondary" variant="body2">
-              <button className="mb-5 text-m font-body2" id="link" onClick={() => setAuthPanel('signup')}>
+              <button className="mb-5 text-m text-center font-body2" id="link" onClick={() => setAuthPanel('signup')}>
                 Don&apos;t have an account? Sign up here.
               </button>
             </Typography>
           </Grid>
         </Grid>
-    </div>
+        </>
   );
 };
 

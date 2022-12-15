@@ -17,39 +17,14 @@ const AuthPage: FC = (): ReactElement => {
   // }
 
   return (
-    <div>
-    {authPanel === "signin" ? (<SignInForm setAuthPanel={setAuthPanel}/>) : (<SignUpForm setAuthPanel={setAuthPanel}/>)}
-    </div>
-    // <div className="absolute z-50 items-center flexCenterDiv bg-darkGrey justify-center h-50vh shadow-xl rounded-md">
-    //   {signInOrUp ? (
-    //     <>
-    //   <br />
-    //   <SignInForm/>
-    //   <div className="absolute z-50">
-        // <Grid container>
-        //   <Grid item xs sx={{ mx: 2 }}>
-        //     <Typography color="secondary" variant="body2">
-        //       <button className="mb-5 text-m font-body2" id="link" onClick={() => showSignUp()}>
-        //         Don&apos;t have an account? Sign up here.
-        //       </button>
-        //     </Typography>
-        //   </Grid>
-        // </Grid>
-    //     </div>
-    //     </>) : (
-    //       <>
-    //   <SignUpForm/>
-      // <Grid container>
-      //     <Grid item xs sx={{ mx: 2 }}>
-      //       <Typography color="secondary" variant="body2">
-      //       <button className="mb-5 text-m font-body2" id="link" onClick={() => showSignIn()}>
-      //           Already have an account? Login here.
-      //         </button>
-      //       </Typography>
-      //     </Grid>
-      //   </Grid>
-    //   </>)}
-    //   </div>
+    <>
+      {authPanel === "signin" ? (
+        <div className="absolute z-50 items-center flexCenterDiv bg-darkGrey justify-center shadow-xl rounded-md">
+          <br /><SignInForm setAuthPanel={setAuthPanel} /> </div>) 
+          : (<div className="absolute z-50 items-center flexCenterDiv bg-darkGrey justify-center shadow-xl rounded-md">
+          <br />
+          <SignUpForm setAuthPanel={setAuthPanel} /> </div>)}
+    </>
   )
 };
 

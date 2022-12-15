@@ -38,8 +38,7 @@ const SignUpForm = (props : props): ReactElement => {
   }, [userId])
 
   return (
-    <div className="absolute z-40 items-center flexCenterDiv bg-darkGrey justify-center h-50vh shadow-xl rounded-md">
-      <br />
+    <>
       <h1 className="self-center p-5 text-2xl text-center uppercase font-heading mx-0 my-20">
         Sign Up
       </h1>
@@ -93,7 +92,7 @@ const SignUpForm = (props : props): ReactElement => {
       </FormControl>
       <br />
       <Button type="submit" id="themeButton" className="font-heading" onClick={() => {console.log(typeof email)}}>
-        PUSH ME
+        PUSH ME (test)
       </Button>
       <br></br>
       <Button type="submit" id="themeButton" className="font-heading" onClick={async () => {
@@ -145,7 +144,7 @@ const SignUpForm = (props : props): ReactElement => {
             </Typography>
           </Grid>
         </Grid>
-    </div>
+        </>
   );
 };
 
