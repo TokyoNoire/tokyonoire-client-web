@@ -42,14 +42,14 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     "currentGameData",
     gameData
   );
-  // console.log(gameModules);
+  console.log(gameModules);
   // console.log(useReadLocalStorage("currentGameData"));
   // console.log(gameModules);
 
   const getTest = async () => {
     await axios
       .get(
-        "http://localhost:2000/editor/639a713b73341987c9be7c65"
+        "http://localhost:2000/editor/a5e5629a-ee52-4142-8a35-7f952e71033l"
       )
       .then((response) => {
         console.log(response.data);
@@ -59,13 +59,12 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       });
   };
 
-
-  // useEffect(() => {
-  //   if (!hasMounted.current) {
-  //     getTest();
-  //     hasMounted.current = true;
-  //   }
-  // }, [hasMounted]);
+  useEffect(() => {
+    if (!hasMounted.current) {
+      getTest();
+      hasMounted.current = true;
+    }
+  }, [hasMounted]);
 
   useEffect(() => {
     if (gameData) {

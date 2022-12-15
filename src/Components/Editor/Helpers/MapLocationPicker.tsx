@@ -2,8 +2,8 @@ import React, {
   useState,
   useRef,
   useEffect,
-  type FC,
   type ReactElement,
+  type MutableRefObject,
 } from "react";
 import Map from "ol/Map";
 import View from "ol/View";
@@ -19,9 +19,15 @@ import Style from "ol/style/Style";
 import Icon from "ol/style/Icon";
 import "ol/ol.css";
 
-import icon from "../../../Assets/Icons/locationMarker.png";
+import icon from "../../../../Assets/Icons/locationMarker.png";
 
-const MapLocationPicker: FC = (): ReactElement => {
+interface props {
+  locationCoordinates: MutableRefObject<number[] | null>
+}
+
+const MapLocationPicker = (props: props): ReactElement => {
+  const { locationCoordinates } = props;
+  console.log(locationCoordinates.current)
   const didMount = useRef<boolean>(false);
   const [map, setMap] = useState<Map>();
   const mapElement = useRef<HTMLDivElement>(null);
@@ -30,7 +36,7 @@ const MapLocationPicker: FC = (): ReactElement => {
     useState<VectorLayer<VectorSource>>();
   // rd: coord state stores the pin that the user drops
   // rd: that is the array (longitude, latitude) that we need to confirm and save.
-  const [selectedCoord, setSelectedCoord] = useState<number[]>();
+  const [selectedCoord, setSelectedCoord] = useState<number[] | null>(locationCoordinates.current);
   mapRef.current = map;
 
   useEffect(() => {
@@ -93,6 +99,7 @@ const MapLocationPicker: FC = (): ReactElement => {
         "EPSG:3857",
         "EPSG:4326"
       );
+      locationCoordinates.current = transformedCoord
       setSelectedCoord(transformedCoord);
     }
   };
