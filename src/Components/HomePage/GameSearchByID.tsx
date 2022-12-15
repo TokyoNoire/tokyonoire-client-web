@@ -24,7 +24,7 @@ const GameSearchByID = (prop: prop): ReactElement => {
 
   return (
     <div className="items-center mx-8 my-24 flexCenterDiv">
-      <h1 className="mb-5 text-m font-heading">
+      <h1 className="mb-5 text-center text-m font-heading">
         &quot;Hello Detective, are you requested for a specific case?&quot;
       </h1>
       <TextField

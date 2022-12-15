@@ -112,6 +112,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         setUserId: setUserId,
         setGameInfoModule: setGameInfoModule,
         gameInfoModule: gameInfoModule,
+        loadScreenMounted: loadScreenMounted,
       }}
     >
       <AuthProvider>

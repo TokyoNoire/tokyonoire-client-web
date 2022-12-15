@@ -2,7 +2,7 @@ import React, { type ReactElement, useState, useEffect, useCallback, useRef } fr
 import TextField from "@mui/material/TextField";
 import { type saveGameInfo } from "../../types/global";
 import SearchIcon from '@mui/icons-material/Search';
-import Gyroscope from "../GameModules/Helpers/Gyroscope";
+// import Gyroscope from "../GameModules/Helpers/Gyroscope";
 import Haversine from "../GameModules/Helpers/Haversine";
 
 interface props {
@@ -12,22 +12,22 @@ interface props {
   handleOpen: () => void;
   game: saveGameInfo | null;
   gameId: string | null;
+  acquiredPermissions: boolean;
 }
 
 
 const ListOfPublicGames = (props: props): ReactElement => {
-  const { publicGames } = props;
+  const { publicGames, acquiredPermissions } = props;
 
-  const {requestAccessAsync } = Gyroscope();
+  // const {requestAccessAsync } = Gyroscope();
   const [currentCoords, setCurrentCoords] = useState<number[] | null>(null);
   const { haversineDistance } = Haversine();
-  const [acquiredPermissions, setAcquiredPermissions] =
-  useState<boolean>(false);
+  // const [acquiredPermissions, setAcquiredPermissions] =
+  // useState<boolean>(false);
   const coords = useRef<number[] | null>(null);
   const isMounted = useRef(false);
 
   useEffect(() => {
-  
     if(!isMounted.current){
       if (acquiredPermissions) {
         if ("geolocation" in navigator) {
@@ -48,31 +48,28 @@ const ListOfPublicGames = (props: props): ReactElement => {
  
   }, [acquiredPermissions]);
 
-  console.log(currentCoords);
 
+  // function getPosition(
+  //   options?: PositionOptions
+  // ): Promise<GeolocationPosition> {
+  //   return new Promise((resolve, reject) =>
+  //     navigator.geolocation.getCurrentPosition(resolve, reject, options)
+  //   );
+  // }
+  // const handlePermissions = useCallback(async () => {
+  //   await requestAccessAsync();
+  //   const position = await getPosition();
+  //   console.log(position);
+  //   setAcquiredPermissions(true);
+  // }, [requestAccessAsync]);
 
+  // useEffect(() => {
+  //   if (!acquiredPermissions) {
+  //     handlePermissions();
+  //   }
+  // }, [acquiredPermissions, handlePermissions]);
 
-  function getPosition(
-    options?: PositionOptions
-  ): Promise<GeolocationPosition> {
-    return new Promise((resolve, reject) =>
-      navigator.geolocation.getCurrentPosition(resolve, reject, options)
-    );
-  }
-  const handlePermissions = useCallback(async () => {
-    await requestAccessAsync();
-    const position = await getPosition();
-    console.log(position);
-    setAcquiredPermissions(true);
-  }, [requestAccessAsync]);
-
-  useEffect(() => {
-    if (!acquiredPermissions) {
-      handlePermissions();
-    }
-  }, [acquiredPermissions, handlePermissions]);
-
-  console.log(currentCoords);
+  // console.log(currentCoords);
 
   const publicGamesListing = publicGames.map((publicGame, index) => {
     return <tbody key={index} id={publicGame._id}>
@@ -94,13 +91,12 @@ const ListOfPublicGames = (props: props): ReactElement => {
       <h1 className="mb-5 text-center text-m font-heading">
         &quot;Or, do you want to choose an open case?&quot;
       </h1>
-      <div className="flex items-center">
+      <div className="flex items-center m-1">
         <select
           id="visibility"
           className="p-2 text-black bg-white rounded-sm h-14 font-heading"
         >
           <option value="">Filter</option>
-          <option value="location">Distance From Me</option>
           <option value="name">Case Title</option>
           <option value="author">Author</option>
           <option value="rating">Rating</option>

@@ -4,7 +4,8 @@ import React, {
   useState,
   useEffect,
   useCallback,
-  useRef
+  useRef,
+  useContext,
 } from "react";
 import FadeDiv from "../Helpers/FadeDiv";
 import GameSearchByID from "./GameSearchByID";
@@ -16,6 +17,8 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Dialog } from "@mui/material";
 import TokyoNoireName from "../../../public/Title_DarkTheme.svg";
 import { type saveGameInfo } from "../../types/global";
+import Gyroscope from "../GameModules/Helpers/Gyroscope";
+import AuthorizationPopup from "./AuthorizationPopup"
 
 
 interface props {
@@ -23,29 +26,46 @@ interface props {
 }
 
 const HomeMobile = (props: props): ReactElement => {
+
   const { show } = props;
-  // const [error, setError] = useState<Error | null>(null);
 
   const [gameId, setGameId] = useState<string>("");
   const [game, setGame] = useState<saveGameInfo | null>(null);
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(true);
   const [publicGames, setPublicGames] = useState<saveGameInfo[] | null>(null);
   const hasMounted = useRef<boolean>(false);
+  const [acquiredPermissions, setAcquiredPermissions] =
+    useState<boolean>(false);
+  const { requestAccessAsync } = Gyroscope();
 
-  //gets public game that are isPublished:true and isPrivate:false
-  // const getPublicGame = async () => {
-  //   await axios.get("https://tokyo-noire-server-development.herokuapp.com/").then((response) => setPublicGames(response.data));
-  // };
+  const handlePermissions = useCallback(async () => {
+    await requestAccessAsync();
+    const position = await getPosition();
+    console.log(position);
+    setAcquiredPermissions(true);
+  }, [requestAccessAsync]);
 
-  
+  useEffect(() => {
+    if (!acquiredPermissions) {
+      handlePermissions();
+    }
+  }, [acquiredPermissions, handlePermissions]);
+
+  function getPosition(
+    options?: PositionOptions
+  ): Promise<GeolocationPosition> {
+    return new Promise((resolve, reject) =>
+      navigator.geolocation.getCurrentPosition(resolve, reject, options)
+    );
+  }
+
   const getPublicGame = async () => {
     await axios
       .get("https://tokyo-noire-server-development.herokuapp.com/test")
       .then((response) => {
-        setPublicGames(response.data)});
-  }
-
-  console.log(publicGames)
+        setPublicGames(response.data);
+      });
+  };
 
   useEffect(() => {
     if (!hasMounted.current && !publicGames) {
@@ -67,9 +87,14 @@ const HomeMobile = (props: props): ReactElement => {
   const handleOpen = () => {
     setOpen(true);
   };
-
+  console.log("📍", acquiredPermissions);
   return (
     <>
+      {(!acquiredPermissions) ? (
+        <AuthorizationPopup/>
+      ) : (
+        ""
+      )}
       <div className="relative h-screen mx-5 flexCenterDiv place-items-center ">
         <TokyoNoireName alt="Tokyo Noire Name" style={{ maxWidth: "80vw" }} />
         <div className="absolute bottom-8">
@@ -101,18 +126,19 @@ const HomeMobile = (props: props): ReactElement => {
           className="self-center"
         />
       </div>
-        {publicGames?
-      <ListOfPublicGames
-        publicGames={publicGames!}
-        setGameId={setGameId}
-        gameId={gameId}
-        setGame={setGame}
-        game={game}
-        handleOpen={handleOpen}
-      /> 
-      :
-      ""
-    }
+      {publicGames ? (
+        <ListOfPublicGames
+          publicGames={publicGames!}
+          setGameId={setGameId}
+          gameId={gameId}
+          setGame={setGame}
+          game={game}
+          handleOpen={handleOpen}
+          acquiredPermissions={acquiredPermissions}
+        />
+      ) : (
+        ""
+      )}
       {game ? (
         <Dialog
           className="object-fit flexCenterDiv"
