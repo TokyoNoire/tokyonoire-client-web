@@ -57,17 +57,17 @@ const MenuDesktop = (): ReactElement => {
 
   return (
     <>
-      <div className="flex h-20 max-w-52 items-center gap-14 flex-grow">
+      <div className="flex items-center flex-grow h-20 max-w-52 gap-14">
         <Link href="/" title="Homepage" className="z-50 w-12">
           <Logo alt="logo menu button" className="logo" />
         </Link>
         {useRouter().pathname.includes("/editor/") && (
           <FadeDiv show={show}>
             <div
-              className="flex py-3 px-8 rounded-full gap-10"
+              className="flex gap-10 px-8 py-3 rounded-full"
               style={{ backgroundColor: "rgb(20, 20, 20)" }}
             >
-              <div className="w-7 cursor-pointer" title="Save as Draft">
+              <div className="cursor-pointer w-7" title="Save as Draft">
                 <SaveIcon
                   onClick={() => {
                     gameData.isPublished = "false";
@@ -75,7 +75,7 @@ const MenuDesktop = (): ReactElement => {
                   }}
                 ></SaveIcon>
               </div>
-              <div className="w-7 cursor-pointer" title="Publish">
+              <div className="cursor-pointer w-7" title="Publish">
                 <PublishIcon
                   onClick={() => {
                     gameData.isPublished = "true";
@@ -90,7 +90,7 @@ const MenuDesktop = (): ReactElement => {
       </div>
       <ul className="flex gap-12 mr-10">
         {menuItems.map((menuItem, index) => (
-          <li key={index} className="menu-item text-xl">
+          <li key={index} className="text-xl menu-item">
             <Link href={menuItem.url}>{menuItem.title}</Link>
           </li>
         ))}

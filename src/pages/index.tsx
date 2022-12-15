@@ -1,11 +1,9 @@
 import { useState } from "react";
 import Head from "next/head";
-import axios from "axios";
 import FadeDiv from "../Components/Helpers/FadeDiv";
 import HomeDesktop from "../Components/HomePage/HomeDesktop";
 import HomeMobile from "../Components/HomePage/HomeMobile";
 import { Dialog, List } from "@mui/material";
-import ListOfPublicGames from "../Components/HomePage/ListOfPublicGames";
 
 interface props {
   deviceType: string;
@@ -18,10 +16,6 @@ const Home = (props: props) => {
   const { deviceType } = props;
   const [show] = useState<boolean>(true);
 
-  //gets public game that are isPublished:true and isPrivate:false
-  const getPublicGame = async () => {
-    await axios.get("/").then((response) => console.log(response.data));
-  };
 
   return (
     <>

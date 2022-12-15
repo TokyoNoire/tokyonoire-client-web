@@ -16,7 +16,6 @@ import NavBar from "../Components/Navigation/NavBar";
 import MockGame from "../Components/Editor/Helpers/MockGame";
 import { saveGameInfo, GameModule } from "../types/global";
 import { useLocalStorage, useReadLocalStorage } from "usehooks-ts";
-import { LineAxisOutlined } from "@mui/icons-material";
 import axios from "axios";
 
 const darkTheme = createTheme({
@@ -45,7 +44,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   console.log(gameModules);
   // console.log(useReadLocalStorage("currentGameData"));
   // console.log(gameModules);
-
+  
   const getTest = async () => {
     await axios
       .get(
@@ -59,12 +58,12 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       });
   };
 
-  useEffect(() => {
-    if (!hasMounted.current) {
-      getTest();
-      hasMounted.current = true;
-    }
-  }, [hasMounted]);
+  // useEffect(() => {
+  //   if (!hasMounted.current) {
+  //     getTest();
+  //     hasMounted.current = true;
+  //   }
+  // }, [hasMounted]);
 
   useEffect(() => {
     if (gameData) {
@@ -113,6 +112,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         setUserId: setUserId,
         setGameInfoModule: setGameInfoModule,
         gameInfoModule: gameInfoModule,
+        loadScreenMounted: loadScreenMounted,
       }}
     >
       <AuthProvider>
@@ -121,18 +121,18 @@ const MyApp: AppType = ({ Component, pageProps }) => {
           type="text/javascript"
         />
 
-        {Component && !loadScreenMounted ? (
-          <ThemeProvider theme={darkTheme}>
-            {/* <SignInForm></SignInForm> */}
-            {deviceType && <NavBar deviceType={deviceType} />}
-            <Component {...pageProps} deviceType={deviceType} />
-          </ThemeProvider>
-        ) : (
-          <LoadingScreen
-            setLoadScreenMounted={setLoadScreenMounted}
-            duration={durationLoadingScreen}
-          />
-        )}
+      {Component && !loadScreenMounted ? (
+        <ThemeProvider theme={darkTheme}>
+          {/* <SignInForm></SignInForm> */}
+          {deviceType && <NavBar deviceType={deviceType} />}
+          <Component {...pageProps} deviceType={deviceType} />
+        </ThemeProvider>
+      ) : (
+        <LoadingScreen
+          setLoadScreenMounted={setLoadScreenMounted}
+          duration={durationLoadingScreen}
+        />
+      )}
       </AuthProvider>
     </AppContext.Provider>
   );
