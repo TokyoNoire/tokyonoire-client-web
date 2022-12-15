@@ -29,7 +29,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [loadScreenMounted, setLoadScreenMounted] = useState<boolean>(true);
   const [durationLoadingScreen] = useState<number>(2000);
   const [deviceType, setDeviceType] = useState<string | null>(null);
-  const [userId, setUserId] = useState<string>("on est là");
+  const [userId, setUserId] = useState<string>('');
   const [gameData, setGameData] = useState<saveGameInfo | null>(null);
   const [gameModules, setGameModules] = useState<GameModule[]>();
   const hasMounted = useRef<boolean>(false);
@@ -49,7 +49,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const getTest = async () => {
     await axios
       .get(
-        "http://localhost:2000/editor/63991936ed777c5688c1b333"
+        "http://localhost:2000/editor/639a713b73341987c9be7c65"
       )
       .then((response) => {
         console.log(response.data);
@@ -59,12 +59,13 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       });
   };
 
-  useEffect(() => {
-    if (!hasMounted.current) {
-      getTest();
-      hasMounted.current = true;
-    }
-  }, [hasMounted]);
+
+  // useEffect(() => {
+  //   if (!hasMounted.current) {
+  //     getTest();
+  //     hasMounted.current = true;
+  //   }
+  // }, [hasMounted]);
 
   useEffect(() => {
     if (gameData) {
