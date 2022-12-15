@@ -45,14 +45,14 @@ const MenuDesktop = (): ReactElement => {
     await axios.patch(
       `http://localhost:2000/editor/${gameData._id}`,
         gameData
-    );
-  };
+      ).then(response => console.log(response))
+    }
 
   const publishGame = async () => {
     await axios.patch(
       `http://localhost:2000/editor/${gameData._id}`,
         gameData
-    );
+    ).then(response => console.log(response))
   };
 
   return (
@@ -61,7 +61,7 @@ const MenuDesktop = (): ReactElement => {
         <Link href="/" title="Homepage" className="z-50 w-12">
           <Logo alt="logo menu button" className="logo" />
         </Link>
-        {useRouter().pathname === "/editor" && (
+        {useRouter().pathname.includes("/editor/") && (
           <FadeDiv show={show}>
             <div
               className="flex py-3 px-8 rounded-full gap-10"
@@ -71,6 +71,7 @@ const MenuDesktop = (): ReactElement => {
                 <SaveIcon
                   onClick={() => {
                     gameData.isPublished = "false";
+                    console.log(gameData)
                     saveDraft();
                   }}
                 ></SaveIcon>
