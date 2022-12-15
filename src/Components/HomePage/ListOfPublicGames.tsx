@@ -1,23 +1,45 @@
-import React, { type ReactElement, useState, useEffect, useCallback, useRef } from "react";
+import React, {
+  type ReactElement,
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  MouseEventHandler,
+} from "react";
 import TextField from "@mui/material/TextField";
 import { type saveGameInfo } from "../../types/global";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 // import Gyroscope from "../GameModules/Helpers/Gyroscope";
 import Haversine from "../GameModules/Helpers/Haversine";
+import axios from "axios";
 
 interface props {
   publicGames: saveGameInfo[];
   setGameId: (string: string) => void;
-  setGame: ({ }: saveGameInfo) => void;
+  setGame: ({}: saveGameInfo) => void;
   handleOpen: () => void;
   game: saveGameInfo | null;
   gameId: string | null;
   acquiredPermissions: boolean;
 }
 
-
 const ListOfPublicGames = (props: props): ReactElement => {
-  const { publicGames, acquiredPermissions } = props;
+  const {
+    publicGames,
+    acquiredPermissions,
+    setGameId,
+    handleOpen,
+    gameId,
+    setGame,
+  } = props;
+
+  const getGameById = async () => {
+    await axios
+      .get(
+        `https://tokyo-noire-server-development.herokuapp.com/?_id=${gameId}`
+      )
+      .then((response) => setGame(response.data[0]));
+  };
 
   // const {requestAccessAsync } = Gyroscope();
   const [currentCoords, setCurrentCoords] = useState<number[] | null>(null);
@@ -28,7 +50,7 @@ const ListOfPublicGames = (props: props): ReactElement => {
   const isMounted = useRef(false);
 
   useEffect(() => {
-    if(!isMounted.current){
+    if (!isMounted.current) {
       if (acquiredPermissions) {
         if ("geolocation" in navigator) {
           navigator.geolocation.getCurrentPosition((position) => {
@@ -45,46 +67,39 @@ const ListOfPublicGames = (props: props): ReactElement => {
         }
       }
     }
- 
   }, [acquiredPermissions]);
 
-
-  // function getPosition(
-  //   options?: PositionOptions
-  // ): Promise<GeolocationPosition> {
-  //   return new Promise((resolve, reject) =>
-  //     navigator.geolocation.getCurrentPosition(resolve, reject, options)
-  //   );
-  // }
-  // const handlePermissions = useCallback(async () => {
-  //   await requestAccessAsync();
-  //   const position = await getPosition();
-  //   console.log(position);
-  //   setAcquiredPermissions(true);
-  // }, [requestAccessAsync]);
-
-  // useEffect(() => {
-  //   if (!acquiredPermissions) {
-  //     handlePermissions();
-  //   }
-  // }, [acquiredPermissions, handlePermissions]);
-
-  // console.log(currentCoords);
+  const handleClick = (e: MouseEventHandler<HTMLTableSectionElement>) => {
+    setGameId(e.target!.id!);
+    getGameById();
+    setTimeout(handleOpen, 2000);
+    // console.log(e.target!.id!, gameId);
+  };
 
   const publicGamesListing = publicGames.map((publicGame, index) => {
-    return <tbody key={index} id={publicGame._id}>
-      <tr className="bg-white border-b">
-        <th
-          scope="row"
-          className="px-6 py-2 font-heading whitespace-nowrap"
-        >
-          {publicGame.titleOfGame}
-        </th>
-        <td className="px-6 py-4 font-heading">{Math.round(haversineDistance(currentCoords!, publicGame.startingLocationCoordinates!)!)/1000} km</td>
-        
-      </tr>
-    </tbody>
-  })
+    return (
+      <tbody key={index} id={publicGame._id}>
+        <tr className="bg-white border-b" id={publicGame._id} onClick={handleClick}>
+          <th
+            scope="row"
+            className="px-6 py-2 font-heading whitespace-nowrap"
+            id={publicGame._id}
+          >
+            {publicGame.titleOfGame}
+          </th>
+          <td className="px-6 py-4 font-heading" id={publicGame._id}>
+            {Math.round(
+              haversineDistance(
+                currentCoords!,
+                publicGame.startingLocationCoordinates!
+              )!
+            ) / 1000}{" "}
+            km
+          </td>
+        </tr>
+      </tbody>
+    );
+  });
 
   return (
     <div className="w-screen h-screen mt-20">
@@ -108,10 +123,10 @@ const ListOfPublicGames = (props: props): ReactElement => {
           label="Search case..."
           variant="filled"
           aria-label="enter a game id"
-        //   className=""
+          //   className=""
         />
         <button id="themeButton" className="self-center h-14 font-heading">
-          <SearchIcon/>
+          <SearchIcon />
         </button>
       </div>
 
@@ -123,7 +138,7 @@ const ListOfPublicGames = (props: props): ReactElement => {
                 case title
               </th>
               <th scope="col" className="px-6 py-3 font-body2">
-              Distance From You
+                Distance From You
               </th>
             </tr>
           </thead>

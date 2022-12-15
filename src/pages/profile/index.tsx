@@ -2,7 +2,7 @@ import React, {
   type ReactElement,
   useState,
 } from "react";
-import GameListCompleted from "../../Components/ProfilePage/GameListAuthored";
+import GameListCompleted from "../../Components/Editor/GameListAuthored";
 import GameListUncompleted from "../../Components/ProfilePage/GameListOtherStatus";
 import StatusBar from "../../Components/ProfilePage/StatusBar";
 
