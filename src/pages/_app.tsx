@@ -41,38 +41,35 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     "currentGameData",
     gameData
   );
-  console.log(gameModules);
-  // console.log(useReadLocalStorage("currentGameData"));
-  // console.log(gameModules);
 
-  // const getTest = async () => {
-  //   await axios
-  //     .get(
-  //       "http://localhost:2000/editor/a5e5629a-ee52-4142-8a35-7f952e71033l"
-  //     )
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       setGameData(response.data[0]);
-  //       setGameModules(response.data[0].gameModules);
-  //       setGameInfoModule(response.data[0]);
-  //     });
-  // };
+  const getTest = async () => {
+    await axios
+      .get(
+        "http://localhost:2000/editor/a5e5629a-ee52-4142-8a35-7f952e71033l"
+      )
+      .then((response) => {
+        // console.log(response.data);
+        setGameData(response.data[0]);
+        setGameModules(response.data[0].gameModules);
+        setGameInfoModule(response.data[0]);
+      });
+  };
 
 
-  // useEffect(() => {
-  //   if (!hasMounted.current) {
-  //     getTest();
-  //     hasMounted.current = true;
-  //   }
-  // }, [hasMounted]);
+  useEffect(() => {
+    if (!hasMounted.current) {
+      getTest();
+      hasMounted.current = true;
+    }
+  }, [hasMounted]);
 
   useEffect(() => {
     if (gameData) {
       const newGameData = gameData;
       newGameData.gameModules = gameModules;
       setGameData(newGameData);
-      console.log(gameData);
-      console.log("gameData has been updated");
+      // console.log(gameModules);
+      // console.log("gameData has been updated");
     }
   }, [gameModules]);
 
@@ -81,8 +78,8 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       let newGameData = gameData;
       newGameData = gameInfoModule;
       setGameData(newGameData);
-      console.log(gameData);
-      console.log("gameData has been updated");
+      // console.log(gameData);
+      // console.log("gameData has been updated");
     }
   }, [gameInfoModule]);
 
@@ -122,18 +119,17 @@ const MyApp: AppType = ({ Component, pageProps }) => {
           type="text/javascript"
         />
 
-      {Component && !loadScreenMounted ? (
-        <ThemeProvider theme={darkTheme}>
-          {/* <SignInForm></SignInForm> */}
-          {deviceType && <NavBar deviceType={deviceType} />}
-          <Component {...pageProps} deviceType={deviceType} />
-        </ThemeProvider>
-      ) : (
-        <LoadingScreen
-          setLoadScreenMounted={setLoadScreenMounted}
-          duration={durationLoadingScreen}
-        />
-      )}
+        {Component && !loadScreenMounted ? (
+          <ThemeProvider theme={darkTheme}>
+            {deviceType && <NavBar deviceType={deviceType} />}
+            <Component {...pageProps} deviceType={deviceType} />
+          </ThemeProvider>
+        ) : (
+          <LoadingScreen
+            setLoadScreenMounted={setLoadScreenMounted}
+            duration={durationLoadingScreen}
+          />
+        )}
       </AuthProvider>
     </AppContext.Provider>
   );
