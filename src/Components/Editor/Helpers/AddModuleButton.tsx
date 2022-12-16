@@ -30,7 +30,6 @@ const AddModuleButton = (): ReactElement => {
 
   const handleConsole = (event: MouseEvent, index: number) => {
     console.log(ModuleOptions[index]);
-    // console.log(newGameModule)
     const newGameModule = new GameModuleSchema();
     newGameModule._id = uuidv4();
     const newGameModulesList = [...gameModules]
@@ -52,11 +51,6 @@ const AddModuleButton = (): ReactElement => {
         newGameModule.title = "New Question Block";
         newGameModulesList.splice(newGameModulesList.length - 1, 0, newGameModule);
         return setGameModules(newGameModulesList);
-
-      // case "End Block":
-      //   newGameModule.typeOfModule = "end";
-      //   newGameModulesList.splice(newGameModulesList.length - 1, 0, newGameModule);
-      //   return setGameModules(newGameModulesList);
     }
     console.log(newGameModule);
   };

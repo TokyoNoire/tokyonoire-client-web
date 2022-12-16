@@ -33,11 +33,10 @@ const DragAndDropEditor: FC = (): ReactElement => {
   const value = useContext(AppContext);
   const { gameModules, setGameModules, activeModule, setActiveModule } = value;
 
-  const [gameModulesList, setGameModulesList] = useState<
-    GameModuleWithId[] | null
-  >(null);
+  const [gameModulesList, setGameModulesList] = useState<GameModuleWithId[] | null>(null);
 
   useEffect(() => {
+    console.log(gameModules)
     if (gameModules) {
       setGameModulesList(
         gameModules.map((gameModule: GameModule, index: number) => ({
@@ -74,6 +73,8 @@ const DragAndDropEditor: FC = (): ReactElement => {
           .indexOf(over.id);
         const newModulesOrder = arrayMove(gameModulesList, oldIndex, newIndex);
         setGameModulesList(newModulesOrder);
+        // @ts-expect-error // A cleaner way would be to create a new identical variable minus .id.
+        newModulesOrder.forEach((module: GameModuleWithId) => { delete module.id })
         setGameModules(newModulesOrder);
       }
     },
@@ -92,7 +93,7 @@ const DragAndDropEditor: FC = (): ReactElement => {
           {gameModulesList && gameModulesList[0] &&
             <SortableItem key={gameModulesList[0].id} id={gameModulesList[0].id}>
               <div
-                className="flex items-center justify-center w-1/2 h-full border-2 border-[#353535] rounded-md transition-all duration-500"
+                className="diagonal-hatch flex items-center justify-center w-1/2 h-full border-2 border-[#353535] rounded-md transition-all duration-500"
                 style={activeModule ? (() => activeModule.id === 1
                   ? { transition: "all 0.5s", transform: "scale(1.05)", boxShadow: "0px 0px 20px white" }
                   : undefined)() : undefined}
@@ -117,7 +118,7 @@ const DragAndDropEditor: FC = (): ReactElement => {
                       <SortableItem key={gameModule.id} id={gameModule.id!}>
                         <div
                           className="flex items-center justify-center w-1/2 h-full border-2 border-[#353535] rounded-md transition-all duration-500"
-                          style={activeModule ? (() => activeModule.id === gameModule.id
+                          style={activeModule ? (() => activeModule._id === gameModule._id
                             ? { transition: "all 0.5s", transform: "scale(1.05)", boxShadow: "0px 0px 20px white" }
                             : undefined)() : undefined}
                           onClick={(event: any) => {
@@ -139,7 +140,7 @@ const DragAndDropEditor: FC = (): ReactElement => {
           {gameModulesList && gameModulesList[gameModulesList.length - 1] &&
             <SortableItem key={gameModulesList[gameModulesList.length - 1]!.id} id={gameModulesList[gameModulesList.length - 1]!.id}>
               <div
-                className="flex items-center justify-center w-1/2 h-full border-2 border-[#353535] rounded-md transition-all duration-500"
+                className="diagonal-hatch flex items-center justify-center w-1/2 h-full border-2 border-[#353535] rounded-md transition-all duration-500"
                 style={activeModule ? (() => activeModule.id === gameModulesList[gameModulesList.length - 1]!.id
                   ? { transition: "all 0.5s", transform: "scale(1.05)", boxShadow: "0px 0px 20px white" }
                   : undefined)() : undefined}
@@ -151,7 +152,6 @@ const DragAndDropEditor: FC = (): ReactElement => {
               </div>
             </SortableItem>
           }
-
 
         </section>
       )}

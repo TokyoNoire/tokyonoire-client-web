@@ -149,3 +149,17 @@ a {
 /* label.Mui-focused {
   color: white
 } */
+
+.diagonal-hatch {
+  background-color: #000000;
+  background-size: 20px 20px;
+  background-image: repeating-linear-gradient(135deg, #ffffff35 0, #ffffff35 0.2rem, #000000 0, #000000 50%);
+}
+
+/* .diagonal-hatch {
+  background-color: #000000;
+  opacity: 1;
+  background-image: radial-gradient(#ffffff 1px, transparent 1px), radial-gradient(#ffffff 1px, #000000 1px);
+  background-size: 34px 34px;
+  background-position: 0 0, 17px 17px;
+} */

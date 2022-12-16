@@ -80,8 +80,8 @@ const ModuleForms = (): ReactElement => {
   const locationCoordinates = useRef<number[] | null>([]);
 
   if (activeModule) {
-    console.log("I ran")
-    console.log(activeModule)
+    // console.log("I ran")
+    // console.log(activeModule)
     _id.current = activeModule._id;
     typeOfModule.current = activeModule.typeOfModule;
     title.current = activeModule.title;
@@ -109,7 +109,7 @@ const ModuleForms = (): ReactElement => {
     for (let i = 0; i < gameModules.length; i++) {
       newGameModules.push(gameModules[i]);
     }
-    console.log(newGameModules);
+    // console.log(newGameModules);
     for (let i = 0; i < gameModules.length; i++) {
       if (gameModules[i]!._id === _id.current) {
         newGameModules.splice(i, 1, updateData);
