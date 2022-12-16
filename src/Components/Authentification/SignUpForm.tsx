@@ -101,6 +101,10 @@ const SignUpForm = (props : props): ReactElement => {
           formSubmitting.current = true;
           try {
             await signUp(email.current, password.current)
+            .then((response) => {
+              console.log(response.user.uid)
+              setUserId(response.user.uid)
+            })
             addDoc(collection(db, "users"), {
               uid: userId,
               name,
