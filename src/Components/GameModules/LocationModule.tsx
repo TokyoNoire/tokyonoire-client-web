@@ -21,7 +21,7 @@ const LocationModule = (props: props): ReactElement => {
           <div className="self-center w-10/12 m-4 flexCenterDiv">
             {/* <Image src={gameObject.image} alt="Tokyo Noire Hero" className="rounded-lg"></Image> */}
             <img
-              src={gameObject.image}
+              src={gameObject.imageURL}
               alt="Tokyo Noire Hero"
               className="rounded-lg"
             />

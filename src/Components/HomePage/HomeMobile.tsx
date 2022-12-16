@@ -1,55 +1,80 @@
-import React, { type FC, type ReactElement, useState, useEffect } from "react";
+import React, {
+  type FC,
+  type ReactElement,
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  useContext,
+} from "react";
 import FadeDiv from "../Helpers/FadeDiv";
 import GameSearchByID from "./GameSearchByID";
 import GamePreview from "./GamePreview";
 import Hero from "./Hero";
 import ListOfPublicGames from "./ListOfPublicGames";
-
+import axios from "axios";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Dialog } from "@mui/material";
 import TokyoNoireName from "../../../public/Title_DarkTheme.svg";
 import { type saveGameInfo } from "../../types/global";
+import Gyroscope from "../GameModules/Helpers/Gyroscope";
+import AuthorizationPopup from "./AuthorizationPopup"
 
-const testArray = [
-  {
-    _id: "638d8a2f61306a3dc4e94430",
-    titleOfGame: "The disappearance of Akika Mori",
-    description:
-      "Akika Mori is the hidden daughter of the late Taikichiro Mori, who was once the richest person on earth. She was being surveilled at all time, her family wanting her to stay hidden from the public and to not be associated with her family. Her dream was to become an actress, despite knowing that her family would never allow it. The worried Mori family requested your services to find their daughter.",
-    author: "Cole Phelps",
-    rating: "G",
-    startLocation: "roppongi",
-    isPrivate: false,
-    isPublished: true,
-    estimatedTimeMinutes: "20"
-  },
-  {
-    _id: "638d8a2f61306a3dc4e94430",
-    titleOfGame: "The disappearance of Akika Mori",
-    description:
-      "Akika Mori is the hidden daughter of the late Taikichiro Mori, who was once the richest person on earth. She was being surveilled at all time, her family wanting her to stay hidden from the public and to not be associated with her family. Her dream was to become an actress, despite knowing that her family would never allow it. The worried Mori family requested your services to find their daughter.",
-    author: "Cole Phelps",
-    rating: "G",
-    startLocation: "roppongi",
-    isPrivate: false,
-    isPublished: true,
-    estimatedTimeMinutes: "20"
-  },
-];
 
 interface props {
   show: boolean;
 }
 
 const HomeMobile = (props: props): ReactElement => {
+
   const { show } = props;
 
   const [gameId, setGameId] = useState<string>("");
   const [game, setGame] = useState<saveGameInfo | null>(null);
-  const [open, setOpen] = useState<boolean>(false);
-  const [publicGames, setPublicGames] = useState<saveGameInfo[] | null>(
-    testArray
-  );
+  const [open, setOpen] = useState<boolean>(true);
+  const [publicGames, setPublicGames] = useState<saveGameInfo[] | null>(null);
+  const hasMounted = useRef<boolean>(false);
+  const [acquiredPermissions, setAcquiredPermissions] =
+    useState<boolean>(false);
+  const { requestAccessAsync } = Gyroscope();
+  const [devicePermission, setDevicePermission] = useState<boolean>(false);
+
+  const handlePermissions = useCallback(async () => {
+    if (devicePermission){
+    await requestAccessAsync();
+    const position = await getPosition();
+    console.log(position);
+    setAcquiredPermissions(true);}
+  }, [requestAccessAsync]);
+
+  useEffect(() => {
+    if (!acquiredPermissions) {
+      handlePermissions();
+    }
+  }, [acquiredPermissions, handlePermissions]);
+
+  function getPosition(
+    options?: PositionOptions
+  ): Promise<GeolocationPosition> {
+    return new Promise((resolve, reject) =>
+      navigator.geolocation.getCurrentPosition(resolve, reject, options)
+    );
+  }
+
+  const getPublicGame = async () => {
+    await axios
+      .get("https://tokyo-noire-server-development.herokuapp.com/test")
+      .then((response) => {
+        setPublicGames(response.data);
+      });
+  };
+
+  useEffect(() => {
+    if (!hasMounted.current && !publicGames) {
+      getPublicGame();
+      hasMounted.current = true;
+    }
+  }, [hasMounted]);
 
   useEffect(() => {
     if (game !== null) {
@@ -64,9 +89,13 @@ const HomeMobile = (props: props): ReactElement => {
   const handleOpen = () => {
     setOpen(true);
   };
-
+  console.log("📍", acquiredPermissions);
   return (
     <>
+    
+        <AuthorizationPopup
+        setDevicePermission ={setDevicePermission}/>
+        
       <div className="relative h-screen mx-5 flexCenterDiv place-items-center ">
         <TokyoNoireName alt="Tokyo Noire Name" style={{ maxWidth: "80vw" }} />
         <div className="absolute bottom-8">
@@ -98,15 +127,19 @@ const HomeMobile = (props: props): ReactElement => {
           className="self-center"
         />
       </div>
-
-      <ListOfPublicGames
-        publicGames={publicGames!}
-        setGameId={setGameId}
-        gameId={gameId}
-        setGame={setGame}
-        game={game}
-        handleOpen={handleOpen}
-      />
+      {publicGames ? (
+        <ListOfPublicGames
+          publicGames={publicGames!}
+          setGameId={setGameId}
+          gameId={gameId}
+          setGame={setGame}
+          game={game}
+          handleOpen={handleOpen}
+          acquiredPermissions={acquiredPermissions}
+        />
+      ) : (
+        ""
+      )}
       {game ? (
         <Dialog
           className="object-fit flexCenterDiv"
@@ -114,7 +147,11 @@ const HomeMobile = (props: props): ReactElement => {
           onClose={handleClose}
           fullScreen
         >
-          <GamePreview game={game!} handleClose={handleClose} gameId={gameId!} />
+          <GamePreview
+            game={game!}
+            handleClose={handleClose}
+            gameId={gameId!}
+          />
         </Dialog>
       ) : (
         <></>

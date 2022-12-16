@@ -1,127 +1,38 @@
 import React, {
   type ReactElement,
   type MutableRefObject,
-  useContext,
 } from "react";
-import AppContext from "../../AppContext";
-import ClearIcon from "@mui/icons-material/Clear";
-import TextField from "@mui/material/TextField";
-import MapLocationPicker from "./MapLocationPicker";
-import ImageWidget from "./ImageWidget";
+
+import ContainerForm from "./FormBlocks/ContainerForm";
+import BlockTitle from "./FormBlocks/BlockTitle";
+import BlockImageWidget from "./FormBlocks/BlockImageWidget";
+import BlockStory from "./FormBlocks/BlockStory";
+import BlockLocationPicker from "./FormBlocks/BlockLocationPicker";
+import BlockHint from "./FormBlocks/BlockHint";
 
 interface props {
   title: MutableRefObject<string>;
+  typeOfModule: MutableRefObject<string>;
   description: MutableRefObject<string>;
-  coordinates: MutableRefObject<number[] | null>;
-  setImageUrl: (string: string) => void;
-  imageUrl: string;
+  locationCoordinates: MutableRefObject<number[] | null>;
+  imageURL: MutableRefObject<string>;
   hint: MutableRefObject<string>;
   handleModuleUpdateClick: () => void;
 }
 
 const FormLocation = (props: props): ReactElement => {
-  const {
-    title,
-    description,
-    coordinates,
-    setImageUrl,
-    imageUrl,
-    hint,
-    handleModuleUpdateClick,
-  } = props;
-  const value = useContext(AppContext);
-  const { setActiveModule } = value;
-
-  // const handleClick = () => {};
-
-  const handleClose = () => {
-    setActiveModule(null);
-  };
+  const { title, typeOfModule, description, locationCoordinates, imageURL, hint, handleModuleUpdateClick } = props;
 
   return (
-    <>
-      <ClearIcon
-        className="absolute top-2 right-2 hover:shadow-indigo-500/40"
-        onClick={handleClose}
-      />
-      <h1 className="self-center mt-10 mb-2 text-2xl font-bold uppercase font-heading">
-        Location
-      </h1>
+    <ContainerForm typeOfModule={typeOfModule} handleModuleUpdateClick={handleModuleUpdateClick}>
 
-      <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Title</p>
-      <TextField
-        id="title"
-        {...(
-          title.current !== ""
-            ? { defaultValue: title.current }
-            : { placeholder: "What's the title of this block?" }
-        )}
-        variant="filled"
-        fullWidth
-        onChange={(e) => (title.current = e.target.value)}
-      />
+      <BlockTitle title={title} />
+      <BlockImageWidget imageURL={imageURL} />
+      <BlockStory description={description} />
+      <BlockLocationPicker locationCoordinates={locationCoordinates} />
+      <BlockHint hint={hint} />
 
-      <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
-        Image Upload
-      </p>
-      {imageUrl ? (
-        <img
-          className="w-3/5 mt-10 self-center"
-          src={`${imageUrl}`}
-          alt="preview"
-        />
-      ) : (
-        ""
-      )}
-
-      <ImageWidget setImageUrl={setImageUrl} />
-
-      <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
-        Description
-      </p>
-      <TextField
-        multiline
-        rows={5}
-        {...(
-          description.current !== ""
-            ? { defaultValue: description.current }
-            : { placeholder: "Start writing here..." }
-        )}
-        variant="filled"
-        fullWidth
-        className="mb-5"
-        onChange={(e) => (description.current = e.target.value)}
-      />
-
-      <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">
-        Location
-      </p>
-
-      <MapLocationPicker />
-
-      <p className="mt-10 mb-2 ml-2 text-sm uppercase font-heading">Hint</p>
-      <TextField
-        variant="filled"
-        {...(
-          hint.current !== ""
-            ? { defaultValue: hint.current }
-            : { placeholder: "Give a hint for the reader!" }
-        )}
-
-
-        fullWidth
-        onChange={(e) => (hint.current = e.target.value)}
-      />
-      <button
-        id="themeButton"
-        className="self-center w-1/2 mt-10 mb-5"
-        onClick={() => {
-          handleModuleUpdateClick();
-        }}
-      >
-        Update
-      </button>
-    </>
+    </ContainerForm>
   );
 };
 

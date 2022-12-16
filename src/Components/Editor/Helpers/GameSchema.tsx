@@ -6,10 +6,10 @@ export class GameModuleSchema {
   title: string;
   description: string;
   question: string;
-  answer: string[];
+  answer: string;
   image: string;
   locationCoordinates: number | null[];
-  hint: string[];
+  hint: string;
 
   public constructor() {
     this._id = "";
@@ -17,10 +17,10 @@ export class GameModuleSchema {
     this.title = "";
     this.description = "";
     this.question = "";
-    this.answer = [""];
+    this.answer = "";
     this.image = "";
     this.locationCoordinates = [null, null];
-    this.hint = [""];
+    this.hint = "";
   }
 }
 
