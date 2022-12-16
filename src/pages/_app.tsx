@@ -29,6 +29,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [durationLoadingScreen] = useState<number>(2000);
   const [deviceType, setDeviceType] = useState<string | null>(null);
   const [userId, setUserId] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
   const [gameData, setGameData] = useState<saveGameInfo | null>(null);
   const [gameModules, setGameModules] = useState<GameModule[]>();
   const hasMounted = useRef<boolean>(false);
@@ -110,6 +111,8 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         setCurrentGame: setCurrentGame,
         userId: userId,
         setUserId: setUserId,
+        username: username,
+        setUsername: setUsername,
         setGameInfoModule: setGameInfoModule,
         gameInfoModule: gameInfoModule,
         loadScreenMounted: loadScreenMounted,

@@ -26,18 +26,19 @@ const SignUpForm = (props : props): ReactElement => {
   const { setAuthPanel } = props;
   const { signUp } = useAuth()
   const value = useContext(AppContext);
-  const { setUserId, userId } = value;
+  const { setUserId, userId, username, setUsername } = value;
   const email = useRef<string>('');
   const password = useRef<string>('');
   const name = useRef<string>('');
   const formSubmitting = useRef<boolean>(false)
+  const { signIn } = useAuth();
 
-  useEffect(() => {
-    console.log(userId)
-    if (userId) {
-      console.log(userId)
-    } 
-  }, [userId])
+  // useEffect(() => {
+  //   console.log(userId)
+  //   if (userId) {
+  //     console.log(userId)
+  //   } 
+  // }, [userId])
 
   return (
     <>
@@ -55,7 +56,10 @@ const SignUpForm = (props : props): ReactElement => {
           variant="filled"
           aria-describedby="name-input"
           placeholder="Name"
-          onChange = {(e)=> name.current = e.target.value}
+          onChange = {(e)=> {
+            name.current = e.target.value
+            console.log('🥵',name.current)
+          } }
         />
         <FormHelperText id="password-helper">Your full name.</FormHelperText>
       </FormControl>
@@ -101,17 +105,19 @@ const SignUpForm = (props : props): ReactElement => {
           formSubmitting.current = true;
           try {
             await signUp(email.current, password.current)
+            await signIn(email.current, password.current)
             .then((response) => {
-              console.log(response.user.uid)
+              setUsername(name.current)
               setUserId(response.user.uid)
-            })
-            addDoc(collection(db, "users"), {
-              uid: userId,
-              name,
-              authProvider: "local",
-              email,
+              addDoc(collection(db, "users"), {
+                uid: response.user.uid,
+                name: name.current,
+                authProvider: "local",
+                email: email.current
+              })
             })}
-            catch (error) {
+            catch (error: any) {
+              alert(error.message);
               console.log('signup error', error)
               formSubmitting.current = false
             }}}>

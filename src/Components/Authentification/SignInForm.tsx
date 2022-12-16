@@ -39,7 +39,8 @@ const SignInForm = (props: props): ReactElement => {
       .then((response) => {
         query(collection(db, "users"), where("uid", "==", response.user.uid));
         setUserId(response.user.uid)
-        console.log(response.user.email)
+        console.log(`✅✅✅✅✅✅${response.user.email}`)
+        console.log(`${response.user.uid}`)
         addDoc(collection(db, "users"), {
           uid: response.user.uid,
           name: response.user.displayName,
