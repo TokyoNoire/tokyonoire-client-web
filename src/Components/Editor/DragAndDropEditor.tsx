@@ -25,6 +25,8 @@ import AppContext from "../../AppContext";
 import { type GameModule } from "../../types/global";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 
+import RemoveModuleButton from "./Helpers/RemoveModuleButton";
+
 type GameModuleWithId = {
   id: number;
 } & GameModule;
@@ -72,18 +74,14 @@ const DragAndDropEditor: FC = (): ReactElement => {
           .map((gameModule: GameModuleWithId) => gameModule.id)
           .indexOf(over.id);
         const newModulesOrder = arrayMove(gameModulesList, oldIndex, newIndex);
-        setGameModulesList(newModulesOrder);
         // @ts-expect-error // A cleaner way would be to create a new identical variable minus .id.
         newModulesOrder.forEach((module: GameModuleWithId) => { delete module.id })
+        setGameModulesList(newModulesOrder);
         setGameModules(newModulesOrder);
       }
     },
     [gameModulesList]
   );
-
-  const handleClick = (moduleIndex: any) => {
-    setActiveModule(gameModulesList![moduleIndex]);
-  };
 
   return (
     <>
@@ -93,11 +91,11 @@ const DragAndDropEditor: FC = (): ReactElement => {
           {gameModulesList && gameModulesList[0] &&
             <SortableItem key={gameModulesList[0].id} id={gameModulesList[0].id}>
               <div
-                className="diagonal-hatch flex items-center justify-center w-1/2 h-full border-2 border-[#353535] rounded-md transition-all duration-500"
+                className="diagonal-hatch flex items-center text-center justify-center w-1/2 h-full border-2 border-[#353535] rounded-md transition-all duration-500"
                 style={activeModule ? (() => activeModule.id === 1
                   ? { transition: "all 0.5s", transform: "scale(1.05)", boxShadow: "0px 0px 20px white" }
                   : undefined)() : undefined}
-                onClick={(event: any) => {
+                onClick={() => {
                   setActiveModule(gameModulesList![0]);
                 }}
               >
@@ -115,18 +113,21 @@ const DragAndDropEditor: FC = (): ReactElement => {
                 <>
                   {gameModulesList && gameModulesList.slice(1, -1).map(
                     (gameModule: GameModuleWithId, moduleIndex: number) => (
-                      <SortableItem key={gameModule.id} id={gameModule.id!}>
-                        <div
-                          className="flex items-center justify-center w-1/2 h-full border-2 border-[#353535] rounded-md transition-all duration-500"
-                          style={activeModule ? (() => activeModule._id === gameModule._id
-                            ? { transition: "all 0.5s", transform: "scale(1.05)", boxShadow: "0px 0px 20px white" }
-                            : undefined)() : undefined}
-                          onClick={(event: any) => {
-                            handleClick(moduleIndex + 1);
-                          }}
-                        >
-                          {`${gameModule.title}`}
-                        </div>
+                      <SortableItem key={gameModule.id ? gameModule.id : gameModule._id} id={gameModule.id!}>
+                        <>
+                          <div
+                            className="flex items-center justify-center w-1/2 h-full border-2 border-[#353535] rounded-md transition-all duration-500"
+                            style={activeModule ? (() => activeModule._id === gameModule._id
+                              ? { transition: "all 0.5s", transform: "scale(1.05)", boxShadow: "0px 0px 20px white" }
+                              : undefined)() : undefined}
+                            onClick={() => {
+                              setActiveModule(gameModulesList![moduleIndex + 1]);
+                            }}
+                          >
+                            {`${gameModule.title}`}
+                          </div>
+                          <RemoveModuleButton arrID={gameModule.id - 1} />
+                        </>
                       </SortableItem>
                     )
                   )}
@@ -144,7 +145,7 @@ const DragAndDropEditor: FC = (): ReactElement => {
                 style={activeModule ? (() => activeModule.id === gameModulesList[gameModulesList.length - 1]!.id
                   ? { transition: "all 0.5s", transform: "scale(1.05)", boxShadow: "0px 0px 20px white" }
                   : undefined)() : undefined}
-                onClick={(event: any) => {
+                onClick={() => {
                   setActiveModule(gameModulesList![gameModulesList.length - 1]);
                 }}
               >

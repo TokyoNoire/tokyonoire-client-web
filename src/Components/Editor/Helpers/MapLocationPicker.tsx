@@ -23,10 +23,11 @@ import icon from "../../../../Assets/Icons/locationMarker.png";
 
 interface props {
   locationCoordinates: MutableRefObject<number[] | null>
+  setVisualCoords: (coords: number[] | null) => void
 }
 
 const MapLocationPicker = (props: props): ReactElement => {
-  const { locationCoordinates } = props;
+  const { locationCoordinates, setVisualCoords } = props;
   const didMount = useRef<boolean>(false);
   const [map, setMap] = useState<Map>();
   const mapElement = useRef<HTMLDivElement>(null);
@@ -99,20 +100,13 @@ const MapLocationPicker = (props: props): ReactElement => {
         "EPSG:4326"
       );
       locationCoordinates.current = transformedCoord
+      setVisualCoords(transformedCoord)
       setSelectedCoord(transformedCoord);
     }
   };
 
   return (
-    <>
-      <div ref={mapElement} className="map" />
-
-      <p className="relative mb-6 text-center ml-2 text-sm p-2">
-        {selectedCoord
-          ? (`lat. ${selectedCoord[1]} & lon. ${selectedCoord[0]}`)
-          : "no location selected"}
-      </p>
-    </>
+    <div ref={mapElement} className="map" />
   );
 };
 

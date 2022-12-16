@@ -66,8 +66,8 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       const newGameData = gameData;
       newGameData.gameModules = gameModules;
       setGameData(newGameData);
-      console.log(gameModules);
-      console.log("gameData has been updated");
+      // console.log(gameModules);
+      // console.log("gameData has been updated");
     }
   }, [gameModules]);
 
@@ -77,7 +77,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       newGameData = gameInfoModule;
       setGameData(newGameData);
       // console.log(gameData);
-      console.log("gameData has been updated");
+      // console.log("gameData has been updated");
     }
   }, [gameInfoModule]);
 

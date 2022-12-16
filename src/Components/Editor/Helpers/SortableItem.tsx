@@ -18,6 +18,7 @@ function SortableItem({ id, children }: SortableItemProps) {
 
     return (
         <div
+            // key={id}
             ref={setNodeRef}
             className="h-24 flex justify-center items-center"
             style={style} {...attributes} {...listeners}
@@ -25,7 +26,6 @@ function SortableItem({ id, children }: SortableItemProps) {
             {children}
         </div>
     );
-
 }
 
 export default SortableItem;
