@@ -24,14 +24,3 @@ export class GameModuleSchema {
   }
 }
 
-// export const GameModuleSchema = {
-//     _id: "",
-//     typeOfModule: "",
-//     title: "",
-//     description: "",
-//     question: "",
-//     answer: "",
-//     image: "",
-//     locationCoordinates: null,
-//     hint: "",
-// };

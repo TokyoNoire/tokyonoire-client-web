@@ -8,6 +8,7 @@ interface SortableItemProps {
 }
 
 function SortableItem({ id, children }: SortableItemProps) {
+
     const { attributes, listeners, setNodeRef, transform, transition } =
         useSortable({ id });
     const style = {
@@ -16,8 +17,8 @@ function SortableItem({ id, children }: SortableItemProps) {
     };
 
     return (
-        // eslint-disable-next-line react/jsx-props-no-spreading
         <div
+            // key={id}
             ref={setNodeRef}
             className="h-24 flex justify-center items-center"
             style={style} {...attributes} {...listeners}

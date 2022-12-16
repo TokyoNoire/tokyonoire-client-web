@@ -78,6 +78,9 @@ const GameInformation = (prop: prop): ReactElement => {
         <FormControl sx={{ minWidth: 60 }}>
           <InputLabel id="rating-label">Rating</InputLabel>
           <Select
+            MenuProps={{
+              disableScrollLock: true,
+            }}
             labelId="rating"
             id="rating"
             value={visualRating ? visualRating : ''}
@@ -97,6 +100,9 @@ const GameInformation = (prop: prop): ReactElement => {
         <FormControl sx={{ minWidth: 60 }}>
           <InputLabel id="visibility-label">Visibility</InputLabel>
           <Select
+            MenuProps={{
+              disableScrollLock: true,
+            }}
             labelId="visibility"
             id="visibility"
             value={visualVisibility ? visualVisibility : 'Public'}
