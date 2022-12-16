@@ -45,7 +45,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const getTest = async () => {
     await axios
       .get(
-        "http://localhost:2000/editor/a5e5629a-ee52-4142-8a35-7f952e71033l"
+        "http://localhost:2000/editor/a5e5629a-ee52-4142-8a35-7f952e71033l/edit"
       )
       .then((response) => {
         // console.log(response.data);
