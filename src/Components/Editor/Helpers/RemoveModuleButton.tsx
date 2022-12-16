@@ -10,18 +10,10 @@ const RemoveModuleButton = (props: props): ReactElement => {
     const value = useContext(AppContext);
     const { setGameModules, gameModules } = value;
 
-    // console.log(arrID)
-
     const handleRemoveModule = () => {
-        // console.log(gameModules[arrID])
         const newGameModulesList = [...gameModules]
         newGameModulesList.splice(arrID, 1)
-        console.log(newGameModulesList)
         return setGameModules(newGameModulesList)
-
-        // newGameModule.typeOfModule = "narrative";
-        // newGameModule.title = "New Narrative Block";
-        // newGameModulesList.splice(newGameModulesList.length - 1, 0, newGameModule);
     }
 
     return (

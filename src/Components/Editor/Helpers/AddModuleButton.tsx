@@ -11,11 +11,23 @@ import CloseButton from "../../../../Assets/Icons/closeButton-darkTheme.svg";
 import { GameModuleSchema } from "./GameSchema";
 import { v4 as uuidv4 } from "uuid";
 import ModuleOptions from "./ModuleOptions";
+import AddIcon from '@mui/icons-material/Add';
+import { Menu, Button, MenuItem } from "@mui/material";
 
 const AddModuleButton = (): ReactElement => {
   const [renderMultiChoicePanel, setRenderMultiChoicePanel] = useState<boolean>(false);
   const value = useContext(AppContext);
   const { setGameModules, gameModules } = value;
+
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
 
   const plusButton = useRef<HTMLButtonElement>(null);
 
@@ -29,7 +41,6 @@ const AddModuleButton = (): ReactElement => {
   };
 
   const handleConsole = (event: MouseEvent, index: number) => {
-    console.log(ModuleOptions[index]);
     const newGameModule = new GameModuleSchema();
     newGameModule._id = uuidv4();
     const newGameModulesList = [...gameModules]
@@ -60,8 +71,40 @@ const AddModuleButton = (): ReactElement => {
       <div className="h-24 flex justify-center items-center">
         <div
           className="w-1/2 h-full flex justify-center items-center"
-        // onClick={handleClickOutside}
         >
+          <div>
+            <Button
+              id="demo-positioned-button"
+              aria-controls={open ? 'demo-positioned-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+              onClick={handleClick}
+            >
+              <AddIcon />
+            </Button>
+            <Menu
+              id="demo-positioned-menu"
+              aria-labelledby="demo-positioned-button"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+            >
+              <MenuItem onClick={handleClose}>Profile</MenuItem>
+              <MenuItem onClick={handleClose}>My account</MenuItem>
+              <MenuItem onClick={handleClose}>Logout</MenuItem>
+            </Menu>
+          </div>
+
+
+
           <button className="w-fit h-fit">
             <AddItemIcon
               alt="Add Module Button"
