@@ -32,20 +32,21 @@
   src: url("../../Assets/Fonts/Noir_Body/Noir_medium.otf");
 }
 
+html {
+  overflow-y: overlay;
+}
+
 html,
 body {
   background-color: #000000;
   color: #FFFFFF;
   padding: 0;
   margin: 0;
-  scrollbar-gutter: stable;
 }
 
 body::-webkit-scrollbar {
   width: 12px;
   border: 1px solid #353535;
-  /* border-radius: 9999px; */
-  scrollbar-gutter: stable;
 }
 
 body::-webkit-scrollbar-thumb {

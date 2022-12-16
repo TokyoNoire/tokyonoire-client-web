@@ -79,8 +79,9 @@ const AddModuleButton = (): ReactElement => {
               aria-haspopup="true"
               aria-expanded={open ? 'true' : undefined}
               onClick={handleClick}
+              style={{ width: "4rem", height: "4rem", borderRadius: "999px" }}
             >
-              <AddIcon />
+              <AddIcon style={{ color: "white", transform: "scale(2)" }} />
             </Button>
             <Menu
               id="demo-positioned-menu"
@@ -89,22 +90,28 @@ const AddModuleButton = (): ReactElement => {
               open={open}
               onClose={handleClose}
               anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: 'center',
+                horizontal: 'center',
               }}
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: 'center',
+                horizontal: 'center',
               }}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
+              {ModuleOptions.map((module, index) => (
+                <MenuItem
+                  className="p-3 w-full justify-center flex grow"
+                  key={index}
+                  onClick={(event) => { handleConsole(event, index); handleClose(); }}
+                >
+                  {module}
+                </MenuItem>
+              ))}
             </Menu>
           </div>
 
 
-
+          {/* 
           <button className="w-fit h-fit">
             <AddItemIcon
               alt="Add Module Button"
@@ -137,7 +144,7 @@ const AddModuleButton = (): ReactElement => {
                 ))}
               </div>
             </section>
-          )}
+          )} */}
         </div>
       </div>
     </>
