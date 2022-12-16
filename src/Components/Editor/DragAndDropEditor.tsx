@@ -92,13 +92,13 @@ const DragAndDropEditor: FC = (): ReactElement => {
               items={gameModulesList}
               strategy={verticalListSortingStrategy}
             >
-              <div className="w-full h-full flex flex-col justify-start item-center text-center gap-8">
+              <div className="flex flex-col justify-start w-full h-full gap-8 text-center item-center">
                 {gameModulesList &&
                   gameModulesList.map(
                     (gameModule: GameModuleWithId, moduleIndex: number) => (
                       <SortableItem key={gameModule.id} id={gameModule.id!}>
                         <div
-                          className="flex items-center justify-center w-1/2 h-full border-4 bg-darkGrey rounded-md"
+                          className="flex items-center justify-center w-1/2 h-full border-4 rounded-md bg-darkGrey"
                           onClick={(event: any) => {
                             handleClick(moduleIndex);
                           }}
