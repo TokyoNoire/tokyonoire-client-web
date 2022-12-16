@@ -1,9 +1,10 @@
-import React, { type ReactElement } from "react";
+import React, { useEffect, type ReactElement, useState } from "react";
 import { useRouter } from "next/router";
 import { type saveGameInfo } from "../../types/global";
 import { Button, Menu, MenuItem } from "@mui/material";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import GameListAuthored from "../../Components/Editor/GameListAuthored"
+import axios from "axios";
 
 interface Props {
     game: saveGameInfo;
@@ -23,7 +24,23 @@ const Editor = (props: Props): ReactElement => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const [listOfGamesByAuthor, setListOfGamesByAuthor] = useState<[] | null>(null)
 
+
+  const getGameByUid = async () => {
+    await axios
+      .get(
+        `https://tokyo-noire-server-development.herokuapp.com/`
+      )
+      .then((response) => setListOfGamesByAuthor(response.data));
+  };
+
+  useEffect(() => {
+    getGameByUid();
+  }, []) 
+
+
+  console.log(listOfGamesByAuthor);
     // Kazuki: this function below is connected to the open New Case button. I assume the request happens here.
     const handleCreateNewGameClick = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -46,7 +63,7 @@ const Editor = (props: Props): ReactElement => {
             <div className="flex w-full p-5 justify-right font-heading ">
                 <button id="themeButton" onClick={handleCreateNewGameClick}>Open New Case</button>
             </div>
-        <GameListAuthored/>
+            {listOfGamesByAuthor? <GameListAuthored listOfGamesByAuthor={listOfGamesByAuthor}/> : ""}
             </div >
 
         </>

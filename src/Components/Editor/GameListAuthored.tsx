@@ -1,10 +1,12 @@
+// @ts-nocheck
 import React, {
   type FC,
   type ReactElement,
   useState,
   useEffect,
-  useRef,
+  useRef
 } from "react";
+import { useRouter } from "next/router";
 import { Box } from "@mui/material";
 import { saveGameInfo } from "../../types/global";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -16,12 +18,85 @@ import {
   GridValueFormatterParams,
   GridRowParams,
   GridActionsCellItem,
+  GridRowId
 } from "@mui/x-data-grid";
 import axios from "axios";
 import moment from "moment";
 import PublishIcon from '@mui/icons-material/Publish';
 
-const GameListAuthored: FC = (): ReactElement => {
+// const rowss = [
+//   { id: 1, isPublished: true, isPrivate:false },
+//   { id: 2, isPublished: false, isPrivate:true},
+//   { id: 3, isPublished: true, isPrivate:false },
+//   { id: 4, isPublished: false, isPrivate:true},
+//   { id: 5, isPublished: true, isPrivate:false},
+//   { id: 6, isPublished: false, isPrivate:true},
+//   { id: 7, isPublished: true, isPrivate:false },
+//   { id: 8, isPublished: false, isPrivate:true},
+//   { id: 9, isPublished: true, isPrivate:false },
+// ];
+
+interface props {
+  listOfGamesByAuthor: [] | null;
+}
+
+const GameListAuthored: FC = (props: props): ReactElement => {
+  const { listOfGamesByAuthor } = props;
+  const router = useRouter();
+  const [rows, setRows] = React.useState<[]>(listOfGamesByAuthor);
+
+  
+  useEffect(() => {
+    setRows(listOfGamesByAuthor);
+  }, []) 
+
+  const handleEdit = (id:string) => {
+    console.log(id)
+  //   router.push({
+  //     pathname: `/editor/${id}`,
+  // });
+  };
+
+  console.log(rows)
+  const deleteStory = React.useCallback(
+    (id: GridRowId) => () => {
+      setTimeout(() => {
+        setRows((prevRows) => prevRows.filter((row) => row._id !== id));
+        console.log("triggered")
+      });
+    },
+    [],
+  );
+
+  const handleDelete = async (id: string) => {
+    await axios
+      .delete(
+        `https://tokyo-noire-server-development.herokuapp.com/editor/${id}}`
+      )
+      .then((response) => setListOfGamesByAuthor(response.data));
+  };
+
+  const toggleVisibility = React.useCallback(
+    (id: GridRowId) => () => {
+      setRows((prevRows) =>
+        prevRows.map((row) =>
+        row._id === id ? { ...row, isPublished: !row.isPublished } : row,
+        ),
+      );
+    },
+    [],
+  );
+
+  const togglePrivacy = React.useCallback(
+    (id: GridRowId) => () => {
+      setRows((prevRows) =>
+        prevRows.map((row) =>
+        row._id === id ? { ...row, isPrivate: !row.isPrivate } : row,
+        ),
+      );
+    },
+    [],
+  );
 
   const columns: GridColDef[] = [
     {
@@ -30,23 +105,20 @@ const GameListAuthored: FC = (): ReactElement => {
       minWidth: 300,
       flex: 1,
     },
-
-    {
-      field: "isPrivate",
-      headerName: "Visibility",
-      type: "boolean",
-      description: "This column has a value getter and is not sortable.",
-      sortable: true,
-      minWidth: 100,
-      flex: 2,
-    },
+    
     {
       field: "isPublished",
       headerName: "Published",
       type: "boolean",
-      sortable: true,
       minWidth: 100,
       flex: 3,
+    },
+    {
+      field: "isPrivate",
+      headerName: "Visibility",
+      type: "boolean",
+      minWidth: 100,
+      flex: 2,
     },
     {
       field: "dateCreated",
@@ -73,42 +145,37 @@ const GameListAuthored: FC = (): ReactElement => {
       field: "actions",
       type: "actions",
       flex: 6,
-      /* @ts-ignore */
+    
       getActions: (params) => [
-        <GridActionsCellItem key="1" icon={<ModeEditIcon />} label="Edit" />,
-        <GridActionsCellItem key="2" icon={<PublishIcon />} label="Publish" />,
-        <GridActionsCellItem key="3" icon={<VisibilityIcon />} label="Visibility" />,
-        <GridActionsCellItem key="4" icon={<DeleteIcon />} label="Delete" />,
+        <GridActionsCellItem key="1" icon={<ModeEditIcon />} onClick={handleEdit(params.id)} label="Edit" />,
+        <GridActionsCellItem key="2" icon={<PublishIcon />} onClick={togglePrivacy(params.id)} label="Publish" />,
+        <GridActionsCellItem key="3" icon={<VisibilityIcon />} onClick={toggleVisibility(params.id)} label="Visibility" />,
+        <GridActionsCellItem key="4" icon={<DeleteIcon />}  onClick={deleteStory(params.id)} label="Delete" />,
       ],
     },
   ];
 
-  const rows = [
-    { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-    { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-    { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-    { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-    { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-    { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-    { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-    { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-    { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  ];
+
+
 
   return (
     <>
 
+  
       <Box sx={{ height: 400}}
   justifyContent="center"
   alignItems="center">
         <DataGrid
           rows={rows}
+          getRowId={(row) => row._id}
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[5]}
           disableSelectionOnClick
         />
-      </Box>
+      </Box> 
+
+    
       </>
   );
 };
