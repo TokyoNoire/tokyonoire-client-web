@@ -1,18 +1,17 @@
 import React, { useEffect, type ReactElement, useState } from "react";
 import { useRouter } from "next/router";
 import { type saveGameInfo } from "../../types/global";
-import { Button, Menu, MenuItem } from "@mui/material";
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { LineAxisOutlined } from "@mui/icons-material";
+// import { Button, Menu, MenuItem } from "@mui/material";
+// import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+// import { LineAxisOutlined } from "@mui/icons-material";
 import axios from 'axios'
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 import { GameDataSchema } from "../../Components/Editor/Helpers/GameDataSchema"
-import { GameModuleSchema } from "../../Components/Editor/Helpers/GameSchema"
+// import { GameModuleSchema } from "../../Components/Editor/Helpers/GameSchema"
 import AppContext from "../../AppContext";
 import { useContext } from "react";
-import App from "next/app";
+// import App from "next/app";
 import GameListAuthored from "../../Components/Editor/GameListAuthored"
-import axios from "axios";
 
 interface Props {
     game: saveGameInfo;
@@ -38,20 +37,18 @@ const Editor = (props: Props): ReactElement => {
     const [listOfGamesByAuthor, setListOfGamesByAuthor] = useState<[] | null>(null)
 
 
-  const getGameByUid = async () => {
-    await axios
-      .get(
-        `https://tokyo-noire-server-development.herokuapp.com/`
-      )
-      .then((response) => setListOfGamesByAuthor(response.data));
-  };
+    const getGameByUid = async () => {
+      await axios
+        .get(
+          `https://tokyo-noire-server-development.herokuapp.com/editor/99999999`
+        )
+        .then((response) => setListOfGamesByAuthor(response.data));
+    };
 
   useEffect(() => {
     getGameByUid();
   }, []) 
 
-
-  console.log(listOfGamesByAuthor);
     // Kazuki: this function below is connected to the open New Case button. I assume the request happens here.
     const handleCreateNewGameClick = async (e: React.MouseEvent) => {
         e.preventDefault();
