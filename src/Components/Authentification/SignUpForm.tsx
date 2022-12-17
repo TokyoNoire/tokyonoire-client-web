@@ -89,9 +89,9 @@ const SignUpForm = (props: props): ReactElement => {
         </FormHelperText>
       </FormControl>
       <br />
-      <Button type="submit" id="themeButton" className="font-heading" onClick={() => { console.log(typeof email) }}>
+      {/* <Button type="submit" id="themeButton" className="font-heading" onClick={() => { console.log(typeof email) }}>
         PUSH ME (test)
-      </Button>
+      </Button> */}
       <br></br>
       <Button type="submit" id="themeButton" className="font-heading" onClick={async () => {
         formSubmitting.current = true;
