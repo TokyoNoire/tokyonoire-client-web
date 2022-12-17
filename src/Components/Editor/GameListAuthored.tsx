@@ -22,14 +22,13 @@ import {
 import axios from "axios";
 import moment from "moment";
 import Link from "next/link";
-import PublishIcon from '@mui/icons-material/Publish';
 import AppContext from "src/AppContext.ts";
 
 interface props {
   listOfGamesByAuthor: [] | null;
 }
 
-const GameListAuthored: FC = (props: props): ReactElement => {
+const GameListAuthored = (props: props): ReactElement => {
   const value = useContext(AppContext);
   const { setGameData, setGameModules, setGameInfoModule } = value;
   const { listOfGamesByAuthor } = props;
