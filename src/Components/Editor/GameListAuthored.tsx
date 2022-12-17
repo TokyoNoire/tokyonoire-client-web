@@ -4,6 +4,7 @@ import React, {
   useState,
   useEffect,
   useRef,
+  useContext
 } from "react";
 import { Box } from "@mui/material";
 import { saveGameInfo } from "../../types/global";
@@ -97,7 +98,6 @@ const GameListAuthored: FC = (): ReactElement => {
 
   return (
     <>
-
       <Box sx={{ height: 400}}
   justifyContent="center"
   alignItems="center">

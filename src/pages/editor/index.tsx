@@ -22,16 +22,16 @@ interface Props {
 
 const Editor = (props: Props): ReactElement => {
     const value = useContext(AppContext);
-    const {setGameData,setGameModules,setGameInfoModule, userId, username} = value
+    const { setGameData, setGameModules, setGameInfoModule, userId, username } = value
     // const { game, gameId } = props;
     const router = useRouter();
 
-//       useEffect(() => {
-//     console.log(username)
-//     if (userId) {
-//       console.log(username)
-//     } 
-//   }, [userId])
+    useEffect(() => {
+        if (!userId) {
+            alert("You must be signed in to use the editor")
+            router.push('/')
+        }
+    }, [userId])
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -54,26 +54,26 @@ const Editor = (props: Props): ReactElement => {
                 setGameModules(response.data.gameModules);
                 setGameInfoModule(response.data);
             })
-         router.push({
-             pathname: "/editor/[gameId]",
-             query: { gameId: "gameId" },
-         });
+        router.push({
+            pathname: "/editor/[gameId]",
+            query: { gameId: "gameId" },
+        });
     };
 
     return (
         <>
             <div className="mt-40 overflow-x-auto flexCenterDiv">
-            <p className="self-center p-5 text-xl text-center uppercase font-heading">
-        Welcome USERNAME
-      </p>
-      <p className="mb-10 text-center font-body1">
-        &quot;Is there a mystery afoot that you&apos;re itching for others to
-        solve?&quot;
-      </p>
-            <div className="flex w-full p-5 justify-right font-heading ">
-                <button id="themeButton" onClick={handleCreateNewGameClick}>Open New Case</button>
-            </div>
-        <GameListAuthored/>
+                <p className="self-center p-5 text-xl text-center uppercase font-heading">
+                    Welcome USERNAME
+                </p>
+                <p className="mb-10 text-center font-body1">
+                    &quot;Is there a mystery afoot that you&apos;re itching for others to
+                    solve?&quot;
+                </p>
+                <div className="flex w-full p-5 justify-right font-heading ">
+                    <button id="themeButton" onClick={handleCreateNewGameClick}>Open New Case</button>
+                </div>
+                <GameListAuthored />
             </div >
 
         </>
