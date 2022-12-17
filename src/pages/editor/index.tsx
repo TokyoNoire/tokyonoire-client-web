@@ -23,21 +23,14 @@ interface Props {
 const Editor = (props: Props): ReactElement => {
     const value = useContext(AppContext);
     const { setGameData, setGameModules, setGameInfoModule, userId, username } = value
-    // const { game, gameId } = props;
     const router = useRouter();
-
-    //       useEffect(() => {
-    //     console.log(username)
-    //     if (userId) {
-    //       console.log(username)
-    //     } 
-    //   }, [userId])
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
+
     const handleClose = () => {
         setAnchorEl(null);
     };
