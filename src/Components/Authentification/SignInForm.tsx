@@ -13,9 +13,14 @@ import { EmailAuthCredential, getAuth, GoogleAuthProvider, signInWithCredential,
 import AppContext from "../../AppContext";
 import { useAuth } from "../AuthProvider";
 import SignUpForm from "./SignUpForm";
-import { getFirestore, query, getDocs, collection, where, addDoc, } from "firebase/firestore";
+import { getFirestore, query, getDocs, getDoc, collection, where, addDoc } from "firebase/firestore";
 import app from '../../../src/auth/firebase'
 import { auth, db } from '../../../src/auth/firebase'
+import { useAuthState } from "react-firebase-hooks/auth";
+import { onAuthStateChanged } from "firebase/auth";
+import { useCollection } from 'react-firebase-hooks/firestore';
+import { match } from "assert";
+
 
 
 interface props {
@@ -27,21 +32,20 @@ const SignInForm = (props: props): ReactElement => {
   const auth = getAuth();
   const [authing, setAuthing] = useState(false);
   const value = useContext(AppContext);
-  const { setUserId } = value;
+  const { userId, setUserId, setUsername } = value;
   const email = useRef<string>('');
   const password = useRef<string>('');
   const { signIn } = useAuth();
   const formSubmitting = useRef<boolean>(false);
+  let userData: object;
 
   const signInWithGoogle = async () => {
     setAuthing(true);
     await signInWithPopup(auth, new GoogleAuthProvider())
-      .then((response) => {
-        query(collection(db, "users"), where("uid", "==", response.user.uid));
-        setUserId(response.user.uid)
-        console.log(`✅✅✅✅✅✅${response.user.email}`)
-        console.log(`${response.user.uid}`)
-        addDoc(collection(db, "users"), {
+      .then( async (response) => {
+        await setUserId(response.user.uid)
+        await setUsername(response.user.displayName)
+        await addDoc(collection(db, "users"), {
           uid: response.user.uid,
           name: response.user.displayName,
           authProvider: "google",
@@ -58,18 +62,58 @@ const SignInForm = (props: props): ReactElement => {
   const signInTrigger = async () => {
     setAuthing(true);
 
-    signIn(email.current, password.current)
+    await signIn(email.current, password.current)
       .then((response) => {
+
         setUserId(response.user.uid)
-        console.log(response.user.email)
-        console.log(response.user.displayName)
-      })
-      .catch((error) => {
-        console.error(error);
-        alert(error.message);
-        console.log(error);
-        setAuthing(false)
-      })
+        // console.log(response.user.uid)
+        // const db = getFirestore(app)
+        // const q = query(collection(db, "users"), where("uid", "==", response.user.uid))
+        // console.log('❤️',q)
+        // const querySnapshot = query(collection(db, "users"));
+
+        const users = collection(db, 'users')
+        const matchedID = query(users, where("uid", "==", response.user.uid))
+        console.log(matchedID)
+
+        // var collectionReference = db.collection("users");
+        // var query = users.where("name", "==", "John");
+        // query.get().then(function (querySnapshot) {
+        //   if (querySnapshot.empty) {
+        //     console.log('no documents found');
+        //   } else {
+        //     // do something with the data
+        //   }
+        });
+
+
+        //   async function getUids(email:string) {
+        //     const db = getFirestore(app);
+        //     const querySnapshot = collection(db, "users");
+        //     console.log(querySnapshot)
+        //     const uids = querySnapshot.docs.map((doc) => { return doc.id });
+        //     return uids;
+        // }
+
+
+
+
+        // useCollection(query(collection(db, "users"), where("uid", "==", userId)))
+        // // const q = query(collection(db, "users").where("uid", "==", userId).get());
+        // collection(db, "users")
+        // // const docs = getDocs(q);
+        // // const result = docs.then((res) => {
+        // //   console.log(res)
+        // // })
+        // // console.log(result)
+        // setUsername()
+      // })
+      // .catch((error) => {
+      //   console.error(error);
+      //   alert(error.message);
+      //   console.log(error);
+      //   setAuthing(false)
+      // })
   }
 
   return (
