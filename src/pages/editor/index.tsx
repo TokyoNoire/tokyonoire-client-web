@@ -1,4 +1,4 @@
-import React, { useEffect, type ReactElement, useState } from "react";
+import React, { useEffect, type ReactElement, useState, useContext, } from "react";
 import { useRouter } from "next/router";
 import { type saveGameInfo } from "../../types/global";
 // import { Button, Menu, MenuItem } from "@mui/material";
@@ -9,8 +9,7 @@ import axios from 'axios'
 import { GameDataSchema } from "../../Components/Editor/Helpers/GameDataSchema"
 // import { GameModuleSchema } from "../../Components/Editor/Helpers/GameSchema"
 import AppContext from "../../AppContext";
-import { useContext } from "react";
-// import App from "next/app";
+import App from "next/app";
 import GameListAuthored from "../../Components/Editor/GameListAuthored"
 
 interface Props {
@@ -47,12 +46,16 @@ const Editor = (props: Props): ReactElement => {
     const getGameByUid = async () => {
       await axios
         .get(
-          `https://tokyo-noire-server-development.herokuapp.com/editor/99999999`
+          `http://localhost:2000/editor/${userId}`
         )
-        .then((response) => setListOfGamesByAuthor(response.data));
+        .then((response) =>  {
+            console.log(response.data)
+            setListOfGamesByAuthor(response.data)
+        });
     };
 
   useEffect(() => {
+    console.log(userId)
     getGameByUid();
   }, []) 
 
@@ -61,17 +64,19 @@ const Editor = (props: Props): ReactElement => {
         e.preventDefault();
         const templateGameData = new GameDataSchema();
         templateGameData.titleOfGame = `game#${templateGameData._id}`;
-        templateGameData.uId = userId
-        await axios.post("http://localhost:2000/editor", templateGameData)
-            .then(response => {
-                setGameData(response.data);
-                setGameModules(response.data.gameModules);
-                setGameInfoModule(response.data);
-            })
-         router.push({
-             pathname: "/editor/[gameId]",
-             query: { gameId: "gameId" },
-         });
+        templateGameData.uId = userId;
+        templateGameData.author = username;
+        console.log(templateGameData)
+         await axios.post("http://localhost:2000/editor", templateGameData)
+             .then(response => {
+                 setGameData(response.data);
+                 setGameModules(response.data.gameModules);
+                 setGameInfoModule(response.data);
+             })
+          router.push({
+              pathname: "/editor/[gameId]",
+              query: { gameId: "gameId" },
+          });
     };
 
     return (
