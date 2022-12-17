@@ -16,10 +16,6 @@ const HomeDesktop = (props: props): ReactElement => {
   const [signInChallenge, setSignInChallenge] = useState<boolean>(false);
   const router = useRouter()
 
-  interface prop {
-    isConnected: boolean
-  }
-
   useEffect(() => {
     if (userId && signInChallenge === true) {
       router.push('/editor')

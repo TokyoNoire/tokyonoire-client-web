@@ -29,6 +29,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [durationLoadingScreen] = useState<number>(2000);
   const [deviceType, setDeviceType] = useState<string | null>(null);
   const [userId, setUserId] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
   const [gameData, setGameData] = useState<saveGameInfo | null>(null);
   const [gameModules, setGameModules] = useState<GameModule[]>();
   const hasMounted = useRef<boolean>(false);
@@ -42,26 +43,26 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     gameData
   );
 
-  const getTest = async () => {
-    await axios
-      .get(
-        "http://localhost:2000/editor/a5e5629a-ee52-4142-8a35-7f952e71033l/edit"
-      )
-      .then((response) => {
-        // console.log(response.data);
-        setGameData(response.data[0]);
-        setGameModules(response.data[0].gameModules);
-        setGameInfoModule(response.data[0]);
-      });
-  };
+  // const getTest = async () => {
+  //   await axios
+  //     .get(
+  //       "http://localhost:2000/editor/a5e5629a-ee52-4142-8a35-7f952e71033l"
+  //     )
+  //     .then((response) => {
+  //       // console.log(response.data);
+  //       setGameData(response.data[0]);
+  //       setGameModules(response.data[0].gameModules);
+  //       setGameInfoModule(response.data[0]);
+  //     });
+  // };
 
 
-  useEffect(() => {
-    if (!hasMounted.current) {
-      getTest();
-      hasMounted.current = true;
-    }
-  }, [hasMounted]);
+  // useEffect(() => {
+  //   if (!hasMounted.current) {
+  //     getTest();
+  //     hasMounted.current = true;
+  //   }
+  // }, [hasMounted]);
 
   useEffect(() => {
     if (gameData) {
@@ -108,6 +109,8 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         setCurrentGame: setCurrentGame,
         userId: userId,
         setUserId: setUserId,
+        username: username,
+        setUsername: setUsername,
         setGameInfoModule: setGameInfoModule,
         gameInfoModule: gameInfoModule,
         loadScreenMounted: loadScreenMounted,
