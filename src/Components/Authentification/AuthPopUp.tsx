@@ -20,8 +20,8 @@ const AuthPopUp: FC = (): ReactElement => {
     <>
       {authPanel === "signin" ? (
         <div className="absolute z-50 items-center flexCenterDiv bg-darkGrey justify-center shadow-xl rounded-md">
-          <br /><SignInForm setAuthPanel={setAuthPanel} /> </div>) 
-          : (<div className="absolute z-50 items-center flexCenterDiv bg-darkGrey justify-center shadow-xl rounded-md">
+          <br /><SignInForm setAuthPanel={setAuthPanel} /> </div>)
+        : (<div className="absolute z-50 items-center flexCenterDiv bg-darkGrey justify-center shadow-xl rounded-md">
           <br />
           <SignUpForm setAuthPanel={setAuthPanel} /> </div>)}
     </>
