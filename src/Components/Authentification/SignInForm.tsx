@@ -51,7 +51,7 @@ const SignInForm = (props: props): ReactElement => {
           } else {
             res.forEach((doc) => {
               console.log(doc.data(), '🥭')
-              let userDisplayName = doc.data()
+              const userDisplayName = doc.data()
               setUsername(userDisplayName.name)
             })
           }
@@ -75,7 +75,7 @@ const SignInForm = (props: props): ReactElement => {
         const doc = getDocs(dbQuery)
         doc.then((res) => {
           res.forEach((doc) => {
-            let userDisplayName = doc.data()
+            const userDisplayName = doc.data()
             setUsername(userDisplayName.name)
           })
         }
