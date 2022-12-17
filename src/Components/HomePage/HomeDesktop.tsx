@@ -17,10 +17,9 @@ const HomeDesktop = (props: props): ReactElement => {
   const router = useRouter()
 
   useEffect(() => {
-    console.log(userId)
     if (userId && signInChallenge === true) {
       router.push('/editor')
-    } 
+    }
   }, [userId, signInChallenge])
 
   const handleClick = () => {
@@ -28,6 +27,7 @@ const HomeDesktop = (props: props): ReactElement => {
   }
 
   return (
+<<<<<<< HEAD
     <main className="z-10 relative w-screen h-screen flexCenterDiv place-items-center">
     {signInChallenge ? (<AuthPopUp/>) : (<></>)}
       <TokyoNoireName
@@ -56,6 +56,38 @@ const HomeDesktop = (props: props): ReactElement => {
         )}
       </section>
     </main>
+=======
+    <>
+      <main className="z-10 relative w-screen h-screen flexCenterDiv place-items-center">
+        {signInChallenge ? (<AuthPopUp />) : (<></>)}
+        <TokyoNoireName
+          alt="Tokyo Noire Name"
+          style={{ maxWidth: "80vw", filter: "drop-shadow(0 0 0.5rem grey)", animation: "pulsate 1s ease-in-out infinite alternate" }}
+        />
+
+        <section className="absolute bottom-1/4">
+          {userId ? (
+            <Link href="/editor">
+              <button
+                id="themeButton"
+                className="font-heading"
+                style={{ transform: "scale(1.2)" }}
+              >Go To Editor</button>
+            </Link>
+          ) : (
+            <div>
+              <button
+                onClick={() => { handleClick() }}
+                id="themeButton"
+                className="font-heading"
+                style={{ transform: "scale(1.2)" }}
+              >Sign in to access the Editor</button>
+            </div>
+          )}
+        </section>
+      </main>
+    </>
+>>>>>>> 0df870d242a3bd5dd53cec514333550aaa326b88
   );
 };
 
