@@ -77,6 +77,22 @@ const Editor = (props: Props): ReactElement => {
               pathname: "/editor/[gameId]",
               query: { gameId: "gameId" },
           });
+
+
+        templateGameData.uId = userId
+        await axios.post("http://localhost:2000/editor", templateGameData)
+            .then(response => {
+                setGameData(response.data);
+                setGameModules(response.data.gameModules);
+                setGameInfoModule(response.data);
+                const gameId = response.data._id
+                return (
+                    router.push({
+                        pathname: "/editor/[gameId]",
+                        query: { gameId: gameId },
+                    })
+                )
+            })
     };
 
     return (
@@ -94,7 +110,6 @@ const Editor = (props: Props): ReactElement => {
             </div>
             {listOfGamesByAuthor? <GameListAuthored listOfGamesByAuthor={listOfGamesByAuthor}/> : ""}
             </div >
-
         </>
     )
 };

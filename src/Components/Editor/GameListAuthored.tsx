@@ -22,7 +22,6 @@ import {
 import axios from "axios";
 import moment from "moment";
 import Link from "next/link";
-import PublishIcon from '@mui/icons-material/Publish';
 import AppContext from "src/AppContext.ts";
 import { saveGameInfo } from "../../types/global";
 
