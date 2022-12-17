@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 import { GameDataSchema } from "../../Components/Editor/Helpers/GameDataSchema"
 import { GameModuleSchema } from "../../Components/Editor/Helpers/GameSchema"
 import AppContext from "../../AppContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import App from "next/app";
 import GameListAuthored from "../../Components/Editor/GameListAuthored"
 
@@ -22,9 +22,16 @@ interface Props {
 
 const Editor = (props: Props): ReactElement => {
     const value = useContext(AppContext);
-    const {setGameData,setGameModules,setGameInfoModule, userId} = value
+    const {setGameData,setGameModules,setGameInfoModule, userId, username} = value
     // const { game, gameId } = props;
     const router = useRouter();
+
+//       useEffect(() => {
+//     console.log(username)
+//     if (userId) {
+//       console.log(username)
+//     } 
+//   }, [userId])
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
