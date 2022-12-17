@@ -23,6 +23,8 @@ import axios from "axios";
 import moment from "moment";
 import Link from "next/link";
 import AppContext from "src/AppContext.ts";
+import { saveGameInfo } from "../../types/global";
+
 
 interface props {
   listOfGamesByAuthor: [] | null;

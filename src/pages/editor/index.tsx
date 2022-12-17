@@ -77,6 +77,7 @@ const Editor = (props: Props): ReactElement => {
               pathname: "/editor/[gameId]",
               query: { gameId: "gameId" },
           });
+<<<<<<< HEAD
 
         templateGameData.uId = userId
         await axios.post("http://localhost:2000/editor", templateGameData)
@@ -92,6 +93,8 @@ const Editor = (props: Props): ReactElement => {
                     })
                 )
             });
+=======
+>>>>>>> 18361c98dd306578135f43d65cae0e638aa46db1
     };
 
     return (
