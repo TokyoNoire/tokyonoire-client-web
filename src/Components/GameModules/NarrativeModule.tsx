@@ -11,29 +11,33 @@ const NarrativeModule = (props: props): ReactElement => {
   const { gameObject, setChallengeSuccess } = props;
 
   return (
-    <div className="self-center w-full flexCenterDiv bg-darkGrey">
-      <div className="self-center flexCenterDiv">
+    <>
+    <div className="self-center w-full py-10 flexCenterDiv shadow-inset1 rounded-m">
         <h1 className="self-center p-5 text-2xl text-center uppercase font-heading flexCenterDiv">
           {gameObject.title}
         </h1>
 
         <div className="self-center w-10/12 m-4 flexCenterDiv">
-          {gameObject.imageURL === null &&
-            // <Image src={gameObject.image} alt="Image for question module" className="rounded-lg"></Image>
+
+          {gameObject.imageURL ? (
             <img
               src={gameObject.imageURL}
-              alt="Image for question module"
+              alt="Image for narrative module"
               className="rounded-lg"
             />
-          }
-
+          ) : (
+            ""
+          )}
+          
         </div>
-        <p className="px-6 mt-2 font-body1">{gameObject.description}</p>
-      </div>
+        <p className="px-2 mt-2 text-center font-body1">{gameObject.description}</p>
 
+    </div>
+    <div className="items-center mx-20 my-5 flexCenterDiv">
+    
       <button
         id="themeButton"
-        className="mt-20 mb-5 font-heading"
+        className="self-center w-1/3 mt-20 mb-10 font-heading"
         type="button"
         onClick={() => {
           setChallengeSuccess(true);
@@ -41,8 +45,8 @@ const NarrativeModule = (props: props): ReactElement => {
       >
         NEXT
       </button>
-
-    </div>
+</div>
+    </>
   );
 };
 
