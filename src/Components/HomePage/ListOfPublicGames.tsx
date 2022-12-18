@@ -32,6 +32,10 @@ const ListOfPublicGames = (props: props): ReactElement => {
     gameId,
     setGame,
   } = props;
+  const [currentCoords, setCurrentCoords] = useState<number[] | null>(null);
+  const { haversineDistance } = Haversine();
+  const coords = useRef<number[] | null>(null);
+  const isMounted = useRef(false);
 
   const getGameById = async () => {
     await axios
@@ -41,13 +45,6 @@ const ListOfPublicGames = (props: props): ReactElement => {
       .then((response) => setGame(response.data[0]));
   };
 
-  // const {requestAccessAsync } = Gyroscope();
-  const [currentCoords, setCurrentCoords] = useState<number[] | null>(null);
-  const { haversineDistance } = Haversine();
-  // const [acquiredPermissions, setAcquiredPermissions] =
-  // useState<boolean>(false);
-  const coords = useRef<number[] | null>(null);
-  const isMounted = useRef(false);
 
   useEffect(() => {
     if (!isMounted.current) {

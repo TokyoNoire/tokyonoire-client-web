@@ -2,8 +2,6 @@ import React, {
   type ReactElement,
   useState, useContext
 } from "react";
-import GameListCompleted from "../../Components/Editor/GameListAuthored";
-import GameListUncompleted from "../../Components/ProfilePage/GameListOtherStatus";
 import StatusBar from "../../Components/ProfilePage/StatusBar";
 import AppContext from "../../AppContext";
 import { useRouter } from "next/router";
@@ -25,6 +23,7 @@ console.log("hey bruv 💀")
           Profile Page
         </h1>
         <StatusBar />
+<<<<<<< HEAD
         <ul className="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400 ">
           <li className="mx-3 mr-2">
             <a
@@ -50,6 +49,8 @@ console.log("hey bruv 💀")
         </ul>
 
         {show ? <GameListCompleted /> : <GameListUncompleted />}
+=======
+>>>>>>> 14c870939f119e6fc7e4b6b9ac6b0d80180c9084
       </main>
     </>
   );
