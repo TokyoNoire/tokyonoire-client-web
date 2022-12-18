@@ -79,12 +79,7 @@ const ModuleForms = (): ReactElement => {
   const hint = useRef<string>("");
   const locationCoordinates = useRef<number[] | null>([]);
 
-
-  console.log(locationCoordinates)
-
   if (activeModule) {
-    // console.log("I ran")
-    // console.log(activeModule)
     _id.current = activeModule._id;
     typeOfModule.current = activeModule.typeOfModule;
     title.current = activeModule.title;

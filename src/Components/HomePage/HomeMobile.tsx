@@ -109,25 +109,8 @@ const HomeMobile = (props: props): ReactElement => {
           />
         </div>
       </div>
-      <Hero />
-      <GameSearchByID
-        gameId={gameId}
-        setGame={setGame}
-        game={game}
-        handleOpen={handleOpen}
-      />
 
-      <div className="w-screen flexCenterDiv">
-        <KeyboardArrowDownIcon
-          style={{ animation: `hover-up-down ease-in-out 3s infinite` }}
-          sx={{
-            width: "1.5em",
-            height: "1.5em",
-          }}
-          className="self-center"
-        />
-      </div>
-      {publicGames ? (
+      {publicGames && (
         <ListOfPublicGames
           publicGames={publicGames!}
           gameId={gameId}
@@ -136,10 +119,16 @@ const HomeMobile = (props: props): ReactElement => {
           handleOpen={handleOpen}
           acquiredPermissions={acquiredPermissions}
         />
-      ) : (
-        ""
       )}
-      {game ? (
+
+      <GameSearchByID
+        gameId={gameId}
+        setGame={setGame}
+        game={game}
+        handleOpen={handleOpen}
+      />
+
+      {game && (
         <Dialog
           className="object-fit flexCenterDiv"
           open={open}
@@ -152,8 +141,6 @@ const HomeMobile = (props: props): ReactElement => {
             gameId={gameId!}
           />
         </Dialog>
-      ) : (
-        <></>
       )}
     </>
   );
