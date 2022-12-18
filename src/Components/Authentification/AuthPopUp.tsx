@@ -8,22 +8,14 @@ const AuthPopUp: FC = (): ReactElement => {
   const { userId } = value;
   const [authPanel, setAuthPanel] = useState<string>('signin')
 
-  // const showSignUp = () => {
-  //   setSignInOrUp(false);
-  // }
-
-  // const showSignIn = () => {
-  //   setSignInOrUp(true);
-  // }
 
   return (
     <>
-      {authPanel === "signin" ? (
-        <div className="absolute z-50 items-center flexCenterDiv bg-darkGrey justify-center shadow-xl rounded-md">
-          <br /><SignInForm setAuthPanel={setAuthPanel} /> </div>)
-        : (<div className="absolute z-50 items-center flexCenterDiv bg-darkGrey justify-center shadow-xl rounded-md">
-          <br />
-          <SignUpForm setAuthPanel={setAuthPanel} /> </div>)}
+      <div className="absolute z-[99] h-2/3 items-center flexCenterDiv bg-darkGrey justify-center shadow-xl rounded-md">
+        {authPanel === "signin"
+          ? (<SignInForm setAuthPanel={setAuthPanel} />)
+          : (<SignUpForm setAuthPanel={setAuthPanel} />)}
+      </div>
     </>
   )
 };
