@@ -99,9 +99,9 @@ const MapLocationPicker = (props: props): ReactElement => {
         "EPSG:3857",
         "EPSG:4326"
       );
-      locationCoordinates.current = transformedCoord
-      setVisualCoords(transformedCoord)
-      setSelectedCoord(transformedCoord);
+      locationCoordinates.current = [transformedCoord[1]!, transformedCoord[0]!];
+      setVisualCoords([transformedCoord[0]!, transformedCoord[1]!]);
+      setSelectedCoord([transformedCoord[0]!, transformedCoord[1]!]);
     }
   };
 

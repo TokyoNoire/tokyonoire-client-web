@@ -17,7 +17,9 @@ import HowToPlayPopup from "../../Components/GameModules/HowToPlayPopup";
 import { type GameModule } from "../../types/global";
 
 const GameId: FC = (): ReactElement => {
+  // const challengeSuccess = useRef<boolean>(false);
   const [challengeSuccess, setChallengeSuccess] = useState<boolean>(false);
+  // const [goToNext, setGoToNext] = useState<boolean>(false);
   const [TypeOfModule, setTypeOfModule] = useState<string | null>("");
   const [gameObject, setGameObject] = useState<GameModule | null | undefined>(
     null
@@ -26,7 +28,10 @@ const GameId: FC = (): ReactElement => {
   const currentIndex = useRef(0);
   const [devicePermission, setDevicePermission] = useState<boolean>(false);
 
+  console.log(gameObject)
+
   const getGameObject = useCallback(async () => {
+    setGameObject(null)
     await axios
       .get(
         `https://tokyo-noire-server-development.herokuapp.com/game/${router.query.gameId}/?index=${currentIndex.current}`
@@ -44,10 +49,11 @@ const GameId: FC = (): ReactElement => {
     if (challengeSuccess === true) {
       currentIndex.current++;
       getGameObject();
-      gameObject!.locationCoordinates = null;
+      // gameObject!.locationCoordinates = null;
       setChallengeSuccess(false);
+      // setGoToNext(false)
     }
-  }, [gameObject, getGameObject, challengeSuccess]);
+  }, [challengeSuccess]);
 
   useEffect(() => {
     if (gameObject !== null) {
@@ -57,6 +63,14 @@ const GameId: FC = (): ReactElement => {
 
   const setCurrentComponent = (typeOfModule: string | undefined) => {
     switch (typeOfModule) {
+      case "start":
+        return (
+          <NarrativeModule
+            gameObject={gameObject!}
+            setChallengeSuccess={setChallengeSuccess}
+          />
+        );
+
       case "location":
         return (
           <>
@@ -69,6 +83,7 @@ const GameId: FC = (): ReactElement => {
                     : [0, 0]
                 }
                 setChallengeSuccess={setChallengeSuccess}
+              // setGoToNext={setGoToNext}
               />
             ) : (
               <></>

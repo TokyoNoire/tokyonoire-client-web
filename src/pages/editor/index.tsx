@@ -43,7 +43,7 @@ const Editor = (props: Props): ReactElement => {
     const getGameByUid = async () => {
         await axios
             .get(
-                `http://localhost:2000/editor/${userId}`
+                `https://tokyo-noire-server-development.herokuapp.com/editor/${userId}`
             )
             .then((response) => {
                 console.log(response.data)
@@ -64,7 +64,7 @@ const Editor = (props: Props): ReactElement => {
         templateGameData.titleOfGame = `game#${templateGameData._id}`;
         templateGameData.uId = userId;
         templateGameData.author = username;
-        await axios.post("http://localhost:2000/editor", templateGameData)
+        await axios.post("https://tokyo-noire-server-development.herokuapp.com/editor", templateGameData)
             .then(response => {
                 setGameData(response.data);
                 setGameModules(response.data.gameModules);
