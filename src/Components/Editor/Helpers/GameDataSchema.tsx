@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export class GameDataSchema {
     _id: string;
-    isPublished: string;
+    isPublished: boolean;
     isPrivate: boolean;
     titleOfGame: string;
     description: string;
@@ -17,7 +17,7 @@ export class GameDataSchema {
 
     public constructor() {
         this._id = uuidv4();
-        this.isPublished = "false"
+        this.isPublished = false;
         this.isPrivate = false;
         this.titleOfGame = "";
         this.description = "";

@@ -68,15 +68,18 @@ const Editor = (props: Props): ReactElement => {
         templateGameData.author = username;
         console.log(templateGameData)
          await axios.post("http://localhost:2000/editor", templateGameData)
-             .then(response => {
-                 setGameData(response.data);
-                 setGameModules(response.data.gameModules);
-                 setGameInfoModule(response.data);
-             })
-          router.push({
-              pathname: "/editor/[gameId]",
-              query: { gameId: "gameId" },
-          });
+         .then(response => {
+            setGameData(response.data);
+            setGameModules(response.data.gameModules);
+            setGameInfoModule(response.data);
+            const gameId = response.data._id
+            return (
+                router.push({
+                    pathname: "/editor/[gameId]",
+                    query: { gameId: gameId },
+                })
+            )
+        });
     };
 
     return (

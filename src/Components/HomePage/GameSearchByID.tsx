@@ -17,7 +17,7 @@ const GameSearchByID = (prop: prop): ReactElement => {
   const getGameById = async () => {
     await axios
       .get(
-        `https://tokyo-noire-server-development.herokuapp.com/?_id=${gameId}`
+        `https://tokyo-noire-server-development.herokuapp.com/${gameId}`
       )
       .then((response) => setGame(response.data[0]));
   };

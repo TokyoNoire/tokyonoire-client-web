@@ -24,7 +24,6 @@ import moment from "moment";
 import Link from "next/link";
 import PublishIcon from '@mui/icons-material/Publish';
 import AppContext from "src/AppContext.ts";
-import { saveGameInfo } from "../../types/global";
 
 
 interface props {
@@ -122,20 +121,20 @@ const GameListAuthored = (props: props): ReactElement => {
           component={Link}
           href={`/editor/${params.id}`}
         />,
-        // <GridActionsCellItem
-        //   key="2"
-        //   icon={<PublishIcon />}
-        //   onClick={togglePublish(params.id)}
-        //   label="Publish"
-        //   component={Link}
-        //   href={``}
-        // />,
-        // <GridActionsCellItem
-        //   key="3"
-        //   icon={<VisibilityIcon />}
-        //   onClick={toggleVisibility(params.id)}
-        //   label="Visibility"
-        // />,
+          <GridActionsCellItem
+            key="2"
+            icon={<PublishIcon />}
+            onClick={togglePublish(params.id)}
+            label="Publish"
+            component={Link}
+            href={``}
+          />,
+          <GridActionsCellItem
+            key="3"
+            icon={<VisibilityIcon />}
+            onClick={toggleVisibility(params.id)}
+            label="Visibility"
+          />,
         <GridActionsCellItem
           key="4"
           icon={<DeleteIcon />}
