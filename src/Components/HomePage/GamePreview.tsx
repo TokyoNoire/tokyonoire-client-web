@@ -1,4 +1,4 @@
-import React, { type ReactElement } from "react";
+import React, { type ReactElement, type MutableRefObject } from "react";
 import { useRouter } from "next/router";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -7,7 +7,7 @@ import { type saveGameInfo } from "../../types/global";
 interface Props {
   game: saveGameInfo;
   handleClose: () => void;
-  gameId: string;
+  gameId: MutableRefObject<string | null>;
 }
 
 const GamePreview = (props: Props): ReactElement => {
@@ -18,9 +18,10 @@ const GamePreview = (props: Props): ReactElement => {
     e.preventDefault();
     router.push({
       pathname: "/game/[gameId]",
-      query: { gameId: gameId },
+      query: { gameId: gameId.current },
     });
   };
+  console.log(game)
 
   return (
     <div className="relative block flexCenterDiv bg-darkGrey">

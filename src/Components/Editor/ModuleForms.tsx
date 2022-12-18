@@ -56,7 +56,7 @@ const ModuleForms = (): ReactElement => {
       isPublished: isPublished.current,
       isPrivate: isPrivate.current,
       titleOfGame: titleOfGame.current,
-      description: gameInfoModule.description,
+      description: gameDescription.current,
       uId: localUserId ? localUserId : userId,
       author: localUsername ? localUsername : username,
       rating: rating.current,
@@ -78,6 +78,9 @@ const ModuleForms = (): ReactElement => {
   const answer = useRef<string>("");
   const hint = useRef<string>("");
   const locationCoordinates = useRef<number[] | null>([]);
+
+
+  console.log(locationCoordinates)
 
   if (activeModule) {
     // console.log("I ran")

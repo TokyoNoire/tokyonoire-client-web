@@ -26,8 +26,6 @@ import axios from "axios";
 import moment from "moment";
 import Link from "next/link";
 import AppContext from "src/AppContext.ts";
-import { saveGameInfo } from "../../types/global";
-
 
 interface props {
   listOfGamesByAuthor: [] | null;
@@ -47,7 +45,7 @@ const GameListAuthored = (props: props): ReactElement => {
 
   const handleEdit = async (id: GridRowId) => {
     console.log("this is the selected Id: ", id)
-    await axios.get(`http://localhost:2000/editor/${id}/edit`)
+    await axios.get(`https://tokyo-noire-server-development.herokuapp.com/editor/${id}/edit`)
       .then(response => {
         setGameData(response.data[0]);
         setGameModules(response.data[0].gameModules);
@@ -59,7 +57,7 @@ const GameListAuthored = (props: props): ReactElement => {
     console.log('delete function is running')
     await axios
       .delete(
-        `http://localhost:2000/editor/${id}`
+        `https://tokyo-noire-server-development.herokuapp.com/editor/${id}`
       )
     // .then((response) => setListOfGamesByAuthor(response.data));
   };
