@@ -22,13 +22,13 @@ export type GameModules = {
 const ModuleForms = (): ReactElement => {
   const value = useContext(AppContext);
   const { activeModule, setActiveModule, gameModules, setGameModules,
-    gameInfoModule, setGameInfoModule, gameData,
+    gameInfoModule, setGameInfoModule, gameData, userId, localUserId, username, localUsername
   } = value;
 
   // Game Info References
   const _idGame = useRef<string>("");
-  const isPublished = useRef<string>("");
-  const isPrivate = useRef<string>("");
+  const isPublished = useRef<boolean | null>(null);
+  const isPrivate = useRef<boolean | null>(null);
   const titleOfGame = useRef<string>("");
   const gameDescription = useRef<string>("");
   const author = useRef<string>("");
@@ -43,7 +43,7 @@ const ModuleForms = (): ReactElement => {
     isPrivate.current = gameInfoModule.isPrivate;
     titleOfGame.current = gameInfoModule.titleOfGame;
     gameDescription.current = gameInfoModule.description;
-    author.current = "Placeholder Username"
+    author.current = gameInfoModule.author;
     gameImageURL.current = gameInfoModule.gameImageURL;
     estimatedTimeMinutes.current = gameInfoModule.estimatedTimeMinutes;
     rating.current = gameInfoModule.rating;
@@ -57,8 +57,8 @@ const ModuleForms = (): ReactElement => {
       isPrivate: isPrivate.current,
       titleOfGame: titleOfGame.current,
       description: gameInfoModule.description,
-      uId: "id to be given after Auth integration",
-      author: "author (username) to be given after Auth integration",
+      uId: localUserId ? localUserId : userId,
+      author: localUsername ? localUsername : username,
       rating: rating.current,
       gameImageURL: gameImageURL.current,
       estimatedTimeMinutes: estimatedTimeMinutes.current,

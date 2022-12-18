@@ -34,6 +34,7 @@ const MenuDesktop = (): ReactElement => {
   const { gameData } = value;
 
   const saveDraft = async () => {
+    // gameData.isPublished = "false";
     await axios.patch(
       `http://localhost:2000/editor/${gameData._id}`,
       gameData
@@ -41,6 +42,7 @@ const MenuDesktop = (): ReactElement => {
   }
 
   const publishGame = async () => {
+    gameData.isPublished = "true";
     await axios.patch(
       `http://localhost:2000/editor/${gameData._id}`,
       gameData
@@ -59,22 +61,14 @@ const MenuDesktop = (): ReactElement => {
               className="flex gap-10 px-8 py-3 rounded-full"
               style={{ backgroundColor: "rgb(20, 20, 20)" }}
             >
-              <div className="cursor-pointer w-7" title="Save as Draft">
+              <div className="cursor-pointer w-7" title={gameData.isPublished ? "Save" : "Save as Draft"}>
                 <SaveIcon
-                  onClick={() => {
-                    gameData.isPublished = "false";
-                    console.log(gameData)
-                    saveDraft();
-                  }}
+                  onClick={saveDraft}
                 ></SaveIcon>
               </div>
               <div className="cursor-pointer w-7" title="Publish">
                 <PublishIcon
-                  onClick={() => {
-                    gameData.isPublished = "true";
-                    console.log(gameData);
-                    publishGame();
-                  }}
+                  onClick={publishGame}
                 ></PublishIcon>
               </div>
               <div className="cursor-pointer w-28" title="Publish">

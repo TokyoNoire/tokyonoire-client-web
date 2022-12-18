@@ -25,7 +25,7 @@ const SignInForm = (props: props): ReactElement => {
   const auth = getAuth();
   const [authing, setAuthing] = useState(false);
   const value = useContext(AppContext);
-  const { setUserId, setUsername, username, userId, setLocalUserId } = value;
+  const { setUserId, setUsername, username, userId, setLocalUserId, setLocalUsername } = value;
   const email = useRef<string>('');
   const password = useRef<string>('');
   const { signIn } = useAuth();
@@ -57,6 +57,7 @@ const SignInForm = (props: props): ReactElement => {
         }
         )
         setLocalUserId(response.user.uid)
+        setLocalUsername(response.user.displayName)
       })
       .catch((error) => {
         console.error(error);
@@ -80,6 +81,7 @@ const SignInForm = (props: props): ReactElement => {
           })
         })
         setLocalUserId(response.user.uid)
+        setLocalUsername(response.user.displayName)
       })
       .catch((error) => {
         console.error(error);
