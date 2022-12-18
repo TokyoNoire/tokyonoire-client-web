@@ -11,6 +11,7 @@ import { Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import PublishIcon from '@mui/icons-material/Publish';
 import {
   DataGrid,
   GridColDef,
@@ -36,36 +37,39 @@ const GameListAuthored = (props: props): ReactElement => {
   const { listOfGamesByAuthor } = props;
   const [rows, setRows] = React.useState<[]>(listOfGamesByAuthor);
 
-  
+
   useEffect(() => {
     setRows(listOfGamesByAuthor);
-  }, []) 
+  }, [])
 
   const handleEdit = async (id: GridRowId) => {
     console.log("this is the selected Id: ", id)
     await axios.get(`http://localhost:2000/editor/${id}/edit`)
-    .then(response => {
-      setGameData(response.data[0]);
-      setGameModules(response.data[0].gameModules);
-      setGameInfoModule(response.data[0]);
-    })
-  } 
+      .then(response => {
+        setGameData(response.data[0]);
+        setGameModules(response.data[0].gameModules);
+        setGameInfoModule(response.data[0]);
+      })
+  }
 
   const handleDelete = async (id: string) => {
-
     console.log('delete function is running')
     await axios
       .delete(
         `http://localhost:2000/editor/${id}`
       )
-      // .then((response) => setListOfGamesByAuthor(response.data));
+    // .then((response) => setListOfGamesByAuthor(response.data));
   };
+
+  const togglePublish = async (id: string) => {
+    console.log("toggle is running")
+  }
 
   const columns: GridColDef[] = [
     {
       field: "titleOfGame",
       headerName: "Case Name",
-      minWidth: 300,
+      minWidth: 250,
       flex: 1,
     },
 
@@ -74,14 +78,14 @@ const GameListAuthored = (props: props): ReactElement => {
       headerName: "Published",
       type: "boolean",
       minWidth: 100,
-      flex: 3,
+      flex: 2,
     },
     {
       field: "isPrivate",
       headerName: "Visibility",
       type: "boolean",
       minWidth: 100,
-      flex: 2,
+      flex: 3,
     },
     {
       field: "dateCreated",
@@ -114,21 +118,18 @@ const GameListAuthored = (props: props): ReactElement => {
           key="1"
           icon={<ModeEditIcon />}
           label="Edit"
-          onClick={() => {
-            handleEdit(params.id)
-          }
-          }
+          onClick={() => { handleEdit(params.id) }}
           component={Link}
           href={`/editor/${params.id}`}
         />,
-        // <GridActionsCellItem
-        //   key="2"
-        //   icon={<PublishIcon />}
-        //   onClick={togglePublish(params.id)}
-        //   label="Publish"
-        //   component={Link}
-        //   href={``}
-        // />,
+        <GridActionsCellItem
+          key="2"
+          icon={<PublishIcon />}
+          onClick={() => { togglePublish(params.id) }}
+          label="Publish"
+          component={Link}
+          href={``}
+        />,
         // <GridActionsCellItem
         //   key="3"
         //   icon={<VisibilityIcon />}
@@ -143,25 +144,28 @@ const GameListAuthored = (props: props): ReactElement => {
             handleDelete(params.id)
           }}
           label="Delete"
+          href={``}
         />,
       ],
     },
   ]
-  return(
+
+  return (
     <>
-      <Box sx={{ height: 400}}
-  justifyContent="center"
-  alignItems="center">
+      <Box
+        sx={{ height: 400 }}
+        justifyContent="center"
+        alignItems="center">
         <DataGrid
           rows={rows}
           getRowId={(row) => row._id}
           columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5]}
+          pageSize={25}
+          rowsPerPageOptions={[25]}
           disableSelectionOnClick
         />
-      </Box>    
-      </>
+      </Box>
+    </>
   );
 };
 

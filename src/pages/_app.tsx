@@ -29,6 +29,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [deviceType, setDeviceType] = useState<string | null>(null);
   const [userId, setUserId] = useState<string>('');
   const [localUserId, setLocalUserId] = useLocalStorage<string | null>("userId", null)
+  const [localUsername, setLocalUsername] = useLocalStorage<string | null>("username", null)
   const [username, setUsername] = useState<string>('');
   const [gameData, setGameData] = useState<saveGameInfo | null>(null);
   const [gameModules, setGameModules] = useState<GameModule[]>();
@@ -39,6 +40,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
 
   useEffect(() => {
     if (localUserId) { setUserId(localUserId) }
+    if (localUsername) { setUsername(localUsername) }
   }, [])
 
   const [currentGame, setCurrentGame] = useLocalStorage(
@@ -95,6 +97,8 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         setLocalUserId: setLocalUserId,
         username: username,
         setUsername: setUsername,
+        localUsername: localUsername,
+        setLocalUsername: setLocalUsername,
         setGameInfoModule: setGameInfoModule,
         gameInfoModule: gameInfoModule,
         loadScreenMounted: loadScreenMounted,
