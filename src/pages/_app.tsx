@@ -40,6 +40,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
 
   useEffect(() => {
     if (localUserId) { setUserId(localUserId) }
+    if (localUsername) { setUsername(localUsername) }
   }, [])
 
   const [currentGame, setCurrentGame] = useLocalStorage(
