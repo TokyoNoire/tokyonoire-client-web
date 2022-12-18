@@ -73,6 +73,8 @@ const ListOfPublicGames = (props: props): ReactElement => {
     setTimeout(handleOpen, 2000);
   };
 
+  
+
   const publicGamesListing = publicGames.map((publicGame, index) => {
     return (
       <tbody key={index} id={publicGame._id}>
