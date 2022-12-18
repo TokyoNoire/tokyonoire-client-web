@@ -27,8 +27,8 @@ const ModuleForms = (): ReactElement => {
 
   // Game Info References
   const _idGame = useRef<string>("");
-  const isPublished = useRef<string>("");
-  const isPrivate = useRef<string>("");
+  const isPublished = useRef<boolean | null>(null);
+  const isPrivate = useRef<boolean | null>(null);
   const titleOfGame = useRef<string>("");
   const gameDescription = useRef<string>("");
   const author = useRef<string>("");
@@ -43,7 +43,7 @@ const ModuleForms = (): ReactElement => {
     isPrivate.current = gameInfoModule.isPrivate;
     titleOfGame.current = gameInfoModule.titleOfGame;
     gameDescription.current = gameInfoModule.description;
-    author.current = "Placeholder Username"
+    author.current = gameInfoModule.author;
     gameImageURL.current = gameInfoModule.gameImageURL;
     estimatedTimeMinutes.current = gameInfoModule.estimatedTimeMinutes;
     rating.current = gameInfoModule.rating;

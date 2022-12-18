@@ -21,8 +21,8 @@ interface prop {
   gameDescription: MutableRefObject<string>;
   estimatedTimeMinutes: MutableRefObject<string>;
   rating: MutableRefObject<string>;
-  isPublished: MutableRefObject<string>;
-  isPrivate: MutableRefObject<string>;
+  isPublished: MutableRefObject<boolean | null>;
+  isPrivate: MutableRefObject<boolean | null>;
   startingLocationCoordinates: MutableRefObject<number[] | null>;
   gameImageURL: MutableRefObject<string>;
   handleGameInfoModuleUpdateClick: () => void;
@@ -48,12 +48,19 @@ const GameInformation = (prop: prop): ReactElement => {
     rating.current = event.target.value;
   };
 
-  const [visualVisibility, setVisualVisibility] = useState<string>(isPrivate.current);
-  const handleVisibilityChange = (event: SelectChangeEvent<string>) => {
-    setVisualVisibility(event.target.value)
-    isPrivate.current = event.target.value;
+  const [visualIsPrivate, setVisualIsPrivate] = useState<string>(isPrivate.current ? "Private" : "Public");
+  const handleIsPrivateChange = (event: SelectChangeEvent<string>) => {
+    if (event.target.value === "Public") {
+      setVisualIsPrivate("Public");
+      isPrivate.current = false;
+    }
+    if (event.target.value === "Private") {
+      setVisualIsPrivate("Private");
+      isPrivate.current = true;
+    }
   };
 
+  console.log(String(visualIsPrivate))
   return (
     <ContainerGameInfo handleGameInfoModuleUpdateClick={handleGameInfoModuleUpdateClick}>
 
@@ -105,8 +112,8 @@ const GameInformation = (prop: prop): ReactElement => {
             }}
             labelId="visibility"
             id="visibility"
-            value={visualVisibility ? visualVisibility : 'Public'}
-            onChange={(e) => { handleVisibilityChange(e) }}
+            value={visualIsPrivate}
+            onChange={(e) => { handleIsPrivateChange(e) }}
             label="visibility"
           >
             <MenuItem value={"Public"}>Public</MenuItem>

@@ -48,7 +48,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     gameData
   );
 
-  console.log(gameModules)
+  console.log(gameData)
 
   useEffect(() => {
     if (gameData) {
