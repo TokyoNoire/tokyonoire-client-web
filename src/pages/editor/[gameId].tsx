@@ -12,9 +12,16 @@ const Editor: NextPage = () => {
   const value = useContext(AppContext);
   const hasMounted = useRef<boolean>(false);
 
-  const { setGameModules, setGameInfoModule, setGameData, gameData } = value;
+  const { setGameModules, setGameInfoModule, setGameData, gameData, userId } = value;
 
   const router = useRouter();
+
+  useEffect(() => {
+    if (!userId) {
+        alert("You must be signed in to use the editor")
+        router.push('/')
+    }
+}, [userId])
 
   const getGameFromServer = async () => {
     await axios

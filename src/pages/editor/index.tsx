@@ -24,13 +24,13 @@ const Editor = (props: Props): ReactElement => {
     const { setGameData, setGameModules, setGameInfoModule, userId, username } = value
     // const { game, gameId } = props;
     const router = useRouter();
-
-    //       useEffect(() => {
-    //     console.log(username)
-    //     if (userId) {
-    //       console.log(username)
-    //     } 
-    //   }, [userId])
+ 
+    useEffect(() => {
+        if (!userId) {
+            alert("You must be signed in to use the editor")
+            router.push('/')
+        }
+    }, [userId])
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
