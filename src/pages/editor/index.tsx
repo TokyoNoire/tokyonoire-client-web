@@ -37,20 +37,20 @@ const Editor = (props: Props): ReactElement => {
 
 
     const getGameByUid = async () => {
-      await axios
-        .get(
-          `http://localhost:2000/editor/${userId}`
-        )
-        .then((response) =>  {
-            console.log(response.data)
-            setListOfGamesByAuthor(response.data)
-        });
+        await axios
+            .get(
+                `http://localhost:2000/editor/${userId}`
+            )
+            .then((response) => {
+                console.log(response.data)
+                setListOfGamesByAuthor(response.data)
+            });
     };
 
-  useEffect(() => {
-    console.log(userId)
-    getGameByUid();
-  }, []) 
+    useEffect(() => {
+        console.log(userId)
+        getGameByUid();
+    }, [])
 
     // Kazuki: this function below is connected to the open New Case button. I assume the request happens here.
     const handleCreateNewGameClick = async (e: React.MouseEvent) => {
@@ -59,20 +59,6 @@ const Editor = (props: Props): ReactElement => {
         templateGameData.titleOfGame = `game#${templateGameData._id}`;
         templateGameData.uId = userId;
         templateGameData.author = username;
-        console.log(templateGameData)
-         await axios.post("http://localhost:2000/editor", templateGameData)
-             .then(response => {
-                 setGameData(response.data);
-                 setGameModules(response.data.gameModules);
-                 setGameInfoModule(response.data);
-             })
-          router.push({
-              pathname: "/editor/[gameId]",
-              query: { gameId: "gameId" },
-          });
-
-
-        templateGameData.uId = userId
         await axios.post("http://localhost:2000/editor", templateGameData)
             .then(response => {
                 setGameData(response.data);
@@ -91,17 +77,17 @@ const Editor = (props: Props): ReactElement => {
     return (
         <>
             <div className="mt-40 overflow-x-auto flexCenterDiv">
-            <p className="self-center p-5 text-xl text-center uppercase font-heading">
-        Welcome USERNAME
-      </p>
-      <p className="mb-10 text-center font-body1">
-        &quot;Is there a mystery afoot that you&apos;re itching for others to
-        solve?&quot;
-      </p>
-            <div className="flex w-full p-5 justify-right font-heading ">
-                <button id="themeButton" onClick={handleCreateNewGameClick}>Open New Case</button>
-            </div>
-            {listOfGamesByAuthor? <GameListAuthored listOfGamesByAuthor={listOfGamesByAuthor}/> : ""}
+                <p className="self-center p-5 text-xl text-center uppercase font-heading">
+                    Welcome USERNAME
+                </p>
+                <p className="mb-10 text-center font-body1">
+                    &quot;Is there a mystery afoot that you&apos;re itching for others to
+                    solve?&quot;
+                </p>
+                <div className="flex w-full p-5 justify-right font-heading ">
+                    <button id="themeButton" onClick={handleCreateNewGameClick}>Open New Case</button>
+                </div>
+                {listOfGamesByAuthor ? <GameListAuthored listOfGamesByAuthor={listOfGamesByAuthor} /> : ""}
             </div >
         </>
     )
