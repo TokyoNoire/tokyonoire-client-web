@@ -10,6 +10,7 @@ import Distance from "./Helpers/Distance";
 import BearingAngle from "./Helpers/BearingAngle";
 import Gyroscope from "./Helpers/Gyroscope";
 import FadeDiv from "../Helpers/FadeDiv";
+import HintPopper from "./Helpers/HintPopper";
 
 interface props {
   setChallengeSuccess: (boolean: boolean) => void;

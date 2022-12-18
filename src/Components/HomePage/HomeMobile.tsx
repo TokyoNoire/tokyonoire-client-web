@@ -39,6 +39,8 @@ const HomeMobile = (props: props): ReactElement => {
   const { requestAccessAsync } = Gyroscope();
   const [devicePermission, setDevicePermission] = useState<boolean>(false);
 
+  console.log(game);
+
   const handlePermissions = useCallback(async () => {
     if (devicePermission){
     await requestAccessAsync();
@@ -92,7 +94,6 @@ const HomeMobile = (props: props): ReactElement => {
   console.log("📍", acquiredPermissions);
   return (
     <>
-    
         <AuthorizationPopup
         setDevicePermission ={setDevicePermission}/>
         
