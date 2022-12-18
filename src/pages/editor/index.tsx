@@ -24,6 +24,13 @@ const Editor = (props: Props): ReactElement => {
     const { setGameData, setGameModules, setGameInfoModule, userId, username } = value
     const router = useRouter();
 
+    useEffect(() => {
+        if (!userId) {
+            alert("You must be signed in to use the editor")
+            router.push('/')
+        }
+    }, [userId])
+
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
