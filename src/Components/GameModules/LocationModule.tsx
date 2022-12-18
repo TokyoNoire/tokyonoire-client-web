@@ -14,7 +14,7 @@ const LocationModule = (props: props): ReactElement => {
 
   return (
     <FadeDiv>
-      <div className="self-center w-full flexCenterDiv bg-darkGrey">
+      <div className="self-center w-full flexCenterDiv shadow-inset1">
         <div className="self-center mb-5 flexCenterDiv">
           <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
             {gameObject.title}
@@ -35,8 +35,9 @@ const LocationModule = (props: props): ReactElement => {
           </p> : ""}
         
         </div>
-        <HintPopper hint={gameObject.hint!}/>
       </div>
+        <HintPopper hint={gameObject.hint!}/>
+    
     </FadeDiv>
   );
 };
