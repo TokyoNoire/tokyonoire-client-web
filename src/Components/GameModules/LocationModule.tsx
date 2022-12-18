@@ -2,6 +2,7 @@ import React, { type ReactElement } from "react";
 import Image from "next/image";
 import { type GameModule } from "../../types/global";
 import FadeDiv from "../Helpers/FadeDiv";
+import HintPopper from "./Helpers/HintPopper";
 
 interface props {
   gameObject: GameModule;
@@ -13,24 +14,30 @@ const LocationModule = (props: props): ReactElement => {
 
   return (
     <FadeDiv>
-      <div className="self-center w-full flexCenterDiv bg-darkGrey">
+      <div className="self-center w-full flexCenterDiv shadow-inset1">
         <div className="self-center mb-5 flexCenterDiv">
           <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
             {gameObject.title}
           </h1>
           <div className="self-center w-10/12 m-4 flexCenterDiv">
-            {/* <Image src={gameObject.image} alt="Tokyo Noire Hero" className="rounded-lg"></Image> */}
+
+            {gameObject.imageURL? 
             <img
-              src={gameObject.imageURL}
-              alt="Tokyo Noire Hero"
-              className="rounded-lg"
-            />
+            src={gameObject.imageURL}
+            alt="Location Module Image"
+            className="rounded-lg"
+          />:
+          ""}
+            
           </div>
-          <p className="px-6 mt-2 text-justify font-body1">
+          {gameObject.description?   <p className="px-6 mt-2 text-justify font-body1">
             {gameObject.description}
-          </p>
+          </p> : ""}
+        
         </div>
       </div>
+        <HintPopper hint={gameObject.hint!}/>
+    
     </FadeDiv>
   );
 };

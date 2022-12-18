@@ -17,10 +17,11 @@ const GameSearchByID = (prop: prop): ReactElement => {
   const getGameById = async () => {
     await axios
       .get(
-        `https://tokyo-noire-server-development.herokuapp.com/?_id=${gameId}`
+        `https://tokyo-noire-server-development.herokuapp.com/${gameId}`
       )
       .then((response) => setGame(response.data[0]));
   };
+
 
   return (
     <div className="items-center mx-8 my-24 flexCenterDiv">
@@ -38,7 +39,7 @@ const GameSearchByID = (prop: prop): ReactElement => {
 
       <button
         id="themeButton"
-        className="mt-5 font-heading"
+        className="self-center w-1/3 mt-20 mb-10 font-heading"
         type="button"
         onClick={() => {
           getGameById();
