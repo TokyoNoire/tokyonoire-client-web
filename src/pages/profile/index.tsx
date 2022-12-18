@@ -1,6 +1,6 @@
 import React, {
   type ReactElement,
-  useState, useContext
+  useState, useContext, useEffect
 } from "react";
 import StatusBar from "../../Components/ProfilePage/StatusBar";
 import AppContext from "../../AppContext";
@@ -13,18 +13,22 @@ const Profile = (): ReactElement => {
   const { userId } = value;
   const router = useRouter()
 
-  if (!userId) {
-console.log("hey bruv 💀")
-  }
+  useEffect(() => {
+    if (!userId) {
+      alert("You must be signed in to use the editor")
+      router.push('/')
+    }
+  }, [userId])
+
   return (
-    <>
+    userId && (
       <main className="items-center justify-center mb-5 mt-36">
         <h1 className="mb-5 text-3xl text-center uppercase font-heading">
           Profile Page
         </h1>
         <StatusBar />
       </main>
-    </>
+    )
   );
 };
 

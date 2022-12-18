@@ -36,20 +36,20 @@ const GameListAuthored = (props: props): ReactElement => {
   const { listOfGamesByAuthor } = props;
   const [rows, setRows] = React.useState<[]>(listOfGamesByAuthor);
 
-  
+
   useEffect(() => {
     setRows(listOfGamesByAuthor);
-  }, []) 
+  }, [])
 
   const handleEdit = async (id: GridRowId) => {
     console.log("this is the selected Id: ", id)
     await axios.get(`http://localhost:2000/editor/${id}/edit`)
-    .then(response => {
-      setGameData(response.data[0]);
-      setGameModules(response.data[0].gameModules);
-      setGameInfoModule(response.data[0]);
-    })
-  } 
+      .then(response => {
+        setGameData(response.data[0]);
+        setGameModules(response.data[0].gameModules);
+        setGameInfoModule(response.data[0]);
+      })
+  }
 
   const handleDelete = async (id: string) => {
 
@@ -58,7 +58,7 @@ const GameListAuthored = (props: props): ReactElement => {
       .delete(
         `http://localhost:2000/editor/${id}`
       )
-      // .then((response) => setListOfGamesByAuthor(response.data));
+    // .then((response) => setListOfGamesByAuthor(response.data));
   };
 
   const columns: GridColDef[] = [
@@ -147,21 +147,24 @@ const GameListAuthored = (props: props): ReactElement => {
       ],
     },
   ]
-  return(
+
+
+  return (
     <>
-      <Box sx={{ height: 400}}
-  justifyContent="center"
-  alignItems="center">
+      <Box
+        sx={{ height: 400 }}
+        justifyContent="center"
+        alignItems="center">
         <DataGrid
           rows={rows}
           getRowId={(row) => row._id}
           columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5]}
+          pageSize={25}
+          rowsPerPageOptions={[25]}
           disableSelectionOnClick
         />
-      </Box>    
-      </>
+      </Box>
+    </>
   );
 };
 

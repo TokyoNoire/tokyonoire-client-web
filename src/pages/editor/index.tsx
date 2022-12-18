@@ -77,21 +77,24 @@ const Editor = (props: Props): ReactElement => {
     };
 
     return (
-        <>
-            <div className="mt-40 overflow-x-auto flexCenterDiv">
-                <p className="self-center p-5 text-xl text-center uppercase font-heading">
-                    Welcome USERNAME
-                </p>
-                <p className="mb-10 text-center font-body1">
-                    &quot;Is there a mystery afoot that you&apos;re itching for others to
-                    solve?&quot;
-                </p>
-                <div className="flex w-full p-5 justify-right font-heading ">
-                    <button id="themeButton" onClick={handleCreateNewGameClick}>Open New Case</button>
-                </div>
-                {listOfGamesByAuthor ? <GameListAuthored listOfGamesByAuthor={listOfGamesByAuthor} /> : ""}
-            </div >
-        </>
+        userId && (
+            <main className="mt-28 min-h-[calc(100vh-28rem)]  flexCenterDiv">
+                <section>
+                    <p className="self-center p-5 text-xl text-center uppercase font-heading">
+                        Welcome {username}
+                    </p>
+                    <p className="mb-10 text-center font-body1">
+                        {`"Is there a mystery afoot that you're itching for others to
+                    solve?"`}
+                    </p>
+                </section>
+                <section className="flex flex-col w-full p-5 font-heading ">
+                    <button className="w-fit mb-4" id="themeButton" onClick={handleCreateNewGameClick}>Open New Case</button>
+                    {listOfGamesByAuthor ? <GameListAuthored listOfGamesByAuthor={listOfGamesByAuthor} /> : ""}
+
+                </section>
+            </main >
+        )
     )
 };
 
