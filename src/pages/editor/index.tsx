@@ -25,21 +25,12 @@ const Editor = (props: Props): ReactElement => {
     // const { game, gameId } = props;
     const router = useRouter();
 
-<<<<<<< HEAD
-    useEffect(() => {
-        if (!userId) {
-            alert("You must be signed in to use the editor")
-            router.push('/')
-        }
-    }, [userId])
-=======
     //       useEffect(() => {
     //     console.log(username)
     //     if (userId) {
     //       console.log(username)
     //     } 
     //   }, [userId])
->>>>>>> 14c870939f119e6fc7e4b6b9ac6b0d80180c9084
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -102,31 +93,11 @@ const Editor = (props: Props): ReactElement => {
                     })
                 )
             })
-<<<<<<< HEAD
-        router.push({
-            pathname: "/editor/[gameId]",
-            query: { gameId: "gameId" },
-        });
-=======
->>>>>>> 14c870939f119e6fc7e4b6b9ac6b0d80180c9084
     };
 
     return (
         <>
             <div className="mt-40 overflow-x-auto flexCenterDiv">
-<<<<<<< HEAD
-                <p className="self-center p-5 text-xl text-center uppercase font-heading">
-                    Welcome USERNAME
-                </p>
-                <p className="mb-10 text-center font-body1">
-                    &quot;Is there a mystery afoot that you&apos;re itching for others to
-                    solve?&quot;
-                </p>
-                <div className="flex w-full p-5 justify-right font-heading ">
-                    <button id="themeButton" onClick={handleCreateNewGameClick}>Open New Case</button>
-                </div>
-                <GameListAuthored />
-=======
             <p className="self-center p-5 text-xl text-center uppercase font-heading">
         Welcome USERNAME
       </p>
@@ -138,7 +109,6 @@ const Editor = (props: Props): ReactElement => {
                 <button id="themeButton" onClick={handleCreateNewGameClick}>Open New Case</button>
             </div>
             {listOfGamesByAuthor? <GameListAuthored listOfGamesByAuthor={listOfGamesByAuthor}/> : ""}
->>>>>>> 14c870939f119e6fc7e4b6b9ac6b0d80180c9084
             </div >
         </>
     )

@@ -4,10 +4,6 @@ import React, {
   type ReactElement,
   useState,
   useEffect,
-<<<<<<< HEAD
-  useRef,
-=======
->>>>>>> 14c870939f119e6fc7e4b6b9ac6b0d80180c9084
   useContext
 } from "react";
 import { Box } from "@mui/material";

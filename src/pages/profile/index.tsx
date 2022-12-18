@@ -23,34 +23,6 @@ console.log("hey bruv 💀")
           Profile Page
         </h1>
         <StatusBar />
-<<<<<<< HEAD
-        <ul className="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400 ">
-          <li className="mx-3 mr-2">
-            <a
-              href="#"
-              className="inline-block px-4 py-3 rounded-lg bg-darkGrey font-heading"
-              aria-current="page"
-              id="themeButton"
-              onClick={() => isShowing(true)}
-            >
-              Authored
-            </a>
-          </li>
-          <li className="mr-2">
-            <a
-              href="#"
-              className="inline-block px-4 py-3 rounded-lg bg-darkGrey font-heading"
-              id="themeButton"
-              onClick={() => isShowing(false)}
-            >
-              Case Status
-            </a>
-          </li>
-        </ul>
-
-        {show ? <GameListCompleted /> : <GameListUncompleted />}
-=======
->>>>>>> 14c870939f119e6fc7e4b6b9ac6b0d80180c9084
       </main>
     </>
   );

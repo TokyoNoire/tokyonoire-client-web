@@ -4,27 +4,12 @@ import DragAndDropEditor from "../../Components/Editor/DragAndDropEditor";
 import ModuleForms from "../../Components/Editor/ModuleForms";
 import FadeDiv from "../../Components/Helpers/FadeDiv";
 import AppContext from "../../AppContext";
-<<<<<<< HEAD
-=======
 import axios from 'axios'
->>>>>>> 14c870939f119e6fc7e4b6b9ac6b0d80180c9084
 import { useRouter } from "next/router";
 
 const Editor: NextPage = () => {
   const [show, setShow] = useState<boolean>(true);
   const value = useContext(AppContext);
-<<<<<<< HEAD
-  const { setGameData, setGameModules, setGameInfoModule, userId, username } = value
-  // const { game, gameId } = props;
-  const router = useRouter();
-
-  useEffect(() => {
-      if (!userId) {
-          alert("You must be signed in to use the editor")
-          router.push('/')
-      }
-  }, [userId])
-=======
   const hasMounted = useRef<boolean>(false);
 
   const { setGameModules, setGameInfoModule, setGameData, gameData } = value;
@@ -50,7 +35,6 @@ const Editor: NextPage = () => {
       hasMounted.current = true;
     }
   }, [hasMounted]);
->>>>>>> 14c870939f119e6fc7e4b6b9ac6b0d80180c9084
 
   return (
     <FadeDiv show={show}>
