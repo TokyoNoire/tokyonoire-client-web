@@ -91,10 +91,12 @@ const SignInForm = (props: props): ReactElement => {
   }
 
   return (
-    <>
-      <h1 className="self-center p-5 text-2xl text-center uppercase font-heading mx-20 my-20">
+  
+    <div className="h-auto mt-20 rounded-lg flexCenterDiv bg-darkGrey">
+      <h1 className="self-center p-5 mx-48 mt-10 text-2xl text-center uppercase font-heading"> 
+      Sign in</h1>
         <br />
-        <FormControl>
+        <FormControl  className="self-center w-3/4">
           <TextField
             id="email"
             required
@@ -109,13 +111,14 @@ const SignInForm = (props: props): ReactElement => {
           </FormHelperText>
         </FormControl>
         <br />
-        <br />
-        <FormControl>
+     
+        <FormControl className="self-center w-3/4">
           <TextField
             id="outlined-password-input"
             required
             autoFocus
             label="Password"
+            type="password"
             variant="filled"
             aria-describedby="password-input"
             placeholder="Password"
@@ -128,10 +131,10 @@ const SignInForm = (props: props): ReactElement => {
         </FormControl>
         <br></br>
         <br></br>
-        <Button
+        <button
           type="button"
           id="themeButton"
-          className="font-heading"
+          className="self-center w-1/2 font-heading"
           onClick={async () => {
             formSubmitting.current = true;
             try {
@@ -144,45 +147,25 @@ const SignInForm = (props: props): ReactElement => {
             }
           }}>
           Sign in
-        </Button>
+        </button>
         <br></br>
         <br></br>
-        <Button
+        <button
+          className="self-center w-1/2 font-heading"
           type="button"
           id="themeButton"
-          className="font-heading"
-          endIcon={<GoogleIcon />}
           onClick={() => signInWithGoogle()}>
-          Sign in with
-        </Button>
+          Sign in with <GoogleIcon fontSize="small"/>
+        </button>
         <br />
-        <br></br>
-        {/* <Button type="submit" id="themeButton" className="font-heading" onClick={() => { console.log(username) }}>
-          PUSH ME (test)
-        </Button> */}
-        <br />
-      </h1>
-
-      <Box
-        sx={{
-          mx: 3,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-      </Box>
-      <Grid container>
-        <Grid item xs sx={{ mx: 2 }}>
-          <Typography color="secondary" variant="body2">
-            <button className="mb-5 text-m p-5 text-center font-body2" id="link" onClick={() => setAuthPanel('signup')}>
-              Don&apos;t have an account? Sign up here.
+  
+            <button className="p-5 mb-5 text-sm text-center text-m font-body2" id="link" onClick={() => setAuthPanel('signup')}>
+              Don&apos;t have an account?
+              <p className="font-semibold underline">Sign up here.</p>
             </button>
-          </Typography>
-        </Grid>
-      </Grid>
-    </>
+          
+      </div>
+  
   );
 };
 

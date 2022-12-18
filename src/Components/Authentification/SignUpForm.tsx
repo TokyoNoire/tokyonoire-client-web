@@ -34,13 +34,13 @@ const SignUpForm = (props: props): ReactElement => {
   const { signIn } = useAuth();
 
   return (
-    <>
-      <h1 className="self-center p-5 text-2xl text-center uppercase font-heading mx-20 my-20">
+    <div className="w-full mt-20 rounded-lg flexCenterDiv bg-darkGrey">
+      <h1 className="self-center p-5 mx-48 mt-10 text-2xl text-center uppercase font-heading">
         Sign Up
       </h1>
       <br />
 
-      <FormControl>
+      <FormControl className="self-center w-3/4">
         <TextField
           id="name"
           required
@@ -57,7 +57,7 @@ const SignUpForm = (props: props): ReactElement => {
       </FormControl>
       <br />
 
-      <FormControl>
+      <FormControl className="self-center w-3/4">
         <TextField
           id="email"
           required
@@ -73,13 +73,14 @@ const SignUpForm = (props: props): ReactElement => {
       </FormControl>
 
       <br />
-      <FormControl>
+      <FormControl className="self-center w-3/4">
         <TextField
           id="outlined-password-input"
           required
           autoFocus
           label="Password"
           variant="filled"
+          type= "password"
           aria-describedby="password-input"
           placeholder="Password"
           onChange={(e) => password.current = e.target.value}
@@ -89,11 +90,8 @@ const SignUpForm = (props: props): ReactElement => {
         </FormHelperText>
       </FormControl>
       <br />
-      {/* <Button type="submit" id="themeButton" className="font-heading" onClick={() => { console.log(typeof email) }}>
-        PUSH ME (test)
-      </Button> */}
       <br></br>
-      <Button type="submit" id="themeButton" className="font-heading" onClick={async () => {
+      <button type="submit" id="themeButton"  className="self-center w-1/2 font-heading" onClick={async () => {
         formSubmitting.current = true;
         try {
           await signUp(email.current, password.current)
@@ -118,47 +116,15 @@ const SignUpForm = (props: props): ReactElement => {
         }
       }}>
         Sign Up
-      </Button>
-      <br />
-      {/* <Button
-        type="submit"
-        id="themeButton"
-        className="font-heading"
-        endIcon={<GoogleIcon />}
-      >
-        Sign up with
-      </Button>
-      <br />
-      <Button
-        type="submit"
-        id="themeButton"
-        className="font-heading"
-        endIcon={<AppleIcon />}
-      >
-        Sign up with
-      </Button> */}
+      </button>
 
-      <Box
-        sx={{
-          mx: 3,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <br />
-      </Box>
-      <Grid container>
-        <Grid item xs sx={{ mx: 2 }}>
-          <Typography color="secondary" variant="body2">
-            <button className="mb-5 text-m text-center font-body2" id="link" onClick={() => setAuthPanel('signin')}>
-              Already have an account? Login here.
+
+            <button className="p-5 mb-5 text-sm text-center text-m font-body2" id="link" onClick={() => setAuthPanel('signin')}>
+              Already have an account? 
+              <p className="font-semibold underline">Login here.</p>
             </button>
-          </Typography>
-        </Grid>
-      </Grid>
-    </>
+        
+      </div>
   );
 };
 
