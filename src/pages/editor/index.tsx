@@ -1,13 +1,8 @@
 import React, { useEffect, type ReactElement, useState, useContext, } from "react";
 import { useRouter } from "next/router";
 import { type saveGameInfo } from "../../types/global";
-// import { Button, Menu, MenuItem } from "@mui/material";
-// import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-// import { LineAxisOutlined } from "@mui/icons-material";
 import axios from 'axios'
-// import { v4 as uuidv4 } from "uuid";
 import { GameDataSchema } from "../../Components/Editor/Helpers/GameDataSchema"
-// import { GameModuleSchema } from "../../Components/Editor/Helpers/GameSchema"
 import AppContext from "../../AppContext";
 import App from "next/app";
 import GameListAuthored from "../../Components/Editor/GameListAuthored"
