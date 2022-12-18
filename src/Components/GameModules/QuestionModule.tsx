@@ -1,15 +1,15 @@
-import React, { type ReactElement, useState } from "react";
+import React, { type ReactElement, type MutableRefObject, useState } from "react";
 import { type GameModule } from "../../types/global";
 import TextField from "@mui/material/TextField";
 import HintPopper from "./Helpers/HintPopper";
 
 interface props {
   gameObject: GameModule;
-  setChallengeSuccess: (boolean: boolean) => void;
+  challengeSuccess: MutableRefObject<boolean>;
 }
 
 const QuestionModule = (props: props): ReactElement => {
-  const { gameObject, setChallengeSuccess } = props;
+  const { gameObject, challengeSuccess } = props;
   const [answer, setAnswer] = useState<string>("");
 
   return (
@@ -60,14 +60,14 @@ const QuestionModule = (props: props): ReactElement => {
           type="button"
           onClick={() => {
             if (answer.toLowerCase() === gameObject.answer) {
-              setChallengeSuccess(true);
+              challengeSuccess.current = true;
             }
           }}
         >
           is my answer
         </button>
       </div>
-      <HintPopper hint={gameObject.hint!}/>
+      <HintPopper hint={gameObject.hint!} />
     </div>
   );
 };

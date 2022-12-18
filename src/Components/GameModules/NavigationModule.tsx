@@ -1,5 +1,6 @@
 import React, {
   type ReactElement,
+  type MutableRefObject,
   useRef,
   useState,
   useEffect,
@@ -13,12 +14,13 @@ import FadeDiv from "../Helpers/FadeDiv";
 import HintPopper from "./Helpers/HintPopper";
 
 interface props {
-  setChallengeSuccess: (boolean: boolean) => void;
+  challengeSuccess: MutableRefObject<boolean>;
   locationCoordinates: number[] | null;
+  setGoToNext: (boolean: boolean) => void
 }
 
 const NavigationModule = (props: props): ReactElement => {
-  const { setChallengeSuccess, locationCoordinates } = props;
+  const { challengeSuccess, locationCoordinates, setGoToNext } = props;
   const { orientation, requestAccessAsync } = Gyroscope();
 
   const { calcBearingAngle } = BearingAngle();
@@ -36,7 +38,6 @@ const NavigationModule = (props: props): ReactElement => {
     useState<boolean>(false);
 
   useEffect(() => {
-    console.log(acquiredPermissions);
     if (acquiredPermissions) {
       const interval = setInterval(() => {
         if ("geolocation" in navigator) {
@@ -49,7 +50,6 @@ const NavigationModule = (props: props): ReactElement => {
               position.coords.longitude,
               position.coords.latitude,
             ];
-            console.log(position);
           });
         } else console.error("geolocation unavailable");
         setBearingAngle(
@@ -74,7 +74,6 @@ const NavigationModule = (props: props): ReactElement => {
   const handlePermissions = useCallback(async () => {
     await requestAccessAsync();
     const position = await getPosition();
-    console.log(position);
     setAcquiredPermissions(true);
   }, [requestAccessAsync]);
 
@@ -91,7 +90,8 @@ const NavigationModule = (props: props): ReactElement => {
           <Distance
             currentCoords={currentCoords}
             targetCoords={targetCoords}
-            setChallengeSuccess={setChallengeSuccess}
+            challengeSuccess={challengeSuccess}
+            setGoToNext={setGoToNext}
           />
           {orientation && (
             <Compass

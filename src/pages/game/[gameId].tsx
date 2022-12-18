@@ -17,7 +17,9 @@ import HowToPlayPopup from "../../Components/GameModules/HowToPlayPopup";
 import { type GameModule } from "../../types/global";
 
 const GameId: FC = (): ReactElement => {
-  const [challengeSuccess, setChallengeSuccess] = useState<boolean>(false);
+  const challengeSuccess = useRef<boolean>(false);
+  // const [challengeSuccess, setChallengeSuccess] = useState<boolean>(false);
+  const [goToNext, setGoToNext] = useState<boolean>(false);
   const [TypeOfModule, setTypeOfModule] = useState<string | null>("");
   const [gameObject, setGameObject] = useState<GameModule | null | undefined>(
     null
@@ -41,13 +43,17 @@ const GameId: FC = (): ReactElement => {
   }, [gameObject, getGameObject]);
 
   useEffect(() => {
-    if (challengeSuccess === true) {
+    console.log(gameObject)
+    console.log(challengeSuccess)
+    if (challengeSuccess.current === true && goToNext === true) {
       currentIndex.current++;
+      setGameObject(null)
       getGameObject();
-      gameObject!.locationCoordinates = null;
-      setChallengeSuccess(false);
+      // gameObject!.locationCoordinates = null;
+      challengeSuccess.current = false;
+      setGoToNext(false)
     }
-  }, [gameObject, getGameObject, challengeSuccess]);
+  }, [goToNext]);
 
   useEffect(() => {
     if (gameObject !== null) {
@@ -68,7 +74,8 @@ const GameId: FC = (): ReactElement => {
                     ? gameObject!.locationCoordinates
                     : [0, 0]
                 }
-                setChallengeSuccess={setChallengeSuccess}
+                challengeSuccess={challengeSuccess}
+                setGoToNext={setGoToNext}
               />
             ) : (
               <></>
@@ -80,7 +87,7 @@ const GameId: FC = (): ReactElement => {
         return (
           <NarrativeModule
             gameObject={gameObject!}
-            setChallengeSuccess={setChallengeSuccess}
+            challengeSuccess={challengeSuccess}
           />
         );
 
@@ -88,7 +95,7 @@ const GameId: FC = (): ReactElement => {
         return (
           <QuestionModule
             gameObject={gameObject!}
-            setChallengeSuccess={setChallengeSuccess}
+            challengeSuccess={challengeSuccess}
           />
         );
 

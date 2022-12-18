@@ -36,17 +36,18 @@ const MenuDesktop = (): ReactElement => {
   const saveDraft = async () => {
     // gameData.isPublished = "false";
     await axios.patch(
-      `http://localhost:2000/editor/${gameData._id}`,
+      `https://tokyo-noire-server-development.herokuapp.com/editor/${gameData._id}`,
       gameData
     )
   }
 
   const publishGame = async () => {
-    gameData.isPublished = "true";
+    gameData.isPublished = true;
     await axios.patch(
-      `http://localhost:2000/editor/${gameData._id}`,
+      `https://tokyo-noire-server-development.herokuapp.com/editor/${gameData._id}`,
       gameData
-    )
+    ).then(res => console.log(res))
+    console.log('I ran')
   };
 
   return (
@@ -72,7 +73,7 @@ const MenuDesktop = (): ReactElement => {
                 ></PublishIcon>
               </div>
               <div className="cursor-pointer w-28" title="Publish">
-                <Link href={`http://localhost:3000/editor/`}>
+                <Link href={`/editor`}>
                   Back to Editor
                 </Link>
 

@@ -26,7 +26,7 @@ const Editor: NextPage = () => {
   const getGameFromServer = async () => {
     await axios
       .get(
-        `http://localhost:2000/editor/${router.query.gameId}/edit`
+        `https://tokyo-noire-server-development.herokuapp.com/editor/${router.query.gameId}/edit`
       )
       .then((response) => {
         console.log(response.data);
