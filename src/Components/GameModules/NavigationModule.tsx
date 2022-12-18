@@ -1,5 +1,6 @@
 import React, {
   type ReactElement,
+  type MutableRefObject,
   useRef,
   useState,
   useEffect,
@@ -11,14 +12,17 @@ import BearingAngle from "./Helpers/BearingAngle";
 import Gyroscope from "./Helpers/Gyroscope";
 import FadeDiv from "../Helpers/FadeDiv";
 import HintPopper from "./Helpers/HintPopper";
+import { GameModule } from "../../types/global";
 
 interface props {
   setChallengeSuccess: (boolean: boolean) => void;
   locationCoordinates: number[] | null;
+  gameObject: GameModule;
+  // setGoToNext: (boolean: boolean) => void
 }
 
 const NavigationModule = (props: props): ReactElement => {
-  const { setChallengeSuccess, locationCoordinates } = props;
+  const { setChallengeSuccess, locationCoordinates, gameObject } = props;
   const { orientation, requestAccessAsync } = Gyroscope();
 
   const { calcBearingAngle } = BearingAngle();
@@ -36,7 +40,6 @@ const NavigationModule = (props: props): ReactElement => {
     useState<boolean>(false);
 
   useEffect(() => {
-    console.log(acquiredPermissions);
     if (acquiredPermissions) {
       const interval = setInterval(() => {
         if ("geolocation" in navigator) {
@@ -49,7 +52,6 @@ const NavigationModule = (props: props): ReactElement => {
               position.coords.longitude,
               position.coords.latitude,
             ];
-            console.log(position);
           });
         } else console.error("geolocation unavailable");
         setBearingAngle(
@@ -74,7 +76,6 @@ const NavigationModule = (props: props): ReactElement => {
   const handlePermissions = useCallback(async () => {
     await requestAccessAsync();
     const position = await getPosition();
-    console.log(position);
     setAcquiredPermissions(true);
   }, [requestAccessAsync]);
 
@@ -92,6 +93,7 @@ const NavigationModule = (props: props): ReactElement => {
             currentCoords={currentCoords}
             targetCoords={targetCoords}
             setChallengeSuccess={setChallengeSuccess}
+          // setGoToNext={setGoToNext}
           />
           {orientation && (
             <Compass
@@ -103,6 +105,7 @@ const NavigationModule = (props: props): ReactElement => {
           )}
         </FadeDiv>
       )}
+      {gameObject.hint?  <HintPopper hint={gameObject.hint!} /> : <></>}
     </>
   );
 };

@@ -5,6 +5,7 @@ import React, {
   useCallback,
   useRef,
   MouseEventHandler,
+  type MutableRefObject
 } from "react";
 import TextField from "@mui/material/TextField";
 import { type saveGameInfo } from "../../types/global";
@@ -15,11 +16,10 @@ import axios from "axios";
 
 interface props {
   publicGames: saveGameInfo[];
-  setGameId: (string: string) => void;
-  setGame: ({}: saveGameInfo) => void;
+  setGame: ({ }: saveGameInfo) => void;
   handleOpen: () => void;
   game: saveGameInfo | null;
-  gameId: string | null;
+  gameId: MutableRefObject<string | null>;
   acquiredPermissions: boolean;
 }
 
@@ -27,7 +27,6 @@ const ListOfPublicGames = (props: props): ReactElement => {
   const {
     publicGames,
     acquiredPermissions,
-    setGameId,
     handleOpen,
     gameId,
     setGame,
@@ -40,9 +39,11 @@ const ListOfPublicGames = (props: props): ReactElement => {
   const getGameById = async () => {
     await axios
       .get(
-        `https://tokyo-noire-server-development.herokuapp.com/${gameId}`
+        `https://tokyo-noire-server-development.herokuapp.com/${gameId.current}`
       )
-      .then((response) => setGame(response.data[0]));
+      .then((response) => {
+        setGame(response.data[0])
+      });
   };
 
 
@@ -68,7 +69,7 @@ const ListOfPublicGames = (props: props): ReactElement => {
 
   const handleClick = (event: React.MouseEvent<HTMLSelectElement>) => {
     // @ts-expect-error
-    setGameId(event.target!.id!);
+    gameId.current = event.target!.id!;
     getGameById();
     setTimeout(handleOpen, 2000);
   };

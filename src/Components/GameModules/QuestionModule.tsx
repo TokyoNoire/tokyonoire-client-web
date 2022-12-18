@@ -19,14 +19,6 @@ const QuestionModule = (props: props): ReactElement => {
           <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
             {gameObject.title}
           </h1>
-          {/* 
-          {gameObject.imageURL === null &&
-            <img
-              src={gameObject.imageURL}
-              alt="Image for question module"
-              className="rounded-lg"
-            />
-          } */}
 
           {gameObject.imageURL ? (
             <img
@@ -38,7 +30,9 @@ const QuestionModule = (props: props): ReactElement => {
             ""
           )}
 
-          <p className="px-6 mt-2 text-center font-body1">{gameObject.description}</p>
+          <p className="px-6 mt-2 text-center font-body1">
+            {gameObject.description}
+          </p>
         </div>
       </div>
       <div className="items-center mx-20 my-48 flexCenterDiv">
@@ -59,7 +53,7 @@ const QuestionModule = (props: props): ReactElement => {
           className="self-center w-2/3 mt-20 mb-10 font-heading"
           type="button"
           onClick={() => {
-            if (answer.toLowerCase() === gameObject.answer) {
+            if (answer.toLowerCase() === gameObject.answer?.toLowerCase()) {
               setChallengeSuccess(true);
             }
           }}
@@ -67,7 +61,7 @@ const QuestionModule = (props: props): ReactElement => {
           is my answer
         </button>
       </div>
-      <HintPopper hint={gameObject.hint!}/>
+      {gameObject.hint ? <HintPopper hint={gameObject.hint!} /> : <></>}
     </div>
   );
 };

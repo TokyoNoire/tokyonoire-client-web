@@ -2,7 +2,6 @@ import React, { type ReactElement } from "react";
 import Image from "next/image";
 import { type GameModule } from "../../types/global";
 import FadeDiv from "../Helpers/FadeDiv";
-import HintPopper from "./Helpers/HintPopper";
 
 interface props {
   gameObject: GameModule;
@@ -36,7 +35,7 @@ const LocationModule = (props: props): ReactElement => {
         
         </div>
       </div>
-        <HintPopper hint={gameObject.hint!}/>
+
     
     </FadeDiv>
   );
