@@ -26,7 +26,7 @@ const SignUpForm = (props: props): ReactElement => {
   const { setAuthPanel } = props;
   const { signUp } = useAuth()
   const value = useContext(AppContext);
-  const { setUserId, userId, username, setUsername } = value;
+  const { setUserId, userId, username, setUsername, setLocalUserId, setLocalUsername } = value;
   const email = useRef<string>('');
   const password = useRef<string>('');
   const name = useRef<string>('');
@@ -107,6 +107,8 @@ const SignUpForm = (props: props): ReactElement => {
                 authProvider: "local",
                 email: email.current
               })
+              setLocalUserId(response.user.uid)
+              setLocalUsername(response.user.displayName)
             })
         }
         catch (error: any) {

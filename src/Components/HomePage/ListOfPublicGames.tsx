@@ -32,22 +32,19 @@ const ListOfPublicGames = (props: props): ReactElement => {
     gameId,
     setGame,
   } = props;
+  const [currentCoords, setCurrentCoords] = useState<number[] | null>(null);
+  const { haversineDistance } = Haversine();
+  const coords = useRef<number[] | null>(null);
+  const isMounted = useRef(false);
 
   const getGameById = async () => {
     await axios
       .get(
-        `https://tokyo-noire-server-development.herokuapp.com/?_id=${gameId}`
+        `https://tokyo-noire-server-development.herokuapp.com/${gameId}`
       )
       .then((response) => setGame(response.data[0]));
   };
 
-  // const {requestAccessAsync } = Gyroscope();
-  const [currentCoords, setCurrentCoords] = useState<number[] | null>(null);
-  const { haversineDistance } = Haversine();
-  // const [acquiredPermissions, setAcquiredPermissions] =
-  // useState<boolean>(false);
-  const coords = useRef<number[] | null>(null);
-  const isMounted = useRef(false);
 
   useEffect(() => {
     if (!isMounted.current) {
@@ -74,7 +71,6 @@ const ListOfPublicGames = (props: props): ReactElement => {
     setGameId(event.target!.id!);
     getGameById();
     setTimeout(handleOpen, 2000);
-    // console.log(e.target!.id!, gameId);
   };
 
   const publicGamesListing = publicGames.map((publicGame, index) => {
@@ -111,7 +107,7 @@ const ListOfPublicGames = (props: props): ReactElement => {
       <h1 className="mb-5 text-center text-m font-heading">
         &quot;Or, do you want to choose an open case?&quot;
       </h1>
-      <div className="flex items-center m-1">
+      {/* <div className="flex items-center m-1">
         <select
           id="visibility"
           className="p-2 text-black bg-white rounded-sm h-14 font-heading"
@@ -133,7 +129,7 @@ const ListOfPublicGames = (props: props): ReactElement => {
         <button id="themeButton" className="self-center h-14 font-heading">
           <SearchIcon />
         </button>
-      </div>
+      </div> */}
 
       <div className="mt-5 overflow-x-auto">
         <table className="w-full text-sm text-center ">

@@ -1,7 +1,9 @@
-import React, { type ReactElement } from "react";
+import React, { type ReactElement, useContext } from "react";
+import axios from 'axios'
+import AppContext from "../../AppContext";
 import { useRouter } from "next/router";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
-import ClearIcon from '@mui/icons-material/Clear';
+import ClearIcon from "@mui/icons-material/Clear";
 import { type saveGameInfo } from "../../types/global";
 
 interface Props {
@@ -11,10 +13,20 @@ interface Props {
 }
 
 const GamePreview = (props: Props): ReactElement => {
+  const value = useContext(AppContext)
+  const {userId, sessionTable, setSessionTable} = value
   const { game, handleClose, gameId } = props;
   const router = useRouter();
 
+  const getOrCreateSession = async() => {
+    console.log(gameId)
+    console.log(userId)
+    await axios.get(`http://localhost:2000/findsession/${gameId}/${userId}`).then(response => {
+      setSessionTable(response.data[0])
+    })
+  }
   const handleClick = (e: React.MouseEvent) => {
+    getOrCreateSession();
     e.preventDefault();
     router.push({
       pathname: "/game/[gameId]",
@@ -23,17 +35,17 @@ const GamePreview = (props: Props): ReactElement => {
   };
 
   return (
-    <div className="relative block flexCenterDiv bg-darkGrey" >
-      <div className="absolute top-4 right-4 flexCenterDiv "><ClearIcon onClick={handleClose} /></div>
+    <div className="relative block flexCenterDiv bg-darkGrey">
+      <div className="absolute top-4 right-4 flexCenterDiv ">
+        <ClearIcon onClick={handleClose} />
+      </div>
       <div className="self-center flexCenterDiv">
         <h1 className="self-center p-5 mt-5 text-2xl text-center uppercase font-heading">
-
           {game.titleOfGame}
         </h1>
         <p className="self-center pb-3 font-heading">{game.author}</p>
 
         <div className="grid grid-cols-2 gap-1 place-items-center">
-
           <AccessTimeFilledIcon fontSize="small" />
           <p className="self-center font-heading">RATING</p>
           <p className="self-center text-xs font-body2">
@@ -48,7 +60,6 @@ const GamePreview = (props: Props): ReactElement => {
       </div>
 
       <div className="flex flex-row flexCenterDiv">
-
         <button
           onClick={handleClick}
           id="themeButton"

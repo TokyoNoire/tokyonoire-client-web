@@ -26,3 +26,12 @@ export type GameModule = {
   hint?: string;
 };
 
+export type SessionTable = {
+  _id: string;
+  uId: string;
+  gameId: string;
+  isFinished: boolean;
+  gameModulesIndex: number;
+  isCompleted: boolean;
+}
+

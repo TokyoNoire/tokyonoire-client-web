@@ -1,4 +1,4 @@
-import React, { type FC, type ReactElement, useState, useContext, useRef } from "react";
+import React, { type FC, type ReactElement, useState, useContext, useRef, useEffect } from "react";
 import {
   Box,
   Grid,
@@ -14,8 +14,7 @@ import AppContext from "../../AppContext";
 import { useAuth } from "../AuthProvider";
 import { query, getDocs, collection, where, addDoc } from "firebase/firestore";
 import { auth, db } from '../../../src/auth/firebase'
-
-
+import { useLocalStorage, useReadLocalStorage } from "usehooks-ts";
 
 interface props {
   setAuthPanel: (string: string) => void
@@ -26,7 +25,7 @@ const SignInForm = (props: props): ReactElement => {
   const auth = getAuth();
   const [authing, setAuthing] = useState(false);
   const value = useContext(AppContext);
-  const { setUserId, setUsername, username } = value;
+  const { setUserId, setUsername, username, userId, setLocalUserId, setLocalUsername } = value;
   const email = useRef<string>('');
   const password = useRef<string>('');
   const { signIn } = useAuth();
@@ -57,6 +56,8 @@ const SignInForm = (props: props): ReactElement => {
           }
         }
         )
+        setLocalUserId(response.user.uid)
+        setLocalUsername(response.user.displayName)
       })
       .catch((error) => {
         console.error(error);
@@ -78,8 +79,9 @@ const SignInForm = (props: props): ReactElement => {
             const userDisplayName = doc.data()
             setUsername(userDisplayName.name)
           })
-        }
-        )
+        })
+        setLocalUserId(response.user.uid)
+        setLocalUsername(response.user.displayName)
       })
       .catch((error) => {
         console.error(error);

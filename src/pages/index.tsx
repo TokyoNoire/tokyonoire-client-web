@@ -10,7 +10,6 @@ interface props {
 }
 
 
-
 const Home = (props: props) => {
   // We want to use NextPage type... right now it is no longer a static Next.js page.
   const { deviceType } = props;

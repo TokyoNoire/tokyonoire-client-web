@@ -21,11 +21,11 @@ const HowToPlayPopup = (props: props): ReactElement => {
     return (
         <div className="flexCenterDiv">
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle className="self-center p-5 text-3xl text-center uppercase font-heading">
+                <h1 className="self-center p-5 text-3xl text-center uppercase font-heading">
                         How to Play
-                </DialogTitle>
+                </h1>
                 <DialogContent>
-                    <DialogContentText className="text-left font-body1">
+                    <p className="text-left font-body1">
                             For an optimal game experience, we recommend enabling location services for your web browser.
                             <br />
                             <br />
@@ -34,7 +34,7 @@ const HowToPlayPopup = (props: props): ReactElement => {
                             <br />
                             <br />
                             By clicking &quot;I understand&quot;, you will be prompted to enable geolocation and gyroscope functionalities.
-                    </DialogContentText>
+                    </p>
                 </DialogContent>
                 <DialogActions className="flexCenterDiv">
                     <button

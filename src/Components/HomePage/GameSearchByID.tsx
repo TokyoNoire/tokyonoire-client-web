@@ -1,7 +1,9 @@
-import React, { type ReactElement } from "react";
+import React, { type ReactElement, useContext } from "react";
+import AppContext from "../../AppContext";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import { saveGameInfo } from "../../types/global";
+
 
 interface prop {
   setGameId: (string: string) => void;
@@ -12,7 +14,8 @@ interface prop {
 }
 const GameSearchByID = (prop: prop): ReactElement => {
   const { setGameId, gameId, setGame, handleOpen } = prop;
-
+  const value = useContext(AppContext)
+  const {userId, sessionTable, setSessionTable} = value
 
   const getGameById = async () => {
     await axios
@@ -21,6 +24,8 @@ const GameSearchByID = (prop: prop): ReactElement => {
       )
       .then((response) => setGame(response.data[0]));
   };
+
+
 
   return (
     <div className="items-center mx-8 my-24 flexCenterDiv">
@@ -38,10 +43,10 @@ const GameSearchByID = (prop: prop): ReactElement => {
 
       <button
         id="themeButton"
-        className="mt-5 font-heading"
+        className="self-center w-1/3 mt-20 mb-10 font-heading"
         type="button"
         onClick={() => {
-          getGameById();
+          getGameById()
           setTimeout(handleOpen, 2000);
         }}
       >

@@ -34,15 +34,23 @@ const MenuDesktop = (): ReactElement => {
   const { gameData } = value;
 
   const saveDraft = async () => {
-    await axios.patch(
-      `http://localhost:2000/editor/${gameData._id}`,
-      gameData
-      )
+    if(!gameData.dateCreated) {
+      gameData.dateCreated = new Date();
     }
+    gameData.dateUpdated = new Date();
+    await axios.patch(
+      `https://tokyo-noire-server-development.herokuapp.com/editor/${gameData._id}`,
+      gameData
+    )
+  }
 
   const publishGame = async () => {
+    if(!gameData.dateCreated) {
+      gameData.dateCreated = new Date();
+    }
+    gameData.dateUpdated = new Date();
     await axios.patch(
-      `http://localhost:2000/editor/${gameData._id}`,
+      `https://tokyo-noire-server-development.herokuapp.com/editor/${gameData._id}`,
       gameData
     )
   };
@@ -76,6 +84,12 @@ const MenuDesktop = (): ReactElement => {
                     publishGame();
                   }}
                 ></PublishIcon>
+              </div>
+              <div className="cursor-pointer w-28" title="Publish">
+                <Link href={`http://localhost:3000/editor/`}>
+                  Back to Editor
+                </Link>
+
               </div>
             </div>
           </FadeDiv>

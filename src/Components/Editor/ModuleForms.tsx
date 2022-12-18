@@ -22,7 +22,7 @@ export type GameModules = {
 const ModuleForms = (): ReactElement => {
   const value = useContext(AppContext);
   const { activeModule, setActiveModule, gameModules, setGameModules,
-    gameInfoModule, setGameInfoModule, gameData,
+    gameInfoModule, setGameInfoModule, gameData, userId, localUserId, username, localUsername
   } = value;
 
   // Game Info References
@@ -57,8 +57,8 @@ const ModuleForms = (): ReactElement => {
       isPrivate: isPrivate.current,
       titleOfGame: titleOfGame.current,
       description: gameInfoModule.description,
-      uId: "id to be given after Auth integration",
-      author: "author (username) to be given after Auth integration",
+      uId: localUserId ? localUserId : userId,
+      author: localUsername ? localUsername : username,
       rating: rating.current,
       gameImageURL: gameImageURL.current,
       estimatedTimeMinutes: estimatedTimeMinutes.current,
@@ -135,6 +135,18 @@ const ModuleForms = (): ReactElement => {
     );
   } else {
     switch (activeModule.typeOfModule) {
+      case "start":
+        return (
+          <FormEnd
+            key={_id.current}
+            title={title}
+            typeOfModule={typeOfModule}
+            description={description}
+            imageURL={imageURL}
+            handleModuleUpdateClick={handleModuleUpdateClick}
+          />
+        );
+
       case "narrative":
         return (
           <FormNarrative

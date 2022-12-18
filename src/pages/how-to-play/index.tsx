@@ -1,7 +1,6 @@
 import { type NextPage } from "next";
 import { useState } from "react";
 import FadeDiv from "../../Components/Helpers/FadeDiv";
-// import Link from "next/link";
 
 const HowToPlay: NextPage = () => {
 
