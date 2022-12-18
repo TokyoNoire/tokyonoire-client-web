@@ -37,8 +37,8 @@ const MenuDesktop = (): ReactElement => {
     await axios.patch(
       `http://localhost:2000/editor/${gameData._id}`,
       gameData
-      )
-    }
+    )
+  }
 
   const publishGame = async () => {
     await axios.patch(
@@ -76,6 +76,12 @@ const MenuDesktop = (): ReactElement => {
                     publishGame();
                   }}
                 ></PublishIcon>
+              </div>
+              <div className="cursor-pointer w-28" title="Publish">
+                <Link href={`http://localhost:3000/editor/`}>
+                  Back to Editor
+                </Link>
+
               </div>
             </div>
           </FadeDiv>
