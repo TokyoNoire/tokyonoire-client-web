@@ -56,7 +56,7 @@ const MenuDesktop = (): ReactElement => {
         <Link href="/" title="Homepage" className="z-50 w-12">
           <Logo alt="logo menu button" className="logo" />
         </Link>
-        {useRouter().pathname.includes("/editor/") && (
+        {useRouter().pathname.includes("/editor/") && gameData && (
           <FadeDiv show={show}>
             <div
               className="flex gap-10 px-8 py-3 rounded-full"

@@ -1,15 +1,15 @@
-import React, { type ReactElement, type MutableRefObject, useState } from "react";
+import React, { type ReactElement, useState } from "react";
 import { type GameModule } from "../../types/global";
 import TextField from "@mui/material/TextField";
 import HintPopper from "./Helpers/HintPopper";
 
 interface props {
   gameObject: GameModule;
-  challengeSuccess: MutableRefObject<boolean>;
+  setChallengeSuccess: (boolean: boolean) => void;
 }
 
 const QuestionModule = (props: props): ReactElement => {
-  const { gameObject, challengeSuccess } = props;
+  const { gameObject, setChallengeSuccess } = props;
   const [answer, setAnswer] = useState<string>("");
 
   return (
@@ -19,14 +19,6 @@ const QuestionModule = (props: props): ReactElement => {
           <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
             {gameObject.title}
           </h1>
-          {/* 
-          {gameObject.imageURL === null &&
-            <img
-              src={gameObject.imageURL}
-              alt="Image for question module"
-              className="rounded-lg"
-            />
-          } */}
 
           {gameObject.imageURL ? (
             <img
@@ -59,8 +51,8 @@ const QuestionModule = (props: props): ReactElement => {
           className="self-center w-2/3 mt-20 mb-10 font-heading"
           type="button"
           onClick={() => {
-            if (answer.toLowerCase() === gameObject.answer) {
-              challengeSuccess.current = true;
+            if (answer.toLowerCase() === gameObject.answer?.toLowerCase()) {
+              setChallengeSuccess(true);
             }
           }}
         >

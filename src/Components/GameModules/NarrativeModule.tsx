@@ -1,14 +1,14 @@
-import React, { MutableRefObject, type ReactElement } from "react";
+import React, { type ReactElement } from "react";
 import { type GameModule } from "../../types/global";
 import Image from "next/image";
 
 interface props {
   gameObject: GameModule;
-  challengeSuccess: MutableRefObject<boolean>;
+  setChallengeSuccess: (boolean: boolean) => void;
 }
 
 const NarrativeModule = (props: props): ReactElement => {
-  const { gameObject, challengeSuccess } = props;
+  const { gameObject, setChallengeSuccess } = props;
 
   return (
     <>
@@ -40,7 +40,7 @@ const NarrativeModule = (props: props): ReactElement => {
           className="self-center w-1/3 mt-20 mb-10 font-heading"
           type="button"
           onClick={() => {
-            challengeSuccess.current = true;
+            setChallengeSuccess(true);
           }}
         >
           NEXT

@@ -17,9 +17,9 @@ import HowToPlayPopup from "../../Components/GameModules/HowToPlayPopup";
 import { type GameModule } from "../../types/global";
 
 const GameId: FC = (): ReactElement => {
-  const challengeSuccess = useRef<boolean>(false);
-  // const [challengeSuccess, setChallengeSuccess] = useState<boolean>(false);
-  const [goToNext, setGoToNext] = useState<boolean>(false);
+  // const challengeSuccess = useRef<boolean>(false);
+  const [challengeSuccess, setChallengeSuccess] = useState<boolean>(false);
+  // const [goToNext, setGoToNext] = useState<boolean>(false);
   const [TypeOfModule, setTypeOfModule] = useState<string | null>("");
   const [gameObject, setGameObject] = useState<GameModule | null | undefined>(
     null
@@ -28,7 +28,10 @@ const GameId: FC = (): ReactElement => {
   const currentIndex = useRef(0);
   const [devicePermission, setDevicePermission] = useState<boolean>(false);
 
+  console.log(gameObject)
+
   const getGameObject = useCallback(async () => {
+    setGameObject(null)
     await axios
       .get(
         `https://tokyo-noire-server-development.herokuapp.com/game/${router.query.gameId}/?index=${currentIndex.current}`
@@ -43,17 +46,14 @@ const GameId: FC = (): ReactElement => {
   }, [gameObject, getGameObject]);
 
   useEffect(() => {
-    console.log(gameObject)
-    console.log(challengeSuccess)
-    if (challengeSuccess.current === true && goToNext === true) {
+    if (challengeSuccess === true) {
       currentIndex.current++;
-      setGameObject(null)
       getGameObject();
       // gameObject!.locationCoordinates = null;
-      challengeSuccess.current = false;
-      setGoToNext(false)
+      setChallengeSuccess(false);
+      // setGoToNext(false)
     }
-  }, [goToNext]);
+  }, [challengeSuccess]);
 
   useEffect(() => {
     if (gameObject !== null) {
@@ -63,6 +63,14 @@ const GameId: FC = (): ReactElement => {
 
   const setCurrentComponent = (typeOfModule: string | undefined) => {
     switch (typeOfModule) {
+      case "start":
+        return (
+          <NarrativeModule
+            gameObject={gameObject!}
+            setChallengeSuccess={setChallengeSuccess}
+          />
+        );
+
       case "location":
         return (
           <>
@@ -74,8 +82,8 @@ const GameId: FC = (): ReactElement => {
                     ? gameObject!.locationCoordinates
                     : [0, 0]
                 }
-                challengeSuccess={challengeSuccess}
-                setGoToNext={setGoToNext}
+                setChallengeSuccess={setChallengeSuccess}
+              // setGoToNext={setGoToNext}
               />
             ) : (
               <></>
@@ -87,7 +95,7 @@ const GameId: FC = (): ReactElement => {
         return (
           <NarrativeModule
             gameObject={gameObject!}
-            challengeSuccess={challengeSuccess}
+            setChallengeSuccess={setChallengeSuccess}
           />
         );
 
@@ -95,7 +103,7 @@ const GameId: FC = (): ReactElement => {
         return (
           <QuestionModule
             gameObject={gameObject!}
-            challengeSuccess={challengeSuccess}
+            setChallengeSuccess={setChallengeSuccess}
           />
         );
 

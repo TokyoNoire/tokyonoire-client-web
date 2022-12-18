@@ -5,29 +5,29 @@ import React, { useEffect, type ReactElement } from "react";
 interface props {
   currentCoords: number[] | null;
   targetCoords: number[] | null;
-  challengeSuccess: MutableRefObject<boolean>;
-  setGoToNext: (boolean: boolean) => void
+  setChallengeSuccess: (boolean: boolean) => void;
+  // setGoToNext: (boolean: boolean) => void
 }
 
 const Distance = (props: props): ReactElement => {
-  const { challengeSuccess, currentCoords, targetCoords, setGoToNext } = props
+  const { setChallengeSuccess, currentCoords, targetCoords } = props
   const { haversineDistance } = Haversine()
   const [distance, setDistance] = useState<number | null>(null);
   console.log(distance)
 
   useEffect(() => {
-    if (!challengeSuccess.current && currentCoords && currentCoords[0] && currentCoords[1] &&
+    if (currentCoords && currentCoords[0] && currentCoords[1] &&
       targetCoords && targetCoords[0] && targetCoords[1]) {
       setDistance(Math.round(haversineDistance(currentCoords, targetCoords) as number))
 
       if (distance && distance < 50) {
-        challengeSuccess.current = true;
-        setGoToNext(true)
+        setChallengeSuccess(true);
+        // setGoToNext(true)
         // console.log(challengeSuccess.current)
         setDistance(null)
       }
     }
-  }, [currentCoords, targetCoords, distance, haversineDistance, challengeSuccess.current])
+  }, [currentCoords, targetCoords, distance, haversineDistance])
 
   return (
     <>

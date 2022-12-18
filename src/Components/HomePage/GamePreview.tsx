@@ -21,6 +21,7 @@ const GamePreview = (props: Props): ReactElement => {
       query: { gameId: gameId.current },
     });
   };
+  console.log(game)
 
   return (
     <div className="relative block flexCenterDiv bg-darkGrey">

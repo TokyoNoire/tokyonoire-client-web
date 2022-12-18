@@ -14,13 +14,13 @@ import FadeDiv from "../Helpers/FadeDiv";
 import HintPopper from "./Helpers/HintPopper";
 
 interface props {
-  challengeSuccess: MutableRefObject<boolean>;
+  setChallengeSuccess: (boolean: boolean) => void;
   locationCoordinates: number[] | null;
-  setGoToNext: (boolean: boolean) => void
+  // setGoToNext: (boolean: boolean) => void
 }
 
 const NavigationModule = (props: props): ReactElement => {
-  const { challengeSuccess, locationCoordinates, setGoToNext } = props;
+  const { setChallengeSuccess, locationCoordinates } = props;
   const { orientation, requestAccessAsync } = Gyroscope();
 
   const { calcBearingAngle } = BearingAngle();
@@ -90,8 +90,8 @@ const NavigationModule = (props: props): ReactElement => {
           <Distance
             currentCoords={currentCoords}
             targetCoords={targetCoords}
-            challengeSuccess={challengeSuccess}
-            setGoToNext={setGoToNext}
+            setChallengeSuccess={setChallengeSuccess}
+          // setGoToNext={setGoToNext}
           />
           {orientation && (
             <Compass
