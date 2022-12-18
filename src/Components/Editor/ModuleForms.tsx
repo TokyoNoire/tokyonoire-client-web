@@ -135,6 +135,18 @@ const ModuleForms = (): ReactElement => {
     );
   } else {
     switch (activeModule.typeOfModule) {
+      case "start":
+        return (
+          <FormEnd
+            key={_id.current}
+            title={title}
+            typeOfModule={typeOfModule}
+            description={description}
+            imageURL={imageURL}
+            handleModuleUpdateClick={handleModuleUpdateClick}
+          />
+        );
+
       case "narrative":
         return (
           <FormNarrative

@@ -28,6 +28,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [durationLoadingScreen] = useState<number>(2000);
   const [deviceType, setDeviceType] = useState<string | null>(null);
   const [userId, setUserId] = useState<string>('');
+  const [localUserId, setLocalUserId] = useLocalStorage<string | null>("userId", null)
   const [username, setUsername] = useState<string>('');
   const [gameData, setGameData] = useState<saveGameInfo | null>(null);
   const [gameModules, setGameModules] = useState<GameModule[]>();
@@ -36,7 +37,9 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     null
   );
 
-  console.log(userId)
+  useEffect(() => {
+    if (localUserId) { setUserId(localUserId) }
+  }, [])
 
   const [currentGame, setCurrentGame] = useLocalStorage(
     "currentGameData",
@@ -50,7 +53,6 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       const newGameData = gameData;
       newGameData.gameModules = gameModules;
       setGameData(newGameData);
-      // console.log(gameModules);
       // console.log("gameData has been updated");
     }
   }, [gameModules]);
@@ -60,7 +62,6 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       let newGameData = gameData;
       newGameData = gameInfoModule;
       setGameData(newGameData);
-      // console.log(gameData);
       // console.log("gameData has been updated");
     }
   }, [gameInfoModule]);
@@ -90,6 +91,8 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         setCurrentGame: setCurrentGame,
         userId: userId,
         setUserId: setUserId,
+        localUserId: localUserId,
+        setLocalUserId: setLocalUserId,
         username: username,
         setUsername: setUsername,
         setGameInfoModule: setGameInfoModule,
