@@ -5,7 +5,9 @@ import React, {
   useEffect,
   useRef,
   useCallback,
+  useContext
 } from "react";
+import AppContext from "../../AppContext";
 import axios from "axios";
 import { useRouter } from "next/router";
 import LocationModule from "../../Components/GameModules/LocationModule";
@@ -15,8 +17,11 @@ import EndModule from "../../Components/GameModules/EndModule";
 import NavigationModule from "../../Components/GameModules/NavigationModule";
 import HowToPlayPopup from "../../Components/GameModules/HowToPlayPopup";
 import { type GameModule } from "../../types/global";
+import App from "next/app";
 
 const GameId: FC = (): ReactElement => {
+  const value = useContext(AppContext);
+  const {sessionTable, setSessionTable} = value
   const [challengeSuccess, setChallengeSuccess] = useState<boolean>(false);
   const [TypeOfModule, setTypeOfModule] = useState<string | null>("");
   const [gameObject, setGameObject] = useState<GameModule | null | undefined>(
@@ -25,6 +30,10 @@ const GameId: FC = (): ReactElement => {
   const router = useRouter();
   const currentIndex = useRef(0);
   const [devicePermission, setDevicePermission] = useState<boolean>(false);
+
+  // const incrementSessionIndex = async () => {
+  //   await axios.patch()
+  // }
 
   const getGameObject = useCallback(async () => {
     await axios

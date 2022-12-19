@@ -19,10 +19,11 @@ const GamePreview = (props: Props): ReactElement => {
   const router = useRouter();
 
   const getOrCreateSession = async() => {
-    console.log(gameId)
-    console.log(userId)
+    console.log("I ran!")
     await axios.get(`http://localhost:2000/findsession/${gameId}/${userId}`).then(response => {
+      console.log(response.data[0])
       setSessionTable(response.data[0])
+      console.log('🍓',sessionTable)
     })
   }
   const handleClick = (e: React.MouseEvent) => {
