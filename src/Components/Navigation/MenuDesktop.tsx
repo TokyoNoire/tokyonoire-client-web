@@ -8,7 +8,6 @@ import { useRouter } from "next/router";
 import FadeDiv from "../Helpers/FadeDiv";
 import AppContext from "../../AppContext";
 import { getAuth, signOut } from "firebase/auth";
-import { async } from "@firebase/util";
 import { Button } from "@mui/material";
 
 type menuItem = {
@@ -53,6 +52,7 @@ const MenuDesktop = (): ReactElement => {
       gameData.dateCreated = new Date();
     }
     gameData.dateUpdated = new Date();
+    gameData.isPublished = true;
     await axios.patch(
       `https://tokyo-noire-server-development.herokuapp.com/editor/${gameData._id}`,
       gameData
