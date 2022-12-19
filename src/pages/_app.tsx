@@ -39,10 +39,10 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [gameData, setGameData] = useState<saveGameInfo | null>(null);
   const [gameModules, setGameModules] = useState<GameModule[]>();
   const [activeModule, setActiveModule] = useState<GameModule | null>(null);
+  const [isRegistered, setIsRegistered]  = useLocalStorage<boolean>('isRegistered', false)
   const [gameInfoModule, setGameInfoModule] = useState<saveGameInfo | null>(null);
   const [currentCoords, setCurrentCoords] = useState<number[] | null>(null);
   const [acquiredPermissions, setAcquiredPermissions] = useLocalStorage<boolean | null>("acquiredPermissions", false);
-  const { orientation, requestAccessAsync } = Gyroscope();
 
   const sessionGameIndex = useRef(0);
   const [sessionTable, setSessionTable] = useLocalStorage<SessionTable | null>("sessionTable", null);
@@ -141,6 +141,8 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         setAcquiredPermissions: setAcquiredPermissions,
         sessionTable: sessionTable,
         setSessionTable: setSessionTable,
+        isRegistered: isRegistered, 
+        setIsRegistered: setIsRegistered,
         sessionGameIndex: sessionGameIndex
       }}
     >
