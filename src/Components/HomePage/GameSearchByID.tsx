@@ -1,16 +1,21 @@
-import React, { type ReactElement, type MutableRefObject } from "react";
+import AppContext from "../../AppContext";
+import React, { type ReactElement, type MutableRefObject, useContext } from "react";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import { saveGameInfo } from "../../types/global";
 
+
 interface prop {
+  //setGameId: (string: string) => void;
   setGame: ({ }: saveGameInfo) => void;
   handleOpen: () => void;
   game: saveGameInfo | null;
   gameId: MutableRefObject<string | null>;
 }
 const GameSearchByID = (prop: prop): ReactElement => {
-  const { gameId, setGame, handleOpen } = prop;
+  const {gameId, setGame, handleOpen} = prop;
+  const value = useContext(AppContext)
+  const {userId, sessionTable, setSessionTable} = value
 
 
   const getGameById = async () => {
@@ -22,31 +27,35 @@ const GameSearchByID = (prop: prop): ReactElement => {
   };
 
 
-  return (
-    <div className="items-center mx-8 my-24 flexCenterDiv">
-      <h1 className="mb-5 text-center text-m font-heading">
-        &quot;Hello Detective, are you requested for a specific case?&quot;
-      </h1>
-      <TextField
-        id="gameId"
-        className="w-4/5"
-        label="Enter a Case ID"
-        variant="filled"
-        aria-label="enter a game id"
-        onChange={(e) => gameId.current = e.target.value}
-      />
 
-      <button
-        id="themeButton"
-        className="self-center w-1/3 mt-20 mb-10 font-heading"
-        type="button"
-        onClick={() => {
-          getGameById();
-          setTimeout(handleOpen, 2000);
-        }}
-      >
-        start
-      </button>
+  return (
+    <div className="items-center mx-4 mt-16 mb-32 flexCenterDiv">
+      <h1 className="mb-12 text-center text-xl font-body2">
+        {`Looking for something specific?`}
+      </h1>
+      <div className="w-full flex justify-self-auto items-stretch">
+
+        <TextField
+          id="gameId"
+          className="w-4/5 flex-grow"
+          label="Enter a Case ID"
+          variant="filled"
+          aria-label="enter a game id"
+          onChange={(e) => gameId.current = e.target.value}
+        />
+
+        <button
+          id="themeButton"
+          className="w-1/5 font-heading h-100"
+          type="button"
+          onClick={() => {
+            getGameById();
+            setTimeout(handleOpen, 2000);
+          }}
+        >
+          GO
+        </button>
+      </div>
     </div>
   );
 };

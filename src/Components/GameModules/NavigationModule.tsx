@@ -12,15 +12,17 @@ import BearingAngle from "./Helpers/BearingAngle";
 import Gyroscope from "./Helpers/Gyroscope";
 import FadeDiv from "../Helpers/FadeDiv";
 import HintPopper from "./Helpers/HintPopper";
+import { GameModule } from "../../types/global";
 
 interface props {
   setChallengeSuccess: (boolean: boolean) => void;
   locationCoordinates: number[] | null;
+  gameObject: GameModule;
   // setGoToNext: (boolean: boolean) => void
 }
 
 const NavigationModule = (props: props): ReactElement => {
-  const { setChallengeSuccess, locationCoordinates } = props;
+  const { setChallengeSuccess, locationCoordinates, gameObject } = props;
   const { orientation, requestAccessAsync } = Gyroscope();
 
   const { calcBearingAngle } = BearingAngle();
@@ -87,22 +89,25 @@ const NavigationModule = (props: props): ReactElement => {
     <>
       {currentCoords && targetCoords && (
         <FadeDiv>
-          <Distance
-            currentCoords={currentCoords}
-            targetCoords={targetCoords}
-            setChallengeSuccess={setChallengeSuccess}
-          // setGoToNext={setGoToNext}
-          />
-          {orientation && (
-            <Compass
-              bearingAngle={bearingAngle}
+          <section>
+
+            <Distance
               currentCoords={currentCoords}
               targetCoords={targetCoords}
-              orientation={orientation}
+              setChallengeSuccess={setChallengeSuccess}
             />
-          )}
+            {orientation && (
+              <Compass
+                bearingAngle={bearingAngle}
+                currentCoords={currentCoords}
+                targetCoords={targetCoords}
+                orientation={orientation}
+              />
+            )}
+          </section>
         </FadeDiv>
       )}
+      {gameObject!.hint?  <HintPopper hint={gameObject.hint!} /> : <></>}
     </>
   );
 };

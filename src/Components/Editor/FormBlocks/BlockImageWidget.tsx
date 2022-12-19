@@ -14,6 +14,7 @@ const BlockImageWidget = (props: props): ReactElement => {
 
   const cloudinaryRef = useRef<any>();
   const widgetRef = useRef<any>();
+  const path = useRef<string>()
 
   useEffect(() => {
     cloudinaryRef.current = window.cloudinary;
@@ -45,10 +46,13 @@ const BlockImageWidget = (props: props): ReactElement => {
           }
         }
       },
+      
       function (error: any, result: any) {
+       
         if (result.info.url !== undefined) {
-          imageURL.current = result.info.url
-          setDisplayImage(result.info.url)
+          const path = result.info.path
+          imageURL.current = `https://res.cloudinary.com/diyzmibyd/image/upload/q_auto/${path}`
+          setDisplayImage(`https://res.cloudinary.com/diyzmibyd/image/upload/q_auto/${path}`)
           // setImageUrl(result.info.url);
         }
       }
@@ -66,16 +70,16 @@ const BlockImageWidget = (props: props): ReactElement => {
       >
         {displayImage && (
           <img
-            className="w-9/12 self-center"
+            className="self-center w-9/12"
             src={`${displayImage}`}
             alt="preview"
           />
         )}
       </div>
-      <div className="flex gap-2 justify-center">
+      <div className="flex justify-center gap-2">
         <button
           id="themeButton"
-          className="uppercase w-9/12 font-heading self-center"
+          className="self-center w-9/12 uppercase font-heading"
           onClick={() => widgetRef.current?.open()}
         >
           {imageURL.current ? "Modify Photo" : "Select Photo"}
@@ -84,7 +88,7 @@ const BlockImageWidget = (props: props): ReactElement => {
         {imageURL.current &&
           <button
             id="themeButton"
-            className="uppercase w-9/12 font-heading self-center"
+            className="self-center w-9/12 uppercase font-heading"
             onClick={() => {
               imageURL.current = "";
               setDisplayImage("");

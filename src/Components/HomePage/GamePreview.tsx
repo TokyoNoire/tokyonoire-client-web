@@ -1,8 +1,11 @@
-import React, { type ReactElement, type MutableRefObject } from "react";
+import React, { type ReactElement, useContext, type MutableRefObject  } from "react";
+import axios from 'axios'
+import AppContext from "../../AppContext";
 import { useRouter } from "next/router";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import ClearIcon from "@mui/icons-material/Clear";
 import { type saveGameInfo } from "../../types/global";
+import Image from 'next/image'
 
 interface Props {
   game: saveGameInfo;
@@ -11,10 +14,22 @@ interface Props {
 }
 
 const GamePreview = (props: Props): ReactElement => {
+  const value = useContext(AppContext)
+  const {userId, sessionTable, setSessionTable, sessionGameIndex} = value
   const { game, handleClose, gameId } = props;
   const router = useRouter();
 
+  const getOrCreateSession = async() => {
+    console.log("I ran!")
+    await axios.get(`https://tokyo-noire-server-development.herokuapp.com/findsession/${gameId.current}/${userId}`).then(response => {
+      console.log(response.data)
+      setSessionTable(response.data)
+      sessionGameIndex.current = response.data.gameModulesIndex;
+      console.log(sessionGameIndex)
+    })
+  }
   const handleClick = (e: React.MouseEvent) => {
+    getOrCreateSession();
     e.preventDefault();
     router.push({
       pathname: "/game/[gameId]",
