@@ -8,7 +8,6 @@ import {
   FormControl,
   Button,
 } from "@mui/material";
-import ClearIcon from "@mui/icons-material/Clear";
 import GoogleIcon from "@mui/icons-material/Google";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import AppContext from "../../AppContext";
@@ -93,13 +92,6 @@ const SignInForm = (props: props): ReactElement => {
 
   return (
     <>
-       <div className="absolute flex items-center justify-center w-8 h-8 bg-black border-2 rounded-full right-3 top-3">
-                <ClearIcon
-                    className="hover:shadow-indigo-500/40"
-                    style={{ transform: "scale(1.2)" }}
-                    // onClick={handleClose}
-                />
-            </div>
       <h1 className="self-center mt-10 text-2xl text-center uppercase font-heading"> 
       Sign in</h1>
         <br />
@@ -124,6 +116,7 @@ const SignInForm = (props: props): ReactElement => {
             id="outlined-password-input"
             required
             autoFocus
+            className="text-white"
             label="Password"
             type="password"
             variant="filled"

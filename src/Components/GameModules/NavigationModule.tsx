@@ -107,7 +107,7 @@ const NavigationModule = (props: props): ReactElement => {
           </section>
         </FadeDiv>
       )}
-      {gameObject!.hint?  <HintPopper hint={gameObject.hint!} /> : <></>}
+      {/* {gameObject!.hint?  <HintPopper hint={gameObject.hint!} /> : <></>} */}
     </>
   );
 };

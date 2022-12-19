@@ -14,9 +14,9 @@ const EndModule = (props: props): ReactElement => {
   const value = useContext(AppContext);
   const { gameObject } = props;
   const router = useRouter();
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [close, setClose] = React.useState(false);
+  const handleOpen = () => setClose(false);
+  const handleClose = () => setClose(true);
   const { sessionTable, sessionGameIndex, userId, username } = value;
 
   const completeSession = async () => {
@@ -29,8 +29,8 @@ const EndModule = (props: props): ReactElement => {
   };
 
   const handleClick = (e: React.MouseEvent) => {
-     if (userId && username) {e.preventDefault();
-      router.push("/");}
+      e.preventDefault();
+      router.push("/");
   };
 
   console.log(userId);
@@ -56,7 +56,7 @@ const EndModule = (props: props): ReactElement => {
         <hr className="self-center w-10/12 mt-10" />
       </section>
 
-      {{open}?  <AuthPopUp/>: <></>}
+      {close?  <AuthPopUp setClose={handleClose}/>: <></>}
       <section className="items-center px-5 flexCenterDiv">
         <h1 className="mt-20 mb-10 text-3xl uppercase font-heading">
           Mystery Complete
@@ -95,13 +95,14 @@ const EndModule = (props: props): ReactElement => {
 
         <button
           onClick={(e) => {
+            console.log(typeof username)
+            console.log(username)
+            if (userId!) {
+              handleOpen();
+            } else {
             handleClick(e);
-            // if (userId) {
-            //   handleOpen();
-            // } else {
-            // handleClick(e);
-            //   completeSession();
-            // }
+              completeSession();
+            }
           }}
           id="themeButton"
           className="self-center w-1/3 mt-16 mb-14 font-heading"

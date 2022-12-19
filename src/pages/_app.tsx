@@ -17,6 +17,7 @@ import NavBar from "../Components/Navigation/NavBar";
 import MockGame from "../Components/Editor/Helpers/MockGame";
 import { saveGameInfo, GameModule, SessionTable } from "../types/global";
 import { useLocalStorage, useReadLocalStorage } from "usehooks-ts";
+import AuthPopUp from "../Components/Authentification/AuthPopUp";
 
 const darkTheme = createTheme({
   palette: {
@@ -41,7 +42,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     null
   );
   const sessionGameIndex = useRef(0);
-
+  const [open,setOpen] = useState<boolean> (true)
   const [sessionTable, setSessionTable] = useState<SessionTable | null>(null)
 
   useEffect(() => {
