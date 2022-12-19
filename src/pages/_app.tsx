@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { type AppType } from "next/dist/shared/lib/utils";
 import { v4 as uuidv4 } from 'uuid';
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -17,7 +17,12 @@ import NavBar from "../Components/Navigation/NavBar";
 import MockGame from "../Components/Editor/Helpers/MockGame";
 import { saveGameInfo, GameModule, SessionTable } from "../types/global";
 import { useLocalStorage, useReadLocalStorage } from "usehooks-ts";
+<<<<<<< HEAD
 import AuthPopUp from "../Components/Authentification/AuthPopUp";
+=======
+// import Geolocation from "../Components/GameModules/Helpers/Geolocation";
+import Gyroscope from "../Components/GameModules/Helpers/Gyroscope";
+>>>>>>> 76842942e29876c33331eca045f5ed83d637365c
 
 const darkTheme = createTheme({
   palette: {
@@ -38,12 +43,35 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [gameData, setGameData] = useState<saveGameInfo | null>(null);
   const [gameModules, setGameModules] = useState<GameModule[]>();
   const [activeModule, setActiveModule] = useState<GameModule | null>(null);
-  const [gameInfoModule, setGameInfoModule] = useState<saveGameInfo | null>(
-    null
-  );
+  const [isRegistered, setIsRegistered]  = useLocalStorage<boolean>('isRegistered', false)
+  const [gameInfoModule, setGameInfoModule] = useState<saveGameInfo | null>(null);
+  const [currentCoords, setCurrentCoords] = useState<number[] | null>(null);
+  const [acquiredPermissions, setAcquiredPermissions] = useLocalStorage<boolean | null>("acquiredPermissions", false);
+
   const sessionGameIndex = useRef(0);
   const [open,setOpen] = useState<boolean> (true)
-  const [sessionTable, setSessionTable] = useState<SessionTable | null>(null)
+  const [sessionTable, setSessionTable] = useLocalStorage<SessionTable | null>("sessionTable", null);
+
+  useEffect(() => {
+    setLocalUserId(userId)
+  }, [userId])
+
+  useEffect(() => {
+    if (acquiredPermissions) {
+      const interval = setInterval(() => {
+        if ('geolocation' in navigator) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            setCurrentCoords([position.coords.longitude, position.coords.latitude]);
+          });
+        }
+        else console.error('geolocation unavailable')
+      }, 1000);
+
+      return () => {
+        clearInterval(interval)
+      }
+    }
+  }, [acquiredPermissions])
 
   useEffect(() => {
     if (localUserId) { setUserId(localUserId) }
@@ -55,14 +83,11 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     gameData
   );
 
-  console.log(gameData)
-
   useEffect(() => {
     if (gameData) {
       const newGameData = gameData;
       newGameData.gameModules = gameModules;
       setGameData(newGameData);
-      // console.log("gameData has been updated");
     }
   }, [gameModules]);
 
@@ -71,7 +96,6 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       let newGameData = gameData;
       newGameData = gameInfoModule;
       setGameData(newGameData);
-      // console.log("gameData has been updated");
     }
   }, [gameInfoModule]);
 
@@ -113,9 +137,17 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         setGameInfoModule: setGameInfoModule,
         gameInfoModule: gameInfoModule,
         loadScreenMounted: loadScreenMounted,
+        setCurrentCoords: setCurrentCoords,
+        currentCoords: currentCoords,
+        // geolocationPermission: geolocationPermission,
+        // setGeolocationPermission: setGeolocationPermission,
+        acquiredPermissions: acquiredPermissions,
+        setAcquiredPermissions: setAcquiredPermissions,
         sessionTable: sessionTable,
         setSessionTable: setSessionTable,
-        sessionGameIndex:sessionGameIndex
+        isRegistered: isRegistered, 
+        setIsRegistered: setIsRegistered,
+        sessionGameIndex: sessionGameIndex
       }}
     >
       <AuthProvider>

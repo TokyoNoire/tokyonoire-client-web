@@ -18,7 +18,11 @@ const HomeDesktop = (props: props): ReactElement => {
   const router = useRouter()
 
   useEffect(() => {
+<<<<<<< HEAD
     if (userId === true) {
+=======
+    if (userId && userId.length === 28 && signInChallenge === true) {
+>>>>>>> 76842942e29876c33331eca045f5ed83d637365c
       router.push('/editor')
     }
   }, [userId])
@@ -37,7 +41,7 @@ const HomeDesktop = (props: props): ReactElement => {
 
           {signInChallenge ? (<AuthPopUp setClose={setClose}/>) : (<></>)}
         <section className="absolute bottom-1/4">
-          {userId ? (
+          {userId && userId.length === 28 ? (
             <Link href="/editor">
               <button
                 id="themeButton"
