@@ -10,7 +10,6 @@ interface props {
 }
 
 
-
 const Home = (props: props) => {
   // We want to use NextPage type... right now it is no longer a static Next.js page.
   const { deviceType } = props;
@@ -22,6 +21,12 @@ const Home = (props: props) => {
       <Head>
         <title>Tokyo Noire</title>
         <meta name="keywords" content="interactive, story, game" />
+        <meta name="apple-mobile-web-app-capable" content="yes"></meta>
+        <meta name="apple-mobile-web-app-title" content="Tokyo Noire"></meta>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black"></meta>
+        <link rel="apple-touch-icon" sizes="192x192" href="/icon-192x192.png"></link>
+
+        <meta name="mobile-web-app-capable" content="yes"></meta>
       </Head>
 
       <FadeDiv show={show}>

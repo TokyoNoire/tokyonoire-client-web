@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { type AppType } from "next/dist/shared/lib/utils";
+import { v4 as uuidv4 } from 'uuid';
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Script from "next/script";
 import "../styles/globals.css";
@@ -14,7 +15,7 @@ import SignInForm from "../Components/Authentification/SignInForm";
 import { AuthProvider } from "../Components/AuthProvider";
 import NavBar from "../Components/Navigation/NavBar";
 import MockGame from "../Components/Editor/Helpers/MockGame";
-import { saveGameInfo, GameModule } from "../types/global";
+import { saveGameInfo, GameModule, SessionTable } from "../types/global";
 import { useLocalStorage, useReadLocalStorage } from "usehooks-ts";
 // import Geolocation from "../Components/GameModules/Helpers/Geolocation";
 import Gyroscope from "../Components/GameModules/Helpers/Gyroscope";
@@ -29,7 +30,9 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [loadScreenMounted, setLoadScreenMounted] = useState<boolean>(true);
   const [durationLoadingScreen] = useState<number>(2000);
   const [deviceType, setDeviceType] = useState<string | null>(null);
-  const [userId, setUserId] = useState<string>('');
+  const [userId, setUserId] = useState<string>(uuidv4());
+  const [geolocationAccess, setGeolocationAccess] = useState<boolean>(false);
+  const [gyroscopeAccess, setGyroscopeAccess] = useState<boolean>(false);
   const [localUserId, setLocalUserId] = useLocalStorage<string | null>("userId", null)
   const [localUsername, setLocalUsername] = useLocalStorage<string | null>("username", null)
   const [username, setUsername] = useState<string>('');
@@ -57,6 +60,9 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       }
     }
   }, [acquiredPermissions])
+  const sessionGameIndex = useRef(0);
+
+  const [sessionTable, setSessionTable] = useState<SessionTable | null>(null)
 
   useEffect(() => {
     if (localUserId) { setUserId(localUserId) }
@@ -111,6 +117,10 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         setUserId: setUserId,
         localUserId: localUserId,
         setLocalUserId: setLocalUserId,
+        geolocationAccess: geolocationAccess,
+        setGeolocationAccess: setGeolocationAccess,
+        gyroscopeAccess: gyroscopeAccess,
+        setGyroscopeAccess: setGyroscopeAccess,
         username: username,
         setUsername: setUsername,
         localUsername: localUsername,
@@ -123,7 +133,10 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         // geolocationPermission: geolocationPermission,
         // setGeolocationPermission: setGeolocationPermission,
         acquiredPermissions: acquiredPermissions,
-        setAcquiredPermissions: setAcquiredPermissions
+        setAcquiredPermissions: setAcquiredPermissions,
+        sessionTable: sessionTable,
+        setSessionTable: setSessionTable,
+        sessionGameIndex: sessionGameIndex
       }}
     >
       <AuthProvider>

@@ -11,16 +11,18 @@ import Compass from "./Helpers/Compass";
 import Distance from "./Helpers/Distance";
 import FadeDiv from "../Helpers/FadeDiv";
 import AppContext from "../../AppContext";
+import { GameModule } from "../../types/global";
+import HintPopper from "./Helpers/HintPopper";
 
 interface props {
   setChallengeSuccess: (boolean: boolean) => void;
   locationCoordinates: number[] | null;
+  gameObject: GameModule;
+  // setGoToNext: (boolean: boolean) => void
 }
 
 const NavigationModule = (props: props): ReactElement => {
-  const { setChallengeSuccess, locationCoordinates } = props;
-  // const { orientation, requestAccessAsync } = Gyroscope();
-  // requestAccessAsync()
+  const { setChallengeSuccess, locationCoordinates, gameObject } = props;
 
   const value = useContext(AppContext)
   const { currentCoords, setCurrentCoords } = value;
@@ -53,6 +55,7 @@ const NavigationModule = (props: props): ReactElement => {
       </section>
       {/* </FadeDiv> */}
       {/* )} */}
+      {gameObject!.hint ? <HintPopper hint={gameObject.hint!} /> : <></>}
     </>
   );
 };

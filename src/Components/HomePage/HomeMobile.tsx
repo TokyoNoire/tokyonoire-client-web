@@ -31,6 +31,8 @@ const HomeMobile = (props: props): ReactElement => {
   const { acquiredPermissions, setAcquiredPermissions } = value;
 
   const { show } = props;
+  const value = useContext(AppContext);
+  const { gyroscopeAccess, geolocationAccess } = value;
 
   const gameId = useRef<string>("");
   const [game, setGame] = useState<saveGameInfo | null>(null);
@@ -94,8 +96,8 @@ const HomeMobile = (props: props): ReactElement => {
   // console.log("📍", acquiredPermissions);
   return (
     <>
-      <AuthorizationPopup
-        setDevicePermission={setDevicePermission} />
+      {!geolocationAccess && !gyroscopeAccess ? <AuthorizationPopup
+        setDevicePermission={setDevicePermission} /> : <></>}
 
       <div className="relative h-screen mx-5 flexCenterDiv place-items-center ">
         <TokyoNoireName alt="Tokyo Noire Name" style={{ maxWidth: "80vw" }} />
