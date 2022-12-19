@@ -14,10 +14,10 @@ const EndModule = (props: props): ReactElement => {
   const value = useContext(AppContext);
   const { gameObject } = props;
   const router = useRouter();
-  const [close, setClose] = React.useState(false);
-  const handleOpen = () => setClose(false);
-  const handleClose = () => setClose(true);
-  const { sessionTable, sessionGameIndex, userId, username } = value;
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const { sessionTable, sessionGameIndex, userId, username, isRegistered } = value;
 
   const completeSession = async () => {
     await axios.patch(
@@ -32,6 +32,8 @@ const EndModule = (props: props): ReactElement => {
       e.preventDefault();
       router.push("/");
   };
+
+  console.log(isRegistered)
 
   console.log(userId);
   return (
@@ -56,7 +58,7 @@ const EndModule = (props: props): ReactElement => {
         <hr className="self-center w-10/12 mt-10" />
       </section>
 
-      {close?  <AuthPopUp setClose={handleClose}/>: <></>}
+      {open?  <AuthPopUp setClose={handleClose}/>: <></>}
       <section className="items-center px-5 flexCenterDiv">
         <h1 className="mt-20 mb-10 text-3xl uppercase font-heading">
           Mystery Complete
@@ -95,10 +97,9 @@ const EndModule = (props: props): ReactElement => {
 
         <button
           onClick={(e) => {
-            console.log(typeof username)
-            console.log(username)
-            if (userId!) {
-              handleOpen();
+            console.log(isRegistered)
+            if (isRegistered===false) {
+              handleOpen;
             } else {
             handleClick(e);
               completeSession();

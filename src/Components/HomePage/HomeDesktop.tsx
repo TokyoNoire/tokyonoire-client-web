@@ -18,17 +18,16 @@ const HomeDesktop = (props: props): ReactElement => {
   const router = useRouter()
 
   useEffect(() => {
-<<<<<<< HEAD
-    if (userId === true) {
-=======
     if (userId && userId.length === 28 && signInChallenge === true) {
->>>>>>> 76842942e29876c33331eca045f5ed83d637365c
       router.push('/editor')
     }
   }, [userId])
 
   const handleClick = () => {
-    setSignInChallenge(true);
+    if (signInChallenge===false){
+    setSignInChallenge(true)} else {
+      setSignInChallenge(false)
+    }
   }
 
   return (
@@ -39,7 +38,7 @@ const HomeDesktop = (props: props): ReactElement => {
           style={{ maxWidth: "80vw", filter: "drop-shadow(0 0 0.5rem grey)", animation: "pulsate 1s ease-in-out infinite alternate" }}
           />
 
-          {signInChallenge ? (<AuthPopUp setClose={setClose}/>) : (<></>)}
+          {signInChallenge ? (<AuthPopUp setClose={handleClick}/>) : (<></>)}
         <section className="absolute bottom-1/4">
           {userId && userId.length === 28 ? (
             <Link href="/editor">

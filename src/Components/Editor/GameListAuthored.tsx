@@ -1,12 +1,11 @@
 // @ts-nocheck
 import React, {
-  type FC,
   type ReactElement,
   useState,
   useEffect,
   useContext
 } from "react";
-import { Box, Tooltip, IconButton } from "@mui/material";
+import { Box, Tooltip } from "@mui/material";
 // import { saveGameInfo } from "../../types/global";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
@@ -19,7 +18,6 @@ import {
   DataGrid,
   GridColDef,
   GridValueFormatterParams,
-  GridRowParams,
   GridActionsCellItem,
   GridRowId
 } from "@mui/x-data-grid";
@@ -182,6 +180,16 @@ const GameListAuthored = (props: props): ReactElement => {
           pageSize={5}
           rowsPerPageOptions={[5]}
           disableSelectionOnClick
+          initialState={{
+            sorting: {
+              sortModel: [
+                {
+                  field: 'dateCreated',
+                  sort: 'desc',
+                },
+              ],
+            },
+          }}
         />
       </Box>
     </FadeDiv>

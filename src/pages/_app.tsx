@@ -17,12 +17,8 @@ import NavBar from "../Components/Navigation/NavBar";
 import MockGame from "../Components/Editor/Helpers/MockGame";
 import { saveGameInfo, GameModule, SessionTable } from "../types/global";
 import { useLocalStorage, useReadLocalStorage } from "usehooks-ts";
-<<<<<<< HEAD
-import AuthPopUp from "../Components/Authentification/AuthPopUp";
-=======
 // import Geolocation from "../Components/GameModules/Helpers/Geolocation";
 import Gyroscope from "../Components/GameModules/Helpers/Gyroscope";
->>>>>>> 76842942e29876c33331eca045f5ed83d637365c
 
 const darkTheme = createTheme({
   palette: {

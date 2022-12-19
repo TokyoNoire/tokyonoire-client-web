@@ -4,7 +4,6 @@ import { type saveGameInfo } from "../../types/global";
 import axios from 'axios'
 import { GameDataSchema } from "../../Components/Editor/Helpers/GameDataSchema"
 import AppContext from "../../AppContext";
-import App from "next/app";
 import GameListAuthored from "../../Components/Editor/GameListAuthored"
 import FadeDiv from "../../Components/Helpers/FadeDiv";
 
@@ -18,7 +17,7 @@ const Editor = (props: Props): ReactElement => {
     const value = useContext(AppContext);
     const { setGameData, setGameModules, setGameInfoModule, userId, username } = value
     const router = useRouter();
-    const [show, setShow] = useState<boolean>(true);
+    const [show] = useState<boolean>(true);
 
 
     useEffect(() => {
