@@ -6,12 +6,14 @@ import {
     DialogContentText,
     DialogActions,
 } from "@mui/material";
+import FadeDiv from "../Helpers/FadeDiv";
 
 interface props {
     setDevicePermission: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const HowToPlayPopup = (props: props): ReactElement => {
+
     const { setDevicePermission } = props;
     const [open, setOpen] = useState<boolean>(true);
     const handleClose = () => {
@@ -19,13 +21,14 @@ const HowToPlayPopup = (props: props): ReactElement => {
     };
 
     return (
-        <div className="flexCenterDiv">
-            <Dialog open={open} onClose={handleClose}>
-                <h1 className="self-center p-5 text-3xl text-center uppercase font-heading">
+        <FadeDiv>
+            <div className="flexCenterDiv">
+                <Dialog open={open} onClose={handleClose}>
+                    <h1 className="self-center p-5 text-3xl text-center uppercase font-heading">
                         How to Play
-                </h1>
-                <DialogContent>
-                    <p className="text-left font-body1">
+                    </h1>
+                    <DialogContent>
+                        <p className="text-left font-body1">
                             For an optimal game experience, we recommend enabling location services for your web browser.
                             <br />
                             <br />
@@ -34,23 +37,24 @@ const HowToPlayPopup = (props: props): ReactElement => {
                             <br />
                             <br />
                             By clicking &quot;I understand&quot;, you will be prompted to enable geolocation and gyroscope functionalities.
-                    </p>
-                </DialogContent>
-                <DialogActions className="flexCenterDiv">
-                    <button
-                        onClick={() => {
-                            setDevicePermission(true);
-                            handleClose();
-                        }}
-                        id="themeButton"
-                        className="self-center my-5"
-                        type="button"
-                    >
-                        I understand
-                    </button>
-                </DialogActions>
-            </Dialog>
-        </div>)
+                        </p>
+                    </DialogContent>
+                    <DialogActions className="flexCenterDiv">
+                        <button
+                            onClick={() => {
+                                handleClose();
+                            }}
+                            id="themeButton"
+                            className="self-center my-5"
+                            type="button"
+                        >
+                            I understand
+                        </button>
+                    </DialogActions>
+                </Dialog>
+            </div>
+        </FadeDiv>
+    )
 };
 
 export default HowToPlayPopup;

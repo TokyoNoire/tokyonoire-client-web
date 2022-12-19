@@ -9,7 +9,6 @@ import {
   Button,
 } from "@mui/material";
 import { AuthContext, useAuth } from '../AuthProvider'
-import ClearIcon from "@mui/icons-material/Clear";
 import AppContext from "../../AppContext";
 import {  getDocs, collection, where, addDoc, } from "firebase/firestore";
 import { db } from '../../../src/auth/firebase'
@@ -22,7 +21,7 @@ const SignUpForm = (props: props): ReactElement => {
   const { setAuthPanel } = props;
   const { signUp } = useAuth()
   const value = useContext(AppContext);
-  const { setUserId, userId, username, setUsername, setLocalUserId, setLocalUsername } = value;
+  const { setUserId, userId, username, setUsername, setLocalUserId, setLocalUsername, isRegistered, setIsRegistered } = value;
   const email = useRef<string>('');
   const password = useRef<string>('');
   const name = useRef<string>('');
@@ -30,15 +29,8 @@ const SignUpForm = (props: props): ReactElement => {
   const { signIn } = useAuth();
 
   return (
-    <div className="relative h-auto mt-20 rounded-lg flexCenterDiv bg-darkGrey">
-    <div className="absolute z-50 flex items-center justify-center w-8 h-8 bg-black border-2 rounded-full right-3 top-3">
-             <ClearIcon
-                 className="hover:shadow-indigo-500/40"
-                 style={{ transform: "scale(1.2)" }}
-                //  onClick={handleClose}
-             />
-         </div>
-      <h1 className="self-center p-5 mx-48 mt-10 text-2xl text-center uppercase font-heading">
+    <>
+      <h1 className="self-center p-5 mt-10 text-2xl text-center uppercase font-heading">
         Sign Up
       </h1>
       <br />
@@ -48,7 +40,7 @@ const SignUpForm = (props: props): ReactElement => {
           id="name"
           required
           autoFocus
-          label="NameOfUser"
+          label="Name"
           variant="filled"
           aria-describedby="name-input"
           placeholder="Name"
@@ -102,6 +94,7 @@ const SignUpForm = (props: props): ReactElement => {
             .then((response) => {
               setUsername(name.current)
               setUserId(response.user.uid)
+              setIsRegistered(true)
               addDoc(collection(db, "users"), {
                 uid: response.user.uid,
                 name: name.current,
@@ -116,6 +109,7 @@ const SignUpForm = (props: props): ReactElement => {
           alert(error.message);
           console.log('signup error', error)
           formSubmitting.current = false
+          setIsRegistered(false)
         }
       }}>
         Sign Up
@@ -127,7 +121,7 @@ const SignUpForm = (props: props): ReactElement => {
               <p className="font-semibold underline">Login here.</p>
             </button>
         
-      </div>
+   </>
   );
 };
 

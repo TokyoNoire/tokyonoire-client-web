@@ -1,17 +1,30 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, useContext, type FC, ReactElement } from "react";
+import AppContext from "../../../AppContext";
 
-const Geolocation = () => {
+const Geolocation: FC = (): ReactElement => {
+  const value = useContext(AppContext);
+  // const { gameModules, setGameModules, activeModule, setActiveModule } = value;
+  const { currentCoords, setCurrentCoords } = value;
 
-  const [currentCoords, setCurrentCoords] = useState<number[] | null>(null)
+  console.log(currentCoords)
+  // const [currentCoords, setCurrentCoords] = useState<number[] | null>(null)
+  // const currentCoords = useRef<number[] | null>(null)
+  const { geolocationAccess, setGeolocationAccess } = value
 
   useEffect(() => {
     const interval = setInterval(() => {
       if ('geolocation' in navigator) {
+        setGeolocationAccess(true)
         navigator.geolocation.getCurrentPosition((position) => {
-          setCurrentCoords([position.coords.longitude, position.coords.latitude])
+          console.log(position);
+          // setCurrentCoords([position.coords.longitude, position.coords.latitude]);
+          // currentCoords.current = [position.coords.longitude, position.coords.latitude]
         });
       }
-      else console.error('geolocation unavailable')
+      else {
+        setGeolocationAccess(false)
+        console.error('geolocation unavailable')
+      }
     }, 1000);
 
     return () => {
@@ -19,9 +32,9 @@ const Geolocation = () => {
     }
   })
 
-  return ({
-    currentCoords
-  });
+  return (
+    <></>
+  );
 };
 
 export default Geolocation;

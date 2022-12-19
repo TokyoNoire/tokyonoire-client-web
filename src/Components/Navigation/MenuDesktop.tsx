@@ -7,6 +7,8 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import FadeDiv from "../Helpers/FadeDiv";
 import AppContext from "../../AppContext";
+import { getAuth, signOut } from "firebase/auth";
+import { Button } from "@mui/material";
 
 type menuItem = {
   title: string;
@@ -31,10 +33,11 @@ const menuItems: Array<menuItem> = [
 const MenuDesktop = (): ReactElement => {
   const [show] = useState<boolean>(true);
   const value = useContext(AppContext);
-  const { gameData } = value;
+  const { gameData, userId, setUserId, setLocalUserId, setLocalUsername, setIsRegistered } = value;
+  const router = useRouter();
 
   const saveDraft = async () => {
-    if(!gameData.dateCreated) {
+    if (!gameData.dateCreated) {
       gameData.dateCreated = new Date();
     }
     gameData.dateUpdated = new Date();
@@ -45,10 +48,11 @@ const MenuDesktop = (): ReactElement => {
   }
 
   const publishGame = async () => {
-    if(!gameData.dateCreated) {
+    if (!gameData.dateCreated) {
       gameData.dateCreated = new Date();
     }
     gameData.dateUpdated = new Date();
+    gameData.isPublished = true;
     await axios.patch(
       `https://tokyo-noire-server-development.herokuapp.com/editor/${gameData._id}`,
       gameData
@@ -94,6 +98,16 @@ const MenuDesktop = (): ReactElement => {
             <Link href={menuItem.url}>{menuItem.title}</Link>
           </li>
         ))}
+        {userId && userId.length === 28 ? <Button id="themeButton" className="font-heading" onClick={async () => {
+          await signOut(getAuth())
+          setUserId(null)
+          setLocalUserId(null)
+          setLocalUsername(null)
+          setIsRegistered(false)
+          router.push('/')
+        }}
+
+        >Sign out</Button> : <></>}
       </ul>
     </>
   );

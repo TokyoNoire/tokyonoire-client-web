@@ -8,7 +8,6 @@ import {
   FormControl,
   Button,
 } from "@mui/material";
-import ClearIcon from "@mui/icons-material/Clear";
 import GoogleIcon from "@mui/icons-material/Google";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import AppContext from "../../AppContext";
@@ -26,7 +25,7 @@ const SignInForm = (props: props): ReactElement => {
   const auth = getAuth();
   const [authing, setAuthing] = useState(false);
   const value = useContext(AppContext);
-  const { setUserId, setUsername, username, userId, setLocalUserId, setLocalUsername } = value;
+  const { setUserId, setUsername, username, userId, setLocalUserId, setLocalUsername, isRegistered, setIsRegistered } = value;
   const email = useRef<string>('');
   const password = useRef<string>('');
   const { signIn } = useAuth();
@@ -38,6 +37,7 @@ const SignInForm = (props: props): ReactElement => {
       .then(async (response) => {
         await setUserId(response.user.uid)
         await setUsername(response.user.displayName)
+        setIsRegistered(true)
         const dbQuery = query(collection(db, "users"), where("uid", "==", response.user.uid));
         const doc = getDocs(dbQuery)
         doc.then((res) => {
@@ -64,6 +64,7 @@ const SignInForm = (props: props): ReactElement => {
         console.error(error);
         alert(error.message);
         setAuthing(false)
+        setIsRegistered(false)
       });
   };
 
@@ -81,27 +82,21 @@ const SignInForm = (props: props): ReactElement => {
             setUsername(userDisplayName.name)
           })
         })
+        setIsRegistered(true)
         setLocalUserId(response.user.uid)
         setLocalUsername(response.user.displayName)
       })
       .catch((error) => {
         console.error(error);
         alert(error.message);
+        setIsRegistered(false)
         setAuthing(false)
       });
   }
 
   return (
-  
-    <div className="relative h-auto mt-20 rounded-lg flexCenterDiv bg-darkGrey">
-       <div className="absolute z-50 flex items-center justify-center w-8 h-8 bg-black border-2 rounded-full right-3 top-3">
-                <ClearIcon
-                    className="hover:shadow-indigo-500/40"
-                    style={{ transform: "scale(1.2)" }}
-                    // onClick={handleClose}
-                />
-            </div>
-      <h1 className="self-center p-5 mx-48 mt-10 text-2xl text-center uppercase font-heading"> 
+    <>
+      <h1 className="self-center mt-10 text-2xl text-center uppercase font-heading"> 
       Sign in</h1>
         <br />
         <FormControl  className="self-center w-3/4">
@@ -125,6 +120,7 @@ const SignInForm = (props: props): ReactElement => {
             id="outlined-password-input"
             required
             autoFocus
+            className="text-white"
             label="Password"
             type="password"
             variant="filled"
@@ -172,7 +168,7 @@ const SignInForm = (props: props): ReactElement => {
               <p className="font-semibold underline">Sign up here.</p>
             </button>
           
-      </div>
+   </>
   
   );
 };

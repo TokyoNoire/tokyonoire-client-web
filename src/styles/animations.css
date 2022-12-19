@@ -2,6 +2,7 @@
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -11,47 +12,46 @@
   0% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
   }
 }
 
 @keyframes hover-up-down {
-    0% {
-    }
-    50% {
-        transform: translateY(0.5rem);
-        
-    }
-    100% {
-    }
+  0% {}
+
+  50% {
+    transform: translateY(0.5rem);
+
   }
 
-  @keyframes pulsate {
-    0% {
-      filter: 
-      drop-shadow(0 0 1.1rem rgb(255, 255, 255, 0.7)) 
-      drop-shadow(0 0 3rem rgb(255, 255, 255, 0.3))
-    }
+  100% {}
+}
 
-   25% {
-      filter: 
-      drop-shadow(0 0 1rem rgb(255, 255, 255, 0.7))
-      drop-shadow(0 0 3.1rem rgb(255, 255, 255, 0.3))
-    }
-   50% {
-      filter: 
-      drop-shadow(0 0 1.1rem rgb(255, 255, 255, 0.7))
-      drop-shadow(0 0 3.2rem rgb(255, 255, 255, 0.3))
-    }
-   75% {
-      filter: 
-      drop-shadow(0 0 1rem rgb(255, 255, 255, 0.7))
-      drop-shadow(0 0 3.1rem rgb(255, 255, 255, 0.3))
-    }
-   100% {
-      filter: 
-      drop-shadow(0 0 1.1rem rgb(255, 255, 255, 0.7))
-      drop-shadow(0 0 3rem rgb(255, 255, 255, 0.3))
-    }
+@keyframes pulsate {
+  0% {
+    filter:
+      drop-shadow(0 0 1.1rem rgb(255, 255, 255, 0.7)) drop-shadow(0 0 3rem rgb(255, 255, 255, 0.3))
   }
+
+  25% {
+    filter:
+      drop-shadow(0 0 1rem rgb(255, 255, 255, 0.7)) drop-shadow(0 0 3.1rem rgb(255, 255, 255, 0.3))
+  }
+
+  50% {
+    filter:
+      drop-shadow(0 0 1.1rem rgb(255, 255, 255, 0.7)) drop-shadow(0 0 3.2rem rgb(255, 255, 255, 0.3))
+  }
+
+  75% {
+    filter:
+      drop-shadow(0 0 1rem rgb(255, 255, 255, 0.7)) drop-shadow(0 0 3.1rem rgb(255, 255, 255, 0.3))
+  }
+
+  100% {
+    filter:
+      drop-shadow(0 0 1.1rem rgb(255, 255, 255, 0.7)) drop-shadow(0 0 3rem rgb(255, 255, 255, 0.3))
+  }
+}

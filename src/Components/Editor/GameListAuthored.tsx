@@ -1,12 +1,11 @@
 // @ts-nocheck
 import React, {
-  type FC,
   type ReactElement,
   useState,
   useEffect,
   useContext
 } from "react";
-import { Box, Tooltip, IconButton } from "@mui/material";
+import { Box, Tooltip } from "@mui/material";
 // import { saveGameInfo } from "../../types/global";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
@@ -14,11 +13,11 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import PublishIcon from '@mui/icons-material/Publish';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
+import FadeDiv from "../Helpers/FadeDiv";
 import {
   DataGrid,
   GridColDef,
   GridValueFormatterParams,
-  GridRowParams,
   GridActionsCellItem,
   GridRowId
 } from "@mui/x-data-grid";
@@ -29,19 +28,20 @@ import AppContext from "src/AppContext.ts";
 
 interface props {
   listOfGamesByAuthor: [] | null;
+  setListOfGamesByAuthor: (array: []) => void;
 }
 
 const GameListAuthored = (props: props): ReactElement => {
   const value = useContext(AppContext);
   const { setGameData, setGameModules, setGameInfoModule } = value;
-  const { listOfGamesByAuthor } = props;
-  const [rows, setRows] = React.useState<[]>(listOfGamesByAuthor);
+  const { listOfGamesByAuthor, setListOfGamesByAuthor } = props;
+  const [rows, setRows] = useState<[]>(listOfGamesByAuthor);
+  const [show] = useState<boolean>(true);
 
 
   useEffect(() => {
-    console.log(listOfGamesByAuthor)
     setRows(listOfGamesByAuthor);
-  }, [])
+  }, [listOfGamesByAuthor])
 
   const handleEdit = async (id: GridRowId) => {
     console.log("this is the selected Id: ", id)
@@ -54,6 +54,15 @@ const GameListAuthored = (props: props): ReactElement => {
   }
 
   const handleDelete = async (id: string) => {
+    if (listOfGamesByAuthor) {
+      const newListOfGamesByAuthor = [...listOfGamesByAuthor]
+      for (let i = 0; i < listOfGamesByAuthor.length; i++) {
+        if (listOfGamesByAuthor[i]._id === id) {
+          newListOfGamesByAuthor.splice(i, 1)
+        }
+      }
+      setListOfGamesByAuthor(newListOfGamesByAuthor)
+    }
     console.log('delete function is running')
     await axios
       .delete(
@@ -63,7 +72,7 @@ const GameListAuthored = (props: props): ReactElement => {
   };
 
   const togglePublish = async (id: string) => {
-    console.log("publish togge is being triggered")
+    console.log("publish toggle is being triggered")
   }
 
   const toggleVisibility = async () => {
@@ -156,7 +165,7 @@ const GameListAuthored = (props: props): ReactElement => {
   ]
 
   return (
-    <>
+    <FadeDiv show={show}>
       <Box
         sx={{ height: "auto" }}
         justifyContent="center"
@@ -171,9 +180,19 @@ const GameListAuthored = (props: props): ReactElement => {
           pageSize={5}
           rowsPerPageOptions={[5]}
           disableSelectionOnClick
+          initialState={{
+            sorting: {
+              sortModel: [
+                {
+                  field: 'dateCreated',
+                  sort: 'desc',
+                },
+              ],
+            },
+          }}
         />
       </Box>
-    </>
+    </FadeDiv>
   );
 };
 

@@ -19,6 +19,7 @@ import TokyoNoireName from "../../../public/Title_DarkTheme.svg";
 import { type saveGameInfo } from "../../types/global";
 import Gyroscope from "../GameModules/Helpers/Gyroscope";
 import AuthorizationPopup from "./AuthorizationPopup"
+import AppContext from "../../AppContext";
 
 
 interface props {
@@ -26,47 +27,42 @@ interface props {
 }
 
 const HomeMobile = (props: props): ReactElement => {
+  const value = useContext(AppContext)
+  const { acquiredPermissions, setAcquiredPermissions } = value;
 
   const { show } = props;
+  const { gyroscopeAccess, geolocationAccess } = value;
 
   const gameId = useRef<string>("");
   const [game, setGame] = useState<saveGameInfo | null>(null);
   const [open, setOpen] = useState<boolean>(true);
   const [publicGames, setPublicGames] = useState<saveGameInfo[] | null>(null);
   const hasMounted = useRef<boolean>(false);
-  const [acquiredPermissions, setAcquiredPermissions] =
-    useState<boolean>(false);
   const { requestAccessAsync } = Gyroscope();
   const [devicePermission, setDevicePermission] = useState<boolean>(false);
 
   const handlePermissions = useCallback(async () => {
     if (devicePermission) {
       await requestAccessAsync();
-      const position = await getPosition();
-      console.log(position);
       setAcquiredPermissions(true);
     }
   }, [requestAccessAsync]);
 
   useEffect(() => {
-    if (!acquiredPermissions) {
+    if (devicePermission) {
       handlePermissions();
     }
-  }, [acquiredPermissions, handlePermissions]);
-
-  function getPosition(
-    options?: PositionOptions
-  ): Promise<GeolocationPosition> {
-    return new Promise((resolve, reject) =>
-      navigator.geolocation.getCurrentPosition(resolve, reject, options)
-    );
-  }
+  }, [devicePermission, handlePermissions]);
 
   const getPublicGame = async () => {
     await axios
       .get("https://tokyo-noire-server-development.herokuapp.com/")
       .then((response) => {
-        setPublicGames(response.data);
+        const listOfGames = [...response.data];
+        if (listOfGames.length >= 10) {
+          listOfGames.splice(9, listOfGames.length)
+        }
+        setPublicGames(listOfGames);
       });
   };
 
@@ -94,12 +90,12 @@ const HomeMobile = (props: props): ReactElement => {
   // console.log("📍", acquiredPermissions);
   return (
     <>
-      <AuthorizationPopup
-        setDevicePermission={setDevicePermission} />
+      {!geolocationAccess && !gyroscopeAccess ? <AuthorizationPopup
+        setDevicePermission={setDevicePermission} /> : <></>}
 
       <div className="relative h-screen mx-5 flexCenterDiv place-items-center ">
         <TokyoNoireName alt="Tokyo Noire Name" style={{ maxWidth: "80vw" }} />
-        <div className="absolute bottom-8">
+        <div className="absolute bottom-[18%]">
           <KeyboardArrowDownIcon
             style={{ animation: `hover-up-down ease-in-out 3s infinite` }}
             sx={{
