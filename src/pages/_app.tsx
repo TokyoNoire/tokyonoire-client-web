@@ -44,6 +44,13 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [acquiredPermissions, setAcquiredPermissions] = useLocalStorage<boolean | null>("acquiredPermissions", false);
   const { orientation, requestAccessAsync } = Gyroscope();
 
+  const sessionGameIndex = useRef(0);
+  const [sessionTable, setSessionTable] = useLocalStorage<SessionTable | null>("sessionTable", null);
+
+  useEffect(() => {
+    setLocalUserId(userId)
+  }, [userId])
+
   useEffect(() => {
     if (acquiredPermissions) {
       const interval = setInterval(() => {
@@ -60,9 +67,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       }
     }
   }, [acquiredPermissions])
-  const sessionGameIndex = useRef(0);
 
-  const [sessionTable, setSessionTable] = useState<SessionTable | null>(null)
 
   useEffect(() => {
     if (localUserId) { setUserId(localUserId) }

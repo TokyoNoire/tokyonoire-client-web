@@ -116,15 +116,14 @@ const DragAndDropEditor: FC = (): ReactElement => {
                       <SortableItem key={gameModule.id ? gameModule.id : gameModule._id} id={gameModule.id!}>
                         <div
                           className="relative flex items-center justify-center w-1/2 h-full border-2 border-[#353535] rounded-md transition-all duration-500"
+                          style={activeModule ? (() => activeModule._id === gameModule._id
+                            ? { transition: "all 0.5s", transform: "scale(1.05)", boxShadow: "0px 0px 20px white" }
+                            : undefined)() : undefined}
+                          onClick={() => {
+                            setActiveModule(gameModulesList![moduleIndex + 1]);
+                          }}
                         >
-                          <div
-                            style={activeModule ? (() => activeModule._id === gameModule._id
-                              ? { transition: "all 0.5s", transform: "scale(1.05)", boxShadow: "0px 0px 20px white" }
-                              : undefined)() : undefined}
-                            onClick={() => {
-                              setActiveModule(gameModulesList![moduleIndex + 1]);
-                            }}
-                          >
+                          <div>
                             {`${gameModule.title}`}
                           </div>
                           <RemoveModuleButton arrID={gameModule.id - 1} />

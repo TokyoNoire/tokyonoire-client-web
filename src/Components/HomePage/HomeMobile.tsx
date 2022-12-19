@@ -31,7 +31,6 @@ const HomeMobile = (props: props): ReactElement => {
   const { acquiredPermissions, setAcquiredPermissions } = value;
 
   const { show } = props;
-  const value = useContext(AppContext);
   const { gyroscopeAccess, geolocationAccess } = value;
 
   const gameId = useRef<string>("");

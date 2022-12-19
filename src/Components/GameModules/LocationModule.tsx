@@ -11,8 +11,7 @@ interface props {
 }
 
 const LocationModule = (props: props): ReactElement => {
-  const { gameObject, devicePermission, setChallengeSuccess } = props;
-
+  const { gameObject, setChallengeSuccess } = props;
 
   return (
     <FadeDiv>
@@ -37,15 +36,15 @@ const LocationModule = (props: props): ReactElement => {
         }
       </div>
 
-      {devicePermission && (
-        <NavigationModule
-          locationCoordinates={gameObject?.locationCoordinates
-            ? gameObject!.locationCoordinates
-            : [0, 0]}
-          setChallengeSuccess={setChallengeSuccess}
-          gameObject={gameObject}
-        />
-      )}
+      {/* {devicePermission && ( */}
+      <NavigationModule
+        locationCoordinates={gameObject?.locationCoordinates
+          ? gameObject!.locationCoordinates
+          : [0, 0]}
+        setChallengeSuccess={setChallengeSuccess}
+        gameObject={gameObject}
+      />
+      {/* )} */}
 
       {/* {gameObject.hint &&
         <HintPopper hint={gameObject.hint!} />

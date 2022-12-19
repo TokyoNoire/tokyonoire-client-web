@@ -30,20 +30,20 @@ import AppContext from "src/AppContext.ts";
 
 interface props {
   listOfGamesByAuthor: [] | null;
+  setListOfGamesByAuthor: (array: []) => void;
 }
 
 const GameListAuthored = (props: props): ReactElement => {
   const value = useContext(AppContext);
   const { setGameData, setGameModules, setGameInfoModule } = value;
-  const { listOfGamesByAuthor } = props;
-  const [rows, setRows] = React.useState<[]>(listOfGamesByAuthor);
-
+  const { listOfGamesByAuthor, setListOfGamesByAuthor } = props;
+  const [rows, setRows] = useState<[]>(listOfGamesByAuthor);
   const [show] = useState<boolean>(true);
 
 
   useEffect(() => {
     setRows(listOfGamesByAuthor);
-  }, [])
+  }, [listOfGamesByAuthor])
 
   const handleEdit = async (id: GridRowId) => {
     console.log("this is the selected Id: ", id)
@@ -56,6 +56,15 @@ const GameListAuthored = (props: props): ReactElement => {
   }
 
   const handleDelete = async (id: string) => {
+    if (listOfGamesByAuthor) {
+      const newListOfGamesByAuthor = [...listOfGamesByAuthor]
+      for (let i = 0; i < listOfGamesByAuthor.length; i++) {
+        if (listOfGamesByAuthor[i]._id === id) {
+          newListOfGamesByAuthor.splice(i, 1)
+        }
+      }
+      setListOfGamesByAuthor(newListOfGamesByAuthor)
+    }
     console.log('delete function is running')
     await axios
       .delete(
@@ -65,7 +74,7 @@ const GameListAuthored = (props: props): ReactElement => {
   };
 
   const togglePublish = async (id: string) => {
-    console.log("publish togge is being triggered")
+    console.log("publish toggle is being triggered")
   }
 
   const toggleVisibility = async () => {
