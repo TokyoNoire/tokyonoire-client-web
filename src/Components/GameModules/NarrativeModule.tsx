@@ -1,6 +1,7 @@
 import React, { type ReactElement } from "react";
 import { type GameModule } from "../../types/global";
 import Image from "next/image";
+import FadeDiv from "../Helpers/FadeDiv";
 
 interface props {
   gameObject: GameModule;
@@ -11,33 +12,29 @@ const NarrativeModule = (props: props): ReactElement => {
   const { gameObject, setChallengeSuccess } = props;
 
   return (
-    <>
-      <div className="self-center w-full py-10 flexCenterDiv shadow-inset1 rounded-m">
-        <h1 className="self-center p-5 text-2xl text-center uppercase font-heading flexCenterDiv">
+    <FadeDiv>
+      <div className="w-full flexCenterDiv">
+        <h1 className="mb-12 text-3xl text-center uppercase font-heading">
           {gameObject.title}
         </h1>
 
-        <div className="self-center w-10/12 m-4 flexCenterDiv">
+        {gameObject.imageURL && (
+          <img
+            src={gameObject.imageURL}
+            alt="Image for narrative module"
+            className="w-full mb-8"
+          />
+        )}
 
-          {gameObject.imageURL ? (
-            <img
-              src={gameObject.imageURL}
-              alt="Image for narrative module"
-              className="rounded-lg"
-            />
-          ) : (
-            ""
-          )}
-
-        </div>
-        <p className="px-2 mt-2 text-center font-body1">{gameObject.description}</p>
-
-      </div>
-      <div className="items-center mx-20 my-5 flexCenterDiv">
+        {gameObject.description &&
+          <p className="px-5 font-body1">
+            {gameObject.description}
+          </p>
+        }
 
         <button
           id="themeButton"
-          className="self-center w-1/3 mt-20 mb-10 font-heading"
+          className="self-center w-1/3 my-20 font-heading"
           type="button"
           onClick={() => {
             setChallengeSuccess(true);
@@ -46,7 +43,7 @@ const NarrativeModule = (props: props): ReactElement => {
           NEXT
         </button>
       </div>
-    </>
+    </FadeDiv>
   );
 };
 

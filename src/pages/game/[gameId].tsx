@@ -17,6 +17,7 @@ import EndModule from "../../Components/GameModules/EndModule";
 import NavigationModule from "../../Components/GameModules/NavigationModule";
 import HowToPlayPopup from "../../Components/GameModules/HowToPlayPopup";
 import { type GameModule } from "../../types/global";
+import HintPopper from "../../Components/GameModules/Helpers/HintPopper";
 import App from "next/app";
 
 const GameId: FC = (): ReactElement => {
@@ -84,20 +85,11 @@ const GameId: FC = (): ReactElement => {
       case "location":
         return (
           <>
-            <LocationModule gameObject={gameObject!} />
-            {devicePermission ? (
-              <NavigationModule
-                locationCoordinates={
-                  gameObject?.locationCoordinates
-                    ? gameObject!.locationCoordinates
-                    : [0, 0]
-                }
-                setChallengeSuccess={setChallengeSuccess}
-              // setGoToNext={setGoToNext}
-              />
-            ) : (
-              <></>
-            )}
+            <LocationModule
+              gameObject={gameObject!}
+              devicePermission={devicePermission}
+              setChallengeSuccess={setChallengeSuccess}
+            />
           </>
         );
 
@@ -126,15 +118,13 @@ const GameId: FC = (): ReactElement => {
   };
 
   return (
-    <>
+    <main>
       <HowToPlayPopup setDevicePermission={setDevicePermission} />
-      <div className="w-screen h-28"></div>
-      {gameObject !== null ? (
+      <section className="w-screen h-28"></section>
+      {gameObject !== null && (
         setCurrentComponent(gameObject!.typeOfModule)
-      ) : (
-        <></>
       )}
-    </>
+    </main>
   );
 };
 

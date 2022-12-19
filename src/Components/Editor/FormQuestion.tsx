@@ -28,9 +28,9 @@ const FormQuestion = (props: props): ReactElement => {
       <BlockTitle title={title} />
       <BlockImageWidget imageURL={imageURL} />
       <BlockStory description={description} />
-      <BlockHint hint={hint} />
       <BlockQuestion question={question} />
       <BlockAnswer answer={answer} />
+      <BlockHint hint={hint} />
 
     </ContainerForm>
   );
