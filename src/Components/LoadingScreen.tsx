@@ -38,16 +38,15 @@ const LoadingScreen = (props: props): ReactElement => {
         Logo
             ?
             <FadeDiv show={show} duration={fadeDuration}>
-                <div
-                    className="absolute z-50 flex items-center justify-center w-screen h-screen flex-column loader-bg">
+                <div className="absolute z-50 flex items-center justify-center w-full h-full flex-column loader-bg">
                     <Logo className="z-10 w-14" />
-                    {/* <Image
-                            src={logo}
-                            alt="logo menu button"
-                            className="z-10 w-14"
-                        /> */}
                     <div className="loader"></div>
-                    <span className="absolute text-center top-128 display-linebreak" style={{ maxWidth: "90%" }}>{hint}</span>
+                    <span
+                        className="absolute text-center top-[65%] display-linebreak"
+                        style={{ maxWidth: "90%" }}
+                    >
+                        {hint}
+                    </span>
                 </div>
             </FadeDiv>
             :
