@@ -29,7 +29,7 @@ const HomeMobile = (props: props): ReactElement => {
 
   const { show } = props;
 
-  const [gameId, setGameId] = useState<string>("");
+  const gameId = useRef<string>("");
   const [game, setGame] = useState<saveGameInfo | null>(null);
   const [open, setOpen] = useState<boolean>(true);
   const [publicGames, setPublicGames] = useState<saveGameInfo[] | null>(null);
@@ -39,14 +39,13 @@ const HomeMobile = (props: props): ReactElement => {
   const { requestAccessAsync } = Gyroscope();
   const [devicePermission, setDevicePermission] = useState<boolean>(false);
 
-  console.log(game);
-
   const handlePermissions = useCallback(async () => {
-    if (devicePermission){
-    await requestAccessAsync();
-    const position = await getPosition();
-    console.log(position);
-    setAcquiredPermissions(true);}
+    if (devicePermission) {
+      await requestAccessAsync();
+      const position = await getPosition();
+      console.log(position);
+      setAcquiredPermissions(true);
+    }
   }, [requestAccessAsync]);
 
   useEffect(() => {
@@ -65,7 +64,7 @@ const HomeMobile = (props: props): ReactElement => {
 
   const getPublicGame = async () => {
     await axios
-      .get("https://tokyo-noire-server-development.herokuapp.com/test")
+      .get("https://tokyo-noire-server-development.herokuapp.com/")
       .then((response) => {
         setPublicGames(response.data);
       });
@@ -85,18 +84,19 @@ const HomeMobile = (props: props): ReactElement => {
   }, [game]);
 
   const handleClose = () => {
+    setGame(null);
     setOpen(false);
   };
 
   const handleOpen = () => {
     setOpen(true);
   };
-  console.log("📍", acquiredPermissions);
+  // console.log("📍", acquiredPermissions);
   return (
     <>
-        <AuthorizationPopup
-        setDevicePermission ={setDevicePermission}/>
-        
+      <AuthorizationPopup
+        setDevicePermission={setDevicePermission} />
+
       <div className="relative h-screen mx-5 flexCenterDiv place-items-center ">
         <TokyoNoireName alt="Tokyo Noire Name" style={{ maxWidth: "80vw" }} />
         <div className="absolute bottom-8">
@@ -111,7 +111,6 @@ const HomeMobile = (props: props): ReactElement => {
       </div>
       <Hero />
       <GameSearchByID
-        setGameId={setGameId}
         gameId={gameId}
         setGame={setGame}
         game={game}
@@ -131,7 +130,6 @@ const HomeMobile = (props: props): ReactElement => {
       {publicGames ? (
         <ListOfPublicGames
           publicGames={publicGames!}
-          setGameId={setGameId}
           gameId={gameId}
           setGame={setGame}
           game={game}

@@ -64,20 +64,19 @@ const Editor = (props: Props): ReactElement => {
         templateGameData.titleOfGame = `game#${templateGameData._id}`;
         templateGameData.uId = userId;
         templateGameData.author = username;
-        console.log(templateGameData)
-         await axios.post("https://tokyo-noire-server-development.herokuapp.com/editor", templateGameData)
-         .then(response => {
-            setGameData(response.data);
-            setGameModules(response.data.gameModules);
-            setGameInfoModule(response.data);
-            const gameId = response.data._id
-            return (
-                router.push({
-                    pathname: "/editor/[gameId]",
-                    query: { gameId: gameId },
-                })
-            )
-        });
+        await axios.post("https://tokyo-noire-server-development.herokuapp.com/editor", templateGameData)
+            .then(response => {
+                setGameData(response.data);
+                setGameModules(response.data.gameModules);
+                setGameInfoModule(response.data);
+                const gameId = response.data._id
+                return (
+                    router.push({
+                        pathname: "/editor/[gameId]",
+                        query: { gameId: gameId },
+                    })
+                )
+            })
     };
     console.log(listOfGamesByAuthor)
 
@@ -90,12 +89,12 @@ const Editor = (props: Props): ReactElement => {
                         <p className="self-center p-5 text-xl text-center uppercase font-heading">
                             Welcome {username}
                         </p>
-                        <p className="mb-10 text-center font-body1">
+                        <p className="mb-6 text-center font-body1">
                             {`"Is there a mystery afoot that you're itching for others to
                     solve?"`}
                         </p>
                     </section>
-                    <section className="flex flex-col w-full p-5 font-heading ">
+                    <section className="flex flex-col w-full p-5 font-heading">
                         <button className="w-fit mb-4" id="themeButton" onClick={handleCreateNewGameClick}>Open New Case</button>
                         {listOfGamesByAuthor && <GameListAuthored listOfGamesByAuthor={listOfGamesByAuthor} />}
 

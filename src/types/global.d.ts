@@ -1,7 +1,7 @@
 export type saveGameInfo = {
   _id: string;
-  isPublished: string | boolean;
-  isPrivate: string | boolean;
+  isPublished: boolean | null;
+  isPrivate: boolean | null;
   titleOfGame: string;
   description?: string | null;
   uId?: string;

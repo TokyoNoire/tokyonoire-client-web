@@ -52,7 +52,8 @@ const MenuDesktop = (): ReactElement => {
     await axios.patch(
       `https://tokyo-noire-server-development.herokuapp.com/editor/${gameData._id}`,
       gameData
-    )
+    ).then(res => console.log(res))
+    console.log('I ran')
   };
 
   return (
@@ -61,32 +62,24 @@ const MenuDesktop = (): ReactElement => {
         <Link href="/" title="Homepage" className="z-50 w-12">
           <Logo alt="logo menu button" className="logo" />
         </Link>
-        {useRouter().pathname.includes("/editor/") && (
+        {useRouter().pathname.includes("/editor/") && gameData && (
           <FadeDiv show={show}>
             <div
               className="flex gap-10 px-8 py-3 rounded-full"
               style={{ backgroundColor: "rgb(20, 20, 20)" }}
             >
-              <div className="cursor-pointer w-7" title="Save as Draft">
+              <div className="cursor-pointer w-7" title={gameData.isPublished ? "Save" : "Save as Draft"}>
                 <SaveIcon
-                  onClick={() => {
-                    gameData.isPublished = "false";
-                    console.log(gameData)
-                    saveDraft();
-                  }}
+                  onClick={saveDraft}
                 ></SaveIcon>
               </div>
               <div className="cursor-pointer w-7" title="Publish">
                 <PublishIcon
-                  onClick={() => {
-                    gameData.isPublished = "true";
-                    console.log(gameData);
-                    publishGame();
-                  }}
+                  onClick={publishGame}
                 ></PublishIcon>
               </div>
               <div className="cursor-pointer w-28" title="Publish">
-                <Link href={`http://localhost:3000/editor/`}>
+                <Link href={`/editor`}>
                   Back to Editor
                 </Link>
 

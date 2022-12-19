@@ -27,8 +27,8 @@ const ModuleForms = (): ReactElement => {
 
   // Game Info References
   const _idGame = useRef<string>("");
-  const isPublished = useRef<string>("");
-  const isPrivate = useRef<string>("");
+  const isPublished = useRef<boolean | null>(null);
+  const isPrivate = useRef<boolean | null>(null);
   const titleOfGame = useRef<string>("");
   const gameDescription = useRef<string>("");
   const author = useRef<string>("");
@@ -43,7 +43,7 @@ const ModuleForms = (): ReactElement => {
     isPrivate.current = gameInfoModule.isPrivate;
     titleOfGame.current = gameInfoModule.titleOfGame;
     gameDescription.current = gameInfoModule.description;
-    author.current = "Placeholder Username"
+    author.current = gameInfoModule.author;
     gameImageURL.current = gameInfoModule.gameImageURL;
     estimatedTimeMinutes.current = gameInfoModule.estimatedTimeMinutes;
     rating.current = gameInfoModule.rating;
@@ -56,7 +56,7 @@ const ModuleForms = (): ReactElement => {
       isPublished: isPublished.current,
       isPrivate: isPrivate.current,
       titleOfGame: titleOfGame.current,
-      description: gameInfoModule.description,
+      description: gameDescription.current,
       uId: localUserId ? localUserId : userId,
       author: localUsername ? localUsername : username,
       rating: rating.current,
@@ -78,6 +78,9 @@ const ModuleForms = (): ReactElement => {
   const answer = useRef<string>("");
   const hint = useRef<string>("");
   const locationCoordinates = useRef<number[] | null>([]);
+
+
+  console.log(locationCoordinates)
 
   if (activeModule) {
     // console.log("I ran")

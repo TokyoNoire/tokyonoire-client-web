@@ -1,4 +1,4 @@
-import React, { type ReactElement, useContext } from "react";
+import React, { type ReactElement, useContext, type MutableRefObject  } from "react";
 import axios from 'axios'
 import AppContext from "../../AppContext";
 import { useRouter } from "next/router";
@@ -9,21 +9,22 @@ import { type saveGameInfo } from "../../types/global";
 interface Props {
   game: saveGameInfo;
   handleClose: () => void;
-  gameId: string;
+  gameId: MutableRefObject<string | null>;
 }
 
 const GamePreview = (props: Props): ReactElement => {
   const value = useContext(AppContext)
-  const {userId, sessionTable, setSessionTable} = value
+  const {userId, sessionTable, setSessionTable, sessionGameIndex} = value
   const { game, handleClose, gameId } = props;
   const router = useRouter();
 
   const getOrCreateSession = async() => {
     console.log("I ran!")
-    await axios.get(`http://localhost:2000/findsession/${gameId}/${userId}`).then(response => {
-      console.log(response.data[0])
-      setSessionTable(response.data[0])
-      console.log('🍓',sessionTable)
+    await axios.get(`http://localhost:2000/findsession/${gameId.current}/${userId}`).then(response => {
+      console.log(response.data)
+      setSessionTable(response.data)
+      sessionGameIndex.current = response.data.gameModulesIndex;
+      console.log(sessionGameIndex)
     })
   }
   const handleClick = (e: React.MouseEvent) => {
@@ -31,9 +32,10 @@ const GamePreview = (props: Props): ReactElement => {
     e.preventDefault();
     router.push({
       pathname: "/game/[gameId]",
-      query: { gameId: gameId },
+      query: { gameId: gameId.current },
     });
   };
+  console.log(game)
 
   return (
     <div className="relative block flexCenterDiv bg-darkGrey">

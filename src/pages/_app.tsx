@@ -37,6 +37,8 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [gameInfoModule, setGameInfoModule] = useState<saveGameInfo | null>(
     null
   );
+  const sessionGameIndex = useRef(0);
+
   const [sessionTable, setSessionTable] = useState<SessionTable | null>(null)
 
   useEffect(() => {
@@ -49,7 +51,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     gameData
   );
 
-  console.log(gameModules)
+  console.log(gameData)
 
   useEffect(() => {
     if (gameData) {
@@ -104,7 +106,8 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         gameInfoModule: gameInfoModule,
         loadScreenMounted: loadScreenMounted,
         sessionTable: sessionTable,
-        setSessionTable: setSessionTable
+        setSessionTable: setSessionTable,
+        sessionGameIndex:sessionGameIndex
       }}
     >
       <AuthProvider>

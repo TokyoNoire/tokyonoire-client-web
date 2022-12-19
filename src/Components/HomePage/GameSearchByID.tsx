@@ -1,21 +1,22 @@
-import React, { type ReactElement, useContext } from "react";
 import AppContext from "../../AppContext";
+import React, { type ReactElement, type MutableRefObject, useContext } from "react";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import { saveGameInfo } from "../../types/global";
 
 
 interface prop {
-  setGameId: (string: string) => void;
+  //setGameId: (string: string) => void;
   setGame: ({ }: saveGameInfo) => void;
   handleOpen: () => void;
   game: saveGameInfo | null;
-  gameId: string | null;
+  gameId: MutableRefObject<string | null>;
 }
 const GameSearchByID = (prop: prop): ReactElement => {
-  const { setGameId, gameId, setGame, handleOpen } = prop;
+  const {gameId, setGame, handleOpen} = prop;
   const value = useContext(AppContext)
   const {userId, sessionTable, setSessionTable} = value
+
 
   const getGameById = async () => {
     await axios
@@ -38,7 +39,7 @@ const GameSearchByID = (prop: prop): ReactElement => {
         label="Enter a Case ID"
         variant="filled"
         aria-label="enter a game id"
-        onChange={(e) => setGameId(e.target.value)}
+        onChange={(e) => gameId.current = e.target.value}
       />
 
       <button

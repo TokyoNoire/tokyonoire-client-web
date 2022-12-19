@@ -1,4 +1,6 @@
-import React, { type ReactElement } from "react";
+import React, { type ReactElement, useContext } from "react";
+import AppContext from "../../AppContext";
+import axios from 'axios'
 import { useRouter } from "next/router";
 import { type GameModule } from "../../types/global";
 
@@ -9,6 +11,15 @@ interface props {
 const EndModule = (props: props): ReactElement => {
   const { gameObject } = props;
   const router = useRouter();
+  const value = useContext(AppContext)
+  const {sessionTable,  sessionGameIndex, userId,} = value
+
+  const completeSession = async () => {
+    await axios.patch(`http://localhost:2000/updateSession/${sessionTable.gameId}/${userId}`,{
+      isCompleted: true,
+    })
+  }
+  
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -70,7 +81,10 @@ const EndModule = (props: props): ReactElement => {
         </tbody>
     </table>
         <button
-          onClick={handleClick}
+          onClick={(e) => {
+            handleClick(e);
+            completeSession()
+          }}
           id="themeButton"
           className="self-center w-1/3 mt-20 mb-10 font-heading"
           type="button"

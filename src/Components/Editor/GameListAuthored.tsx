@@ -6,12 +6,14 @@ import React, {
   useEffect,
   useContext
 } from "react";
-import { Box } from "@mui/material";
+import { Box, Tooltip, IconButton } from "@mui/material";
 // import { saveGameInfo } from "../../types/global";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import PublishIcon from '@mui/icons-material/Publish';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 import {
   DataGrid,
   GridColDef,
@@ -25,7 +27,6 @@ import moment from "moment";
 import Link from "next/link";
 import AppContext from "src/AppContext.ts";
 
-
 interface props {
   listOfGamesByAuthor: [] | null;
 }
@@ -38,6 +39,7 @@ const GameListAuthored = (props: props): ReactElement => {
 
 
   useEffect(() => {
+    console.log(listOfGamesByAuthor)
     setRows(listOfGamesByAuthor);
   }, [])
 
@@ -61,7 +63,11 @@ const GameListAuthored = (props: props): ReactElement => {
   };
 
   const togglePublish = async (id: string) => {
-    console.log("toggle is running")
+    console.log("publish togge is being triggered")
+  }
+
+  const toggleVisibility = async () => {
+    console.log("visibility is being triggered")
   }
 
   const columns: GridColDef[] = [
@@ -81,10 +87,15 @@ const GameListAuthored = (props: props): ReactElement => {
     },
     {
       field: "isPrivate",
-      headerName: "Visibility",
+      headerName: "Private",
       type: "boolean",
       minWidth: 100,
       flex: 3,
+      renderCell: (params) => {
+        return params.value
+          ? (<CheckIcon fontSize="small" style={{ color: "rgba(255, 255, 255, 0.7)" }} />)
+          : (<CloseIcon fontSize="small" style={{ color: "rgba(255, 255, 255, 0.5)" }} />)
+      }
     },
     {
       field: "dateCreated",
@@ -115,7 +126,7 @@ const GameListAuthored = (props: props): ReactElement => {
       getActions: (params) => [
         <GridActionsCellItem
           key="1"
-          icon={<ModeEditIcon />}
+          icon={<Tooltip title="Edit"><ModeEditIcon /></Tooltip>}
           label="Edit"
           onClick={() => { handleEdit(params.id) }}
           component={Link}
@@ -123,27 +134,22 @@ const GameListAuthored = (props: props): ReactElement => {
         />,
         <GridActionsCellItem
           key="2"
-          icon={<PublishIcon />}
+          icon={<Tooltip title="Publish"><PublishIcon /></Tooltip>}
           onClick={() => { togglePublish(params.id) }}
           label="Publish"
-          component={Link}
-          href={``}
         />,
-        // <GridActionsCellItem
-        //   key="3"
-        //   icon={<VisibilityIcon />}
-        //   onClick={toggleVisibility(params.id)}
-        //   label="Visibility"
-        // />,
+        <GridActionsCellItem
+          key="3"
+
+          icon={<Tooltip title="Set Public"><VisibilityIcon /></Tooltip>}
+          onClick={() => { toggleVisibility(params.id) }}
+          label="Visibility"
+        />,
         <GridActionsCellItem
           key="4"
-          icon={<DeleteIcon />}
-          onClick={() => {
-            console.log(params.id)
-            handleDelete(params.id)
-          }}
+          icon={<Tooltip title="Delete"><DeleteIcon /></Tooltip>}
+          onClick={() => { handleDelete(params.id) }}
           label="Delete"
-          href={``}
         />,
       ],
     },
@@ -152,15 +158,18 @@ const GameListAuthored = (props: props): ReactElement => {
   return (
     <>
       <Box
-        sx={{ height: 400 }}
+        sx={{ height: "auto" }}
         justifyContent="center"
-        alignItems="center">
+        alignItems="center"
+        className="scrollbar"
+      >
         <DataGrid
+          autoHeight={true}
           rows={rows}
           getRowId={(row) => row._id}
           columns={columns}
-          pageSize={25}
-          rowsPerPageOptions={[25]}
+          pageSize={5}
+          rowsPerPageOptions={[5]}
           disableSelectionOnClick
         />
       </Box>
