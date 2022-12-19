@@ -1,9 +1,9 @@
 import React, { type ReactElement, useContext } from "react";
 import AppContext from "../../AppContext";
-import axios from 'axios'
+import axios from "axios";
 import { useRouter } from "next/router";
 import { type GameModule } from "../../types/global";
-import { Modal } from '@mui/material';
+import { Modal } from "@mui/material";
 import AuthPopUp from "../Authentification/AuthPopUp";
 
 interface props {
@@ -17,22 +17,23 @@ const EndModule = (props: props): ReactElement => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const {sessionTable,  sessionGameIndex, userId, username} = value
+  const { sessionTable, sessionGameIndex, userId, username } = value;
 
   const completeSession = async () => {
-    await axios.patch(`https://tokyo-noire-server-development.herokuapp.com/updateSession/${sessionTable.gameId}/${userId}`,{
-      isCompleted: true,
-    })
-  }
-  
-  const handleClick = (e: React.MouseEvent) => {
-    {(!userId || !username)? 
-      <AuthPopUp/>: <></>}
-   if (userId && username) {e.preventDefault();
-    router.push("/");}
+    await axios.patch(
+      `https://tokyo-noire-server-development.herokuapp.com/updateSession/${sessionTable.gameId}/${userId}`,
+      {
+        isCompleted: true,
+      }
+    );
   };
 
-  console.log(userId)
+  const handleClick = (e: React.MouseEvent) => {
+     if (userId && username) {e.preventDefault();
+      router.push("/");}
+  };
+
+  console.log(userId);
   return (
     <>
       <section className="w-full flexCenterDiv">
@@ -48,17 +49,14 @@ const EndModule = (props: props): ReactElement => {
           />
         )}
 
-        {gameObject.description &&
-          <p className="px-5 font-body1">
-            {gameObject.description}
-          </p>
-        }
+        {gameObject.description && (
+          <p className="px-5 font-body1">{gameObject.description}</p>
+        )}
 
-        <hr
-          className="self-center w-10/12 mt-10"
-        />
+        <hr className="self-center w-10/12 mt-10" />
       </section>
 
+      {{open}?  <AuthPopUp/>: <></>}
       <section className="items-center px-5 flexCenterDiv">
         <h1 className="mt-20 mb-10 text-3xl uppercase font-heading">
           Mystery Complete
@@ -66,28 +64,31 @@ const EndModule = (props: props): ReactElement => {
         <table className="w-full">
           <tbody>
             <tr className="bg-white border-b">
-              <th scope="row" className="text-left uppercase text-md font-body2">
+              <th
+                scope="row"
+                className="text-left uppercase text-md font-body2"
+              >
                 Distance Travelled
               </th>
-              <td className="py-4 text-right font-body2">
-                Lots of Distance
-              </td>
+              <td className="py-4 text-right font-body2">Lots of Distance</td>
             </tr>
             <tr className="bg-white border-b">
-              <th scope="row" className="text-left uppercase text-md font-body2">
+              <th
+                scope="row"
+                className="text-left uppercase text-md font-body2"
+              >
                 Time Completed
               </th>
-              <td className="py-4 text-right font-body2">
-                Lots of Time
-              </td>
+              <td className="py-4 text-right font-body2">Lots of Time</td>
             </tr>
             <tr className="bg-white border-b">
-              <th scope="row" className="text-left uppercase text-md font-body2">
+              <th
+                scope="row"
+                className="text-left uppercase text-md font-body2"
+              >
                 Points Earned
               </th>
-              <td className="py-4 text-right font-body2">
-                Lots of Points
-              </td>
+              <td className="py-4 text-right font-body2">Lots of Points</td>
             </tr>
           </tbody>
         </table>
@@ -95,7 +96,12 @@ const EndModule = (props: props): ReactElement => {
         <button
           onClick={(e) => {
             handleClick(e);
-            completeSession()
+            // if (userId) {
+            //   handleOpen();
+            // } else {
+            // handleClick(e);
+            //   completeSession();
+            // }
           }}
           id="themeButton"
           className="self-center w-1/3 mt-16 mb-14 font-heading"

@@ -1,4 +1,4 @@
-import React, { type ReactElement, useContext, type MutableRefObject  } from "react";
+import React, { type ReactElement, useContext, type MutableRefObject } from "react";
 import axios from 'axios'
 import AppContext from "../../AppContext";
 import { useRouter } from "next/router";
@@ -14,14 +14,11 @@ interface Props {
 
 const GamePreview = (props: Props): ReactElement => {
   const value = useContext(AppContext)
-  const {userId, sessionTable, setSessionTable, sessionGameIndex} = value
+  const { userId, sessionTable, setSessionTable, sessionGameIndex } = value
   const { game, handleClose, gameId } = props;
   const router = useRouter();
-'9dd9bb07-4b1e-4b4f-b2ce-14540ca6c071'
-'C6ncxFSjERRoFjICrVBVaCFAqLv2'
-  const getOrCreateSession = async() => {
-    console.log(gameId.current, userId, "🍕🍕🍕🍕🍕")
 
+  const getOrCreateSession = async () => {
     await axios.get(`https://tokyo-noire-server-development.herokuapp.com/findsession/${gameId.current}/${userId}`).then(response => {
       setSessionTable(response.data)
       sessionGameIndex.current = response.data.gameModulesIndex;
@@ -35,7 +32,6 @@ const GamePreview = (props: Props): ReactElement => {
       query: { gameId: gameId.current },
     });
   };
-  console.log(game)
 
   return (
     <div className="relative block flexCenterDiv bg-darkGrey">

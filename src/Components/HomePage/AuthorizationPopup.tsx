@@ -1,4 +1,4 @@
-import React, { type ReactElement, useState } from "react";
+import React, { type ReactElement, useState, useContext } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -6,13 +6,17 @@ import {
   DialogContentText,
   DialogActions,
 } from "@mui/material";
+import AppContext from "../../AppContext";
 
 interface props {
   setDevicePermission: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const AuthorizationPopup = (props:props): ReactElement => {
-  const {setDevicePermission} = props;
+const AuthorizationPopup = (props: props): ReactElement => {
+  const value = useContext(AppContext);
+  const { setAcquiredPermissions } = value;
+
+  const { setDevicePermission } = props;
   const [open, setOpen] = useState<boolean>(true);
   const handleClose = () => {
     setOpen(false);
@@ -35,7 +39,7 @@ const AuthorizationPopup = (props:props): ReactElement => {
             else.
             <br />
             <br />
-             By clicking &quot;I understand&quot;, you will be prompted to enable geolocation and gyroscope functionalities.
+            By clicking &quot;I understand&quot;, you will be prompted to enable geolocation and gyroscope functionalities.
           </p>
         </DialogContent>
         <DialogActions className="flexCenterDiv">
@@ -43,6 +47,7 @@ const AuthorizationPopup = (props:props): ReactElement => {
             onClick={() => {
               setDevicePermission(true);
               handleClose();
+              setAcquiredPermissions(true);
             }}
             id="themeButton"
             className="self-center my-5"

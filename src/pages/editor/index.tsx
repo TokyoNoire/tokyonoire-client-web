@@ -45,7 +45,6 @@ const Editor = (props: Props): ReactElement => {
                 `https://tokyo-noire-server-development.herokuapp.com/editor/${userId}`
             )
             .then((response) => {
-                console.log(response.data)
                 setListOfGamesByAuthor(response.data)
             });
     };
@@ -81,7 +80,6 @@ const Editor = (props: Props): ReactElement => {
     return (
         userId && (
             <FadeDiv show={show}>
-
                 <main className="mt-28 min-h-[calc(100vh-28rem)]  flexCenterDiv">
                     <section>
                         <p className="self-center p-5 text-xl text-center uppercase font-heading">
@@ -94,8 +92,7 @@ const Editor = (props: Props): ReactElement => {
                     </section>
                     <section className="flex flex-col w-full p-5 font-heading">
                         <button className="w-fit mb-4" id="themeButton" onClick={handleCreateNewGameClick}>Open New Case</button>
-                        {listOfGamesByAuthor && <GameListAuthored listOfGamesByAuthor={listOfGamesByAuthor} />}
-
+                        {listOfGamesByAuthor && <GameListAuthored listOfGamesByAuthor={listOfGamesByAuthor} setListOfGamesByAuthor={setListOfGamesByAuthor} />}
                     </section>
                 </main >
             </FadeDiv>

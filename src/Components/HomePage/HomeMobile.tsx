@@ -27,9 +27,10 @@ interface props {
 }
 
 const HomeMobile = (props: props): ReactElement => {
+  const value = useContext(AppContext)
+  const { acquiredPermissions, setAcquiredPermissions } = value;
 
   const { show } = props;
-  const value = useContext(AppContext);
   const { gyroscopeAccess, geolocationAccess } = value;
 
   const gameId = useRef<string>("");
@@ -37,33 +38,30 @@ const HomeMobile = (props: props): ReactElement => {
   const [open, setOpen] = useState<boolean>(true);
   const [publicGames, setPublicGames] = useState<saveGameInfo[] | null>(null);
   const hasMounted = useRef<boolean>(false);
-  const [acquiredPermissions, setAcquiredPermissions] =
-    useState<boolean>(false);
+  // const [acquiredPermissions, setAcquiredPermissions] = useState<boolean>(false);
   const { requestAccessAsync } = Gyroscope();
   const [devicePermission, setDevicePermission] = useState<boolean>(false);
 
   const handlePermissions = useCallback(async () => {
     if (devicePermission) {
       await requestAccessAsync();
-      const position = await getPosition();
-      console.log(position);
       setAcquiredPermissions(true);
     }
   }, [requestAccessAsync]);
 
   useEffect(() => {
-    if (!acquiredPermissions) {
+    if (devicePermission) {
       handlePermissions();
     }
-  }, [acquiredPermissions, handlePermissions]);
+  }, [devicePermission, handlePermissions]);
 
-  function getPosition(
-    options?: PositionOptions
-  ): Promise<GeolocationPosition> {
-    return new Promise((resolve, reject) =>
-      navigator.geolocation.getCurrentPosition(resolve, reject, options)
-    );
-  }
+  // function getPosition(
+  //   options?: PositionOptions
+  // ): Promise<GeolocationPosition> {
+  //   return new Promise((resolve, reject) =>
+  //     navigator.geolocation.getCurrentPosition(resolve, reject, options)
+  //   );
+  // }
 
   const getPublicGame = async () => {
     await axios
