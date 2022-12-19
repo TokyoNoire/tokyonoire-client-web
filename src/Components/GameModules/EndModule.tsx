@@ -15,7 +15,7 @@ const EndModule = (props: props): ReactElement => {
   const {sessionTable,  sessionGameIndex, userId,} = value
 
   const completeSession = async () => {
-    await axios.patch(`http://localhost:2000/updateSession/${sessionTable.gameId}/${userId}`,{
+    await axios.patch(`https://tokyo-noire-server-development.herokuapp.com/updateSession/${sessionTable.gameId}/${userId}`,{
       isCompleted: true,
     })
   }
