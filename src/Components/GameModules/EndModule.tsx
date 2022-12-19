@@ -1,7 +1,8 @@
 import React, { type ReactElement, useContext } from "react";
+import AppContext from "../../AppContext";
+import axios from 'axios'
 import { useRouter } from "next/router";
 import { type GameModule } from "../../types/global";
-import AppContext from "../../AppContext";
 import { Modal } from '@mui/material';
 import AuthPopUp from "../Authentification/AuthPopUp";
 
@@ -11,14 +12,19 @@ interface props {
 
 const EndModule = (props: props): ReactElement => {
   const value = useContext(AppContext);
-  const { userId, username } = value
   const { gameObject } = props;
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const {sessionTable,  sessionGameIndex, userId, username} = value
 
-
+  const completeSession = async () => {
+    await axios.patch(`https://tokyo-noire-server-development.herokuapp.com/updateSession/${sessionTable.gameId}/${userId}`,{
+      isCompleted: true,
+    })
+  }
+  
   const handleClick = (e: React.MouseEvent) => {
     {(!userId || !username)? 
       <AuthPopUp/>: <></>}
@@ -87,7 +93,10 @@ const EndModule = (props: props): ReactElement => {
         </table>
 
         <button
-          onClick={handleClick}
+          onClick={(e) => {
+            handleClick(e);
+            completeSession()
+          }}
           id="themeButton"
           className="self-center w-1/3 mt-16 mb-14 font-heading"
           type="button"

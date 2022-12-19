@@ -14,7 +14,7 @@ import SignInForm from "../Components/Authentification/SignInForm";
 import { AuthProvider } from "../Components/AuthProvider";
 import NavBar from "../Components/Navigation/NavBar";
 import MockGame from "../Components/Editor/Helpers/MockGame";
-import { saveGameInfo, GameModule } from "../types/global";
+import { saveGameInfo, GameModule, SessionTable } from "../types/global";
 import { useLocalStorage, useReadLocalStorage } from "usehooks-ts";
 
 const darkTheme = createTheme({
@@ -37,6 +37,9 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [gameInfoModule, setGameInfoModule] = useState<saveGameInfo | null>(
     null
   );
+  const sessionGameIndex = useRef(0);
+
+  const [sessionTable, setSessionTable] = useState<SessionTable | null>(null)
 
   useEffect(() => {
     if (localUserId) { setUserId(localUserId) }
@@ -102,6 +105,9 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         setGameInfoModule: setGameInfoModule,
         gameInfoModule: gameInfoModule,
         loadScreenMounted: loadScreenMounted,
+        sessionTable: sessionTable,
+        setSessionTable: setSessionTable,
+        sessionGameIndex:sessionGameIndex
       }}
     >
       <AuthProvider>

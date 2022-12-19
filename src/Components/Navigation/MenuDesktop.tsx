@@ -34,7 +34,10 @@ const MenuDesktop = (): ReactElement => {
   const { gameData } = value;
 
   const saveDraft = async () => {
-    // gameData.isPublished = "false";
+    if(!gameData.dateCreated) {
+      gameData.dateCreated = new Date();
+    }
+    gameData.dateUpdated = new Date();
     await axios.patch(
       `https://tokyo-noire-server-development.herokuapp.com/editor/${gameData._id}`,
       gameData
@@ -42,7 +45,10 @@ const MenuDesktop = (): ReactElement => {
   }
 
   const publishGame = async () => {
-    gameData.isPublished = true;
+    if(!gameData.dateCreated) {
+      gameData.dateCreated = new Date();
+    }
+    gameData.dateUpdated = new Date();
     await axios.patch(
       `https://tokyo-noire-server-development.herokuapp.com/editor/${gameData._id}`,
       gameData
