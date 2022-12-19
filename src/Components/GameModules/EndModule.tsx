@@ -1,22 +1,35 @@
-import React, { type ReactElement } from "react";
+import React, { type ReactElement, useContext } from "react";
 import { useRouter } from "next/router";
 import { type GameModule } from "../../types/global";
+import AppContext from "../../AppContext";
+import { Modal } from '@mui/material';
+import AuthPopUp from "../Authentification/AuthPopUp";
 
 interface props {
   gameObject: GameModule;
 }
 
 const EndModule = (props: props): ReactElement => {
+  const value = useContext(AppContext);
+  const { userId, username } = value
   const { gameObject } = props;
   const router = useRouter();
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
 
   const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    router.push("/");
+    {(!userId || !username)? 
+      <AuthPopUp/>: <></>}
+   if (userId && username) {e.preventDefault();
+    router.push("/");}
   };
 
+  console.log(userId)
   return (
     <>
+      
       <div className="self-center w-full rounded-lg flexCenterDiv shadow-inset1">
         <div className="self-center mb-5 flexCenterDiv">
           <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">

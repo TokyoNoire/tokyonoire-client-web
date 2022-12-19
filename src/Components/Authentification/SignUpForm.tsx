@@ -1,4 +1,4 @@
-import React, { type FC, type ReactElement, useEffect, useRef, useContext } from "react";
+import React, { type ReactElement, useRef, useContext } from "react";
 import {
   Box,
   Grid,
@@ -8,15 +8,11 @@ import {
   FormControl,
   Button,
 } from "@mui/material";
-import Link from "next/link";
-import GoogleIcon from "@mui/icons-material/Google";
-import AppleIcon from "@mui/icons-material/Apple";
 import { AuthContext, useAuth } from '../AuthProvider'
-import { EmailAuthCredential } from "firebase/auth";
+import ClearIcon from "@mui/icons-material/Clear";
 import AppContext from "../../AppContext";
-import { getFirestore, query, getDocs, collection, where, addDoc, } from "firebase/firestore";
-import app from '../../../src/auth/firebase'
-import { auth, db } from '../../../src/auth/firebase'
+import {  getDocs, collection, where, addDoc, } from "firebase/firestore";
+import { db } from '../../../src/auth/firebase'
 
 interface props {
   setAuthPanel: (string: string) => void
@@ -34,7 +30,14 @@ const SignUpForm = (props: props): ReactElement => {
   const { signIn } = useAuth();
 
   return (
-    <div className="w-full mt-20 rounded-lg flexCenterDiv bg-darkGrey">
+    <div className="relative h-auto mt-20 rounded-lg flexCenterDiv bg-darkGrey">
+    <div className="absolute z-50 flex items-center justify-center w-8 h-8 bg-black border-2 rounded-full right-3 top-3">
+             <ClearIcon
+                 className="hover:shadow-indigo-500/40"
+                 style={{ transform: "scale(1.2)" }}
+                //  onClick={handleClose}
+             />
+         </div>
       <h1 className="self-center p-5 mx-48 mt-10 text-2xl text-center uppercase font-heading">
         Sign Up
       </h1>

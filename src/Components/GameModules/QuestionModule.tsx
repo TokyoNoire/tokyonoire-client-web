@@ -36,7 +36,7 @@ const QuestionModule = (props: props): ReactElement => {
         </div>
       </div>
       <div className="items-center mx-20 my-48 flexCenterDiv">
-        <h1 className="mb-5 text-m font-heading">
+        <h1 className="mb-5 text-center font-heading text-m">
           &quot;{gameObject.question}&quot;
         </h1>
         <TextField
