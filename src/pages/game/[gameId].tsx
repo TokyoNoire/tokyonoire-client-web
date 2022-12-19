@@ -18,7 +18,7 @@ import HowToPlayPopup from "../../Components/GameModules/HowToPlayPopup";
 import { type GameModule } from "../../types/global";
 import HintPopper from "../../Components/GameModules/Helpers/HintPopper";
 import App from "next/app";
-
+import FadeDiv from "../../Components/Helpers/FadeDiv";
 
 const GameId: FC = (): ReactElement => {
   const value = useContext(AppContext);

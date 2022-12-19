@@ -66,7 +66,6 @@ const GameInformation = (prop: prop): ReactElement => {
     }
   }
 
-  console.log(String(visualIsPrivate))
   return (
     <ContainerGameInfo handleGameInfoModuleUpdateClick={handleGameInfoModuleUpdateClick}>
 
