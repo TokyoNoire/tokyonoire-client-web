@@ -28,7 +28,6 @@ const Home = (props: props) => {
         <link rel="apple-touch-icon" sizes="192x192" href="/icon-192x192.png"></link>
 
         <meta name="mobile-web-app-capable" content="yes"></meta>
-        <link rel="manifest" href="/manifest.json"></link>
       </Head>
 
       <FadeDiv show={show}>

@@ -28,6 +28,8 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [durationLoadingScreen] = useState<number>(2000);
   const [deviceType, setDeviceType] = useState<string | null>(null);
   const [userId, setUserId] = useState<string>('');
+  const [geolocationAccess, setGeolocationAccess] = useState<boolean>(false);
+  const [gyroscopeAccess, setGyroscopeAccess] = useState<boolean>(false);
   const [localUserId, setLocalUserId] = useLocalStorage<string | null>("userId", null)
   const [localUsername, setLocalUsername] = useLocalStorage<string | null>("username", null)
   const [username, setUsername] = useState<string>('');
@@ -95,6 +97,10 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         setUserId: setUserId,
         localUserId: localUserId,
         setLocalUserId: setLocalUserId,
+        geolocationAccess: geolocationAccess,
+        setGeolocationAccess: setGeolocationAccess,
+        gyroscopeAccess: gyroscopeAccess,
+        setGyroscopeAccess: setGyroscopeAccess,
         username: username,
         setUsername: setUsername,
         localUsername: localUsername,

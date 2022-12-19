@@ -23,7 +23,6 @@ const Editor = (props: Props): ReactElement => {
 
     useEffect(() => {
         if (!userId) {
-            alert("You must be signed in to use the editor")
             router.push('/')
         }
     }, [userId])
