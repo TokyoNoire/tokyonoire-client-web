@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
 import LocationModule from "../../Components/GameModules/LocationModule";
 import NarrativeModule from "../../Components/GameModules/NarrativeModule";
 import QuestionModule from "../../Components/GameModules/QuestionModule";
-import EndModule from "../../Components/GameModules/EndModule"; 
+import EndModule from "../../Components/GameModules/EndModule";
 import HowToPlayPopup from "../../Components/GameModules/HowToPlayPopup";
 import { type GameModule } from "../../types/global";
 import HintPopper from "../../Components/GameModules/Helpers/HintPopper";
@@ -22,9 +22,8 @@ import App from "next/app";
 
 const GameId: FC = (): ReactElement => {
   const value = useContext(AppContext);
-  const {sessionTable, setSessionTable, sessionGameIndex, userId,} = value
+  const { sessionTable, setSessionTable, sessionGameIndex, userId, } = value
   const [challengeSuccess, setChallengeSuccess] = useState<boolean>(false);
-  // const [goToNext, setGoToNext] = useState<boolean>(false);
   const [TypeOfModule, setTypeOfModule] = useState<string | null>("");
   const [gameObject, setGameObject] = useState<GameModule | null | undefined>(
     null
@@ -35,7 +34,7 @@ const GameId: FC = (): ReactElement => {
 
   const incrementSessionIndex = async () => {
     await axios.patch(`https://tokyo-noire-server-development.herokuapp.com/updateSession/${sessionTable.gameId}/${userId}`, {
-     gameModulesIndex: sessionGameIndex.current 
+      gameModulesIndex: sessionGameIndex.current
     })
   }
 
