@@ -48,7 +48,7 @@ const SignUpForm = (props: props): ReactElement => {
           id="name"
           required
           autoFocus
-          label="Name"
+          label="NameOfUser"
           variant="filled"
           aria-describedby="name-input"
           placeholder="Name"
