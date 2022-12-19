@@ -60,6 +60,12 @@ const GameInformation = (prop: prop): ReactElement => {
     }
   };
 
+  const handleTimeMinutesChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (event.target.value) {
+      estimatedTimeMinutes.current = event.target.value;
+    }
+  }
+
   console.log(String(visualIsPrivate))
   return (
     <ContainerGameInfo handleGameInfoModuleUpdateClick={handleGameInfoModuleUpdateClick}>
@@ -79,6 +85,7 @@ const GameInformation = (prop: prop): ReactElement => {
             InputLabelProps={{
               shrink: true,
             }}
+            onChange={(e) => { handleTimeMinutesChange(e) }}
           />
         </FormControl>
 

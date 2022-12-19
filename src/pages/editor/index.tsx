@@ -78,7 +78,6 @@ const Editor = (props: Props): ReactElement => {
                 )
             })
     };
-    console.log(listOfGamesByAuthor)
 
     return (
         userId && (

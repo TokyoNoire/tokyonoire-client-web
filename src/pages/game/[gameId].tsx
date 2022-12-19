@@ -11,8 +11,7 @@ import { useRouter } from "next/router";
 import LocationModule from "../../Components/GameModules/LocationModule";
 import NarrativeModule from "../../Components/GameModules/NarrativeModule";
 import QuestionModule from "../../Components/GameModules/QuestionModule";
-import EndModule from "../../Components/GameModules/EndModule";
-import NavigationModule from "../../Components/GameModules/NavigationModule";
+import EndModule from "../../Components/GameModules/EndModule"; 
 import HowToPlayPopup from "../../Components/GameModules/HowToPlayPopup";
 import { type GameModule } from "../../types/global";
 
@@ -74,21 +73,11 @@ const GameId: FC = (): ReactElement => {
       case "location":
         return (
           <>
-            <LocationModule gameObject={gameObject!} />
-            {devicePermission ? (
-              <NavigationModule
-                locationCoordinates={
-                  gameObject?.locationCoordinates
-                    ? gameObject!.locationCoordinates
-                    : [0, 0]
-                }
-                gameObject={gameObject!}
-                setChallengeSuccess={setChallengeSuccess}
-              // setGoToNext={setGoToNext}
-              />
-            ) : (
-              <></>
-            )}
+            <LocationModule
+              gameObject={gameObject!}
+              devicePermission={devicePermission}
+              setChallengeSuccess={setChallengeSuccess}
+            />
           </>
         );
 
@@ -117,15 +106,13 @@ const GameId: FC = (): ReactElement => {
   };
 
   return (
-    <>
+    <main>
       <HowToPlayPopup setDevicePermission={setDevicePermission} />
-      <div className="w-screen h-28"></div>
-      {gameObject !== null ? (
+      <section className="w-screen h-28"></section>
+      {gameObject !== null && (
         setCurrentComponent(gameObject!.typeOfModule)
-      ) : (
-        <></>
       )}
-    </>
+    </main>
   );
 };
 

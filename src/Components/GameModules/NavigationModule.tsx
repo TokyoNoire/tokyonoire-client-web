@@ -89,23 +89,25 @@ const NavigationModule = (props: props): ReactElement => {
     <>
       {currentCoords && targetCoords && (
         <FadeDiv>
-          <Distance
-            currentCoords={currentCoords}
-            targetCoords={targetCoords}
-            setChallengeSuccess={setChallengeSuccess}
-          // setGoToNext={setGoToNext}
-          />
-          {orientation && (
-            <Compass
-              bearingAngle={bearingAngle}
+          <section>
+
+            <Distance
               currentCoords={currentCoords}
               targetCoords={targetCoords}
-              orientation={orientation}
+              setChallengeSuccess={setChallengeSuccess}
             />
-          )}
+            {orientation && (
+              <Compass
+                bearingAngle={bearingAngle}
+                currentCoords={currentCoords}
+                targetCoords={targetCoords}
+                orientation={orientation}
+              />
+            )}
+          </section>
         </FadeDiv>
       )}
-      {gameObject.hint?  <HintPopper hint={gameObject.hint!} /> : <></>}
+      {gameObject!.hint?  <HintPopper hint={gameObject.hint!} /> : <></>}
     </>
   );
 };

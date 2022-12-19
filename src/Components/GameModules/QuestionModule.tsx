@@ -2,6 +2,7 @@ import React, { type ReactElement, useState } from "react";
 import { type GameModule } from "../../types/global";
 import TextField from "@mui/material/TextField";
 import HintPopper from "./Helpers/HintPopper";
+import FadeDiv from "../Helpers/FadeDiv";
 
 interface props {
   gameObject: GameModule;
@@ -13,30 +14,30 @@ const QuestionModule = (props: props): ReactElement => {
   const [answer, setAnswer] = useState<string>("");
 
   return (
-    <div>
-      <div className="self-center w-full py-10 flexCenterDiv shadow-inset1">
-        <div className="self-center mb-5 flexCenterDiv">
-          <h1 className="self-center p-5 text-2xl text-center uppercase font-heading">
-            {gameObject.title}
-          </h1>
+    <FadeDiv>
 
-          {gameObject.imageURL ? (
-            <img
-              src={gameObject.imageURL}
-              alt="Image for question module"
-              className="rounded-lg"
-            />
-          ) : (
-            ""
-          )}
+      <section className="w-full flexCenterDiv">
+        <h1 className="mb-12 text-3xl text-center uppercase font-heading">
+          {gameObject.title}
+        </h1>
 
-          <p className="px-6 mt-2 text-center font-body1">
+        {gameObject.imageURL && (
+          <img
+            src={gameObject.imageURL}
+            alt="Image for narrative module"
+            className="w-full mb-8"
+          />
+        )}
+
+        {gameObject.description &&
+          <p className="px-5 font-body1">
             {gameObject.description}
           </p>
-        </div>
-      </div>
-      <div className="items-center mx-20 my-48 flexCenterDiv">
-        <h1 className="mb-5 text-center font-heading text-m">
+        }
+      </section>
+
+      <section className="px-4 flexCenterDiv">
+        <h1 className="mt-12 mb-6 text-xl font-bold font-body1">
           &quot;{gameObject.question}&quot;
         </h1>
         <TextField
@@ -50,7 +51,7 @@ const QuestionModule = (props: props): ReactElement => {
 
         <button
           id="themeButton"
-          className="self-center w-2/3 mt-20 mb-10 font-heading"
+          className="self-center w-2/3 mt-6 mb-8 font-heading"
           type="button"
           onClick={() => {
             if (answer.toLowerCase() === gameObject.answer?.toLowerCase()) {
@@ -60,9 +61,13 @@ const QuestionModule = (props: props): ReactElement => {
         >
           is my answer
         </button>
-      </div>
-      {gameObject.hint ? <HintPopper hint={gameObject.hint!} /> : <></>}
-    </div>
+
+        {gameObject.hint &&
+          <HintPopper hint={gameObject.hint!} />
+        }
+      </section>
+
+    </FadeDiv>
   );
 };
 

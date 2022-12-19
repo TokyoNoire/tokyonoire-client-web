@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import ClearIcon from "@mui/icons-material/Clear";
 import { type saveGameInfo } from "../../types/global";
+import Image from 'next/image'
 
 interface Props {
   game: saveGameInfo;
