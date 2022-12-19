@@ -13,12 +13,12 @@ import { useRouter } from "next/router";
 import LocationModule from "../../Components/GameModules/LocationModule";
 import NarrativeModule from "../../Components/GameModules/NarrativeModule";
 import QuestionModule from "../../Components/GameModules/QuestionModule";
-import EndModule from "../../Components/GameModules/EndModule";
-import NavigationModule from "../../Components/GameModules/NavigationModule";
+import EndModule from "../../Components/GameModules/EndModule"; 
 import HowToPlayPopup from "../../Components/GameModules/HowToPlayPopup";
 import { type GameModule } from "../../types/global";
 import HintPopper from "../../Components/GameModules/Helpers/HintPopper";
 import App from "next/app";
+
 
 const GameId: FC = (): ReactElement => {
   const value = useContext(AppContext);
