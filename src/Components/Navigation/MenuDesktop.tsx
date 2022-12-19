@@ -8,7 +8,6 @@ import { useRouter } from "next/router";
 import FadeDiv from "../Helpers/FadeDiv";
 import AppContext from "../../AppContext";
 import { getAuth, signOut } from "firebase/auth";
-import { async } from "@firebase/util";
 import { Button } from "@mui/material";
 
 type menuItem = {

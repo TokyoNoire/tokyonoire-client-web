@@ -32,6 +32,8 @@ const GameId: FC = (): ReactElement => {
   const currentIndex = useRef(0);
   const [devicePermission, setDevicePermission] = useState<boolean>(false);
 
+  console.log(challengeSuccess)
+
   const incrementSessionIndex = async () => {
     await axios.patch(`https://tokyo-noire-server-development.herokuapp.com/updateSession/${sessionTable.gameId}/${userId}`, {
       gameModulesIndex: sessionGameIndex.current
@@ -39,6 +41,7 @@ const GameId: FC = (): ReactElement => {
   }
 
   const getGameObject = useCallback(async () => {
+    console.log('posting sessiongameindex')
     setGameObject(null)
     await axios
       .get(
