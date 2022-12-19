@@ -46,6 +46,7 @@ const BlockImageWidget = (props: props): ReactElement => {
         }
       },
       function (error: any, result: any) {
+        console.log(result)
         if (result.info.url !== undefined) {
           imageURL.current = result.info.url
           setDisplayImage(result.info.url)
