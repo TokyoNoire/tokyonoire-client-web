@@ -98,7 +98,7 @@ const MenuDesktop = (): ReactElement => {
             <Link href={menuItem.url}>{menuItem.title}</Link>
           </li>
         ))}
-        {userId ? <Button id="themeButton" className="font-heading" onClick={async () => {
+        {userId && userId.length === 28 ? <Button id="themeButton" className="font-heading" onClick={async () => {
           await signOut(getAuth())
           setUserId(null)
           setLocalUserId(null)

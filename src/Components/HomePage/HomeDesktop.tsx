@@ -17,7 +17,7 @@ const HomeDesktop = (props: props): ReactElement => {
   const router = useRouter()
 
   useEffect(() => {
-    if (userId && signInChallenge === true) {
+    if (userId && userId.length === 28 && signInChallenge === true) {
       router.push('/editor')
     }
   }, [userId, signInChallenge])
