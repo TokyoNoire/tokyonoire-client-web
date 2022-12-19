@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { type AppType } from "next/dist/shared/lib/utils";
+import { v4 as uuidv4 } from 'uuid';
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Script from "next/script";
 import "../styles/globals.css";
@@ -27,7 +28,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [loadScreenMounted, setLoadScreenMounted] = useState<boolean>(true);
   const [durationLoadingScreen] = useState<number>(2000);
   const [deviceType, setDeviceType] = useState<string | null>(null);
-  const [userId, setUserId] = useState<string>('');
+  const [userId, setUserId] = useState<string>(uuidv4());
   const [geolocationAccess, setGeolocationAccess] = useState<boolean>(false);
   const [gyroscopeAccess, setGyroscopeAccess] = useState<boolean>(false);
   const [localUserId, setLocalUserId] = useLocalStorage<string | null>("userId", null)

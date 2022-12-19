@@ -19,8 +19,9 @@ const GamePreview = (props: Props): ReactElement => {
   const router = useRouter();
 
   const getOrCreateSession = async() => {
-    console.log("I ran!")
-    await axios.get(`http://localhost:2000/findsession/${gameId.current}/?uId=${userId}`).then(response => {
+    console.log(gameId.current, userId, "🍕🍕🍕🍕🍕")
+
+    await axios.get(`https://tokyo-noire-server-development.herokuapp.com/findsession/${gameId.current}/${userId}`).then(response => {
       setSessionTable(response.data)
       sessionGameIndex.current = response.data.gameModulesIndex;
     })
