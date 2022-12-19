@@ -46,9 +46,9 @@ const LocationModule = (props: props): ReactElement => {
       />
       {/* )} */}
 
-      {/* {gameObject.hint &&
+      {gameObject.hint &&
         <HintPopper hint={gameObject.hint!} />
-      } */}
+      }
 
     </FadeDiv>
   );
