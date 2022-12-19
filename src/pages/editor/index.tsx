@@ -22,7 +22,7 @@ const Editor = (props: Props): ReactElement => {
 
 
     useEffect(() => {
-        if (!userId) {
+        if (!userId || userId.length !== 28) {
             router.push('/')
         }
     }, [userId])

@@ -22,7 +22,7 @@ const SignUpForm = (props: props): ReactElement => {
   const { setAuthPanel } = props;
   const { signUp } = useAuth()
   const value = useContext(AppContext);
-  const { setUserId, userId, username, setUsername, setLocalUserId, setLocalUsername } = value;
+  const { setUserId, userId, username, setUsername, setLocalUserId, setLocalUsername, isRegistered, setIsRegistered } = value;
   const email = useRef<string>('');
   const password = useRef<string>('');
   const name = useRef<string>('');
@@ -102,6 +102,7 @@ const SignUpForm = (props: props): ReactElement => {
             .then((response) => {
               setUsername(name.current)
               setUserId(response.user.uid)
+              setIsRegistered(true)
               addDoc(collection(db, "users"), {
                 uid: response.user.uid,
                 name: name.current,
@@ -116,6 +117,7 @@ const SignUpForm = (props: props): ReactElement => {
           alert(error.message);
           console.log('signup error', error)
           formSubmitting.current = false
+          setIsRegistered(false)
         }
       }}>
         Sign Up
