@@ -39,12 +39,11 @@ const LocationModule = (props: props): ReactElement => {
 
       {devicePermission && (
         <NavigationModule
-          locationCoordinates={
-            gameObject?.locationCoordinates
-              ? gameObject!.locationCoordinates
-              : [0, 0]
-          }
+          locationCoordinates={gameObject?.locationCoordinates 
+            ? gameObject!.locationCoordinates 
+            : [0, 0]}
           setChallengeSuccess={setChallengeSuccess}
+          gameObject={gameObject}
         />
       )}
 

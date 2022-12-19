@@ -50,7 +50,7 @@ const BlockImageWidget = (props: props): ReactElement => {
       function (error: any, result: any) {
        
         if (result.info.url !== undefined) {
-          let path = result.info.path
+          const path = result.info.path
           imageURL.current = `https://res.cloudinary.com/diyzmibyd/image/upload/q_auto/${path}`
           setDisplayImage(`https://res.cloudinary.com/diyzmibyd/image/upload/q_auto/${path}`)
           // setImageUrl(result.info.url);
