@@ -34,7 +34,7 @@ const GamePreview = (props: Props): ReactElement => {
   };
 
   return (
-    <div className="relative block flexCenterDiv bg-darkGrey">
+    <div className="relative block flexCenterDiv bg-[rgb(25,25,25)]">
       <div className="absolute top-4 right-4 flexCenterDiv ">
         <ClearIcon onClick={handleClose} />
       </div>
@@ -42,9 +42,9 @@ const GamePreview = (props: Props): ReactElement => {
         <h1 className="self-center p-5 mt-5 text-2xl text-center uppercase font-heading">
           {game.titleOfGame}
         </h1>
-        <p className="self-center pb-3 font-heading">{game.author}</p>
+        <p className="self-center pb-5 font-heading">by {game.author}</p>
 
-        <div className="grid grid-cols-2 gap-1 place-items-center">
+        <div className="grid grid-cols-2 gap-1 place-items-center mb-5">
           <AccessTimeFilledIcon fontSize="small" />
           <p className="self-center font-heading">RATING</p>
           <p className="self-center text-xs font-body2">
@@ -52,10 +52,12 @@ const GamePreview = (props: Props): ReactElement => {
           </p>
           <p className="self-center font-body2">{game.rating}</p>
         </div>
-        <div className="self-center my-5 flexCenterDiv">
-          <img src={game.gameImageURL} alt="Game Image" className="w-100" />
+        <div className="self-center flexCenterDiv">
+          <img src={game.gameImageURL} alt="Game Image"
+            className="w-full max-h-[60vh] object-contain"
+          />
         </div>
-        <p className="px-2 mt-5 font-body1">{game.description}</p>
+        <p className="px-5 mt-5 font-body1">{game.description}</p>
       </div>
 
       <div className="flex flex-row flexCenterDiv">

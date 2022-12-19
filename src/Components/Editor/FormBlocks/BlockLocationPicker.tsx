@@ -33,7 +33,7 @@ const BlockLocationPicker = (props: props): ReactElement => {
 
                 <p>
                     {visualCoords && visualCoords[0] && visualCoords[1]
-                        ? `[${visualCoords[1].toFixed(5)}, ${visualCoords[0].toFixed(5)}]`
+                        ? `[${visualCoords[0].toFixed(5)}, ${visualCoords[1].toFixed(5)}]`
                         : null}
                 </p>
             </div>

@@ -38,7 +38,6 @@ const HomeMobile = (props: props): ReactElement => {
   const [open, setOpen] = useState<boolean>(true);
   const [publicGames, setPublicGames] = useState<saveGameInfo[] | null>(null);
   const hasMounted = useRef<boolean>(false);
-  // const [acquiredPermissions, setAcquiredPermissions] = useState<boolean>(false);
   const { requestAccessAsync } = Gyroscope();
   const [devicePermission, setDevicePermission] = useState<boolean>(false);
 
@@ -55,19 +54,15 @@ const HomeMobile = (props: props): ReactElement => {
     }
   }, [devicePermission, handlePermissions]);
 
-  // function getPosition(
-  //   options?: PositionOptions
-  // ): Promise<GeolocationPosition> {
-  //   return new Promise((resolve, reject) =>
-  //     navigator.geolocation.getCurrentPosition(resolve, reject, options)
-  //   );
-  // }
-
   const getPublicGame = async () => {
     await axios
       .get("https://tokyo-noire-server-development.herokuapp.com/")
       .then((response) => {
-        setPublicGames(response.data);
+        const listOfGames = [...response.data];
+        if (listOfGames.length >= 10) {
+          listOfGames.splice(9, listOfGames.length)
+        }
+        setPublicGames(listOfGames);
       });
   };
 
@@ -100,7 +95,7 @@ const HomeMobile = (props: props): ReactElement => {
 
       <div className="relative h-screen mx-5 flexCenterDiv place-items-center ">
         <TokyoNoireName alt="Tokyo Noire Name" style={{ maxWidth: "80vw" }} />
-        <div className="absolute bottom-8">
+        <div className="absolute bottom-[18%]">
           <KeyboardArrowDownIcon
             style={{ animation: `hover-up-down ease-in-out 3s infinite` }}
             sx={{

@@ -53,6 +53,7 @@ const MenuDesktop = (): ReactElement => {
       gameData.dateCreated = new Date();
     }
     gameData.dateUpdated = new Date();
+    gameData.isPublished = true;
     await axios.patch(
       `https://tokyo-noire-server-development.herokuapp.com/editor/${gameData._id}`,
       gameData

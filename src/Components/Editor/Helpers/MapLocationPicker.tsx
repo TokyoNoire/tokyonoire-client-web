@@ -38,6 +38,7 @@ const MapLocationPicker = (props: props): ReactElement => {
   // rd: that is the array (longitude, latitude) that we need to confirm and save.
   const [selectedCoord, setSelectedCoord] = useState<number[] | null>(locationCoordinates.current);
   mapRef.current = map;
+  console.log(selectedCoord)
 
   useEffect(() => {
     if (!didMount.current) {
@@ -55,7 +56,7 @@ const MapLocationPicker = (props: props): ReactElement => {
           initialFeaturesLayer,
         ],
         view: new View({
-          center: fromLonLat([139.8, 35.7]),
+          center: selectedCoord ? fromLonLat([selectedCoord[1]!, selectedCoord[0]!]) : fromLonLat([139.8, 35.7]),
           zoom: 11,
         }),
       });
@@ -74,7 +75,7 @@ const MapLocationPicker = (props: props): ReactElement => {
         new VectorSource({
           features: [
             new Feature({
-              geometry: new Point(fromLonLat(selectedCoord)),
+              geometry: new Point(fromLonLat([selectedCoord[1]!, selectedCoord[0]!])),
             }),
           ],
         })
@@ -100,8 +101,8 @@ const MapLocationPicker = (props: props): ReactElement => {
         "EPSG:4326"
       );
       locationCoordinates.current = [transformedCoord[1]!, transformedCoord[0]!];
-      setVisualCoords([transformedCoord[0]!, transformedCoord[1]!]);
-      setSelectedCoord([transformedCoord[0]!, transformedCoord[1]!]);
+      setVisualCoords([transformedCoord[1]!, transformedCoord[0]!]);
+      setSelectedCoord([transformedCoord[1]!, transformedCoord[0]!]);
     }
   };
 

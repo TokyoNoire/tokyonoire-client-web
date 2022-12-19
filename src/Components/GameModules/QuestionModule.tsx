@@ -37,7 +37,7 @@ const QuestionModule = (props: props): ReactElement => {
       </section>
 
       <section className="px-4 flexCenterDiv">
-        <h1 className="mt-12 mb-6 text-xl font-bold font-body1">
+        <h1 className="mt-12 mb-6 text-xl font-bold font-body2">
           &quot;{gameObject.question}&quot;
         </h1>
         <TextField
@@ -51,7 +51,7 @@ const QuestionModule = (props: props): ReactElement => {
 
         <button
           id="themeButton"
-          className="self-center w-2/3 mt-6 mb-8 font-heading"
+          className="self-center w-2/3 mt-16 mb-20 font-heading"
           type="button"
           onClick={() => {
             if (answer.toLowerCase() === gameObject.answer?.toLowerCase()) {
