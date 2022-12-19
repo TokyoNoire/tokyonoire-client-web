@@ -1,16 +1,21 @@
-import React, { type ReactElement, type MutableRefObject } from "react";
+import AppContext from "../../AppContext";
+import React, { type ReactElement, type MutableRefObject, useContext } from "react";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import { saveGameInfo } from "../../types/global";
 
+
 interface prop {
+  //setGameId: (string: string) => void;
   setGame: ({ }: saveGameInfo) => void;
   handleOpen: () => void;
   game: saveGameInfo | null;
   gameId: MutableRefObject<string | null>;
 }
 const GameSearchByID = (prop: prop): ReactElement => {
-  const { gameId, setGame, handleOpen } = prop;
+  const {gameId, setGame, handleOpen} = prop;
+  const value = useContext(AppContext)
+  const {userId, sessionTable, setSessionTable} = value
 
 
   const getGameById = async () => {
@@ -20,6 +25,7 @@ const GameSearchByID = (prop: prop): ReactElement => {
       )
       .then((response) => setGame(response.data[0]));
   };
+
 
 
   return (
