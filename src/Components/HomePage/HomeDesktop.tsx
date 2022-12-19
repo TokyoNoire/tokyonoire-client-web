@@ -28,7 +28,7 @@ const HomeDesktop = (props: props): ReactElement => {
 
   return (
     <>
-      <main className="z-10 relative w-screen h-screen flexCenterDiv place-items-center">
+      <main className="relative z-10 w-screen h-screen flexCenterDiv place-items-center">
         {signInChallenge ? (<AuthPopUp />) : (<></>)}
         <TokyoNoireName
           alt="Tokyo Noire Name"

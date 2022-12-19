@@ -7,9 +7,9 @@ import React, {
   MouseEventHandler,
   type MutableRefObject
 } from "react";
-import TextField from "@mui/material/TextField";
+// import TextField from "@mui/material/TextField";
 import { type saveGameInfo } from "../../types/global";
-import SearchIcon from "@mui/icons-material/Search";
+// import SearchIcon from "@mui/icons-material/Search";
 // import Gyroscope from "../GameModules/Helpers/Gyroscope";
 import Haversine from "../GameModules/Helpers/Haversine";
 import axios from "axios";
@@ -73,6 +73,8 @@ const ListOfPublicGames = (props: props): ReactElement => {
     getGameById();
     setTimeout(handleOpen, 2000);
   };
+
+  
 
   const publicGamesListing = publicGames.map((publicGame, index) => {
     return (
