@@ -48,10 +48,11 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [open,setOpen] = useState<boolean> (true)
   const [sessionTable, setSessionTable] = useLocalStorage<SessionTable | null>("sessionTable", null);
 
+  
   useEffect(() => {
     setLocalUserId(userId)
   }, [userId])
-
+  
   useEffect(() => {
     if (acquiredPermissions) {
       const interval = setInterval(() => {
@@ -59,6 +60,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
           navigator.geolocation.getCurrentPosition((position) => {
             setCurrentCoords([position.coords.longitude, position.coords.latitude]);
           });
+          console.log(sessionGameIndex)
         }
         else console.error('geolocation unavailable')
       }, 1000);
