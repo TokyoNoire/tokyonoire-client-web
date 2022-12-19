@@ -34,11 +34,11 @@ const menuItems: Array<menuItem> = [
 const MenuDesktop = (): ReactElement => {
   const [show] = useState<boolean>(true);
   const value = useContext(AppContext);
-  const { gameData, userId, setUserId, setLocalUserId, setLocalUsername } = value;
+  const { gameData, userId, setUserId, setLocalUserId, setLocalUsername, setIsRegistered } = value;
   const router = useRouter();
 
   const saveDraft = async () => {
-    if(!gameData.dateCreated) {
+    if (!gameData.dateCreated) {
       gameData.dateCreated = new Date();
     }
     gameData.dateUpdated = new Date();
@@ -49,7 +49,7 @@ const MenuDesktop = (): ReactElement => {
   }
 
   const publishGame = async () => {
-    if(!gameData.dateCreated) {
+    if (!gameData.dateCreated) {
       gameData.dateCreated = new Date();
     }
     gameData.dateUpdated = new Date();
@@ -103,10 +103,11 @@ const MenuDesktop = (): ReactElement => {
           setUserId(null)
           setLocalUserId(null)
           setLocalUsername(null)
+          setIsRegistered(false)
           router.push('/')
-          }}
-          
-          >Sign out</Button> : <></>}
+        }}
+
+        >Sign out</Button> : <></>}
       </ul>
     </>
   );

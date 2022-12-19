@@ -8,7 +8,7 @@ const StatusBar: FC = (): ReactElement => {
   return (
     <div className="w-screen mb-5 shadow-inner shadow-gray-500 flexCenterDiv h-36 bg-darkGrey">
       <h1 className="text-xl text-center font-heading">
-      &quot;Welcome back Detective, here is your current status.&quot;
+        &quot;Welcome back Detective, here is your current status.&quot;
       </h1>
       <div className="grid grid-cols-4 grid-rows-3 gap-1 mt-5 rounded-md low-col place-items-center">
         <ScoreboardIcon fontSize="small" />

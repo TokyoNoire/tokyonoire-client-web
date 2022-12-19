@@ -1,6 +1,8 @@
 import React, {
   type ReactElement,
-  useState, useContext, useEffect
+  useState,
+  useContext,
+  useEffect
 } from "react";
 import StatusBar from "../../Components/ProfilePage/StatusBar";
 import AppContext from "../../AppContext";
