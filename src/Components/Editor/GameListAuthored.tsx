@@ -14,6 +14,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import PublishIcon from '@mui/icons-material/Publish';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
+import FadeDiv from "../Helpers/FadeDiv";
 import {
   DataGrid,
   GridColDef,
@@ -37,9 +38,10 @@ const GameListAuthored = (props: props): ReactElement => {
   const { listOfGamesByAuthor } = props;
   const [rows, setRows] = React.useState<[]>(listOfGamesByAuthor);
 
+  const [show] = useState<boolean>(true);
+
 
   useEffect(() => {
-    console.log(listOfGamesByAuthor)
     setRows(listOfGamesByAuthor);
   }, [])
 
@@ -156,7 +158,7 @@ const GameListAuthored = (props: props): ReactElement => {
   ]
 
   return (
-    <>
+    <FadeDiv show={show}>
       <Box
         sx={{ height: "auto" }}
         justifyContent="center"
@@ -173,7 +175,7 @@ const GameListAuthored = (props: props): ReactElement => {
           disableSelectionOnClick
         />
       </Box>
-    </>
+    </FadeDiv>
   );
 };
 

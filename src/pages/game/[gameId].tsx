@@ -20,7 +20,6 @@ import HintPopper from "../../Components/GameModules/Helpers/HintPopper";
 const GameId: FC = (): ReactElement => {
   // const challengeSuccess = useRef<boolean>(false);
   const [challengeSuccess, setChallengeSuccess] = useState<boolean>(false);
-  // const [goToNext, setGoToNext] = useState<boolean>(false);
   const [TypeOfModule, setTypeOfModule] = useState<string | null>("");
   const [gameObject, setGameObject] = useState<GameModule | null | undefined>(
     null
@@ -28,8 +27,6 @@ const GameId: FC = (): ReactElement => {
   const router = useRouter();
   const currentIndex = useRef(0);
   const [devicePermission, setDevicePermission] = useState<boolean>(false);
-
-  console.log(gameObject)
 
   const getGameObject = useCallback(async () => {
     setGameObject(null)

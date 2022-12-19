@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { type AppType } from "next/dist/shared/lib/utils";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Script from "next/script";
@@ -16,6 +16,8 @@ import NavBar from "../Components/Navigation/NavBar";
 import MockGame from "../Components/Editor/Helpers/MockGame";
 import { saveGameInfo, GameModule } from "../types/global";
 import { useLocalStorage, useReadLocalStorage } from "usehooks-ts";
+// import Geolocation from "../Components/GameModules/Helpers/Geolocation";
+import Gyroscope from "../Components/GameModules/Helpers/Gyroscope";
 
 const darkTheme = createTheme({
   palette: {
@@ -34,9 +36,27 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [gameData, setGameData] = useState<saveGameInfo | null>(null);
   const [gameModules, setGameModules] = useState<GameModule[]>();
   const [activeModule, setActiveModule] = useState<GameModule | null>(null);
-  const [gameInfoModule, setGameInfoModule] = useState<saveGameInfo | null>(
-    null
-  );
+  const [gameInfoModule, setGameInfoModule] = useState<saveGameInfo | null>(null);
+  const [currentCoords, setCurrentCoords] = useState<number[] | null>(null);
+  const [acquiredPermissions, setAcquiredPermissions] = useLocalStorage<boolean | null>("acquiredPermissions", false);
+  const { orientation, requestAccessAsync } = Gyroscope();
+
+  useEffect(() => {
+    if (acquiredPermissions) {
+      const interval = setInterval(() => {
+        if ('geolocation' in navigator) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            setCurrentCoords([position.coords.longitude, position.coords.latitude]);
+          });
+        }
+        else console.error('geolocation unavailable')
+      }, 1000);
+
+      return () => {
+        clearInterval(interval)
+      }
+    }
+  }, [acquiredPermissions])
 
   useEffect(() => {
     if (localUserId) { setUserId(localUserId) }
@@ -48,14 +68,11 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     gameData
   );
 
-  console.log(gameData)
-
   useEffect(() => {
     if (gameData) {
       const newGameData = gameData;
       newGameData.gameModules = gameModules;
       setGameData(newGameData);
-      // console.log("gameData has been updated");
     }
   }, [gameModules]);
 
@@ -64,7 +81,6 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       let newGameData = gameData;
       newGameData = gameInfoModule;
       setGameData(newGameData);
-      // console.log("gameData has been updated");
     }
   }, [gameInfoModule]);
 
@@ -102,6 +118,12 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         setGameInfoModule: setGameInfoModule,
         gameInfoModule: gameInfoModule,
         loadScreenMounted: loadScreenMounted,
+        setCurrentCoords: setCurrentCoords,
+        currentCoords: currentCoords,
+        // geolocationPermission: geolocationPermission,
+        // setGeolocationPermission: setGeolocationPermission,
+        acquiredPermissions: acquiredPermissions,
+        setAcquiredPermissions: setAcquiredPermissions
       }}
     >
       <AuthProvider>

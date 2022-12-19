@@ -37,16 +37,16 @@ const LocationModule = (props: props): ReactElement => {
         }
       </div>
 
-      {devicePermission && (
-        <NavigationModule
-          locationCoordinates={
-            gameObject?.locationCoordinates
-              ? gameObject!.locationCoordinates
-              : [0, 0]
-          }
-          setChallengeSuccess={setChallengeSuccess}
-        />
-      )}
+      {/* {devicePermission && ( */}
+      <NavigationModule
+        locationCoordinates={
+          gameObject?.locationCoordinates
+            ? gameObject!.locationCoordinates
+            : [0, 0]
+        }
+        setChallengeSuccess={setChallengeSuccess}
+      />
+      {/* )} */}
 
       {gameObject.hint &&
         <HintPopper hint={gameObject.hint!} />

@@ -1,19 +1,29 @@
-import { type MutableRefObject, useState } from "react";
+import { type MutableRefObject, useState, useContext } from "react";
 import Haversine from "./Haversine";
 import React, { useEffect, type ReactElement } from "react";
+import AppContext from "../../../AppContext";
 
 interface props {
   currentCoords: number[] | null;
   targetCoords: number[] | null;
   setChallengeSuccess: (boolean: boolean) => void;
-  // setGoToNext: (boolean: boolean) => void
 }
 
 const Distance = (props: props): ReactElement => {
-  const { setChallengeSuccess, currentCoords, targetCoords } = props
+  const { setChallengeSuccess, targetCoords } = props
   const { haversineDistance } = Haversine()
-  const [distance, setDistance] = useState<number | null>(null);
-  console.log(distance)
+
+  const value = useContext(AppContext)
+  const { currentCoords } = value;
+
+  const getDistance = (currentCoords: number[], targetCoords: number[] | null) => {
+    if (currentCoords && currentCoords[0] && currentCoords[1] &&
+      targetCoords && targetCoords[0] && targetCoords[1]) {
+      return Math.round(haversineDistance(currentCoords, targetCoords) as number)
+    } else return null;
+  }
+
+  const [distance, setDistance] = useState<number | null>(getDistance(currentCoords, targetCoords));
 
   useEffect(() => {
     if (currentCoords && currentCoords[0] && currentCoords[1] &&
@@ -22,8 +32,6 @@ const Distance = (props: props): ReactElement => {
 
       if (distance && distance < 50) {
         setChallengeSuccess(true);
-        // setGoToNext(true)
-        // console.log(challengeSuccess.current)
         setDistance(null)
       }
     }
