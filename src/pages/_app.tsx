@@ -41,6 +41,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     null
   );
   const sessionGameIndex = useRef(0);
+  const [isRegistered, setIsRegistered]  = useLocalStorage<boolean>('isRegistered', false)
 
   const [sessionTable, setSessionTable] = useState<SessionTable | null>(null)
 
@@ -114,7 +115,9 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         loadScreenMounted: loadScreenMounted,
         sessionTable: sessionTable,
         setSessionTable: setSessionTable,
-        sessionGameIndex:sessionGameIndex
+        sessionGameIndex: sessionGameIndex,
+        isRegistered: isRegistered, 
+        setIsRegistered: setIsRegistered
       }}
     >
       <AuthProvider>

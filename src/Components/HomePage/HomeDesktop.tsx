@@ -36,7 +36,7 @@ const HomeDesktop = (props: props): ReactElement => {
         />
 
         <section className="absolute bottom-1/4">
-          {userId ? (
+          {userId && userId.length === 28 ? (
             <Link href="/editor">
               <button
                 id="themeButton"

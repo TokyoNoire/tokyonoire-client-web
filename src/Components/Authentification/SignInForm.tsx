@@ -26,7 +26,7 @@ const SignInForm = (props: props): ReactElement => {
   const auth = getAuth();
   const [authing, setAuthing] = useState(false);
   const value = useContext(AppContext);
-  const { setUserId, setUsername, username, userId, setLocalUserId, setLocalUsername } = value;
+  const { setUserId, setUsername, username, userId, setLocalUserId, setLocalUsername, isRegistered, setIsRegistered } = value;
   const email = useRef<string>('');
   const password = useRef<string>('');
   const { signIn } = useAuth();
@@ -38,6 +38,7 @@ const SignInForm = (props: props): ReactElement => {
       .then(async (response) => {
         await setUserId(response.user.uid)
         await setUsername(response.user.displayName)
+        setIsRegistered(true)
         const dbQuery = query(collection(db, "users"), where("uid", "==", response.user.uid));
         const doc = getDocs(dbQuery)
         doc.then((res) => {
@@ -64,6 +65,7 @@ const SignInForm = (props: props): ReactElement => {
         console.error(error);
         alert(error.message);
         setAuthing(false)
+        setIsRegistered(false)
       });
   };
 
@@ -81,12 +83,14 @@ const SignInForm = (props: props): ReactElement => {
             setUsername(userDisplayName.name)
           })
         })
+        setIsRegistered(true)
         setLocalUserId(response.user.uid)
         setLocalUsername(response.user.displayName)
       })
       .catch((error) => {
         console.error(error);
         alert(error.message);
+        setIsRegistered(false)
         setAuthing(false)
       });
   }

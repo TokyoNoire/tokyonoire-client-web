@@ -17,7 +17,8 @@ const GamePreview = (props: Props): ReactElement => {
   const {userId, sessionTable, setSessionTable, sessionGameIndex} = value
   const { game, handleClose, gameId } = props;
   const router = useRouter();
-
+'9dd9bb07-4b1e-4b4f-b2ce-14540ca6c071'
+'C6ncxFSjERRoFjICrVBVaCFAqLv2'
   const getOrCreateSession = async() => {
     console.log(gameId.current, userId, "🍕🍕🍕🍕🍕")
 
