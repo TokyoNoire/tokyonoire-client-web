@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
+import AppContext from "../../../AppContext";
 
 type DeviceOrientation = {
   alpha: number | null,
@@ -15,6 +16,8 @@ const Gyroscope = (): UseDeviceOrientationData => {
   const [error, setError] = useState<Error | null>(null);
   const [orientation, setOrientation] = useState<DeviceOrientation | null>(null);
   const permission = useRef<PermissionState | null>(null)
+  const value = useContext(AppContext);
+  const { gyroscopeAccess, setGyroscopeAccess } = value;
 
   const onDeviceOrientation = (event: DeviceOrientationEvent): void => {
     setOrientation({
@@ -46,10 +49,12 @@ const Gyroscope = (): UseDeviceOrientationData => {
       try {
         // @ts-ignore
         permission.current = await DeviceOrientationEvent.requestPermission() // either "granted" or "denied"
+        setGyroscopeAccess(true)
       } catch (err) {
         // @ts-ignore
         const e = new Error((err && err.message) || 'unknown error');
         setError(e);
+        setGyroscopeAccess(false);
         return false;
       }
       if (permission.current !== 'granted') {

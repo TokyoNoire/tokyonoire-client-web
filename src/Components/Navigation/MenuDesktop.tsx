@@ -7,6 +7,9 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import FadeDiv from "../Helpers/FadeDiv";
 import AppContext from "../../AppContext";
+import { getAuth, signOut } from "firebase/auth";
+import { async } from "@firebase/util";
+import { Button } from "@mui/material";
 
 type menuItem = {
   title: string;
@@ -31,7 +34,8 @@ const menuItems: Array<menuItem> = [
 const MenuDesktop = (): ReactElement => {
   const [show] = useState<boolean>(true);
   const value = useContext(AppContext);
-  const { gameData } = value;
+  const { gameData, userId, setUserId, setLocalUserId, setLocalUsername } = value;
+  const router = useRouter();
 
   const saveDraft = async () => {
     if(!gameData.dateCreated) {
@@ -94,6 +98,15 @@ const MenuDesktop = (): ReactElement => {
             <Link href={menuItem.url}>{menuItem.title}</Link>
           </li>
         ))}
+        {userId ? <Button id="themeButton" className="font-heading" onClick={async () => {
+          await signOut(getAuth())
+          setUserId(null)
+          setLocalUserId(null)
+          setLocalUsername(null)
+          router.push('/')
+          }}
+          
+          >Sign out</Button> : <></>}
       </ul>
     </>
   );

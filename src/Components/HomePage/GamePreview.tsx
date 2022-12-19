@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import ClearIcon from "@mui/icons-material/Clear";
 import { type saveGameInfo } from "../../types/global";
-import Image from 'next/image'
 
 interface Props {
   game: saveGameInfo;
@@ -20,7 +19,8 @@ const GamePreview = (props: Props): ReactElement => {
   const router = useRouter();
 
   const getOrCreateSession = async() => {
-    console.log("I ran!")
+    console.log(gameId.current, userId, "🍕🍕🍕🍕🍕")
+
     await axios.get(`https://tokyo-noire-server-development.herokuapp.com/findsession/${gameId.current}/${userId}`).then(response => {
       setSessionTable(response.data)
       sessionGameIndex.current = response.data.gameModulesIndex;
