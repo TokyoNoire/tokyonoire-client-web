@@ -45,7 +45,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [acquiredPermissions, setAcquiredPermissions] = useLocalStorage<boolean | null>("acquiredPermissions", false);
 
   const sessionGameIndex = useRef(0);
-  const [open,setOpen] = useState<boolean> (true)
+  const [open, setOpen] = useState<boolean>(true)
   const [sessionTable, setSessionTable] = useLocalStorage<SessionTable | null>("sessionTable", null);
 
   useEffect(() => {
