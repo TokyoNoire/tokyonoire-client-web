@@ -39,14 +39,14 @@ const Distance = (props: props): ReactElement => {
 
   return (
     <>
-      <h1 className="self-center text-center mt-8 font-body2 font-bold uppercase">Distance from target</h1>
+      <h1 className="self-center text-center text-xl mt-12 font-body2 font-bold uppercase">Distance from target</h1>
       {distance !== null && distance < 1000
         ?
-        <h1 className="self-center p-1 text-4xl text-center uppercase font-body2">
+        <h1 className="self-center p-1 text-5xl text-center uppercase font-body2">
           {distance} meters
         </h1>
         :
-        <h1 className="self-center p-1 text-4xl text-center uppercase font-body2">
+        <h1 className="self-center p-1 text-5xl text-center uppercase font-body2">
           {Number(distance! / 1000).toFixed(2)} km
         </h1>
       }

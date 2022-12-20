@@ -20,7 +20,7 @@ function SortableItem({ id, children }: SortableItemProps) {
         <div
             // key={id}
             ref={setNodeRef}
-            className="h-24 flex justify-center items-center"
+            className="h-24 text-xl flex justify-center items-center"
             style={style} {...attributes} {...listeners}
         >
             {children}
