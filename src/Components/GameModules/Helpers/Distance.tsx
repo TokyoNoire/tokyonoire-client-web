@@ -30,7 +30,7 @@ const Distance = (props: props): ReactElement => {
       targetCoords && targetCoords[0] && targetCoords[1]) {
       setDistance(Math.round(haversineDistance(currentCoords, targetCoords) as number))
 
-      if (distance && distance < 50) {
+      if (distance && distance < 30) {
         setChallengeSuccess(true);
         setDistance(null)
       }
