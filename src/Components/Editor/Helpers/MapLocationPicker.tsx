@@ -56,7 +56,7 @@ const MapLocationPicker = (props: props): ReactElement => {
           initialFeaturesLayer,
         ],
         view: new View({
-          center: selectedCoord && selectedCoord[1] && selectedCoord[0] ? fromLonLat([selectedCoord[1]!, selectedCoord[0]!]) : fromLonLat([139.8, 35.7]),
+          center: selectedCoord && selectedCoord[0] && selectedCoord[1] ? fromLonLat([selectedCoord[1]!, selectedCoord[0]!]) : fromLonLat([139.765, 35.700]),
           zoom: 11,
         }),
       });

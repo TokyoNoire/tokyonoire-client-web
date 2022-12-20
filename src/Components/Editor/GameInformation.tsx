@@ -13,6 +13,7 @@ import BlockTitle from "./FormBlocks/BlockTitle";
 import BlockStory from "./FormBlocks/BlockStory";
 import ContainerGameInfo from "./FormBlocks/ContainerGameInfo";
 import FadeDiv from "../Helpers/FadeDiv";
+import BlockLocationPicker from "./FormBlocks/BlockLocationPicker";
 
 interface prop {
   titleOfGame: MutableRefObject<string>;
@@ -66,7 +67,6 @@ const GameInformation = (prop: prop): ReactElement => {
 
   return (
     <FadeDiv>
-
       <ContainerGameInfo handleGameInfoModuleUpdateClick={handleGameInfoModuleUpdateClick}>
 
         <BlockTitle title={titleOfGame} placeholder={"What is this case called?"} />
@@ -126,6 +126,7 @@ const GameInformation = (prop: prop): ReactElement => {
               <MenuItem value={"Private"}>Private</MenuItem>
             </Select>
           </FormControl>
+
         </div>
 
         <ImageWidget imageURL={gameImageURL} />
@@ -136,8 +137,10 @@ const GameInformation = (prop: prop): ReactElement => {
           tip="A short abstract to get players excited about your game."
         />
 
+        <BlockLocationPicker locationCoordinates={startingLocationCoordinates} />
+
       </ContainerGameInfo>
-    </FadeDiv>
+    </FadeDiv >
   );
 };
 

@@ -16,14 +16,14 @@ type menuItem = {
 };
 
 const menuItems: Array<menuItem> = [
-  // {
-  //   title: "Explore",
-  //   url: "/explore",
-  // },
-  // {
-  //   title: "How To Play",
-  //   url: "/how-to-play",
-  // },
+  {
+    title: "Explore",
+    url: "/explore",
+  },
+  {
+    title: "How To Play",
+    url: "/how-to-play",
+  },
   {
     title: "Profile",
     url: "/profile",
@@ -33,7 +33,7 @@ const menuItems: Array<menuItem> = [
 const MenuDesktop = (): ReactElement => {
   const [show] = useState<boolean>(true);
   const value = useContext(AppContext);
-  const { gameData, userId, setUserId, setLocalUserId, setLocalUsername, setIsRegistered, setEditorGameMounted } = value;
+  const { gameData, userId, setUserId, setLocalUserId, setLocalUsername, setIsRegistered } = value;
   const router = useRouter();
 
   const saveDraft = async () => {
@@ -44,7 +44,7 @@ const MenuDesktop = (): ReactElement => {
     await axios.patch(
       `https://tokyo-noire-server-development.herokuapp.com/editor/${gameData._id}`,
       gameData
-    ).then(res => console.log(res))
+    )
   }
 
   const publishGame = async () => {
@@ -82,8 +82,8 @@ const MenuDesktop = (): ReactElement => {
                   onClick={publishGame}
                 ></PublishIcon>
               </div>
-              <div className="cursor-pointer w-28">
-                <Link href={`/editor`} onClick={() => setEditorGameMounted(false)}>
+              <div className="cursor-pointer w-28" title="Publish">
+                <Link href={`/editor`}>
                   Back to Editor
                 </Link>
 
@@ -92,49 +92,22 @@ const MenuDesktop = (): ReactElement => {
           </FadeDiv>
         )}
       </div>
-      <ul className="flex gap-12">
-        {userId && userId.length === 28 &&
-          menuItems.map((menuItem, index) => (
-            <li key={index} className="text-xl menu-item">
-              <Link href={menuItem.url}>{menuItem.title}</Link>
-            </li>
-          ))}
-        {userId && userId.length === 28
-          ?
-          <Button
-            id="themeButton"
-            className="font-heading"
-            onClick={async () => {
-              await signOut(getAuth())
-              setUserId(null)
-              setLocalUserId(null)
-              setLocalUsername(null)
-              setIsRegistered(false)
-              router.push('/')
-            }}
-          >
-            Sign out
-          </Button>
-          :
-          <>
-            <Button
-              id="themeButton"
-              className="font-heading"
-              onClick={
-                async () => {
-                  console.log("hello")
-                  // await signOut(getAuth())
-                  // setUserId(null)
-                  // setLocalUserId(null)
-                  // setLocalUsername(null)
-                  // setIsRegistered(false)
-                  // router.push('/')
-                }
-              }
-            >
-              Login
-            </Button>
-          </>}
+      <ul className="flex gap-12 mr-10">
+        {menuItems.map((menuItem, index) => (
+          <li key={index} className="text-xl menu-item">
+            <Link href={menuItem.url}>{menuItem.title}</Link>
+          </li>
+        ))}
+        {userId && userId.length === 28 ? <Button id="themeButton" className="font-heading" onClick={async () => {
+          await signOut(getAuth())
+          setUserId(null)
+          setLocalUserId(null)
+          setLocalUsername(null)
+          setIsRegistered(false)
+          router.push('/')
+        }}
+
+        >Sign out</Button> : <></>}
       </ul>
     </>
   );

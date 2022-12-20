@@ -12,7 +12,7 @@ const Editor: NextPage = () => {
   const value = useContext(AppContext);
   const hasMounted = useRef<boolean>(false);
 
-  const { setGameModules, setGameInfoModule, setGameData, gameData, userId, setActiveModule, editorGameMounted, setEditorGameMounted } = value;
+  const { setGameModules, setGameInfoModule, setGameData, gameData, userId } = value;
 
   const router = useRouter();
 
@@ -33,8 +33,6 @@ const Editor: NextPage = () => {
         setGameData(response.data[0]);
         setGameModules(response.data[0].gameModules);
         setGameInfoModule(response.data[0]);
-        setActiveModule(null)
-        setEditorGameMounted(true);
       });
   };
 
@@ -46,7 +44,7 @@ const Editor: NextPage = () => {
   }, [hasMounted]);
 
   return (
-    userId && editorGameMounted && (
+    userId && (
       <FadeDiv show={show}>
         {gameData &&
           <div className="grid items-center justify-center grid-cols-2 gap-10 m-5 mt-32 place-items-stretch">
