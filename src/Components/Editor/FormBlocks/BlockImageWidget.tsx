@@ -46,8 +46,9 @@ const BlockImageWidget = (props: props): ReactElement => {
           }
         }
       },
-      
+
       function (error: any, result: any) {
+
         if (result.info.url !== undefined) {
           const path = result.info.path
           imageURL.current = `https://res.cloudinary.com/diyzmibyd/image/upload/q_auto/${path}`
@@ -64,16 +65,14 @@ const BlockImageWidget = (props: props): ReactElement => {
         {...(imageURL.current && {
           className: "flex flex-col justify-center border-2 rounded-md border-dotted border-[#353535]"
         })}
-
-
       >
-        {displayImage && (
+        {displayImage &&
           <img
             className="self-center w-9/12"
             src={`${displayImage}`}
             alt="preview"
           />
-        )}
+        }
       </div>
       <div className="flex justify-center gap-2">
         <button

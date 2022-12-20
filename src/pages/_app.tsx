@@ -29,7 +29,7 @@ const darkTheme = createTheme({
 const MyApp: AppType = ({ Component, pageProps }) => {
   const [loadScreenMounted, setLoadScreenMounted] = useState<boolean>(true);
   const [durationLoadingScreen] = useState<number>(2000);
-  const [deviceType, setDeviceType] = useState<string | null>(null);
+  const [deviceType, setDeviceType] = useLocalStorage<string | null>("deviceType", null);
   const [userId, setUserId] = useState<string>(uuidv4());
   const [geolocationAccess, setGeolocationAccess] = useState<boolean>(false);
   const [gyroscopeAccess, setGyroscopeAccess] = useState<boolean>(false);
@@ -39,25 +39,29 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [gameData, setGameData] = useState<saveGameInfo | null>(null);
   const [gameModules, setGameModules] = useState<GameModule[]>();
   const [activeModule, setActiveModule] = useState<GameModule | null>(null);
-  const [isRegistered, setIsRegistered]  = useLocalStorage<boolean>('isRegistered', false)
+  const [isRegistered, setIsRegistered] = useLocalStorage<boolean>('isRegistered', false)
   const [gameInfoModule, setGameInfoModule] = useState<saveGameInfo | null>(null);
   const [currentCoords, setCurrentCoords] = useState<number[] | null>(null);
   const [acquiredPermissions, setAcquiredPermissions] = useLocalStorage<boolean | null>("acquiredPermissions", false);
+  const [editorGameMounted, setEditorGameMounted] = useState<boolean>(false);
 
   const sessionGameIndex = useRef(0);
+  const [open, setOpen] = useState<boolean>(true)
   const [sessionTable, setSessionTable] = useLocalStorage<SessionTable | null>("sessionTable", null);
 
+  
   useEffect(() => {
     setLocalUserId(userId)
   }, [userId])
-
+  
   useEffect(() => {
-    if (acquiredPermissions) {
+    if (acquiredPermissions && deviceType === "Mobile") {
       const interval = setInterval(() => {
         if ('geolocation' in navigator) {
           navigator.geolocation.getCurrentPosition((position) => {
             setCurrentCoords([position.coords.longitude, position.coords.latitude]);
           });
+          // console.log(sessionGameIndex)
         }
         else console.error('geolocation unavailable')
       }, 1000);
@@ -67,7 +71,6 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       }
     }
   }, [acquiredPermissions])
-
 
   useEffect(() => {
     if (localUserId) { setUserId(localUserId) }
@@ -141,9 +144,11 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         setAcquiredPermissions: setAcquiredPermissions,
         sessionTable: sessionTable,
         setSessionTable: setSessionTable,
-        isRegistered: isRegistered, 
+        isRegistered: isRegistered,
         setIsRegistered: setIsRegistered,
-        sessionGameIndex: sessionGameIndex
+        sessionGameIndex: sessionGameIndex,
+        setEditorGameMounted: setEditorGameMounted,
+        editorGameMounted: editorGameMounted
       }}
     >
       <AuthProvider>
