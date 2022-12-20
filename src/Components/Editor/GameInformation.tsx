@@ -13,6 +13,7 @@ import BlockTitle from "./FormBlocks/BlockTitle";
 import BlockStory from "./FormBlocks/BlockStory";
 import ContainerGameInfo from "./FormBlocks/ContainerGameInfo";
 import FadeDiv from "../Helpers/FadeDiv";
+import BlockLocationPicker from "./FormBlocks/BlockLocationPicker";
 
 interface prop {
   titleOfGame: MutableRefObject<string>;
@@ -135,6 +136,8 @@ const GameInformation = (prop: prop): ReactElement => {
           header="Abstract"
           tip="A short abstract to get players excited about your game."
         />
+
+        <BlockLocationPicker locationCoordinates={startingLocationCoordinates} />
 
       </ContainerGameInfo>
     </FadeDiv>
