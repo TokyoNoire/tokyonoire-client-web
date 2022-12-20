@@ -35,10 +35,10 @@ const HintPopper = (prop: prop): ReactElement => {
         open={open}
         anchorEl={anchorEl}
         placement="right-end"
-        className="p-3 rounded-full bg-darkGrey max-w-screen">
-        <Box>
-          {hint}
-        </Box>
+        className="p-3 rounded-full bg-darkGrey width-[300px]"
+        >
+         <p className="width-[300px] break-normal">{hint}</p> 
+   
       </Popper>
     </div>
 
