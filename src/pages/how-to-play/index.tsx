@@ -8,7 +8,7 @@ const HowToPlay: NextPage = () => {
 
     return (
         <FadeDiv show={show}>
-            <main className="w-screen h-screen flex justify-center items-center">
+            <main className="flex items-center justify-center w-screen h-screen">
                 <h1 className="text-5xl">How To Play</h1>
             </main>
         </FadeDiv>

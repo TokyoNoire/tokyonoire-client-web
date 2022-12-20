@@ -27,7 +27,7 @@ const HintPopper = (prop: prop): ReactElement => {
         onClick={handleClick}
         aria-label="hint"
       >
-        <p className="font-heading text-2xl">?</p>
+        <p className="text-2xl font-heading">?</p>
       </Fab>
 
       <Popper
@@ -35,7 +35,7 @@ const HintPopper = (prop: prop): ReactElement => {
         open={open}
         anchorEl={anchorEl}
         placement="right-end"
-        className="p-3 rounded-full bg-darkGrey">
+        className="p-3 rounded-full bg-darkGrey max-w-screen">
         <Box>
           {hint}
         </Box>
