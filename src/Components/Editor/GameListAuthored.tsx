@@ -82,6 +82,11 @@ const GameListAuthored = (props: props): ReactElement => {
           console.log(newListOfGamesByAuthor[i])
           newListOfGamesByAuthor[i].dateUpdated = new Date();
           newListOfGamesByAuthor[i].isPublished = !newListOfGamesByAuthor[i].isPublished;
+
+          await axios.patch(
+            `https://tokyo-noire-server-development.herokuapp.com/editor/${newListOfGamesByAuthor[i]._id}`,
+            { "isPublished": newListOfGamesByAuthor[i].isPublished }
+          ).then(res => console.log(res))
         }
       }
       setListOfGamesByAuthor(newListOfGamesByAuthor)
@@ -96,16 +101,18 @@ const GameListAuthored = (props: props): ReactElement => {
           console.log(newListOfGamesByAuthor[i])
           newListOfGamesByAuthor[i].dateUpdated = new Date();
           newListOfGamesByAuthor[i].isPrivate = !newListOfGamesByAuthor[i].isPrivate;
+
+          await axios.patch(
+            `https://tokyo-noire-server-development.herokuapp.com/editor/${newListOfGamesByAuthor[i]._id}`,
+            { "isPrivate": newListOfGamesByAuthor[i].isPrivate }
+          ).then(res => console.log(res))
+          console.log("visibility is being triggered")
         }
       }
       setListOfGamesByAuthor(newListOfGamesByAuthor)
+
     }
 
-    // await axios.patch(
-    //   `https://tokyo-noire-server-development.herokuapp.com/editor/${gameData._id}`,
-    //   gameData
-    // ).then(res => console.log(res))
-    // console.log("visibility is being triggered")
   }
 
   const columns: GridColDef[] = [
