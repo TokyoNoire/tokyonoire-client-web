@@ -7,10 +7,8 @@ import React, {
   useRef,
   useContext,
 } from "react";
-import FadeDiv from "../Helpers/FadeDiv";
 import GameSearchByID from "./GameSearchByID";
 import GamePreview from "./GamePreview";
-import Hero from "./Hero";
 import ListOfPublicGames from "./ListOfPublicGames";
 import axios from "axios";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
