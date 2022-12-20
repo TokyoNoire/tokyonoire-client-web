@@ -1,7 +1,0 @@
-[[headers]]
-  for = "/*"
-  [headers.values]
-     Content-Security-Policy = "
-     default-src 'self' upload-widget.cloudinary.com;
-     connect-src *.amazonaws.com *.bugsnag.com *.firebaseio.com *.giphy.com *.launchdarkly.com *.netlify.com *.segment.io netlify-cocoon.netlify.app netlify-slapp.netlify.app netlilink.netlify.app ws://localhost:3000 wss://*.services.netlify.com;
-     "
