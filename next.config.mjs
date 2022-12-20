@@ -9,8 +9,8 @@ const config = {
     return config
   },
   // trailingSlash: true,
-  reactStrictMode: false,
-  swcMinify: true,
+  reactStrictMode: true,
+  swcMinify: false,
   i18n: {
     locales: ["en"],
     defaultLocale: "en",
