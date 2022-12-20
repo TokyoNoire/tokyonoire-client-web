@@ -14,7 +14,7 @@ const NarrativeModule = (props: props): ReactElement => {
   return (
     <FadeDiv>
       <div className="w-full flexCenterDiv">
-        <h1 className="mb-12 text-3xl text-center uppercase font-heading">
+        <h1 className="mb-12 text-4xl text-center uppercase font-heading">
           {gameObject.title}
         </h1>
 
@@ -27,7 +27,7 @@ const NarrativeModule = (props: props): ReactElement => {
         )}
 
         {gameObject.description &&
-          <p className="px-5 font-body1">
+          <p className="px-5 font-body1 text-lg">
             {gameObject.description}
           </p>
         }

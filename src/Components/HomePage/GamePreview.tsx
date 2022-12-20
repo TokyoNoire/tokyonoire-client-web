@@ -55,10 +55,10 @@ const GamePreview = (props: Props): ReactElement => {
         </div>
         <div className="self-center flexCenterDiv">
           <img src={game.gameImageURL} alt="Game Image"
-            className="w-full max-h-[60vh] object-contain"
+            className="w-full max-h-[67vh] object-contain"
           />
         </div>
-        <p className="px-5 mt-5 font-body1">{game.description}</p>
+        <p className="px-5 mt-5 text-lg font-body1">{game.description}</p>
       </div>
 
       <div className="flex flex-row flexCenterDiv">

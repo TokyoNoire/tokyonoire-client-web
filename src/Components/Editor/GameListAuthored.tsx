@@ -72,12 +72,46 @@ const GameListAuthored = (props: props): ReactElement => {
   };
 
   const togglePublish = async (id: string) => {
-    console.log("publish toggle is being triggered")
+    if (listOfGamesByAuthor) {
+      const newListOfGamesByAuthor = [...listOfGamesByAuthor]
+      for (let i = 0; i < listOfGamesByAuthor.length; i++) {
+        if (newListOfGamesByAuthor[i]._id === id) {
+          console.log(newListOfGamesByAuthor[i])
+          newListOfGamesByAuthor[i].dateUpdated = new Date();
+          newListOfGamesByAuthor[i].isPublished = !newListOfGamesByAuthor[i].isPublished;
+
+          await axios.patch(
+            `https://tokyo-noire-server-development.herokuapp.com/editor/${newListOfGamesByAuthor[i]._id}`,
+            { "isPublished": newListOfGamesByAuthor[i].isPublished }
+          ).then(res => console.log(res))
+        }
+      }
+      setListOfGamesByAuthor(newListOfGamesByAuthor)
+    }
   }
 
-  const toggleVisibility = async () => {
-    console.log("visibility is being triggered")
+  const toggleVisibility = async (id: string) => {
+    if (listOfGamesByAuthor) {
+      const newListOfGamesByAuthor = [...listOfGamesByAuthor]
+      for (let i = 0; i < listOfGamesByAuthor.length; i++) {
+        if (newListOfGamesByAuthor[i]._id === id) {
+          console.log(newListOfGamesByAuthor[i])
+          newListOfGamesByAuthor[i].dateUpdated = new Date();
+          newListOfGamesByAuthor[i].isPrivate = !newListOfGamesByAuthor[i].isPrivate;
+
+          await axios.patch(
+            `https://tokyo-noire-server-development.herokuapp.com/editor/${newListOfGamesByAuthor[i]._id}`,
+            { "isPrivate": newListOfGamesByAuthor[i].isPrivate }
+          ).then(res => console.log(res))
+          console.log("visibility is being triggered")
+        }
+      }
+      setListOfGamesByAuthor(newListOfGamesByAuthor)
+
+    }
+
   }
+
 
   const columns: GridColDef[] = [
     {

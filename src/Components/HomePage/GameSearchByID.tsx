@@ -19,25 +19,27 @@ const GameSearchByID = (prop: prop): ReactElement => {
 
 
   const getGameById = async () => {
+    console.log(gameId)
     await axios
       .get(
-        `https://tokyo-noire-server-development.herokuapp.com/${gameId}`
+        `https://tokyo-noire-server-development.herokuapp.com/${gameId.current}`
       )
       .then((response) => setGame(response.data[0]));
+      handleOpen();
   };
 
 
 
   return (
     <div className="items-center mx-4 mt-16 mb-32 flexCenterDiv">
-      <h1 className="mb-12 text-center text-xl font-body2">
+      <h1 className="mb-12 text-xl text-center font-body2">
         {`Looking for something specific?`}
       </h1>
-      <div className="w-full flex justify-self-auto items-stretch">
+      <div className="flex items-stretch w-full justify-self-auto">
 
         <TextField
           id="gameId"
-          className="w-4/5 flex-grow"
+          className="flex-grow w-4/5"
           label="Enter a Case ID"
           variant="filled"
           aria-label="enter a game id"
@@ -50,7 +52,7 @@ const GameSearchByID = (prop: prop): ReactElement => {
           type="button"
           onClick={() => {
             getGameById();
-            setTimeout(handleOpen, 2000);
+            // setTimeout(handleOpen, 2000);
           }}
         >
           GO

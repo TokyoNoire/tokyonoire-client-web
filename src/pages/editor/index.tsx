@@ -90,7 +90,7 @@ const Editor = (props: Props): ReactElement => {
                         </p>
                     </section>
                     <section className="flex flex-col w-full p-5 font-heading">
-                        <button className="w-fit mb-4" id="themeButton" onClick={handleCreateNewGameClick}>Open New Case</button>
+                        <button className="mb-4 w-fit" id="themeButton" onClick={handleCreateNewGameClick}>Open New Case</button>
                         {listOfGamesByAuthor && <GameListAuthored listOfGamesByAuthor={listOfGamesByAuthor} setListOfGamesByAuthor={setListOfGamesByAuthor} />}
                     </section>
                 </main >

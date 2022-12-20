@@ -17,7 +17,7 @@ const LocationModule = (props: props): ReactElement => {
     <FadeDiv>
       <div className="w-full flexCenterDiv">
 
-        <h1 className="mb-12 text-3xl text-center uppercase font-heading">
+        <h1 className="mb-12 text-4xl text-center uppercase font-heading">
           {gameObject.title}
         </h1>
 
@@ -30,13 +30,12 @@ const LocationModule = (props: props): ReactElement => {
         )}
 
         {gameObject.description &&
-          <p className="px-5 font-body1">
+          <p className="px-5 text-lg font-body1">
             {gameObject.description}
           </p>
         }
       </div>
 
-      {/* {devicePermission && ( */}
       <NavigationModule
         locationCoordinates={gameObject?.locationCoordinates
           ? gameObject!.locationCoordinates
@@ -44,7 +43,6 @@ const LocationModule = (props: props): ReactElement => {
         setChallengeSuccess={setChallengeSuccess}
         gameObject={gameObject}
       />
-      {/* )} */}
 
       {gameObject.hint &&
         <HintPopper hint={gameObject.hint!} />
