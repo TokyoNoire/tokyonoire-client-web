@@ -7,9 +7,6 @@ import React, {
 } from "react";
 import { Box, Tooltip } from "@mui/material";
 // import { saveGameInfo } from "../../types/global";
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import UnpublishedIcon from '@mui/icons-material/Unpublished';
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -28,7 +25,6 @@ import axios from "axios";
 import moment from "moment";
 import Link from "next/link";
 import AppContext from "src/AppContext.ts";
-import { GameDataSchema } from "./Helpers/GameDataSchema";
 
 interface props {
   listOfGamesByAuthor: [] | null;
@@ -37,10 +33,11 @@ interface props {
 
 const GameListAuthored = (props: props): ReactElement => {
   const value = useContext(AppContext);
-  const { setGameData, setGameModules, setGameInfoModule, setActiveModule } = value;
+  const { setGameData, setGameModules, setGameInfoModule } = value;
   const { listOfGamesByAuthor, setListOfGamesByAuthor } = props;
   const [rows, setRows] = useState<[]>(listOfGamesByAuthor);
   const [show] = useState<boolean>(true);
+
 
   useEffect(() => {
     setRows(listOfGamesByAuthor);
@@ -53,7 +50,6 @@ const GameListAuthored = (props: props): ReactElement => {
         setGameData(response.data[0]);
         setGameModules(response.data[0].gameModules);
         setGameInfoModule(response.data[0]);
-        setActiveModule("stop")
       })
   }
 
@@ -67,6 +63,7 @@ const GameListAuthored = (props: props): ReactElement => {
       }
       setListOfGamesByAuthor(newListOfGamesByAuthor)
     }
+    console.log('delete function is running')
     await axios
       .delete(
         `https://tokyo-noire-server-development.herokuapp.com/editor/${id}`
@@ -75,37 +72,11 @@ const GameListAuthored = (props: props): ReactElement => {
   };
 
   const togglePublish = async (id: string) => {
-    if (listOfGamesByAuthor) {
-      const newListOfGamesByAuthor = [...listOfGamesByAuthor]
-      for (let i = 0; i < listOfGamesByAuthor.length; i++) {
-        if (newListOfGamesByAuthor[i]._id === id) {
-          console.log(newListOfGamesByAuthor[i])
-          newListOfGamesByAuthor[i].dateUpdated = new Date();
-          newListOfGamesByAuthor[i].isPublished = !newListOfGamesByAuthor[i].isPublished;
-        }
-      }
-      setListOfGamesByAuthor(newListOfGamesByAuthor)
-    }
+    console.log("publish toggle is being triggered")
   }
 
-  const toggleVisibility = async (id: string) => {
-    if (listOfGamesByAuthor) {
-      const newListOfGamesByAuthor = [...listOfGamesByAuthor]
-      for (let i = 0; i < listOfGamesByAuthor.length; i++) {
-        if (newListOfGamesByAuthor[i]._id === id) {
-          console.log(newListOfGamesByAuthor[i])
-          newListOfGamesByAuthor[i].dateUpdated = new Date();
-          newListOfGamesByAuthor[i].isPrivate = !newListOfGamesByAuthor[i].isPrivate;
-        }
-      }
-      setListOfGamesByAuthor(newListOfGamesByAuthor)
-    }
-
-    // await axios.patch(
-    //   `https://tokyo-noire-server-development.herokuapp.com/editor/${gameData._id}`,
-    //   gameData
-    // ).then(res => console.log(res))
-    // console.log("visibility is being triggered")
+  const toggleVisibility = async () => {
+    console.log("visibility is being triggered")
   }
 
   const columns: GridColDef[] = [
@@ -172,21 +143,14 @@ const GameListAuthored = (props: props): ReactElement => {
         />,
         <GridActionsCellItem
           key="2"
-          {...(
-            params.row.isPublished
-              ? { icon: <Tooltip title="Unpublish"><PublishIcon /></Tooltip> }
-              : { icon: <Tooltip title="Publish"><SaveAltIcon /></Tooltip> }
-          )}
+          icon={<Tooltip title="Publish"><PublishIcon /></Tooltip>}
           onClick={() => { togglePublish(params.id) }}
           label="Publish"
         />,
         <GridActionsCellItem
           key="3"
-          {...(
-            params.row.isPrivate
-              ? { icon: <Tooltip title="Set Public"><VisibilityOffIcon /></Tooltip> }
-              : { icon: <Tooltip title="Set Private"><VisibilityIcon /></Tooltip> }
-          )}
+
+          icon={<Tooltip title="Set Public"><VisibilityIcon /></Tooltip>}
           onClick={() => { toggleVisibility(params.id) }}
           label="Visibility"
         />,
