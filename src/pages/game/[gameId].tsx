@@ -4,119 +4,99 @@ import React, {
   useState,
   useEffect,
   useRef,
+  useCallback,
+  useContext
 } from "react";
+import AppContext from "../../AppContext";
 import axios from "axios";
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-} from "@mui/material";
 import { useRouter } from "next/router";
-import LocationModule from "../../Components/LocationModule";
-import NarrativePictureModule from "../../Components/NarrativePictureModule";
-import TextQuestionModule from "../../Components/TextQuestionModule";
-import PhotoQuestionModule from "../../Components/PhotoQuestionModule";
-import EndModule from "../../Components/EndModule";
-import NarrativeTextModule from "../../Components/NarrativeTextModule";
-import NavigationModule from "../../Components/NavigationModule";
-import HowToPlayPopup from "../../Components/HowToPlayPopup";
-
-export type GameModule = {
-  _id: string;
-  typeOfModule: string;
-  title: string;
-  description: string;
-  question: string;
-  answer: string;
-  image: string;
-  locationCoordinates: Array<number> | null;
-};
+import LocationModule from "../../Components/GameModules/LocationModule";
+import NarrativeModule from "../../Components/GameModules/NarrativeModule";
+import QuestionModule from "../../Components/GameModules/QuestionModule";
+import EndModule from "../../Components/GameModules/EndModule";
+import HowToPlayPopup from "../../Components/GameModules/HowToPlayPopup";
+import { type GameModule } from "../../types/global";
+import HintPopper from "../../Components/GameModules/Helpers/HintPopper";
+import App from "next/app";
+import FadeDiv from "../../Components/Helpers/FadeDiv";
 
 const GameId: FC = (): ReactElement => {
-  const [open, setOpen] = useState<boolean>(true);
+  const value = useContext(AppContext);
+  const { sessionTable, setSessionTable, sessionGameIndex, userId, } = value
   const [challengeSuccess, setChallengeSuccess] = useState<boolean>(false);
-  const [typeOfModule, setTypeOfModule] = useState<string | null>("");
-  const [gameObject, setGameObject] = useState<GameModule | null>(null);
+  const [TypeOfModule, setTypeOfModule] = useState<string | null>("");
+  const [gameObject, setGameObject] = useState<GameModule | null | undefined>(
+    null
+  );
   const router = useRouter();
   const currentIndex = useRef(0);
-  const sentRequest = useRef<boolean>(false);
   const [devicePermission, setDevicePermission] = useState<boolean>(false);
 
+  console.log(challengeSuccess)
 
-  useEffect(() => {
-    if (gameObject === null) {
-      getGameObject();
-    }
-  }, []);
+  // const incrementSessionIndex = async () => {
+  //   await axios.patch(`https://tokyo-noire-server-development.herokuapp.com/updateSession/${sessionTable.gameId}/${userId}`, {
+  //     gameModulesIndex: sessionGameIndex.current
+  //   })
+  // }
 
-  // useEffect(() => {
-  //   if (challengeSuccess && sentRequest.current) {
-  //     setChallengeSuccess(false);
-  //     sentRequest.current = false; 
-  //   }
-  // }, [challengeSuccess])
-
-  useEffect(() => {
-    if (challengeSuccess === true 
-      // && !sentRequest.current
-      ) {
-      currentIndex.current++;
-      getGameObject();
-      // sentRequest.current = true;
-      gameObject!.locationCoordinates = null;
-            setChallengeSuccess(false);
-
-    }
-  }, [challengeSuccess]);
-
-  useEffect(() => {
-    if (gameObject !== null) {
-      setTypeOfModule(gameObject.typeOfModule);
-    }
-  }, [gameObject]);
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const getGameObject = async () => {
+  const getGameObject = useCallback(async () => {
+    setGameObject(null)
     await axios
       .get(
         `https://tokyo-noire-server-development.herokuapp.com/game/${router.query.gameId}/?index=${currentIndex.current}`
       )
       .then((response) => setGameObject(response.data));
-  };
+  }, [router, currentIndex.current]);
+
+  useEffect(() => {
+    if (gameObject === null) {
+      getGameObject();
+    }
+  }, [gameObject, getGameObject]);
+
+  useEffect(() => {
+    if (challengeSuccess === true) {
+      currentIndex.current++;
+      sessionGameIndex.current++;
+      getGameObject();
+      // incrementSessionIndex();
+      // gameObject!.locationCoordinates = null;
+      setChallengeSuccess(false);
+      // setGoToNext(false)
+    }
+  }, [challengeSuccess]);
+
+  useEffect(() => {
+    if (gameObject !== null) {
+      setTypeOfModule(gameObject!.typeOfModule);
+    }
+  }, [gameObject]);
 
   const setCurrentComponent = (typeOfModule: string | undefined) => {
     switch (typeOfModule) {
-      case "location":
+      case "start":
         return (
-          <>
-            <LocationModule
-              gameObject={gameObject!}
-              setChallengeSuccess={setChallengeSuccess}
-              />
-            {devicePermission
-              ? <NavigationModule 
-              locationCoordinates={gameObject?.locationCoordinates !== null ? gameObject!.locationCoordinates : [0,0]}
-              setChallengeSuccess={setChallengeSuccess}
-              />
-              : <></>
-            }
-          </>
-        );
-
-      case "narrativePicture":
-        return (
-          <NarrativePictureModule
+          <NarrativeModule
             gameObject={gameObject!}
             setChallengeSuccess={setChallengeSuccess}
           />
         );
 
-      case "narrativeText":
+      case "location":
         return (
-          <NarrativePictureModule
+          <>
+            <LocationModule
+              gameObject={gameObject!}
+              devicePermission={devicePermission}
+              setChallengeSuccess={setChallengeSuccess}
+            />
+          </>
+        );
+
+      case "narrative":
+        return (
+          <NarrativeModule
             gameObject={gameObject!}
             setChallengeSuccess={setChallengeSuccess}
           />
@@ -124,35 +104,14 @@ const GameId: FC = (): ReactElement => {
 
       case "question":
         return (
-          <TextQuestionModule
-            gameObject={gameObject!}
-            setChallengeSuccess={setChallengeSuccess}
-          />
-        );
-
-      case "photoQuestion":
-        return (
-          <PhotoQuestionModule
-            gameObject={gameObject!}
-            setChallengeSuccess={setChallengeSuccess}
-          />
-        );
-
-      case "narrative":
-        return (
-          <NarrativeTextModule
+          <QuestionModule
             gameObject={gameObject!}
             setChallengeSuccess={setChallengeSuccess}
           />
         );
 
       case "end":
-        return (
-          <EndModule
-            gameObject={gameObject!}
-            setChallengeSuccess={setChallengeSuccess}
-          />
-        );
+        return <EndModule gameObject={gameObject!} />;
 
       default:
         return null;
@@ -160,12 +119,13 @@ const GameId: FC = (): ReactElement => {
   };
 
   return (
-    <>
-      <HowToPlayPopup
-        setDevicePermission={setDevicePermission}
-      />
-      {gameObject !== null ? setCurrentComponent(gameObject.typeOfModule) : <></>}
-    </>
+    <main>
+      <HowToPlayPopup setDevicePermission={setDevicePermission} />
+      <section className="w-screen h-28"></section>
+      {gameObject !== null && (
+        setCurrentComponent(gameObject!.typeOfModule)
+      )}
+    </main>
   );
 };
 

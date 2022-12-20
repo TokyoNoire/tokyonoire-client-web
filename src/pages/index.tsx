@@ -1,70 +1,39 @@
-// import styles from "./index.module.css";
-import { useState, useEffect } from "react";
-import { type NextPage } from "next";
+import { useState } from "react";
 import Head from "next/head";
-import tokyoNoireName from "../../public/Title_DarkTheme.svg";
-import Image from "next/image";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import Hero from "./../Components/Hero";
-import GameIdForm from "../Components/GameIdForm";
-import StartModule from "../Components/StartModule";
-import { Dialog } from "@mui/material";
-// import Link from "next/link";
+import FadeDiv from "../Components/Helpers/FadeDiv";
+import HomeDesktop from "../Components/HomePage/HomeDesktop";
+import HomeMobile from "../Components/HomePage/HomeMobile";
+import { Dialog, List } from "@mui/material";
 
-export type startModuleInfo = {
-  _id: string;
-  titleOfGame: string;
-  description?: string | null;
-  rating?: string | null;
-  author?: string | null;
-  image?: string;
-  estimatedTimeMinutes?: number | null;
-  startLocationCoordinates?: Array<number>;
-};
+interface props {
+  deviceType: string;
+}
 
-const Home: NextPage = () => {
-  const [gameId, setGameId] = useState<string>("");
-  const [game, setGame] = useState<startModuleInfo | null>(null);
-  const [open, setOpen] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (game !== null) {
-      handleOpen();
-    }
-  }, [game]);
+const Home = (props: props) => {
+  // We want to use NextPage type... right now it is no longer a static Next.js page.
+  const { deviceType } = props;
+  const [show] = useState<boolean>(true);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
 
   return (
     <>
       <Head>
         <title>Tokyo Noire</title>
         <meta name="keywords" content="interactive, story, game" />
-      </Head>
-      <div className="items-center h-screen mx-10 pt-80">
-        <Image src={tokyoNoireName} alt="Tokyo Noire Hero" priority={true} />
-        <div className=" pt-96">
-          <KeyboardArrowDownIcon />
-        </div>
-      </div>
-      <Hero />
-      <GameIdForm
-        setGameId={setGameId}
-        gameId={gameId}
-        setGame={setGame}
-        game={game}
-        handleOpen={handleOpen}
-      />
+        <meta name="apple-mobile-web-app-capable" content="yes"></meta>
+        <meta name="apple-mobile-web-app-title" content="Tokyo Noire"></meta>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black"></meta>
+        <link rel="apple-touch-icon" sizes="192x192" href="/icon-192x192.png"></link>
 
-      <Dialog className="object-fit" open={open} onClose={handleClose}>
-        <StartModule game={game!} handleClose={handleClose} gameId={gameId} />
-      </Dialog>
+        <meta name="mobile-web-app-capable" content="yes"></meta>
+      </Head>
+
+      <FadeDiv show={show}>
+        {deviceType === "Mobile" && <HomeMobile show={show} />}
+
+        {deviceType === "Desktop" && <HomeDesktop show={show} />}
+      </FadeDiv>
     </>
   );
 };

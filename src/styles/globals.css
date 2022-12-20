@@ -32,6 +32,10 @@
   src: url("../../Assets/Fonts/Noir_Body/Noir_medium.otf");
 }
 
+html {
+  overflow-y: overlay;
+}
+
 html,
 body {
   background-color: #000000;
@@ -39,6 +43,22 @@ body {
   padding: 0;
   margin: 0;
 }
+
+body::-webkit-scrollbar {
+  width: 12px;
+  border: 1px solid #353535;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #353535;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 100px;
+}
+
+/* #__next {
+  min-height: 100vh;
+  justify-content: flex-start;
+} */
 
 a {
   color: inherit;
@@ -51,13 +71,22 @@ a {
   margin: 0;
 }
 
-div{
+.display-linebreak {
+  white-space: pre-line;
+}
+
+.flexCenterDiv {
   display: flex;
   flex-direction: column;
   justify-content: center;
   justify-items: center;
 }
 
+#builderCard {
+  background-color: #000000;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5)
+}
 
 #themeButton {
   font-size: 16px;
@@ -87,3 +116,51 @@ div{
     padding: 0.25em 0.75em;
   }
 }
+
+.scrollbar::-webkit-scrollbar {
+  width: 7px;
+  /* scrollbar-gutter: auto; */
+  border: 1px solid #353535;
+  border-radius: 9999px;
+  scrollbar-gutter: stable;
+}
+
+/* .scrollbar::-webkit-scrollbar-track {
+  border-radius: 100px;
+} */
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: white;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 100px;
+}
+
+.scrollbar__forms::-webkit-scrollbar {
+  width: 7px;
+  scrollbar-gutter: auto;
+  border-left: 2px solid #353535;
+}
+
+.scrollbar__forms::-webkit-scrollbar-thumb {
+  background-color: white;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 100px;
+}
+
+/* label.Mui-focused {
+  color: white
+} */
+
+.diagonal-hatch {
+  background-color: #000000;
+  background-size: 20px 20px;
+  background-image: repeating-linear-gradient(135deg, #ffffff35 0, #ffffff35 0.2rem, #000000 0, #000000 50%);
+}
+
+/* .diagonal-hatch {
+  background-color: #000000;
+  opacity: 1;
+  background-image: radial-gradient(#ffffff 1px, transparent 1px), radial-gradient(#ffffff 1px, #000000 1px);
+  background-size: 34px 34px;
+  background-position: 0 0, 17px 17px;
+} */

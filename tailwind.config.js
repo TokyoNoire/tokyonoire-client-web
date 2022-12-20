@@ -16,6 +16,7 @@ module.exports = {
     colors: {
       white: "#FFFFF",
       black: "#121212",
+      darkGrey: "#373535"
     },
     fontFamily: {
       title: ['Britannic', 'serif'],
@@ -31,6 +32,9 @@ module.exports = {
       },
       borderRadius: {
         '4xl': '2rem',
+      },
+      boxShadow: {
+        'inset1': ' -30px -40px 60px #242222, 40px 20px 50px #2a2828',
       }
     },
   },
