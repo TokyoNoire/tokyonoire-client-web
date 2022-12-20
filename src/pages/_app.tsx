@@ -60,7 +60,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
           navigator.geolocation.getCurrentPosition((position) => {
             setCurrentCoords([position.coords.longitude, position.coords.latitude]);
           });
-          console.log(sessionGameIndex)
+          // console.log(sessionGameIndex)
         }
         else console.error('geolocation unavailable')
       }, 1000);

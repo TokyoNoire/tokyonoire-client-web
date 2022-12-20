@@ -25,14 +25,14 @@ const EndModule = (props: props): ReactElement => {
   const { sessionTable, sessionGameIndex, userId, username, isRegistered } =
     value;
 
-  const completeSession = async () => {
-    await axios.patch(
-      `https://tokyo-noire-server-development.herokuapp.com/updateSession/${sessionTable.gameId}/${userId}`,
-      {
-        isCompleted: true,
-      }
-    );
-  };
+  // const completeSession = async () => {
+  //   await axios.patch(
+  //     `https://tokyo-noire-server-development.herokuapp.com/updateSession/${sessionTable.gameId}/${userId}`,
+  //     {
+  //       isCompleted: true,
+  //     }
+  //   );
+  // };
 
   useEffect(() => {
     if (userId && userId.length === 28 && open  === true) {
@@ -114,7 +114,7 @@ const EndModule = (props: props): ReactElement => {
             }
             if (isRegistered === true || haspopup === true) {
               handleClick(e);
-              completeSession();
+              // completeSession();
             }
           }}
           id="themeButton"
