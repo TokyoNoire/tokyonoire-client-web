@@ -51,7 +51,7 @@ const MenuMobile: FC = (): ReactElement => {
         }}
       >
         {isShown && (menuItems.map((menuItem, index) => (
-          <li key={index} className="menu-item">
+          <li key={index} className="menu-item" onClick={() => { setIsShown(!isShown) }}>
             <Link href={menuItem.url}>
               {menuItem.title}
             </Link>
