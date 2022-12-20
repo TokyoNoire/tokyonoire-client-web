@@ -43,6 +43,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [gameInfoModule, setGameInfoModule] = useState<saveGameInfo | null>(null);
   const [currentCoords, setCurrentCoords] = useState<number[] | null>(null);
   const [acquiredPermissions, setAcquiredPermissions] = useLocalStorage<boolean | null>("acquiredPermissions", false);
+  const [editorGameMounted, setEditorGameMounted] = useState<boolean>(false);
 
   const sessionGameIndex = useRef(0);
   const [open, setOpen] = useState<boolean>(true)
@@ -143,7 +144,9 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         setSessionTable: setSessionTable,
         isRegistered: isRegistered,
         setIsRegistered: setIsRegistered,
-        sessionGameIndex: sessionGameIndex
+        sessionGameIndex: sessionGameIndex,
+        setEditorGameMounted: setEditorGameMounted,
+        editorGameMounted: editorGameMounted
       }}
     >
       <AuthProvider>
