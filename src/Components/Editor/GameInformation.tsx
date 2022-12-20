@@ -7,9 +7,6 @@ import React, {
   useState
 } from "react";
 import ImageWidget from "./FormBlocks/BlockImageWidget";
-import AppContext from "../../AppContext";
-import { saveGameInfo } from "../../types/global";
-import { useContext } from "react";
 import { TextField, FormControl, Select, MenuItem, InputLabel, type SelectChangeEvent } from "@mui/material";
 import ContainerForm from "./FormBlocks/ContainerForm";
 import BlockTitle from "./FormBlocks/BlockTitle";
@@ -74,7 +71,7 @@ const GameInformation = (prop: prop): ReactElement => {
 
         <BlockTitle title={titleOfGame} placeholder={"What is this case called?"} />
 
-        <div className="grid grid-cols-3 gap-3 grid-flow-col mb-6">
+        <div className="grid grid-flow-col grid-cols-3 gap-3 mb-6">
 
           <FormControl sx={{ minWidth: 60 }}>
             <TextField
