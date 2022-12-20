@@ -65,7 +65,6 @@ const ModuleForms = (): ReactElement => {
       gameModules: gameData.gameModules,
       startingLocationCoordinates: startingLocationCoordinates.current,
     };
-    console.log("yesssss")
     setGameInfoModule(newGameInfo);
   };
 
@@ -198,9 +197,6 @@ const ModuleForms = (): ReactElement => {
             handleModuleUpdateClick={handleModuleUpdateClick}
           />
         );
-
-      case "stop":
-        return (<></>)
     }
   }
   return <></>;
