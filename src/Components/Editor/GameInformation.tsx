@@ -66,81 +66,80 @@ const GameInformation = (prop: prop): ReactElement => {
   }
 
   return (
-    <FadeDiv>
+    <ContainerGameInfo handleGameInfoModuleUpdateClick={handleGameInfoModuleUpdateClick}>
 
-      <ContainerGameInfo handleGameInfoModuleUpdateClick={handleGameInfoModuleUpdateClick}>
+      <BlockTitle title={titleOfGame} placeholder={"What is this case called?"} />
 
-        <BlockTitle title={titleOfGame} placeholder={"What is this case called?"} />
+      <div className="grid grid-flow-col grid-cols-3 gap-3 mb-6">
 
-        <div className="grid grid-flow-col grid-cols-3 gap-3 mb-6">
+        <FormControl sx={{ minWidth: 60 }}>
+          <TextField
+            id="estimated-time"
+            label="Game Duration Estimate"
+            type="number"
+            {...(estimatedTimeMinutes.current !== "0"
+              ? { defaultValue: estimatedTimeMinutes.current }
+              : { placeholder: "0" })}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={(e) => { handleTimeMinutesChange(e) }}
+          />
+        </FormControl>
 
-          <FormControl sx={{ minWidth: 60 }}>
-            <TextField
-              id="estimated-time"
-              label="Game Duration Estimate"
-              type="number"
-              {...(estimatedTimeMinutes.current !== "0"
-                ? { defaultValue: estimatedTimeMinutes.current }
-                : { placeholder: "0" })}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              onChange={(e) => { handleTimeMinutesChange(e) }}
-            />
-          </FormControl>
+        <FormControl sx={{ minWidth: 60 }}>
+          <InputLabel id="rating-label">Rating</InputLabel>
+          <Select
+            MenuProps={{
+              disableScrollLock: true,
+            }}
+            labelId="rating"
+            id="rating"
+            value={visualRating ? visualRating : ''}
+            onChange={(e) => { handleRatingChange(e) }}
+            label="rating"
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={"G"}>G</MenuItem>
+            <MenuItem value={"PG"}>PG</MenuItem>
+            <MenuItem value={"PG-13"}>PG-13</MenuItem>
+            <MenuItem value={"R"}>R</MenuItem>
+          </Select>
+        </FormControl>
 
-          <FormControl sx={{ minWidth: 60 }}>
-            <InputLabel id="rating-label">Rating</InputLabel>
-            <Select
-              MenuProps={{
-                disableScrollLock: true,
-              }}
-              labelId="rating"
-              id="rating"
-              value={visualRating ? visualRating : ''}
-              onChange={(e) => { handleRatingChange(e) }}
-              label="rating"
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={"G"}>G</MenuItem>
-              <MenuItem value={"PG"}>PG</MenuItem>
-              <MenuItem value={"PG-13"}>PG-13</MenuItem>
-              <MenuItem value={"R"}>R</MenuItem>
-            </Select>
-          </FormControl>
+        <FormControl sx={{ minWidth: 60 }}>
+          <InputLabel id="visibility-label">Visibility</InputLabel>
+          <Select
+            MenuProps={{
+              disableScrollLock: true,
+            }}
+            labelId="visibility"
+            id="visibility"
+            value={visualIsPrivate}
+            onChange={(e) => { handleIsPrivateChange(e) }}
+            label="visibility"
+          >
+            <MenuItem value={"Public"}>Public</MenuItem>
+            <MenuItem value={"Private"}>Private</MenuItem>
+          </Select>
+        </FormControl>
 
-          <FormControl sx={{ minWidth: 60 }}>
-            <InputLabel id="visibility-label">Visibility</InputLabel>
-            <Select
-              MenuProps={{
-                disableScrollLock: true,
-              }}
-              labelId="visibility"
-              id="visibility"
-              value={visualIsPrivate}
-              onChange={(e) => { handleIsPrivateChange(e) }}
-              label="visibility"
-            >
-              <MenuItem value={"Public"}>Public</MenuItem>
-              <MenuItem value={"Private"}>Private</MenuItem>
-            </Select>
-          </FormControl>
-        </div>
+      </div>
 
-        <ImageWidget imageURL={gameImageURL} />
+      <ImageWidget imageURL={gameImageURL} />
 
-        <BlockStory
-          description={gameDescription}
-          header="Abstract"
-          tip="A short abstract to get players excited about your game."
-        />
+      <BlockStory
+        description={gameDescription}
+        header="Abstract"
+        tip="A short abstract to get players excited about your game."
+      />
 
-        <BlockLocationPicker locationCoordinates={startingLocationCoordinates} />
+      <BlockLocationPicker locationCoordinates={startingLocationCoordinates} />
 
-      </ContainerGameInfo>
-    </FadeDiv>
+    </ContainerGameInfo>
+    </FadeDiv >
   );
 };
 
