@@ -35,7 +35,7 @@ const HowToPlayPopup = (props: props): ReactElement => {
              There are three game blocks you will encounter: a narrative block, question block and a location block. A narrative block holds parts of the story. A question block will prompt you to answer a question. A location block will give you directives to your next location. If you feel stuck in any way, you could press the button with a question mark with a hint from the author.
              <br />
             <br />
-             There will be blocks of text needed to read so be mindful where you stand. Stay safe detective and we're waiting for your report.
+             There will be blocks of text needed to read so be mindful where you stand. Stay safe detective and we are waiting for your report.
                         </p>
                     </DialogContent>
                     <DialogActions className="flexCenterDiv">
