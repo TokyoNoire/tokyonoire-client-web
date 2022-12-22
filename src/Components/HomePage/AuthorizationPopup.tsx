@@ -50,7 +50,7 @@ const AuthorizationPopup = (props: props): ReactElement => {
               setAcquiredPermissions(true);
             }}
             id="themeButton"
-            className="self-center my-5"
+            className="self-center my-5 font-heading"
             type="button"
           >
             I understand

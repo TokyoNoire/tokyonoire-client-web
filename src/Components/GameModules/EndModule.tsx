@@ -62,7 +62,7 @@ const EndModule = (props: props): ReactElement => {
         )}
 
         {gameObject.description && (
-          <p className="px-5 font-body1 text-lg">{gameObject.description}</p>
+          <p className="px-5 text-lg font-body1">{gameObject.description}</p>
         )}
 
         <hr className="self-center w-10/12 mt-10" />
@@ -73,7 +73,7 @@ const EndModule = (props: props): ReactElement => {
         <h1 className="mt-20 mb-10 text-3xl uppercase font-heading">
           Mystery Complete
         </h1>
-        <table className="w-full">
+        {/* <table className="w-full">
           <tbody>
             <tr className="bg-white border-b">
               <th
@@ -103,7 +103,7 @@ const EndModule = (props: props): ReactElement => {
               <td className="py-4 text-right font-body2">Lots of Points</td>
             </tr>
           </tbody>
-        </table>
+        </table> */}
 
         <button
           onClick={(e) => {

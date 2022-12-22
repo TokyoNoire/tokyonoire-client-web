@@ -21,7 +21,7 @@ module.exports = {
     fontFamily: {
       title: ['Britannic', 'serif'],
       heading: ['Oswald', 'serif'],
-      body1: ['Lora', 'serif'],
+      body1: ['npLora', 'serif'],
       body2: ['Noir', 'serif'],
       italic: ['LoraItalic', 'serif'],
     },
