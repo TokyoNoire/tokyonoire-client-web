@@ -29,14 +29,13 @@ const HowToPlayPopup = (props: props): ReactElement => {
                     </h1>
                     <DialogContent>
                         <p className="text-left font-body1">
-                            For an optimal game experience, we recommend enabling location services for your web browser.
-                            <br />
-                            <br />
-                            The game requests access to your current geolocation and your gyroscope to guide you to the different game locations.
-                            We currently do not store any of your device data.
-                            <br />
-                            <br />
-                            By clicking &quot;I understand&quot;, you will be prompted to enable geolocation and gyroscope functionalities.
+                           Hello detective, here are the general guidelines for how to play this game.
+                           <br />
+            <br />
+             There are three game blocks you will encounter: a narrative block, question block and a location block. A narrative block holds parts of the story. A question block will prompt you to answer a question. A location block will give you directives to your next location. If you feel stuck in any way, you could press the button with a question mark with a hint from the author.
+             <br />
+            <br />
+             There will be blocks of text needed to read so be mindful where you stand. Stay safe detective and we're waiting for your report.
                         </p>
                     </DialogContent>
                     <DialogActions className="flexCenterDiv">
@@ -45,7 +44,7 @@ const HowToPlayPopup = (props: props): ReactElement => {
                                 handleClose();
                             }}
                             id="themeButton"
-                            className="self-center my-5"
+                            className="self-center my-5 font-heading"
                             type="button"
                         >
                             I understand
