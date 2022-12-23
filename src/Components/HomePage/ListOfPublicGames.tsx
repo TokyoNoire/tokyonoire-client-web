@@ -74,7 +74,7 @@ const ListOfPublicGames = (props: props): ReactElement => {
     setTimeout(handleOpen, 2000);
   };
 
-  
+
 
   const publicGamesListing = publicGames.map((publicGame, index) => {
     return (
@@ -87,7 +87,7 @@ const ListOfPublicGames = (props: props): ReactElement => {
         >
           <th
             scope="row"
-            className="px-6 py-4 font-body2 whitespace-nowrap text-left"
+            className="pl-6 py-4 font-body2 text-left overflow-hidden"
             id={publicGame._id}
           >
             {publicGame.titleOfGame}
@@ -106,7 +106,7 @@ const ListOfPublicGames = (props: props): ReactElement => {
   });
 
   return (
-    <section className="w-screen h-screen">
+    <section className="w-screen">
       <h1 className="my-12 text-center text-xl font-body2">
         {`Detective, ready to close a new case?`}
       </h1>

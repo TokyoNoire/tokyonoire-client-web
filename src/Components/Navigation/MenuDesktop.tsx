@@ -16,18 +16,18 @@ type menuItem = {
 };
 
 const menuItems: Array<menuItem> = [
-  {
-    title: "Explore",
-    url: "/explore",
-  },
-  {
-    title: "How To Play",
-    url: "/how-to-play",
-  },
-  {
-    title: "Profile",
-    url: "/profile",
-  },
+  // {
+  //   title: "Explore",
+  //   url: "/explore",
+  // },
+  // {
+  //   title: "How To Play",
+  //   url: "/how-to-play",
+  // },
+  // {
+  //   title: "Profile",
+  //   url: "/profile",
+  // },
 ];
 
 const MenuDesktop = (): ReactElement => {

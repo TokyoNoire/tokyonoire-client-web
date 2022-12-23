@@ -56,11 +56,12 @@ const HomeMobile = (props: props): ReactElement => {
     await axios
       .get("https://tokyo-noire-server-development.herokuapp.com/")
       .then((response) => {
-        const listOfGames = [...response.data];
-        if (listOfGames.length >= 10) {
-          listOfGames.splice(9, listOfGames.length)
-        }
-        setPublicGames(listOfGames);
+        // const listOfGames = [...response.data];
+        // if (listOfGames.length >= 10) {
+        //   listOfGames.splice(9, listOfGames.length)
+        // }
+        // setPublicGames(listOfGames);
+        setPublicGames(response.data)
       });
   };
 
